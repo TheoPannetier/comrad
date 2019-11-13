@@ -27,6 +27,6 @@ carr_cap <- function(
 
   trait_dist <- (trait_opt - trait_ind) ^ 2
 
-  k <- carr_cap_opt * exp(-(trait_dist / (2 * carr_cap_var)))
+  k <- carr_cap_opt * exp(- (trait_dist / (2 * carr_cap_var)))
   k
 }

@@ -27,5 +27,5 @@ comp_coeff <- function(
     stop("'trait_ind' and 'trait_comp' cannot both be set to Inf or -Inf")
   } # causes a NaN
 
-  exp(-((trait_ind - trait_comp) ^ 2 / (2 * sigma_comp)))
+  exp(- ((trait_ind - trait_comp) ^ 2 / (2 * sigma_comp)))
 }

@@ -44,9 +44,10 @@ capacity (see also \code{\link{fitness}}).}
 absence of competition.}
 
 \item{carr_cap_pars}{parameter vector with three elements: \enumerate{
-   \item \code{trait_opt} numeric. Optimal trait value \eqn{z_{opt}}, at which
-\eqn{K = K_{0}}
-   \item carr_cap_opt numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
+   \item \code{trait_opt} numeric. Optimal trait value \eqn{z_{opt}}, at
+   which \eqn{K = K_{0}}.
+   \item carr_cap_opt numeric. Maximum carrying capacity at
+   \eqn{z = z_{opt}}.
 Note that this corresponds to the maximum number of **competitors** for that
 trait value, as the focal individual does not contribute to the carrying
 capacity (see also \code{\link{fitness}}).

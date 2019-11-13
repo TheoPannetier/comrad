@@ -38,7 +38,6 @@ testarg_num <- function(arg, allow_nan = FALSE, allow_na = FALSE) {
 #' @export
 #' @rdname testargs
 testarg_pos <- function(arg) {
-  # testarg_num(arg) # arg cannot be passed through substitute
   if (arg < 0) {
     stop("'", substitute(arg), "' must be a positive numeric")
   }
@@ -47,7 +46,6 @@ testarg_pos <- function(arg) {
 #' @export
 #' @rdname testargs
 testarg_prop <- function(arg) {
-  # testarg_num(arg) # arg cannot be passed through substitute
   if (!dplyr::between(arg, 0, 1)) {
     stop("'", substitute(arg), "' must be a numeric between 0 and 1")
   }
@@ -58,10 +56,7 @@ testarg_prop <- function(arg) {
 #' @param forbidden a vector containing forbidden values.
 #' @details Currenty \code{testarg_not_this()} cannot be tested properly.
 testarg_not_this <- function(arg, forbidden) {
-  # testarg_num(arg) # arg cannot be passed through substitute
   if (any(arg %in% forbidden)) {
-    # issue <- paste(intersect(arg, forbidden), collapse = " ")
-    # arg_name <- deparse(substitute(arg))
     stop("'", substitute(arg), "' contains forbidden values: ",
          paste(intersect(arg, forbidden), collapse = " "))
   }
@@ -91,13 +86,3 @@ testarg_length <- function(arg, correct_length) {
     stop("'", substitute(arg), "' must have length ", correct_length)
   }
 }
-
-# testarg_test <- function(arg) {
-#   #print(substitute(arg))
-#   #tmp_arg <- arg
-#   #names(tmp_arg) <- substitute(arg)
-#   print(substitute(arg))
-#   assign(paste(substitute(arg)), arg)
-#   print(carr_cap_opt)
-#   testarg_num(arg = deparse(substitute(arg)))
-# }

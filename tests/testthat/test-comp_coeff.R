@@ -1,7 +1,11 @@
 context("test-comp_coeff")
 
 test_that("use", {
-  expect_equal(comp_coeff(0.5, 0.7, 0.2), 0.9048374, tolerance = 1e-07) # basic case #1
+  expect_equal(
+    comp_coeff(0.5, 0.7, 0.2),
+    0.9048374,
+    tolerance = 1e-07
+    ) # basic case #1
   expect_equal(comp_coeff(3.5, -0.39, 1.2), 0.00182707) # basic case #2
   expect_equal(comp_coeff(0.5, 0.5, 0.2), 1) # same trait case
   expect_equal(comp_coeff(-5, 5, 0.2), 0) # distant trait case
