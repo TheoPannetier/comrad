@@ -3,30 +3,30 @@
 #' Computes the carrying capacity experienced by an individual with trait value
 #' \code{trait}.
 #'
-#' @param trait numeric. Trait value \eqn{z}.
-#' @param trait_opt numeric. Optimal value for the trait \eqn{z_{opt}}, at which
-#' \eqn{K = K_{0}}
-#' @param carr_cap_opt numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
-#' @param carr_cap_var numeric. Variance of the carrying capacity
-#' \eqn{\sigma^{2}_{K}}
+#' @inheritParams default_params_doc
 #'
 #' @author Theo Pannetier
 #' @export
 
 carr_cap <- function(
-  trait,
-  trait_opt = 0,
-  carr_cap_opt = 1000,
-  carr_cap_var = 0.2
+  trait_ind,
+  trait_opt = default_carr_cap_pars()[1],
+  carr_cap_opt = default_carr_cap_pars()[2],
+  carr_cap_var = default_carr_cap_pars()[3]
   ) {
-  targ_num(trait, "trait")
-  targ_pos(trait_opt, "trait_opt")
-  targ_num(carr_cap_opt, "carr_cap_opt")
-  targ_num(carr_cap_var, "carr_cap_var")
+  testarg_num(trait_ind)
+  testarg_num(trait_opt)
+  if (trait_ind %in% c(Inf, -Inf) && trait_ind == trait_opt) {
+    stop("'trait_ind' and 'trait_opt' must not both be set to Inf or -Inf")
+  } # causes a NaN
+  testarg_num(carr_cap_opt)
+  testarg_pos(carr_cap_opt) # is a nb of ind
+  testarg_num(carr_cap_var)
+  testarg_pos(carr_cap_var) # is a variance
+  testarg_not_this(carr_cap_var, c(0, Inf)) # is the denominator
 
-  dist <-  (trait_opt - trait) ^ 2
-  exponent <- -(dist / 2 * carr_cap_var)
-  carr_cap <- carr_cap_opt * exp(exponent)
+  trait_dist <- (trait_opt - trait_ind) ^ 2
 
-  carr_cap
+  k <- carr_cap_opt * exp(-(trait_dist / (2 * carr_cap_var)))
+  k
 }

@@ -4,16 +4,23 @@
 \alias{carr_cap}
 \title{Get the carrying capacity for a given trait value}
 \usage{
-carr_cap(trait, trait_opt = 0, carr_cap_opt = 1000,
-  carr_cap_var = 0.2)
+carr_cap(
+  trait_ind,
+  trait_opt = default_carr_cap_pars()[1],
+  carr_cap_opt = default_carr_cap_pars()[2],
+  carr_cap_var = default_carr_cap_pars()[3]
+)
 }
 \arguments{
-\item{trait}{numeric. Trait value \eqn{z}.}
+\item{trait_ind}{numeric. Trait value \eqn{z} of a focal individual.}
 
-\item{trait_opt}{numeric. Optimal value for the trait \eqn{z_{opt}}, at which
+\item{trait_opt}{numeric. Optimal trait value \eqn{z_{opt}}, at which
 \eqn{K = K_{0}}}
 
-\item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.}
+\item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
+Note that this corresponds to the maximum number of **competitors** for that
+trait value, as the focal individual does not contribute to the carrying
+capacity (see also \code{\link{fitness}}).}
 
 \item{carr_cap_var}{numeric. Variance of the carrying capacity
 \eqn{\sigma^{2}_{K}}}

@@ -4,10 +4,10 @@
 \alias{comp_coeff}
 \title{Get the competition coefficient between two individuals}
 \usage{
-comp_coeff(trait_ind, trait_comp, sigma_comp)
+comp_coeff(trait_ind, trait_comp, sigma_comp = default_sigma_comp())
 }
 \arguments{
-\item{trait_ind}{numeric, the trait value \eqn{z_i} of the focal individual.}
+\item{trait_ind}{numeric. Trait value \eqn{z} of a focal individual.}
 
 \item{trait_comp}{numeric, the trait value \eqn{z_j} of a competitor.}
 
@@ -23,7 +23,7 @@ individual \eqn{i}, and a competitor \eqn{j} with trait values \eqn{z_i},
 \details{
 The equation is reported from equation (3) in Pontarp et al.
 (2012).
-\deqn{\alpha(z_i, z_j) = exp-((z_i - z_j)^2 / 2 * \sigma^2_\alpha)}
+\deqn{\alpha(z_i, z_j) = exp(-(z_i - z_j) ^ 2 / (2 * \sigma^2_\alpha))}
 }
 \author{
 Theo Pannetier
