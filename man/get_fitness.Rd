@@ -7,20 +7,19 @@
 get_fitness(
   traits_pop,
   growth_rate = default_growth_rate(),
-  sigma_comp = default_sigma_comp(),
+  comp_width = default_comp_width(),
   carr_cap_pars = default_carr_cap_pars()
 )
 }
 \arguments{
-\item{traits_pop}{numeric vector of variable length, the trait values of all
-competitors in the population.}
+\item{traits_pop}{numeric vector of variable length, the trait values of
+every individual in the population.}
 
 \item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
 absence of competition.}
 
-\item{sigma_comp}{numeric > 0. Controls the competition intensity, i.e. the
-strength of negative feedbacks the focal indiviudal experiences for a given
-trait distance with the competitor.}
+\item{comp_width}{numeric ≥ 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
+intensity of competition given a distance between two trait values.}
 
 \item{carr_cap_pars}{parameter vector with three elements: \enumerate{
    \item \code{trait_opt} numeric. Optimal trait value \eqn{z_{opt}}, at
@@ -30,7 +29,7 @@ trait distance with the competitor.}
 Note that this corresponds to the maximum number of **competitors** for that
 trait value, as the focal individual does not contribute to the carrying
 capacity (see also \code{\link{get_fitness}}).
-   \item carr_cap_var numeric. Variance of the carrying capacity
+   \item carr_cap_with numeric. Variance of the carrying capacity
 \eqn{\sigma^{2}_{K}}
 }}
 }

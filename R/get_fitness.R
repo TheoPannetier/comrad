@@ -20,35 +20,34 @@
 get_fitness <- function(
                     traits_pop,
                     growth_rate = default_growth_rate(),
-                    sigma_comp = default_sigma_comp(),
+                    comp_width = default_comp_width(),
                     carr_cap_pars = default_carr_cap_pars()) {
 
   # Test argument type ---------------------------------------------------------
   testarg_num(traits_pop)
   testarg_num(growth_rate)
   testarg_pos(growth_rate)
-  testarg_num(sigma_comp)
-  testarg_pos(sigma_comp)
-  testarg_not_this(sigma_comp, c(0, Inf)) # can cause NaNs in comp_coeff()
+  testarg_num(comp_width)
+  testarg_pos(comp_width)
   testarg_num(carr_cap_pars)
   testarg_length(carr_cap_pars, 3)
 
   # Compute effective population sizes -----------------------------------------
-  n_eff <- get_eff_pop_sizes(
+  n_eff <- get_n_eff(
     traits_pop = traits_pop,
-    sigma_comp = sigma_comp
+    comp_width = comp_width
   ) # get the n_eff values experienced by each individual in the population
 
   # Compute k the carrying capacity --------------------------------------------
-  k <- carr_cap(
+  k <- get_carr_cap(
     trait_ind = traits_pop,
     trait_opt = carr_cap_pars[1],
     carr_cap_opt = carr_cap_pars[2],
-    carr_cap_var = carr_cap_pars[3]
+    carr_cap_width = carr_cap_pars[3]
   )
 
   # Compute the fitness based on the Ricker model-------------------------------
-  fitness <- exp(growth_rate * (1 - n_eff / k)) # Ricker function
+  fitness <- exp(growth_rate * (1 - n_eff / k)) # Ricker model
 
   testarg_num(fitness)
   testarg_length(fitness, length(traits_pop))

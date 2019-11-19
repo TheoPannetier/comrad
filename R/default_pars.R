@@ -9,7 +9,7 @@ NULL
 
 #' @export
 #' @rdname default_pars
-default_sigma_comp <- function() {
+default_comp_width <- function() {
   0.2
 }
 
@@ -19,7 +19,7 @@ default_carr_cap_pars <- function() {
   c(
     0,    # trait_opt
     1000, # carr_cap_opt
-    0.5   # carr_cap_var
+    0.5   # carr_cap_width
   )
 }
 

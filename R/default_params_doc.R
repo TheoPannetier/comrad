@@ -1,19 +1,19 @@
 #' This function does nothing. It is intended to inherit is parameters'
 #' documentation.
 #' @param trait_ind numeric. Trait value \eqn{z} of a focal individual.
-#' @param trait_comp numeric, the trait value \eqn{z_j} of a competitor.
-#' @param traits_pop numeric vector of variable length, the trait values of all
-#' competitors in the population.
-#' @param sigma_comp numeric > 0. Controls the competition intensity, i.e. the
-#' strength of negative feedbacks the focal indiviudal experiences for a given
-#' trait distance with the competitor.
-#' @param trait_opt numeric. Optimal trait value \eqn{z_{opt}}, at which
-#' \eqn{K = K_{0}}
+#' @param traits_pop numeric vector of variable length, the trait values of
+#' every individual in the population.
+#' @param comp_width numeric ≥ 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
+#' intensity of competition given a distance between two trait values.
+#' @param trait_opt numeric. Optimal trait value \eqn{z_{opt}}, such that
+#' \code{get_carr_cap(trait_opt) = carr_cap_opt}.
 #' @param carr_cap_opt numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
 #' Note that this corresponds to the maximum number of **competitors** for that
 #' trait value, as the focal individual does not contribute to the carrying
 #' capacity (see also \code{\link{get_fitness}}).
-#' @param carr_cap_var numeric. Variance of the carrying capacity
+#' @param carr_cap_width numeric ≥ 0. \eqn{\sigma^{2}_{K}}. Controls how fast
+#' the carrying capacity decays as the distance between a \code{trait} and
+#' \code{trait_opt} increases.
 #' \eqn{\sigma^{2}_{K}}
 #' @param growth_rate numeric \eqn{>= 0}, the baseline growth rate in the
 #' absence of competition.
@@ -25,7 +25,7 @@
 #' Note that this corresponds to the maximum number of **competitors** for that
 #' trait value, as the focal individual does not contribute to the carrying
 #' capacity (see also \code{\link{get_fitness}}).
-#'    \item carr_cap_var numeric. Variance of the carrying capacity
+#'    \item carr_cap_with numeric. Variance of the carrying capacity
 #' \eqn{\sigma^{2}_{K}}
 #' }
 #'
@@ -33,12 +33,11 @@
 
 default_params_doc <- function(
   trait_ind,
-  trait_comp,
   traits_pop,
-  sigma_comp,
+  comp_with,
   trait_opt,
   carr_cap_opt,
-  carr_cap_var,
+  carr_cap_width,
   growth_rate,
   carr_cap_pars
 ) {

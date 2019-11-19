@@ -19,8 +19,8 @@ test_that("abuse", {
     regexp = "'growth_rate' must be numeric",
   )
   expect_error(
-    object = get_fitness(rep(0.5, 3), sigma_comp = TRUE),
-    regexp = "'sigma_comp' must be numeric",
+    object = get_fitness(rep(0.5, 3), comp_width = TRUE),
+    regexp = "'comp_width' must be numeric",
   )
   expect_error(
     object = get_fitness(rep(0.5, 3), carr_cap_pars = c("x", 1000, 0.5)),

@@ -2,12 +2,12 @@
 % Please edit documentation in R/default_pars.R
 \name{default_pars}
 \alias{default_pars}
-\alias{default_sigma_comp}
+\alias{default_comp_width}
 \alias{default_carr_cap_pars}
 \alias{default_growth_rate}
 \title{Default parameter values}
 \usage{
-default_sigma_comp()
+default_comp_width()
 
 default_carr_cap_pars()
 
