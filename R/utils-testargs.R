@@ -38,7 +38,7 @@ testarg_num <- function(arg, allow_nan = FALSE, allow_na = FALSE) {
 #' @export
 #' @rdname testargs
 testarg_pos <- function(arg) {
-  if (arg < 0) {
+  if (any(arg < 0)) {
     stop("'", substitute(arg), "' must be a positive numeric")
   }
 }
@@ -46,7 +46,7 @@ testarg_pos <- function(arg) {
 #' @export
 #' @rdname testargs
 testarg_prop <- function(arg) {
-  if (!dplyr::between(arg, 0, 1)) {
+  if (any(!dplyr::between(arg, 0, 1))) {
     stop("'", substitute(arg), "' must be a numeric between 0 and 1")
   }
 }

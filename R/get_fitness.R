@@ -1,9 +1,9 @@
 #' Get the fitness of an individual
 #'
-#' Computes the fitness of an individual based on its trait value and the trait
-#' values of other individuals in the population. The fitness here corresponds
-#' to the average number of offspring an individual can get in a generation, as
-#' sampled in a Poisson distribution.
+#' Computes the fitness of an individual or population based on its trait value
+#' and the trait values of other individuals in the population. The fitness here
+#' corresponds to the average number of offspring an individual can get in a
+#' generation, as sampled in a Poisson distribution.
 #'
 #' @inheritParams default_params_doc
 #'
@@ -13,17 +13,17 @@
 #' effects experienced by the focal individual for a given trait value:
 #' \deqn{N_{eff} = sum_j(\alpha(z_i, z_j))}
 #'
+#' @aliases get_fitness
 #' @author Theo Pannetier
 #' @export
 
-fitness <- function(trait_ind,
+get_fitness <- function(
                     traits_pop,
                     growth_rate = default_growth_rate(),
                     sigma_comp = default_sigma_comp(),
                     carr_cap_pars = default_carr_cap_pars()) {
 
   # Test argument type ---------------------------------------------------------
-  testarg_num(trait_ind)
   testarg_num(traits_pop)
   testarg_num(growth_rate)
   testarg_pos(growth_rate)
@@ -33,30 +33,25 @@ fitness <- function(trait_ind,
   testarg_num(carr_cap_pars)
   testarg_length(carr_cap_pars, 3)
 
-  # Compute n_eff the effective population size --------------------------------
-  comp_coeff_vec <- comp_coeff(
-    trait_ind = trait_ind,
-    trait_comp = traits_pop, # vectorized coeff computation
+  # Compute effective population sizes -----------------------------------------
+  n_eff <- get_eff_pop_sizes(
+    traits_pop = traits_pop,
     sigma_comp = sigma_comp
-  )
-  testarg_num(comp_coeff_vec) # catch NAs and NaNs
-  testarg_length(comp_coeff_vec, length(traits_pop + 1)) # catch NULL
-
-  n_eff <- sum(comp_coeff_vec)
+  ) # get the n_eff values experienced by each individual in the population
 
   # Compute k the carrying capacity --------------------------------------------
   k <- carr_cap(
-    trait_ind = trait_ind,
+    trait_ind = traits_pop,
     trait_opt = carr_cap_pars[1],
     carr_cap_opt = carr_cap_pars[2],
     carr_cap_var = carr_cap_pars[3]
   )
-  testarg_num(k) # catch NAs, NaNs and NULL
 
   # Compute the fitness based on the Ricker model-------------------------------
-  if (n_eff %in% c(0, Inf) && n_eff == k) {
-    stop("'n_eff' and 'k' both have value ", n_eff)
-  } # this causes a NaN fitness
+  fitness <- exp(growth_rate * (1 - n_eff / k)) # Ricker function
 
-  exp(growth_rate * (1 - n_eff / k))
+  testarg_num(fitness)
+  testarg_length(fitness, length(traits_pop))
+
+  fitness
 }

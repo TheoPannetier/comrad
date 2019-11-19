@@ -21,8 +21,7 @@ individual \eqn{i}, and a competitor \eqn{j} with trait values \eqn{z_i},
 \eqn{z_j}.
 }
 \details{
-The equation is reported from equation (3) in Pontarp et al.
-(2012).
+The equation is reported from equation (3) in Pontarp et al. (2012).
 \deqn{\alpha(z_i, z_j) = exp(-(z_i - z_j) ^ 2 / (2 * \sigma^2_\alpha))}
 }
 \author{

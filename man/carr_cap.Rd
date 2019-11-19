@@ -20,7 +20,7 @@ carr_cap(
 \item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
 Note that this corresponds to the maximum number of **competitors** for that
 trait value, as the focal individual does not contribute to the carrying
-capacity (see also \code{\link{fitness}}).}
+capacity (see also \code{\link{get_fitness}}).}
 
 \item{carr_cap_var}{numeric. Variance of the carrying capacity
 \eqn{\sigma^{2}_{K}}}

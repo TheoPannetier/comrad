@@ -23,7 +23,7 @@ default_params_doc(
 \item{trait_comp}{numeric, the trait value \eqn{z_j} of a competitor.}
 
 \item{traits_pop}{numeric vector of variable length, the trait values of all
-competitors in the population, excluding the focal individual.}
+competitors in the population.}
 
 \item{sigma_comp}{numeric > 0. Controls the competition intensity, i.e. the
 strength of negative feedbacks the focal indiviudal experiences for a given
@@ -35,7 +35,7 @@ trait distance with the competitor.}
 \item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
 Note that this corresponds to the maximum number of **competitors** for that
 trait value, as the focal individual does not contribute to the carrying
-capacity (see also \code{\link{fitness}}).}
+capacity (see also \code{\link{get_fitness}}).}
 
 \item{carr_cap_var}{numeric. Variance of the carrying capacity
 \eqn{\sigma^{2}_{K}}}
@@ -50,7 +50,7 @@ absence of competition.}
    \eqn{z = z_{opt}}.
 Note that this corresponds to the maximum number of **competitors** for that
 trait value, as the focal individual does not contribute to the carrying
-capacity (see also \code{\link{fitness}}).
+capacity (see also \code{\link{get_fitness}}).
    \item carr_cap_var numeric. Variance of the carrying capacity
 \eqn{\sigma^{2}_{K}}
 }}
