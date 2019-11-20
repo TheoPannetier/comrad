@@ -10,7 +10,7 @@ get_n_eff(traits_pop, comp_width = default_comp_width())
 \item{traits_pop}{numeric vector of variable length, the trait values of
 every individual in the population.}
 
-\item{comp_width}{numeric ≥ 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
+\item{comp_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
 intensity of competition given a distance between two trait values.}
 }
 \description{

@@ -39,7 +39,7 @@ testarg_length(arg, correct_length)
 \description{
 \itemize{
  \item \code{testarg_num()} asserts that the argument is a numeric value.
- Also rejects \code{NaN} by default.
+ Also rejects \code{NaNs} and \code{NAs} by default.
  \item \code{testarg_prop()} asserts that the argument value lies between 0
  and 1.
  \item \code{testarg_pos()} asserts that the argument is positive.

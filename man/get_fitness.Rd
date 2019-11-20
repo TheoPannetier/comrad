@@ -20,7 +20,7 @@ every individual in the population.}
 \item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
 absence of competition.}
 
-\item{comp_width}{numeric ≥ 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
+\item{comp_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
 intensity of competition given a distance between two trait values.}
 
 \item{trait_opt}{numeric. Optimal trait value \eqn{z_{opt}}, such that
@@ -31,7 +31,7 @@ Note that this corresponds to the maximum number of **competitors** for that
 trait value, as the focal individual does not contribute to the carrying
 capacity (see also \code{\link{get_fitness}}).}
 
-\item{carr_cap_width}{numeric ≥ 0. \eqn{\sigma^{2}_{K}}. Controls how fast
+\item{carr_cap_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls how fast
 the carrying capacity decays as the distance between a \code{trait} and
 \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
