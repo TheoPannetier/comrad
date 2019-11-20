@@ -1,5 +1,8 @@
+#' Documentation for main parameters of the model
+#'
 #' This function does nothing. It is intended to inherit is parameters'
 #' documentation.
+#'
 #' @param trait_ind numeric. Trait value \eqn{z} of a focal individual.
 #' @param traits_pop numeric vector of variable length, the trait values of
 #' every individual in the population.
@@ -17,19 +20,17 @@
 #' \eqn{\sigma^{2}_{K}}
 #' @param growth_rate numeric \eqn{>= 0}, the baseline growth rate in the
 #' absence of competition.
-#' }
 #'
 #' @author Theo Pannetier, based on skeleton stolen from Richel J.C. Bilderbeek.
 
 default_params_doc <- function(
   trait_ind,
   traits_pop,
-  comp_with,
+  comp_width,
   trait_opt,
   carr_cap_opt,
   carr_cap_width,
-  growth_rate,
-  carr_cap_pars
+  growth_rate
 ) {
   # Nuffin
 }

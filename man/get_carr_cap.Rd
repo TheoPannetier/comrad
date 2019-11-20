@@ -8,7 +8,7 @@ get_carr_cap(
   trait_ind,
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width
+  carr_cap_width = default_carr_cap_width()
 )
 }
 \arguments{

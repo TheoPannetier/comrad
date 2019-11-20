@@ -12,7 +12,7 @@ get_carr_cap <- function(
   trait_ind,
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width
+  carr_cap_width = default_carr_cap_width()
   ) {
   testarg_num(trait_ind)
   testarg_num(trait_opt)

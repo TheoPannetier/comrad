@@ -13,7 +13,6 @@
 #' effects experienced by the focal individual for a given trait value:
 #' \deqn{N_{eff} = sum_j(\alpha(z_i, z_j))}
 #'
-#' @aliases get_fitness
 #' @author Theo Pannetier
 #' @export
 

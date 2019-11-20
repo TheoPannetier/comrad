@@ -2,18 +2,16 @@
 % Please edit documentation in R/default_params_doc.R
 \name{default_params_doc}
 \alias{default_params_doc}
-\title{This function does nothing. It is intended to inherit is parameters'
-documentation.}
+\title{Documentation for main parameters of the model}
 \usage{
 default_params_doc(
   trait_ind,
   traits_pop,
-  comp_with,
+  comp_width,
   trait_opt,
   carr_cap_opt,
   carr_cap_width,
-  growth_rate,
-  carr_cap_pars
+  growth_rate
 )
 }
 \arguments{
@@ -21,6 +19,9 @@ default_params_doc(
 
 \item{traits_pop}{numeric vector of variable length, the trait values of
 every individual in the population.}
+
+\item{comp_width}{numeric ≥ 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
+intensity of competition given a distance between two trait values.}
 
 \item{trait_opt}{numeric. Optimal trait value \eqn{z_{opt}}, such that
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
@@ -35,8 +36,8 @@ the carrying capacity decays as the distance between a \code{trait} and
 \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
 
-\item{comp_width}{numeric ≥ 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
-intensity of competition given a distance between two trait values.}
+\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
+absence of competition.}
 }
 \description{
 This function does nothing. It is intended to inherit is parameters'
