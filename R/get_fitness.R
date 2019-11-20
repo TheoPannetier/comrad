@@ -39,7 +39,7 @@ get_fitness <- function(
   ) # get the n_eff values experienced by each individual in the population
 
   # Compute k the carrying capacity --------------------------------------------
-  k <- get_carr_cap(
+  carr_cap <- get_carr_cap(
     trait_ind = traits_pop,
     trait_opt = carr_cap_pars[1],
     carr_cap_opt = carr_cap_pars[2],
@@ -47,7 +47,7 @@ get_fitness <- function(
   )
 
   # Compute the fitness based on the Ricker model-------------------------------
-  fitness <- exp(growth_rate * (1 - n_eff / k)) # Ricker model
+  fitness <- exp(growth_rate * (1 - n_eff / carr_cap)) # Ricker model
 
   testarg_num(fitness)
   testarg_length(fitness, length(traits_pop))
