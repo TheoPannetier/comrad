@@ -35,21 +35,6 @@ the carrying capacity decays as the distance between a \code{trait} and
 \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
 
-\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
-absence of competition.}
-
-\item{carr_cap_pars}{parameter vector with three elements: \enumerate{
-   \item \code{trait_opt} numeric. Optimal trait value \eqn{z_{opt}}, at
-   which \eqn{K = K_{0}}.
-   \item carr_cap_opt numeric. Maximum carrying capacity at
-   \eqn{z = z_{opt}}.
-Note that this corresponds to the maximum number of **competitors** for that
-trait value, as the focal individual does not contribute to the carrying
-capacity (see also \code{\link{get_fitness}}).
-   \item carr_cap_with numeric. Variance of the carrying capacity
-\eqn{\sigma^{2}_{K}}
-}}
-
 \item{comp_width}{numeric ≥ 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
 intensity of competition given a distance between two trait values.}
 }

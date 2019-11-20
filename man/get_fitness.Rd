@@ -8,30 +8,30 @@ get_fitness(
   traits_pop,
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),
-  carr_cap_pars = default_carr_cap_pars()
+  trait_opt = default_trait_opt(),
+  carr_cap_opt = default_cap_opt(),
+  carr_cap_width = default_carr_cap_width()
 )
 }
 \arguments{
 \item{traits_pop}{numeric vector of variable length, the trait values of
 every individual in the population.}
 
-\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
-absence of competition.}
-
 \item{comp_width}{numeric ≥ 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
 intensity of competition given a distance between two trait values.}
 
-\item{carr_cap_pars}{parameter vector with three elements: \enumerate{
-   \item \code{trait_opt} numeric. Optimal trait value \eqn{z_{opt}}, at
-   which \eqn{K = K_{0}}.
-   \item carr_cap_opt numeric. Maximum carrying capacity at
-   \eqn{z = z_{opt}}.
+\item{trait_opt}{numeric. Optimal trait value \eqn{z_{opt}}, such that
+\code{get_carr_cap(trait_opt) = carr_cap_opt}.}
+
+\item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
 Note that this corresponds to the maximum number of **competitors** for that
 trait value, as the focal individual does not contribute to the carrying
-capacity (see also \code{\link{get_fitness}}).
-   \item carr_cap_with numeric. Variance of the carrying capacity
-\eqn{\sigma^{2}_{K}}
-}}
+capacity (see also \code{\link{get_fitness}}).}
+
+\item{carr_cap_width}{numeric ≥ 0. \eqn{\sigma^{2}_{K}}. Controls how fast
+the carrying capacity decays as the distance between a \code{trait} and
+\code{trait_opt} increases.
+\eqn{\sigma^{2}_{K}}}
 }
 \description{
 Computes the fitness of an individual or population based on its trait value

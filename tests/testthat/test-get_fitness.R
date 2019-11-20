@@ -23,16 +23,16 @@ test_that("abuse", {
     regexp = "'comp_width' must be numeric",
   )
   expect_error(
-    object = get_fitness(rep(0.5, 3), carr_cap_pars = c("x", 1000, 0.5)),
-    regexp = "'carr_cap_pars' must be numeric",
+    object = get_fitness(rep(0.5, 3), trait_opt = "x"),
+    regexp = "'trait_opt' must be numeric",
   )
   expect_error(
-    object = get_fitness(rep(0.5, 3), carr_cap_pars = c(0, -1, 0.5)),
+    object = get_fitness(rep(0.5, 3), carr_cap_opt = -1),
     regexp = "'carr_cap_opt' must be a positive numeric",
   )
   expect_error(
-    object = get_fitness(rep(0.5, 3), carr_cap_pars = c(0, 1000, "elmo")),
-    regexp = "'carr_cap_pars' must be numeric",
+    object = get_fitness(rep(0.5, 3), carr_cap_width = "elmo"),
+    regexp = "'carr_cap_width' must be numeric",
   )
 
 

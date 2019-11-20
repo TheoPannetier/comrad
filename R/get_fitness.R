@@ -18,10 +18,13 @@
 #' @export
 
 get_fitness <- function(
-                    traits_pop,
-                    growth_rate = default_growth_rate(),
-                    comp_width = default_comp_width(),
-                    carr_cap_pars = default_carr_cap_pars()) {
+  traits_pop,
+  growth_rate = default_growth_rate(),
+  comp_width = default_comp_width(),
+  trait_opt = default_trait_opt(),
+  carr_cap_opt = default_carr_cap_opt(),
+  carr_cap_width = default_carr_cap_width()
+) {
 
   # Test argument type ---------------------------------------------------------
   testarg_num(traits_pop)
@@ -29,8 +32,11 @@ get_fitness <- function(
   testarg_pos(growth_rate)
   testarg_num(comp_width)
   testarg_pos(comp_width)
-  testarg_num(carr_cap_pars)
-  testarg_length(carr_cap_pars, 3)
+  testarg_num(trait_opt)
+  testarg_num(carr_cap_opt)
+  testarg_pos(carr_cap_opt)
+  testarg_num(carr_cap_width)
+  testarg_pos(carr_cap_width)
 
   # Compute effective population sizes -----------------------------------------
   n_eff <- get_n_eff(
@@ -41,9 +47,9 @@ get_fitness <- function(
   # Compute k the carrying capacity --------------------------------------------
   carr_cap <- get_carr_cap(
     trait_ind = traits_pop,
-    trait_opt = carr_cap_pars[1],
-    carr_cap_opt = carr_cap_pars[2],
-    carr_cap_width = carr_cap_pars[3]
+    trait_opt = trait_opt,
+    carr_cap_opt = carr_cap_opt,
+    carr_cap_width = carr_cap_width
   )
 
   # Compute the fitness based on the Ricker model-------------------------------

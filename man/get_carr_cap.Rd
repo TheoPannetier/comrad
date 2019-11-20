@@ -6,9 +6,9 @@
 \usage{
 get_carr_cap(
   trait_ind,
-  trait_opt = default_carr_cap_pars()[1],
-  carr_cap_opt = default_carr_cap_pars()[2],
-  carr_cap_width = default_carr_cap_pars()[3]
+  trait_opt = default_trait_opt(),
+  carr_cap_opt = default_carr_cap_opt(),
+  carr_cap_width = default_carr_cap_width
 )
 }
 \arguments{

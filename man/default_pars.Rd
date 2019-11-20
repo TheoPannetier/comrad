@@ -3,13 +3,19 @@
 \name{default_pars}
 \alias{default_pars}
 \alias{default_comp_width}
-\alias{default_carr_cap_pars}
+\alias{default_trait_opt}
+\alias{default_carr_cap_opt}
+\alias{default_carr_cap_width}
 \alias{default_growth_rate}
 \title{Default parameter values}
 \usage{
 default_comp_width()
 
-default_carr_cap_pars()
+default_trait_opt()
+
+default_carr_cap_opt()
+
+default_carr_cap_width()
 
 default_growth_rate()
 }

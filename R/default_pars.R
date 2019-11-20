@@ -15,12 +15,20 @@ default_comp_width <- function() {
 
 #' @export
 #' @rdname default_pars
-default_carr_cap_pars <- function() {
-  c(
-    0,    # trait_opt
-    1000, # carr_cap_opt
-    0.5   # carr_cap_width
-  )
+default_trait_opt <- function() {
+  0
+}
+
+#' @export
+#' @rdname default_pars
+default_carr_cap_opt <- function() {
+  1000
+}
+
+#' @export
+#' @rdname default_pars
+default_carr_cap_width <- function() {
+  0.5
 }
 
 #' @export
