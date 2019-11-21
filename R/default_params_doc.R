@@ -6,17 +6,17 @@
 #' @param trait_ind numeric. Trait value \eqn{z} of a focal individual.
 #' @param traits_pop numeric vector of variable length, the trait values of
 #' every individual in the population.
-#' @param comp_width numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{\alpha}}. Controls the
-#' intensity of competition given a distance between two trait values.
+#' @param comp_width numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{\alpha}}. Controls
+#' the intensity of competition given a distance between two trait values.
 #' @param trait_opt numeric. Optimal trait value \eqn{z_{opt}}, such that
 #' \code{get_carr_cap(trait_opt) = carr_cap_opt}.
 #' @param carr_cap_opt numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
 #' Note that this corresponds to the maximum number of **competitors** for that
 #' trait value, as the focal individual does not contribute to the carrying
 #' capacity (see also \code{\link{get_fitness}}).
-#' @param carr_cap_width numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls how fast
-#' the carrying capacity decays as the distance between a \code{trait} and
-#' \code{trait_opt} increases.
+#' @param carr_cap_width numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls
+#' how fast the carrying capacity decays as the distance between a \code{trait}
+#' and \code{trait_opt} increases.
 #' \eqn{\sigma^{2}_{K}}
 #' @param growth_rate numeric \eqn{>= 0}, the baseline growth rate in the
 #' absence of competition.
