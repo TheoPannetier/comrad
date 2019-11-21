@@ -1,5 +1,7 @@
 context("test-get_carr_cap")
 
+test_pop <- c(-0.39, 0.25, 1.3)
+
 test_that("use", {
   # Ordinary cases
   expect_equal(get_carr_cap(0, 0, 1000, 0.5), 1000)
@@ -8,6 +10,11 @@ test_that("use", {
     get_carr_cap(0.5, 0, 1000, 0.5),
     get_carr_cap(-0.5, 0, 1000, 0.5)
     )
+ # with test_pop
+  expect_equal(
+    get_carr_cap(test_pop), c(737.7133, 882.4969, 34.04745)
+    )
+
   # Border cases of trait_dist and get_carr_cap_var
   expect_equal(get_carr_cap(rep(0, 5), 0, 1000, 0), rep(1000, 5))
   expect_equal(get_carr_cap(rep(0, 5), 0, 1000, Inf), rep(1000, 5))

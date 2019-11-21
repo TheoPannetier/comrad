@@ -32,6 +32,8 @@ testarg_num <- function(arg, allow_nan = FALSE, allow_na = FALSE) {
     stop("'", substitute(arg), "' contains one or more NaNs")
   } else if (!allow_na && any(is.na(arg))) {
     stop("'", substitute(arg), "' contains one or more NAs")
+  } else if (length(arg) < 1) {
+    stop("'", substitute(arg), "' is empty")
   }
 }
 
@@ -67,6 +69,8 @@ testarg_not_this <- function(arg, forbidden) {
 testarg_char <- function(arg) {
   if (!is.character(arg)) {
     stop("'", substitute(arg), "' must be a character.")
+  } else if (length(arg) < 1) {
+    stop("'", substitute(arg), "' is empty")
   }
 }
 
@@ -75,6 +79,8 @@ testarg_char <- function(arg) {
 testarg_log <- function(arg) {
   if (!is.logical(arg)) {
     stop("'", substitute(arg), "' must be a logical")
+  } else if (length(arg) < 1) {
+    stop("'", substitute(arg), "' is empty")
   }
 }
 
