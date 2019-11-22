@@ -7,6 +7,7 @@
 \alias{default_carr_cap_opt}
 \alias{default_carr_cap_width}
 \alias{default_growth_rate}
+\alias{default_mutation_sd}
 \title{Default parameter values}
 \usage{
 default_comp_width()
@@ -18,6 +19,8 @@ default_carr_cap_opt()
 default_carr_cap_width()
 
 default_growth_rate()
+
+default_mutation_sd()
 }
 \description{
 Return default values of the simulation parameters, i.e. the default settings

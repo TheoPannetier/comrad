@@ -11,7 +11,9 @@ default_params_doc(
   trait_opt,
   carr_cap_opt,
   carr_cap_width,
-  growth_rate
+  growth_rate,
+  mutation_sd,
+  fitness
 )
 }
 \arguments{
@@ -38,6 +40,12 @@ the carrying capacity decays as the distance between a \code{trait} and
 
 \item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
 absence of competition.}
+
+\item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
+distrbution in which the mutations are drawn.}
+
+\item{fitness}{numeric \eqn{>= 0} vector, containing the fitness values for
+each individual as computed by \code{\link{get_fitness}}}
 }
 \description{
 This function does nothing. It is intended to inherit is parameters'
