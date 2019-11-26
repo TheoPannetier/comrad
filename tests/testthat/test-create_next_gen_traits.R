@@ -7,9 +7,9 @@ test_that("use", {
   # Ordinary cases
   expect_length(create_next_gen_traits(rnorm(3), 1:3), 6)
   # Border cases
-  expect_error(
+  expect_equal(
     create_next_gen_traits(rnorm(3), rep(0, 3)),
-    "Population has gone extinct"
+    "Extinct"
     )
 })
 

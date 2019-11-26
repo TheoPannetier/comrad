@@ -3,3 +3,7 @@
 ^\.travis\.yml$
 ^pics$
 ^codecov\.yml$
+
+^data/.+$
+^figs/.+$
+^local/.+$

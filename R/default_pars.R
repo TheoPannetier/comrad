@@ -40,5 +40,17 @@ default_growth_rate <- function() {
 #' @export
 #' @rdname default_pars
 default_mutation_sd <- function() {
-  0.5 # arbitrary
+  0.02 # arbitrary
+}
+
+#' @export
+#' @rdname default_pars
+default_init_pop <- function() {
+  rep(0, 10) # ten individuals with optimal trait value (0)
+}
+
+#' @export
+#' @rdname default_pars
+default_seed <- function() {
+  180
 }

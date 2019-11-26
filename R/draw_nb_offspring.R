@@ -19,7 +19,7 @@ draw_nb_offspring <- function(fitness) {
 
   testarg_num(nb_offspring)
   testarg_pos(nb_offspring)
-  testarg_length(nb_offspring, fitness)
+  testarg_length(nb_offspring, length(fitness))
 
   nb_offspring
 }

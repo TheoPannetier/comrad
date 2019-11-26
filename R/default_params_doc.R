@@ -24,6 +24,8 @@
 #' distrbution in which the mutations are drawn.
 #' @param fitness numeric \eqn{>= 0} vector, containing the fitness values for
 #' each individual as computed by \code{\link{get_fitness}}
+#' @param nb_generations integer, the number of generations to run during the
+#' simulation.
 #'
 #' @author Theo Pannetier, based on skeleton stolen from Richel J.C. Bilderbeek.
 
@@ -36,7 +38,8 @@ default_params_doc <- function(
   carr_cap_width,
   growth_rate,
   mutation_sd,
-  fitness
+  fitness,
+  nb_generations
 ) {
   # Nuffin
 }

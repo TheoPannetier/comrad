@@ -25,18 +25,20 @@ create_next_gen_traits <- function(
   testarg_num(mutation_sd)
   testarg_pos(mutation_sd)
 
-  # Create new individuals and apply mutations --------------------------------
+  # Create new individuals and apply mutations ---------------------------------
   next_gen_traits <- rep(traits_pop, nb_offspring_pop) # inherit parent trait
   next_gen_traits <- next_gen_traits +
     stats::rnorm(n = length(next_gen_traits), sd = mutation_sd)
 
-  # Catch extinction
+  # Catch extinction -----------------------------------------------------------
   if (length(next_gen_traits) < 1) {
-    stop("Population has gone extinct")
-  }
-  # Test output ----------------------------------------------------------------
-  testarg_num(next_gen_traits)
-  testarg_length(next_gen_traits, sum(nb_offspring_pop))
+    return("Extinct")
+  } else {
 
-  next_gen_traits
+    # Test output --------------------------------------------------------------
+    testarg_num(next_gen_traits)
+    testarg_length(next_gen_traits, sum(nb_offspring_pop))
+
+    return(next_gen_traits)
+  }
 }

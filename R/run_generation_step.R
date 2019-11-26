@@ -19,6 +19,8 @@ run_generation_step <- function(
   testarg_pos(carr_cap_opt)
   testarg_num(carr_cap_width)
   testarg_pos(carr_cap_width)
+  testarg_num(mutation_sd)
+  testarg_pos(mutation_sd)
 
   # Compute fitnesses
   fitness_pop <- get_fitness(
