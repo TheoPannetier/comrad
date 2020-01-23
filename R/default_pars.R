@@ -40,7 +40,7 @@ default_growth_rate <- function() {
 #' @export
 #' @rdname default_pars
 default_mutation_sd <- function() {
-  0.02 # arbitrary
+  0.02
 }
 
 #' @export

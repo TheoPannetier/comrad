@@ -3,7 +3,7 @@ context("test-get_comp_coeffs")
 test_that("use", {
   # Ordinary cases
   expect_equal(
-    get_comp_coeffs(0.5, 0.7, 0.2),
+    get_comp_coeffs(0.5, 0.7, sqrt(0.2)),
     0.9048374,
     tolerance = 1e-07
     )
@@ -13,7 +13,7 @@ test_that("use", {
     get_comp_coeffs(5, -1, 0.2),
     get_comp_coeffs(-5, 1, 0.2)
     ) # symmetry
-  expect_equal(get_comp_coeffs(3.5, -0.39, 1.2), 0.00182707)
+  expect_equal(get_comp_coeffs(3.5, -0.39, sqrt(1.2)), 0.00182707)
   # Border cases of trait_dist and sigma_comp
   expect_equal(get_comp_coeffs(0, rep(0, 5), 0), rep(1, 5))
   expect_equal(get_comp_coeffs(0, rep(0, 5), Inf), rep(1, 5))
