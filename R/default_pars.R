@@ -10,7 +10,7 @@ NULL
 #' @export
 #' @rdname default_pars
 default_comp_width <- function() {
-  0.04 # 0.2 ^ 2
+  0.2
 }
 
 #' @export
@@ -28,7 +28,7 @@ default_carr_cap_opt <- function() {
 #' @export
 #' @rdname default_pars
 default_carr_cap_width <- function() {
-  0.25 # 0.5 ^ 2
+  0.5
 }
 
 #' @export

@@ -55,6 +55,17 @@ get_fitness <- function(
   # fitness <- exp(growth_rate * (1 - n_eff / carr_cap)) # Ricker model
   fitness <- pmax(0, growth_rate * (1 - n_eff / carr_cap)) # Ricker model
 
+  # Solve possible NaN issues --------------------------------------------------
+  if (
+    # In case of conflict between parameters
+    (growth_rate == 0 && any((n_eff / carr_cap) %in% c(Inf, -Inf))) ||
+    (growth_rate == Inf && any((n_eff / carr_cap) == 0))
+    ) {
+    # I rule that growth_rate has precedence
+    nans <- which(is.nan(fitness))
+    fitness[nans] <- growth_rate
+  }
+
   testarg_num(fitness)
   testarg_length(fitness, length(traits_pop))
 

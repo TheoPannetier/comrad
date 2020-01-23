@@ -5,7 +5,7 @@ test_pop <- c(-0.39, 0.25, 1.3)
 test_that("use", {
   # Ordinary cases
   expect_equal(
-    get_n_eff(test_pop, comp_width = 0.5),
+    get_n_eff(test_pop, comp_width = sqrt(0.5)),
     c(1.7214083, 1.995956, 1.389532), tolerance = 1e-6
     )
   # Border cases
