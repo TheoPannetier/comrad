@@ -28,7 +28,7 @@ create_next_gen_traits <- function(
   # Create new individuals and apply mutations ---------------------------------
   next_gen_traits <- rep(traits_pop, nb_offspring_pop) # inherit parent trait
   next_gen_traits <- next_gen_traits +
-    stats::rnorm(n = length(next_gen_traits), sd = mutation_sd)
+    stats::rnorm(n = length(next_gen_traits), mean = 0, sd = mutation_sd)
 
   # Catch extinction -----------------------------------------------------------
   if (length(next_gen_traits) < 1) {
