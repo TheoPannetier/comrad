@@ -118,26 +118,29 @@ run_simulation <- function(
         file = output_path,
         append = TRUE
       )
-      return(0)
+      cat("\nPopulation has gone extinct at generation", t, "\n")
+      return()
     }
 
     parent_pop <- offspring_pop
 
-    readr::write_csv(
-      as.data.frame(cbind(
-        t,
-        parent_pop,
-        proc.time()[3] - gen_time # generation runtime
-      )),
-      path = output_path,
-      append = TRUE
-    )
+    if (t %% sampling_frequency == 0) {
+      readr::write_csv(
+        as.data.frame(cbind(
+          t,
+          parent_pop,
+          proc.time()[3] - gen_time # generation runtime
+        )),
+        path = output_path,
+        append = TRUE
+      )
+    }
 
     gen_time <- proc.time()[3]
   }
 
   cat(
-    "\n", "\n Total runtime:", proc.time() - start_time,
+    "\n", "\n Total runtime:", proc.time()[3] - start_time,
     file = output_path,
     append = TRUE
   )
