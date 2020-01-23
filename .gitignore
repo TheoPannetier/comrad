@@ -34,3 +34,11 @@ vignettes/*.pdf
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
+
+# Simulation outputs
+data/
+figs/
+# Local scripts
+local/
+pontarp_matlab_code/
+notes/
