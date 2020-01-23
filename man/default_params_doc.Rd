@@ -11,7 +11,10 @@ default_params_doc(
   trait_opt,
   carr_cap_opt,
   carr_cap_width,
-  growth_rate
+  growth_rate,
+  mutation_sd,
+  fitness,
+  nb_generations
 )
 }
 \arguments{
@@ -32,12 +35,21 @@ trait value, as the focal individual does not contribute to the carrying
 capacity (see also \code{\link{get_fitness}}).}
 
 \item{carr_cap_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls
-how fast the carrying capacity decays as the distance between a \code{trait}
-and \code{trait_opt} increases.
+ how fast the carrying capacity decays as the distance between a \code{trait}
+ and \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
 
 \item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
 absence of competition.}
+
+\item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
+distrbution in which the mutations are drawn.}
+
+\item{fitness}{numeric \eqn{>= 0} vector, containing the fitness values for
+each individual as computed by \code{\link{get_fitness}}}
+
+\item{nb_generations}{integer, the number of generations to run during the
+simulation.}
 }
 \description{
 This function does nothing. It is intended to inherit is parameters'

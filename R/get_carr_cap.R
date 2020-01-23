@@ -26,7 +26,7 @@ get_carr_cap <- function(
     trait_dist[which(trait_ind == Inf)] <- 0 # replace NaNs with 0
   }
 
-  carr_cap <- carr_cap_opt * exp(- (trait_dist / (2 * carr_cap_width)))
+  carr_cap <- carr_cap_opt * exp(- (trait_dist / (2 * carr_cap_width ^ 2)))
 
   # Solve possible NaN issues --------------------------------------------------
   # NaNs can arise if both terms in the division are equal to 0 or Inf
@@ -39,7 +39,7 @@ get_carr_cap <- function(
   }
   # NaNs can also arise if carr_cap_opt is set to Inf and the exp term is 0
   if (carr_cap_opt == Inf) { # I rule that carr_cap_opt has precedence
-    nans <- which(exp(- (trait_dist / (2 * carr_cap_width))) == 0)
+    nans <- which(exp(- (trait_dist / (2 * carr_cap_width ^ 2))) == 0)
     carr_cap[nans] <- carr_cap_opt
   }
 

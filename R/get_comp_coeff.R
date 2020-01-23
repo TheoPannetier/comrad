@@ -32,7 +32,7 @@ get_comp_coeffs <- function(
     trait_dist[nans] <- 0 # I rule full competition in this case
   }
 
-  coeffs <- exp(- (trait_dist / (2 * comp_width)))
+  coeffs <- exp(- (trait_dist / (2 * comp_width ^ 2)))
 
   testarg_length(coeffs, length(traits_pop))
 

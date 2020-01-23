@@ -37,6 +37,12 @@ testarg_num <- function(arg, allow_nan = FALSE, allow_na = FALSE) {
   }
 }
 
+testarg_int <- function(arg) {
+  if (arg %% 1 != 0) {
+    stop("'", substitute(arg), "' must be an integer")
+  }
+}
+
 #' @export
 #' @rdname testargs
 testarg_pos <- function(arg) {
@@ -73,7 +79,6 @@ testarg_char <- function(arg) {
     stop("'", substitute(arg), "' is empty")
   }
 }
-
 #' @export
 #' @rdname testargs
 testarg_log <- function(arg) {
@@ -83,7 +88,6 @@ testarg_log <- function(arg) {
     stop("'", substitute(arg), "' is empty")
   }
 }
-
 #' @export
 #' @rdname testargs
 #' @param correct_length numeric, the length the argument should have.

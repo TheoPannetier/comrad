@@ -1,7 +1,7 @@
 Package: comrad
 Type: Package
 Title: R implementation of a Competitive Radiation model
-Version: 0.4.1
+Version: 0.7.0
 Author: Theo Pannetier
 Maintainer: Theo Pannetier <t.s.c.pannetier@rug.nl>
 Description: This R package is based on the eco-evolutionary model introduced in 
@@ -13,8 +13,10 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat (>= 2.1.0),
+    ggplot2,
+    readr,
     covr
 Imports: 
     dplyr,
     magrittr
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.2

@@ -32,8 +32,8 @@ trait value, as the focal individual does not contribute to the carrying
 capacity (see also \code{\link{get_fitness}}).}
 
 \item{carr_cap_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls
-how fast the carrying capacity decays as the distance between a \code{trait}
-and \code{trait_opt} increases.
+ how fast the carrying capacity decays as the distance between a \code{trait}
+ and \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
 }
 \description{

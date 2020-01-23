@@ -52,11 +52,8 @@ get_fitness <- function(
   )
 
   # Compute the fitness based on the Ricker model-------------------------------
-  fitness <- exp(growth_rate * (1 - n_eff / carr_cap)) # Ricker model
-  if (growth_rate == 0) {
-    nans <- which((n_eff / carr_cap) == Inf) # O * Inf = NaN
-    fitness[nans] <- 0 # I rule that N/K takes precedence
-  }
+  # fitness <- exp(growth_rate * (1 - n_eff / carr_cap)) # Ricker model
+  fitness <- pmax(0, growth_rate * (1 - n_eff / carr_cap)) # Ricker model
 
   testarg_num(fitness)
   testarg_length(fitness, length(traits_pop))
