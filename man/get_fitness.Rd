@@ -10,7 +10,8 @@ get_fitness(
   comp_width = default_comp_width(),
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width()
+  carr_cap_width = default_carr_cap_width(),
+  fitness_func = fitness_func_positive_logistic
 )
 }
 \arguments{
@@ -35,6 +36,8 @@ capacity (see also \code{\link{get_fitness}}).}
  how fast the carrying capacity decays as the distance between a \code{trait}
  and \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
+
+\item{fitness_func, }{object. The function to use to compute fitness.}
 }
 \description{
 Computes the fitness of an individual or population based on its trait value

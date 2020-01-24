@@ -6,6 +6,7 @@
 #' generation, as sampled in a Poisson distribution.
 #'
 #' @inheritParams default_params_doc
+#' @param fitness_func, object. The function to use to compute fitness.
 #'
 #' @details The equation is a per-capita version of the Ricker model:
 #' \deqn{G(z_i) = exp(r(1 - N_{eff} / K(z_i, z_opt)))}
@@ -22,7 +23,8 @@ get_fitness <- function(
   comp_width = default_comp_width(),
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width()
+  carr_cap_width = default_carr_cap_width(),
+  fitness_func = fitness_func_positive_logistic
 ) {
 
   # Test argument type ---------------------------------------------------------
@@ -52,20 +54,11 @@ get_fitness <- function(
   )
 
   # Compute the fitness based on the Ricker model-------------------------------
-  # fitness <- exp(growth_rate * (1 - n_eff / carr_cap)) # Ricker model
-  fitness <- pmax(0, growth_rate * (1 - n_eff / carr_cap)) # Ricker model
-
-  # Solve possible NaN issues --------------------------------------------------
-  if (
-    # In case of conflict between parameters
-    (growth_rate == 0 && any((n_eff / carr_cap) %in% c(Inf, -Inf))) ||
-    (growth_rate == Inf && any((n_eff / carr_cap) == 0))
-    ) {
-    # I rule that growth_rate has precedence
-    nans <- which(is.nan(fitness))
-    fitness[nans] <- growth_rate
-  }
-
+  fitness <- fitness_func(
+    growth_rate,
+    n_eff,
+    carr_cap
+  )
   testarg_num(fitness)
   testarg_length(fitness, length(traits_pop))
 

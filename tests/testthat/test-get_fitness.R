@@ -15,7 +15,7 @@ test_that("use", {
   expect_equal(get_fitness(rep(0.5, 5), carr_cap_opt = Inf), rep(1, 5))
   expect_equal(
     get_fitness(rep(0.5, 5), carr_cap_opt = 0, growth_rate = 0), rep(0, 5)
-    )
+  )
 })
 
 test_that("abuse", {
@@ -50,3 +50,111 @@ test_that("abuse", {
 
 
 })
+
+test_that("fitness_functions", {
+  ##  Positive logistic function
+  # Case 1. N/K close to 0
+  expect_equal(
+    get_fitness(
+      0,
+      fitness_func = fitness_func_positive_logistic
+    ),
+    0.999
+  )
+  # Case 2. N/K = 1/2
+  expect_equal(
+    get_fitness(
+      rep(0, 500),
+      fitness_func = fitness_func_positive_logistic
+    ),
+    rep(default_growth_rate() / 2, 500)
+  )
+  # Case 3. N/K = 1
+  expect_equal(
+    get_fitness(
+      rep(0, 1000),
+      fitness_func = fitness_func_positive_logistic
+    ),
+    rep(0, 1000)
+  )
+  # Case 4. N/K < 0
+  expect_equal(
+    get_fitness(
+      rep(0, 10000),
+      fitness_func = fitness_func_positive_logistic
+    ),
+    rep(0, 10000)
+  )
+
+  ##  Ricker function
+  # Case 1. N/K close to 0
+  expect_equal(
+    get_fitness(
+      0,
+      fitness_func = fitness_func_ricker
+    ),
+    exp(default_growth_rate() * 0.999)
+  )
+  # Case 2. N/K = 1/2
+  expect_equal(
+    get_fitness(
+      rep(0, 500),
+      fitness_func = fitness_func_ricker
+    ),
+    rep(exp(default_growth_rate() * 0.5), 500)
+  )
+  # Case 3. N/K = 1
+  expect_equal(
+    get_fitness(
+      rep(0, 1000),
+      fitness_func = fitness_func_ricker
+    ),
+    rep(1, 1000)
+  )
+  # Case 4. N/K < 0
+  expect_equal(
+    get_fitness(
+      rep(0, 2000),
+      fitness_func = fitness_func_ricker
+    ),
+    rep(exp(-default_growth_rate()), 2000)
+  )
+
+  ##  Pontarp function
+  # Case 1. N/K close to 0
+  expect_equal(
+    get_fitness(
+      0,
+      fitness_func = fitness_func_pontarp
+    ),
+    default_growth_rate() * 0.999 + 1
+  )
+  # Case 2. N/K = 1/2
+  expect_equal(
+    get_fitness(
+      rep(0, 500),
+      fitness_func = fitness_func_pontarp
+    ),
+    rep(default_growth_rate() * 0.5 + 1, 500)
+  )
+  # Case 3. N/K = 1
+  expect_equal(
+    get_fitness(
+      rep(0, 1000),
+      fitness_func = fitness_func_pontarp
+    ),
+    rep(1, 1000)
+  )
+  # Case 4. N/K < 0
+  expect_equal(
+    get_fitness(
+      rep(0, 2000),
+      fitness_func = fitness_func_pontarp
+    ),
+    rep(max(1 - default_growth_rate(), 0), 2000)
+  )
+
+
+})
+
+
