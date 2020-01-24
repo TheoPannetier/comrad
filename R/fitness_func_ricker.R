@@ -1,7 +1,6 @@
 fitness_func_ricker <- function(growth_rate,
                                  n_eff,
-                                 carr_cap)
-{
+                                 carr_cap) {
   # Compute fitness with the function from the Ricker model
   fitness <- exp(growth_rate * (1 - n_eff / carr_cap))
 

@@ -156,5 +156,3 @@ test_that("fitness_functions", {
 
 
 })
-
-

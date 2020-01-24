@@ -1,7 +1,6 @@
 fitness_func_pontarp <- function(growth_rate,
                                            n_eff,
-                                           carr_cap)
-{
+                                           carr_cap) {
   # Compute fitness with positive logistic function
   fitness <- pmax(0, 1 + growth_rate * (1 - n_eff / carr_cap))
 
