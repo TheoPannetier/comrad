@@ -112,10 +112,13 @@ run_simulation <- function(
       mutation_sd = mutation_sd
     )
     if (offspring_pop[1] == "Extinct") { # calling [1] silences warning
-      cat(
-        "\n",
-        "\nPopulation has gone extinct at generation", t,
-        file = output_path,
+      readr::write_csv(
+        as.data.frame(cbind(
+          t,
+          NA, # signals the population went extinct
+          proc.time()[3] - gen_time # generation runtime
+        )),
+        path = output_path,
         append = TRUE
       )
       cat("\nPopulation has gone extinct at generation", t, "\n")
