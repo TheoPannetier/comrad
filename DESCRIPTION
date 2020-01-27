@@ -18,5 +18,7 @@ Suggests:
     covr
 Imports: 
     dplyr,
-    magrittr
+    magrittr,
+    rmarkdown
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
