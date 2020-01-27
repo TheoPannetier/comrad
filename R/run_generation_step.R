@@ -5,6 +5,7 @@ run_generation_step <- function(
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
+  prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   fitness_func = fitness_func_ricker
   ) {
@@ -20,6 +21,8 @@ run_generation_step <- function(
   testarg_pos(carr_cap_opt)
   testarg_num(carr_cap_width)
   testarg_pos(carr_cap_width)
+  testarg_num(prob_mutation)
+  testarg_prop(prob_mutation)
   testarg_num(mutation_sd)
   testarg_pos(mutation_sd)
 
@@ -41,6 +44,7 @@ run_generation_step <- function(
   next_gen_traits <- create_next_gen_traits(
     traits_pop = traits_pop,
     nb_offspring_pop = nb_offspring_pop,
+    prob_mutation = prob_mutation,
     mutation_sd = mutation_sd
   )
   next_gen_traits

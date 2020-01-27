@@ -3,18 +3,12 @@ context("test-get_fitness")
 test_pop <- c(-0.39, 0.25, 1.3)
 
 test_that("use", {
-  # Regular cases
-  expect_equal(get_fitness(test_pop, comp_width = 0.25),
-               c(0.9985933, 0.9988239, 0.9706249), tolerance = 1e-6)
-  # Border cases
-  expect_equal(get_fitness(rep(0, 56)), rep(0.944, 56))
-  #^at K_opt, each individual reduces K by 0.001
   expect_equal(get_fitness(c(Inf, -Inf), carr_cap_opt = 0), c(0, 0))
   expect_equal(get_fitness(rep(0.5, 5), carr_cap_opt = 0), rep(0, 5))
-  expect_equal(get_fitness(c(Inf, -Inf), carr_cap_opt = Inf), rep(1, 2))
-  expect_equal(get_fitness(rep(0.5, 5), carr_cap_opt = Inf), rep(1, 5))
+  expect_equal(get_fitness(c(Inf, -Inf), carr_cap_opt = Inf), rep(exp(1), 2))
+  expect_equal(get_fitness(rep(0.5, 5), carr_cap_opt = Inf), rep(exp(1), 5))
   expect_equal(
-    get_fitness(rep(0.5, 5), carr_cap_opt = 0, growth_rate = 0), rep(0, 5)
+    get_fitness(rep(0.5, 5), carr_cap_opt = 0, growth_rate = 0), rep(1, 5)
   )
 })
 

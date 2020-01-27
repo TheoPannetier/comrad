@@ -15,6 +15,7 @@ run_simulation(
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
+  prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   fitness_func = fitness_func_ricker
 )
@@ -51,6 +52,9 @@ capacity (see also \code{\link{get_fitness}}).}
 how fast the carrying capacity decays as the distance between a \code{trait}
 and \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
+
+\item{prob_mutation}{numeric between 0 and 1, the probability that any new
+individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
 distrbution in which the mutations are drawn.}

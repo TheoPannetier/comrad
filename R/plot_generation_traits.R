@@ -22,7 +22,7 @@ plot_generation_traits<- function(path_to_file,
 
   data <- readr::read_csv(
     path_to_file,
-    skip = 14)
+    skip = 15)
   # rm last row
   data <- data[-length(data[[1]]), ]
   utils::tail(data, 5)

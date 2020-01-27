@@ -12,6 +12,7 @@ default_params_doc(
   carr_cap_opt,
   carr_cap_width,
   growth_rate,
+  prob_mutation,
   mutation_sd,
   fitness,
   nb_generations,
@@ -42,6 +43,9 @@ and \code{trait_opt} increases.
 
 \item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
 absence of competition.}
+
+\item{prob_mutation}{numeric between 0 and 1, the probability that any new
+individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
 distrbution in which the mutations are drawn.}

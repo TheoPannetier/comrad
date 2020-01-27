@@ -7,6 +7,7 @@
 create_next_gen_traits(
   traits_pop,
   nb_offspring_pop,
+  prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd()
 )
 }
@@ -16,6 +17,9 @@ every individual in the population.}
 
 \item{nb_offspring_pop}{numeric vector \code{>= 0}, the nb of offspring that
 should be created for each parent.}
+
+\item{prob_mutation}{numeric between 0 and 1, the probability that any new
+individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
 distrbution in which the mutations are drawn.}

@@ -15,6 +15,7 @@
 create_next_gen_traits <- function(
   traits_pop,
   nb_offspring_pop,
+  prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd()
 ) {
   # Test arguments -------------------------------------------------------------
@@ -22,14 +23,22 @@ create_next_gen_traits <- function(
   testarg_num(nb_offspring_pop)
   testarg_not_this(nb_offspring_pop, Inf)
   testarg_length(nb_offspring_pop, length(traits_pop))
+  testarg_num(prob_mutation)
+  testarg_prop(prob_mutation)
   testarg_num(mutation_sd)
   testarg_pos(mutation_sd)
 
-  # Create new individuals and apply mutations ---------------------------------
+  # Create new individuals -----------------------------------------------------
   next_gen_traits <- rep(traits_pop, nb_offspring_pop) # inherit parent trait
-  next_gen_traits <- next_gen_traits +
-    stats::rnorm(n = length(next_gen_traits), mean = 0, sd = mutation_sd)
 
+  # Apply mutations ------------------------------------------------------------
+  is_mutant <- rbinom(length(next_gen_traits), 1, prob_mutation)
+  mutations <- stats::rnorm(next_gen_traits, 0, mutation_sd)
+  next_gen_traits <- ifelse(
+    is_mutant,
+    next_gen_traits + mutations,
+    next_gen_traits
+  )
   # Catch extinction -----------------------------------------------------------
   if (length(next_gen_traits) < 1) {
     return("Extinct")
