@@ -37,5 +37,5 @@ simulate_brownian_mutation <- function(pop_size = 1000,
     group = pop_tbl$id
     )) +
     ggplot2::geom_line(alpha = 0.02)
-
+ gg
 }
