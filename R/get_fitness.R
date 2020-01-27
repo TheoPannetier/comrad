@@ -23,7 +23,7 @@ get_fitness <- function(
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
-  fitness_func = fitness_func_positive_logistic
+  fitness_func = fitness_func_ricker
 ) {
 
   # Test argument type ---------------------------------------------------------
