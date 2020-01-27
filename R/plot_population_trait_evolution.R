@@ -26,11 +26,11 @@ plot_population_trait_evolution <- function(path_to_file,
 
   # rm last row
   data <- data[-length(data[[1]]), ]
-  tail(data, 5)
+  utils::tail(data, 5)
 
   # xgrain <- max(data$t) / 100
 
-  trait_plot <- data %>% ggplot2::ggplot(ggplot2::aes(x = t, y = z)) +
+  trait_plot <- data %>% ggplot2::ggplot(ggplot2::aes(x = data$t, y = data$z)) +
     ggplot2::geom_hex(binwidth = c(xgrain, ygrain)) +
     viridis::scale_fill_viridis(option = "B") +
     ggplot2::labs(x = "Generation", y = "Trait")

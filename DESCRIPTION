@@ -15,7 +15,8 @@ Suggests:
     testthat (>= 2.1.0),
     ggplot2,
     readr,
-    covr
+    covr,
+    viridis
 Imports: 
     dplyr,
     magrittr,
