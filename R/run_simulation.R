@@ -34,7 +34,9 @@ run_simulation <- function(
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
-  mutation_sd = default_mutation_sd()
+  prob_mutation = default_prob_mutation(),
+  mutation_sd = default_mutation_sd(),
+  fitness_func = fitness_func_ricker
 ) {
   testarg_num(init_pop)
   testarg_char(output_path)
@@ -54,6 +56,8 @@ run_simulation <- function(
   testarg_pos(carr_cap_opt)
   testarg_num(carr_cap_width)
   testarg_pos(carr_cap_width)
+  testarg_num(prob_mutation)
+  testarg_prop(prob_mutation)
   testarg_num(mutation_sd)
   testarg_pos(mutation_sd)
 
@@ -67,6 +71,7 @@ run_simulation <- function(
     "\ntrait_opt =", trait_opt,
     "\ncarr_cap_opt =", carr_cap_opt,
     "\ncarr_cap_width =", carr_cap_width,
+    "\nprob_mutation =", prob_mutation,
     "\nmutation_sd =", mutation_sd,
     "\n",
     "\nseed =", seed,
@@ -109,13 +114,18 @@ run_simulation <- function(
       trait_opt = trait_opt,
       carr_cap_opt = carr_cap_opt,
       carr_cap_width = carr_cap_width,
-      mutation_sd = mutation_sd
+      prob_mutation = prob_mutation,
+      mutation_sd = mutation_sd,
+      fitness_func = fitness_func
     )
     if (offspring_pop[1] == "Extinct") { # calling [1] silences warning
-      cat(
-        "\n",
-        "\nPopulation has gone extinct at generation", t,
-        file = output_path,
+      readr::write_csv(
+        as.data.frame(cbind(
+          t,
+          NA, # signals the population went extinct
+          proc.time()[3] - gen_time # generation runtime
+        )),
+        path = output_path,
         append = TRUE
       )
       cat("\nPopulation has gone extinct at generation", t, "\n")

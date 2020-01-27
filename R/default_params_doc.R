@@ -20,12 +20,16 @@
 #' \eqn{\sigma^{2}_{K}}
 #' @param growth_rate numeric \eqn{>= 0}, the baseline growth rate in the
 #' absence of competition.
+#' @param prob_mutation numeric between 0 and 1, the probability that any new
+#' individual is sampled with a mutation.
 #' @param mutation_sd numeric \eqn{>= 0}, the standard deviation of the normal
 #' distrbution in which the mutations are drawn.
 #' @param fitness numeric \eqn{>= 0} vector, containing the fitness values for
 #' each individual as computed by \code{\link{get_fitness}}
 #' @param nb_generations integer, the number of generations to run during the
 #' simulation.
+#' @param fitness_func, object. The function to use to compute fitness.
+
 #'
 #' @author Theo Pannetier, based on skeleton stolen from Richel J.C. Bilderbeek.
 
@@ -37,9 +41,11 @@ default_params_doc <- function(
   carr_cap_opt,
   carr_cap_width,
   growth_rate,
+  prob_mutation,
   mutation_sd,
   fitness,
-  nb_generations
+  nb_generations,
+  fitness_func
 ) {
   # Nuffin
 }

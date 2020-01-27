@@ -10,7 +10,8 @@ get_fitness(
   comp_width = default_comp_width(),
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width()
+  carr_cap_width = default_carr_cap_width(),
+  fitness_func = fitness_func_ricker
 )
 }
 \arguments{
@@ -27,14 +28,16 @@ the intensity of competition given a distance between two trait values.}
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
 
 \item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
-Note that this corresponds to the maximum number of **competitors** for that
+Note that this corresponds to the maximum number of \strong{competitors} for that
 trait value, as the focal individual does not contribute to the carrying
 capacity (see also \code{\link{get_fitness}}).}
 
 \item{carr_cap_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls
- how fast the carrying capacity decays as the distance between a \code{trait}
- and \code{trait_opt} increases.
+how fast the carrying capacity decays as the distance between a \code{trait}
+and \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
+
+\item{fitness_func}{object. The function to use to compute fitness.}
 }
 \description{
 Computes the fitness of an individual or population based on its trait value

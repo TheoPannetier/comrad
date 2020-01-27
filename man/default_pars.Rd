@@ -7,6 +7,7 @@
 \alias{default_carr_cap_opt}
 \alias{default_carr_cap_width}
 \alias{default_growth_rate}
+\alias{default_prob_mutation}
 \alias{default_mutation_sd}
 \alias{default_init_pop}
 \alias{default_seed}
@@ -21,6 +22,8 @@ default_carr_cap_opt()
 default_carr_cap_width()
 
 default_growth_rate()
+
+default_prob_mutation()
 
 default_mutation_sd()
 

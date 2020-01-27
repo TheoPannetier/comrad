@@ -12,9 +12,11 @@ default_params_doc(
   carr_cap_opt,
   carr_cap_width,
   growth_rate,
+  prob_mutation,
   mutation_sd,
   fitness,
-  nb_generations
+  nb_generations,
+  fitness_func
 )
 }
 \arguments{
@@ -30,17 +32,20 @@ the intensity of competition given a distance between two trait values.}
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
 
 \item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
-Note that this corresponds to the maximum number of **competitors** for that
+Note that this corresponds to the maximum number of \strong{competitors} for that
 trait value, as the focal individual does not contribute to the carrying
 capacity (see also \code{\link{get_fitness}}).}
 
 \item{carr_cap_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls
- how fast the carrying capacity decays as the distance between a \code{trait}
- and \code{trait_opt} increases.
+how fast the carrying capacity decays as the distance between a \code{trait}
+and \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
 
 \item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
 absence of competition.}
+
+\item{prob_mutation}{numeric between 0 and 1, the probability that any new
+individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
 distrbution in which the mutations are drawn.}
@@ -50,6 +55,8 @@ each individual as computed by \code{\link{get_fitness}}}
 
 \item{nb_generations}{integer, the number of generations to run during the
 simulation.}
+
+\item{fitness_func, }{object. The function to use to compute fitness.}
 }
 \description{
 This function does nothing. It is intended to inherit is parameters'
