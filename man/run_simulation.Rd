@@ -15,7 +15,8 @@ run_simulation(
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
-  mutation_sd = default_mutation_sd()
+  mutation_sd = default_mutation_sd(),
+  fitness_func = fitness_func_positive_logistic
 )
 }
 \arguments{
@@ -53,6 +54,8 @@ capacity (see also \code{\link{get_fitness}}).}
 
 \item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
 distrbution in which the mutations are drawn.}
+
+\item{fitness_func}{object. The function to use to compute fitness.}
 }
 \description{
 Run the competitive radiation simulation.

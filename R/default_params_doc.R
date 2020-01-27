@@ -26,6 +26,8 @@
 #' each individual as computed by \code{\link{get_fitness}}
 #' @param nb_generations integer, the number of generations to run during the
 #' simulation.
+#' @param fitness_func, object. The function to use to compute fitness.
+
 #'
 #' @author Theo Pannetier, based on skeleton stolen from Richel J.C. Bilderbeek.
 
@@ -39,7 +41,8 @@ default_params_doc <- function(
   growth_rate,
   mutation_sd,
   fitness,
-  nb_generations
+  nb_generations,
+  fitness_func
 ) {
   # Nuffin
 }

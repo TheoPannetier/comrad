@@ -14,7 +14,8 @@ default_params_doc(
   growth_rate,
   mutation_sd,
   fitness,
-  nb_generations
+  nb_generations,
+  fitness_func
 )
 }
 \arguments{
@@ -50,6 +51,8 @@ each individual as computed by \code{\link{get_fitness}}}
 
 \item{nb_generations}{integer, the number of generations to run during the
 simulation.}
+
+\item{fitness_func, }{object. The function to use to compute fitness.}
 }
 \description{
 This function does nothing. It is intended to inherit is parameters'

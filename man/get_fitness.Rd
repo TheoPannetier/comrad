@@ -37,7 +37,7 @@ capacity (see also \code{\link{get_fitness}}).}
  and \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
 
-\item{fitness_func, }{object. The function to use to compute fitness.}
+\item{fitness_func}{object. The function to use to compute fitness.}
 }
 \description{
 Computes the fitness of an individual or population based on its trait value

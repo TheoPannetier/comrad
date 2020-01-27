@@ -34,7 +34,8 @@ run_simulation <- function(
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
-  mutation_sd = default_mutation_sd()
+  mutation_sd = default_mutation_sd(),
+  fitness_func = fitness_func_positive_logistic
 ) {
   testarg_num(init_pop)
   testarg_char(output_path)
@@ -109,7 +110,8 @@ run_simulation <- function(
       trait_opt = trait_opt,
       carr_cap_opt = carr_cap_opt,
       carr_cap_width = carr_cap_width,
-      mutation_sd = mutation_sd
+      mutation_sd = mutation_sd,
+      fitness_func = fitness_func
     )
     if (offspring_pop[1] == "Extinct") { # calling [1] silences warning
       readr::write_csv(

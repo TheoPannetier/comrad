@@ -6,7 +6,6 @@
 #' generation, as sampled in a Poisson distribution.
 #'
 #' @inheritParams default_params_doc
-#' @param fitness_func, object. The function to use to compute fitness.
 #'
 #' @details The equation is a per-capita version of the Ricker model:
 #' \deqn{G(z_i) = exp(r(1 - N_{eff} / K(z_i, z_opt)))}
@@ -55,9 +54,9 @@ get_fitness <- function(
 
   # Compute the fitness based on the Ricker model-------------------------------
   fitness <- fitness_func(
-    growth_rate,
-    n_eff,
-    carr_cap
+    growth_rate = growth_rate,
+    n_eff = n_eff,
+    carr_cap = carr_cap
   )
   testarg_num(fitness)
   testarg_length(fitness, length(traits_pop))

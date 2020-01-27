@@ -5,7 +5,8 @@ run_generation_step <- function(
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
-  mutation_sd = default_mutation_sd()
+  mutation_sd = default_mutation_sd(),
+  fitness_func = fitness_func_positive_logistic
   ) {
 
   # Test argument type ---------------------------------------------------------
@@ -29,7 +30,8 @@ run_generation_step <- function(
     comp_width = comp_width,
     trait_opt = trait_opt,
     carr_cap_opt = carr_cap_opt,
-    carr_cap_width = carr_cap_width
+    carr_cap_width = carr_cap_width,
+    fitness_func = fitness_func
   )
   testarg_not_this(fitness_pop, Inf)
 
