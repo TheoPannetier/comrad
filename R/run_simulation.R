@@ -8,6 +8,9 @@
 #' population is saved in the output.
 #' @param seed numeric \code{> 0}, the integer seed to set for the random number
 #' generator.
+#' @param plot_every if a numeric is supplied the simulation
+#' will plot its current state every `plot_every`. If `null` no plot is
+#' produced.
 #' @inheritParams default_params_doc
 #'
 #' @details Output is registered in a .csv file with the following structure:
@@ -36,7 +39,8 @@ run_simulation <- function(
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  fitness_func = fitness_func_ricker
+  fitness_func = fitness_func_ricker,
+  plot_every = NULL
 ) {
   testarg_num(init_pop)
   testarg_char(output_path)
@@ -60,6 +64,9 @@ run_simulation <- function(
   testarg_prop(prob_mutation)
   testarg_num(mutation_sd)
   testarg_pos(mutation_sd)
+  if (!is.null(plot_every) && !is.numeric(plot_every)) {
+    stop("plot_every must be null or numeric.")
+  }
 
   # other arguments are tested in run_generation_step()
 
@@ -145,8 +152,13 @@ run_simulation <- function(
         append = TRUE
       )
     }
-
     gen_time <- proc.time()[3]
+
+    if (!is.null(plot_every) && (t %% plot_every == 0)) {
+      plot_population_trait_evolution(
+        path_to_file = output_path
+      )
+    }
   }
 
   cat(
