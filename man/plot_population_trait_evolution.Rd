@@ -4,11 +4,20 @@
 \alias{plot_population_trait_evolution}
 \title{Plot the evolution of trait values in the population over generations}
 \usage{
-plot_population_trait_evolution(path_to_file, xgrain = 10, ygrain = 0.01)
+plot_population_trait_evolution(
+  path_to_file,
+  generation_range = c(0, Inf),
+  xgrain = 10,
+  ygrain = 0.01
+)
 }
 \arguments{
 \item{path_to_file}{character, path to a \code{.csv} file as produced by
 \code{\link[=run_simulation]{run_simulation()}}}
+
+\item{generation_range}{numeric vector with length 2, supplying the first and
+last generation to plot from the dataset. Defaults to very generation in the
+table}
 
 \item{xgrain}{numeric, the width of  hexes on the x-axis (generations)}
 
