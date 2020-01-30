@@ -3,7 +3,8 @@
 #' Run the competitive radiation simulation.
 #'
 #' @param init_pop numeric vector, the trait values of the initial individuals.
-#' @param output_path character, path to save the output file.
+#' @param output_path character, path to save the output file. If `NULL`, the
+#' output is not saved.
 #' @param sampling_frequency numeric \code{> 0}, the frequency at which the
 #' population is saved in the output.
 #' @param seed numeric \code{> 0}, the integer seed to set for the random number
@@ -43,7 +44,9 @@ run_simulation <- function(
   plot_every = NULL
 ) {
   testarg_num(init_pop)
-  testarg_char(output_path)
+  if (!(is.null(output_path)) || is.character(output_path)) {
+    stop("'output_path must be null or a character.")
+  }
   testarg_num(sampling_frequency)
   testarg_int(sampling_frequency)
   testarg_num(seed)
@@ -71,37 +74,39 @@ run_simulation <- function(
   # other arguments are tested in run_generation_step()
 
   # Send metadata to output
-  cat(
-    "### Metadata ###",
-    "\ngrowth_rate =", growth_rate,
-    "\ncomp_width =", comp_width,
-    "\ntrait_opt =", trait_opt,
-    "\ncarr_cap_opt =", carr_cap_opt,
-    "\ncarr_cap_width =", carr_cap_width,
-    "\nprob_mutation =", prob_mutation,
-    "\nmutation_sd =", mutation_sd,
-    "\n",
-    "\nseed =", seed,
-    "\n",
-    "\nRunning for", nb_generations, "generations",
-    "\n",
-    # Set up output table
-    "\n### Simulation output ###",
-    "\n",
-    "\nt,z,runtime\n",
-    file = output_path
-  )
-  # Set up data output table proper
-  readr::write_csv(
-    as.data.frame(cbind(
-      0, # generation
-      init_pop, # initial pop trait values
-      0 # starting time
-    )),
-    path = output_path,
-    append = TRUE
-  )
+  if (!(is.null(output_path))) {
+    cat(
+      "### Metadata ###",
+      "\ngrowth_rate =", growth_rate,
+      "\ncomp_width =", comp_width,
+      "\ntrait_opt =", trait_opt,
+      "\ncarr_cap_opt =", carr_cap_opt,
+      "\ncarr_cap_width =", carr_cap_width,
+      "\nprob_mutation =", prob_mutation,
+      "\nmutation_sd =", mutation_sd,
+      "\n",
+      "\nseed =", seed,
+      "\n",
+      "\nRunning for", nb_generations, "generations",
+      "\n",
+      # Set up output table
+      "\n### Simulation output ###",
+      "\n",
+      "\nt,z,runtime\n",
+      file = output_path
+    )
 
+    # Set up data output table proper
+    readr::write_csv(
+      as.data.frame(cbind(
+        0, # generation
+        init_pop, # initial pop trait values
+        0 # starting time
+      )),
+      path = output_path,
+      append = TRUE
+    )
+  }
   # Set initial population
   parent_pop <- init_pop
 
@@ -125,7 +130,7 @@ run_simulation <- function(
       mutation_sd = mutation_sd,
       fitness_func = fitness_func
     )
-    if (offspring_pop[1] == "Extinct") { # calling [1] silences warning
+    if (!is.null(output_path) && offspring_pop[1] == "Extinct") { # calling [1] silences warning
       readr::write_csv(
         as.data.frame(cbind(
           t,
@@ -141,7 +146,7 @@ run_simulation <- function(
 
     parent_pop <- offspring_pop
 
-    if (t %% sampling_frequency == 0) {
+    if (!is.null(output_path) && t %% sampling_frequency == 0) {
       readr::write_csv(
         as.data.frame(cbind(
           t,
@@ -154,16 +159,24 @@ run_simulation <- function(
     }
     gen_time <- proc.time()[3]
 
-    if (!is.null(plot_every) && (t %% plot_every == 0)) {
+    if (
+      !is.null(output_path) &&
+      !is.null(plot_every) &&
+      (t %% plot_every == 0)
+    ) {
       plot_population_trait_evolution(
         path_to_file = output_path
       )
     }
   }
 
-  cat(
-    "\n", "\n Total runtime:", proc.time()[3] - start_time,
-    file = output_path,
-    append = TRUE
-  )
+  if (!is.null(output_path)) {
+    cat(
+      "\n", "\n Total runtime:", proc.time()[3] - start_time,
+      file = output_path,
+      append = TRUE
+    )
+  } else {
+    cat("\n", "\n Total runtime:", proc.time()[3] - start_time)
+  }
 }

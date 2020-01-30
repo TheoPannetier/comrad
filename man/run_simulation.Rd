@@ -24,7 +24,8 @@ run_simulation(
 \arguments{
 \item{init_pop}{numeric vector, the trait values of the initial individuals.}
 
-\item{output_path}{character, path to save the output file.}
+\item{output_path}{character, path to save the output file. If \code{NULL}, the
+output is not saved.}
 
 \item{nb_generations}{integer, the number of generations to run during the
 simulation.}
