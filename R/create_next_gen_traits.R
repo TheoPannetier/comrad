@@ -32,7 +32,7 @@ create_next_gen_traits <- function(
   next_gen_traits <- rep(traits_pop, nb_offspring_pop) # inherit parent trait
 
   # Apply mutations ------------------------------------------------------------
-  is_mutant <- rbinom(length(next_gen_traits), 1, prob_mutation)
+  is_mutant <- stats::rbinom(length(next_gen_traits), 1, prob_mutation)
   mutations <- stats::rnorm(next_gen_traits, 0, mutation_sd)
   next_gen_traits <- ifelse(
     is_mutant,
