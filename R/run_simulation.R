@@ -11,7 +11,7 @@
 #' generator.
 #' @param plot_every if a numeric is supplied the simulation
 #' will plot its current state every `plot_every`. If `null` no plot is
-#' produced.
+#' produced. Silently set to `NULL` if not run from Rstudio.
 #' @inheritParams default_params_doc
 #'
 #' @details Output is registered in a .csv file with the following structure:
@@ -67,6 +67,9 @@ run_simulation <- function(
   testarg_prop(prob_mutation)
   testarg_num(mutation_sd)
   testarg_pos(mutation_sd)
+  if (Sys.getenv("RSTUDIO") != "1") {
+    plot_every <- NULL
+  }
   if (!is.null(plot_every) && !is.numeric(plot_every)) {
     stop("plot_every must be null or numeric.")
   }
@@ -74,7 +77,7 @@ run_simulation <- function(
   # other arguments are tested in run_generation_step()
 
   # Send metadata to output
-  if (!(is.null(output_path))) {
+  if (!is.null(output_path)) {
     cat(
       "### Metadata ###",
       "\ngrowth_rate =", growth_rate,
@@ -86,6 +89,7 @@ run_simulation <- function(
       "\nmutation_sd =", mutation_sd,
       "\n",
       "\nseed =", seed,
+      "\nsimulated under comrad", as.character(packageVersion("comrad")),
       "\n",
       "\nRunning for", nb_generations, "generations",
       "\n",
@@ -95,18 +99,21 @@ run_simulation <- function(
       "\nt,z,runtime\n",
       file = output_path
     )
-
-    # Set up data output table proper
-    readr::write_csv(
-      as.data.frame(cbind(
-        0, # generation
-        init_pop, # initial pop trait values
-        0 # starting time
-      )),
-      path = output_path,
-      append = TRUE
-    )
   }
+    # Set up data output table proper
+    output <- tibble::tibble(
+      "t" = 0,
+      "z" = init_pop,
+      "runtime" = 0
+    )
+    if (!is.null(output_path)) {
+      readr::write_csv(
+        output,
+        path = output_path,
+        append = TRUE
+      )
+    }
+
   # Set initial population
   parent_pop <- init_pop
 
@@ -130,19 +137,37 @@ run_simulation <- function(
       mutation_sd = mutation_sd,
       fitness_func = fitness_func
     )
-    if (!is.null(output_path) && offspring_pop[1] == "Extinct") { # calling [1] silences warning
+    if (offspring_pop[1] == "Extinct") {
+      cat("\nPopulation has gone extinct at generation", t, "\n")
+      offspring_pop <- NA
+    }
+
+    output_gen <- tibble::tibble(
+      "t" = t,
+      "z" = offspring_pop,
+      "runtime" = proc.time()[3] - gen_time
+    )
+    if (!is.null(output_path) && t %% sampling_frequency == 0) {
       readr::write_csv(
-        as.data.frame(cbind(
-          t,
-          NA, # signals the population went extinct
-          proc.time()[3] - gen_time # generation runtime
-        )),
+        output_gen,
         path = output_path,
         append = TRUE
       )
-      cat("\nPopulation has gone extinct at generation", t, "\n")
-      return()
     }
+    output <- rbind(output, output_gen)
+
+    # if (!is.null(output_path) && offspring_pop[1] == "Extinct") { # calling [1] silences warning
+    #   readr::write_csv(
+    #     as.data.frame(cbind(
+    #       t,
+    #       NA, # signals the population went extinct
+    #       proc.time()[3] - gen_time # generation runtime
+    #     )),
+    #     path = output_path,
+    #     append = TRUE
+    #   )
+    #   return()
+    # }
 
     parent_pop <- offspring_pop
 
@@ -159,14 +184,8 @@ run_simulation <- function(
     }
     gen_time <- proc.time()[3]
 
-    if (
-      !is.null(output_path) &&
-      !is.null(plot_every) &&
-      (t %% plot_every == 0)
-    ) {
-      plot_population_trait_evolution(
-        path_to_file = output_path
-      )
+    if (!is.null(plot_every) && (t %% plot_every == 0)) {
+      plot_population_trait_evolution(output)
     }
   }
 
@@ -177,6 +196,7 @@ run_simulation <- function(
       append = TRUE
     )
   } else {
-    cat("\n", "\n Total runtime:", proc.time()[3] - start_time)
+    cat("\n", "\n Total runtime:", proc.time()[3] - start_time, "\n")
+    return(output)
   }
 }

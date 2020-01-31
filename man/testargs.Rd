@@ -9,6 +9,7 @@
 \alias{testarg_char}
 \alias{testarg_log}
 \alias{testarg_length}
+\alias{test_sim_tbl}
 \title{Assert a function argument is of correct type}
 \usage{
 testarg_num(arg, allow_nan = FALSE, allow_na = FALSE)
@@ -24,6 +25,8 @@ testarg_char(arg)
 testarg_log(arg)
 
 testarg_length(arg, correct_length)
+
+test_sim_tbl(sim_tbl)
 }
 \arguments{
 \item{arg}{value of the asserted argument.}
@@ -35,6 +38,9 @@ testarg_length(arg, correct_length)
 \item{forbidden}{a vector containing forbidden values.}
 
 \item{correct_length}{numeric, the length the argument should have.}
+
+\item{sim_tbl}{a tibble containing the output of a comrad simulation, as
+produced by \code{\link[=run_simulation]{run_simulation()}} and read by \code{\link[=read_sim_tbl]{read_sim_tbl()}}.}
 }
 \description{
 \itemize{

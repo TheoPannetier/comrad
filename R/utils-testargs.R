@@ -96,3 +96,34 @@ testarg_length <- function(arg, correct_length) {
     stop("'", substitute(arg), "' must have length ", correct_length)
   }
 }
+
+#' @inheritParams default_params_doc
+#' @export
+#' @rdname testargs
+test_sim_tbl <- function(sim_tbl) {
+  if (!tibble::is_tibble(sim_tbl)){
+    stop("'", substitute(sim_tbl), "' should be a tibble.")
+  }
+  if (length(sim_tbl) != 3) {
+    stop("'", substitute(sim_tbl), "' should have 3 columns.")
+  }
+  if (any(names(sim_tbl) != c("t", "z", "runtime"))) {
+    stop(
+      "'", substitute(sim_tbl), "' columns should be 'z', 't', and 'runtime'."
+    )
+  }
+  if (any(!is.numeric(c(sim_tbl[[1]], sim_tbl[[2]], sim_tbl[[3]])))) {
+    stop("'", substitute(sim_tbl), "' columns should be numeric.")
+  }
+  if (any(sim_tbl[[1]] < 0)) {
+    stop(
+      "'", substitute(sim_tbl), "' 't' values should be positive."
+    )
+  }
+  if (any(sim_tbl[[3]] < 0)) {
+    stop(
+      "'", substitute(sim_tbl), "' 'runtime' values should be positive."
+    )
+  }
+}
+
