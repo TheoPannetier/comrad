@@ -5,6 +5,7 @@
 \title{Documentation for main parameters of the model}
 \usage{
 default_params_doc(
+  pop,
   trait_ind,
   traits_pop,
   comp_width,
@@ -21,6 +22,13 @@ default_params_doc(
 )
 }
 \arguments{
+\item{pop}{a tibble with one row per individual in the population and two
+columns:
+\itemize{
+\item \code{z} contains (numeric) traits values
+\item \code{species} contains the species names (characters)
+}}
+
 \item{trait_ind}{numeric. Trait value \eqn{z} of a focal individual.}
 
 \item{traits_pop}{numeric vector of variable length, the trait values of

@@ -3,6 +3,12 @@
 #' This function does nothing. It is intended to inherit is parameters'
 #' documentation.
 #'
+#' @param pop a tibble with one row per individual in the population and two
+#' columns:
+#'
+#'  * `z` contains (numeric) traits values
+#'  * `species` contains the species names (characters)
+#'
 #' @param trait_ind numeric. Trait value \eqn{z} of a focal individual.
 #' @param traits_pop numeric vector of variable length, the trait values of
 #' every individual in the population.
@@ -35,6 +41,7 @@
 #' @author Theo Pannetier, based on skeleton stolen from Richel J.C. Bilderbeek.
 
 default_params_doc <- function(
+  pop,
   trait_ind,
   traits_pop,
   comp_width,

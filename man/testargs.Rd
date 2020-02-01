@@ -9,7 +9,7 @@
 \alias{testarg_char}
 \alias{testarg_log}
 \alias{testarg_length}
-\alias{test_sim_tbl}
+\alias{test_comrad_pop}
 \title{Assert a function argument is of correct type}
 \usage{
 testarg_num(arg, allow_nan = FALSE, allow_na = FALSE)
@@ -26,7 +26,7 @@ testarg_log(arg)
 
 testarg_length(arg, correct_length)
 
-test_sim_tbl(sim_tbl)
+test_comrad_pop(pop)
 }
 \arguments{
 \item{arg}{value of the asserted argument.}
@@ -39,8 +39,12 @@ test_sim_tbl(sim_tbl)
 
 \item{correct_length}{numeric, the length the argument should have.}
 
-\item{sim_tbl}{a tibble containing the output of a comrad simulation, as
-produced by \code{\link[=run_simulation]{run_simulation()}} and read by \code{\link[=read_sim_tbl]{read_sim_tbl()}}.}
+\item{pop}{a tibble with one row per individual in the population and two
+columns:
+\itemize{
+\item \code{z} contains (numeric) traits values
+\item \code{species} contains the species names (characters)
+}}
 }
 \description{
 \itemize{
@@ -55,6 +59,8 @@ from one or several forbidden values.
 \item \code{testarg_log()} asserts that the argument is a logical.
 \item \code{testarg_length()} asserts that the argument has the correct
 length.
+\item \code{test_comrad_pop()} asserts the format of a population through
+the simulation is standard.
 }
 }
 \details{
