@@ -47,6 +47,7 @@ draw_next_gen <- function(
     "species" = rep(pop$species, nb_offspring_pop)
     # new pop inherits traits and species from parents
   )
+  testarg_length(new_pop$z, sum(nb_offspring_pop))
 
   # Catch extinction -----------------------------------------------------------
   if (length(new_pop$species) < 1) {

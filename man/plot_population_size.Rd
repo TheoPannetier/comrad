@@ -4,11 +4,11 @@
 \alias{plot_population_size}
 \title{Plot population size over generations}
 \usage{
-plot_population_size(sim_tbl)
+plot_population_size(comrad_tbl)
 }
 \arguments{
-\item{sim_tbl}{a tibble containing the output of a comrad simulation, as
-produced by \code{\link[=run_simulation]{run_simulation()}} and read by \code{\link[=read_sim_tbl]{read_sim_tbl()}}.}
+\item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
+as produced by \code{\link[=run_simulation]{run_simulation()}}.}
 }
 \description{
 Plots the number of individuals in the population over time.

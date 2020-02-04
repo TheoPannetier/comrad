@@ -4,11 +4,11 @@
 \alias{plot_generation_traits}
 \title{Plot trait distribution in a generation}
 \usage{
-plot_generation_traits(sim_tbl, generation, binwidth = 0.02)
+plot_generation_traits(comrad_tbl, generation, binwidth = 0.02)
 }
 \arguments{
-\item{sim_tbl}{a tibble containing the output of a comrad simulation, as
-produced by \code{\link[=run_simulation]{run_simulation()}} and read by \code{\link[=read_sim_tbl]{read_sim_tbl()}}.}
+\item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
+as produced by \code{\link[=run_simulation]{run_simulation()}}.}
 
 \item{generation}{numeric, the index of the generation to plot}
 

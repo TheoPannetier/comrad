@@ -94,7 +94,7 @@ run_simulation <- function(
       # Set up output table
       "\n### Simulation output ###",
       "\n",
-      "\nt,z,runtime\n",
+      "\nt,z,species,runtime\n",
       file = output_path
     )
   }
@@ -123,10 +123,11 @@ run_simulation <- function(
   # Go :)
   for (t in 1:nb_generations) {
 
-    cat("\nRunning generation", t, "/", nb_generations)
+    cat("Running generation", t, "/", nb_generations, "\n")
     gen_time <- proc.time()[3]
 
-    new_pop <- draw_next_gen(
+    # Replace pop with next generation
+    pop <- draw_next_gen(
       pop = pop,
       growth_rate = growth_rate,
       comp_width = comp_width,

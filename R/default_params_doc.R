@@ -36,7 +36,7 @@
 #' simulation.
 #' @param fitness_func, object. The function to use to compute fitness.
 #' @param sim_tbl a tibble containing the output of a comrad simulation, as
-#' produced by [run_simulation()] and read by [read_sim_tbl()].
+#' produced by [run_simulation()] and read by [read_comrad_tbl()].
 #'
 #' @author Theo Pannetier, based on skeleton stolen from Richel J.C. Bilderbeek.
 

@@ -10,20 +10,26 @@
 #' @author Théo Pannetier
 #' @export
 
-read_sim_tbl <- function(path_to_file, skip = 16) {
+read_comrad_tbl <- function(path_to_file, skip = 16) {
 
   testarg_char(path_to_file)
   if (!grepl(".csv", path_to_file)) {
     stop("'path_to_file' must be a .csv")
   }
 
-  sim_tbl <- readr::read_csv(
+  comrad_tbl <- readr::read_csv(
     path_to_file,
-    skip = skip # skip metadata
+    skip = skip, # skip metadata
+    col_types = readr::cols(
+      readr::col_number(),
+      readr::col_number(),
+      readr::col_character(),
+      readr::col_number()
     )
+  )
   # rm last row (total runtime)
-  sim_tbl <- sim_tbl[-length(sim_tbl[[1]]), ]
+  comrad_tbl <- comrad_tbl[-length(comrad_tbl[[1]]), ]
 
-  sim_tbl
+  comrad_tbl
 }
 

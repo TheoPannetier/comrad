@@ -5,15 +5,15 @@
 \title{Plot the evolution of trait values in the population over generations}
 \usage{
 plot_population_trait_evolution(
-  sim_tbl,
+  comrad_tbl,
   generation_range = c(0, Inf),
   xgrain = 10,
   ygrain = 0.01
 )
 }
 \arguments{
-\item{sim_tbl}{a tibble containing the output of a comrad simulation, as
-produced by \code{\link[=run_simulation]{run_simulation()}} and read by \code{\link[=read_sim_tbl]{read_sim_tbl()}}.}
+\item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
+as produced by \code{\link[=run_simulation]{run_simulation()}}.}
 
 \item{generation_range}{numeric vector with length 2, supplying the first and
 last generation to plot from the dataset. Defaults to every generation in the

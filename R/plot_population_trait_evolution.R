@@ -3,7 +3,8 @@
 #' Produces a hex-density plot of all trait values in the population over
 #' generations.
 #'
-#' @inheritParams default_params_doc
+#' @param comrad_tbl a tibble containing the output of a `comrad` simulation,
+#' as produced by [run_simulation()].
 #' @param generation_range numeric vector with length 2, supplying the first and
 #' last generation to plot from the dataset. Defaults to every generation in the
 #' table
@@ -13,11 +14,10 @@
 #' @author Théo Pannetier
 #' @export
 
-plot_population_trait_evolution <- function(sim_tbl,
+plot_population_trait_evolution <- function(comrad_tbl,
                                             generation_range = c(0, Inf),
                                             xgrain = 10,
                                             ygrain = 0.01) {
-  test_sim_tbl(sim_tbl)
   testarg_num(generation_range)
   testarg_pos(generation_range)
   testarg_length(generation_range, 2)
@@ -27,13 +27,13 @@ plot_population_trait_evolution <- function(sim_tbl,
   testarg_pos(ygrain)
 
   if (generation_range[2] == Inf) {
-    generation_range[2] <- max(sim_tbl$t)
+    generation_range[2] <- max(comrad_tbl$t)
   }
-  if (any(!(generation_range %in% sim_tbl$t))) {
-    stop("generation_range is out of the scope of generations in the sim_tbl.")
+  if (any(!(generation_range %in% comrad_tbl$t))) {
+    stop("generation_range is out of the scope of generations in the comrad_tbl.")
   }
 
-  trait_plot <- sim_tbl %>%
+  trait_plot <- comrad_tbl %>%
     dplyr::filter(
       dplyr::between(t, generation_range[1], generation_range[2])
     ) %>%
