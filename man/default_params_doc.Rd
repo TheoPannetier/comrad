@@ -68,7 +68,7 @@ simulation.}
 \item{fitness_func, }{object. The function to use to compute fitness.}
 
 \item{sim_tbl}{a tibble containing the output of a comrad simulation, as
-produced by \code{\link[=run_simulation]{run_simulation()}} and read by \code{\link[=read_sim_tbl]{read_sim_tbl()}}.}
+produced by \code{\link[=run_simulation]{run_simulation()}} and read by \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.}
 }
 \description{
 This function does nothing. It is intended to inherit is parameters'

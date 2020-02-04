@@ -3,6 +3,7 @@
 export("%>%")
 export(apply_mutations)
 export(apply_speciation)
+export(convert_to_newick)
 export(default_carr_cap_opt)
 export(default_carr_cap_width)
 export(default_comp_width)
