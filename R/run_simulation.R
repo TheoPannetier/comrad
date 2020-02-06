@@ -94,7 +94,7 @@ run_simulation <- function(
       # Set up output table
       "\n### Simulation output ###",
       "\n",
-      "\nt,z,species,runtime\n",
+      "\nt,z,species,ancestral_species,runtime\n",
       file = output_path
     )
   }
@@ -103,6 +103,7 @@ run_simulation <- function(
     "t" = 0,
     "z" = init_pop$z,
     "species" = init_pop$species,
+    "ancestral_species" = as.character(NA),
     "runtime" = 0
   )
 
@@ -158,6 +159,7 @@ run_simulation <- function(
       "t" = t,
       "z" = pop$z,
       "species" = pop$species,
+      "ancestral_species" = pop$ancestral_species,
       "runtime" = proc.time()[3] - gen_time
     )
 

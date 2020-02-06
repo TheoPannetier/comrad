@@ -107,12 +107,13 @@ test_comrad_pop <- function(pop) {
   if (!tibble::is_tibble(pop)){
     stop("'", substitute(pop), "' should be a tibble.")
   }
-  if (length(pop) != 2) {
-    stop("'", substitute(pop), "' should have 2 columns.")
+  if (length(pop) != 3) {
+    stop("'", substitute(pop), "' should have 3 columns.")
   }
-  if (any(names(pop) != c("z", "species"))) {
+  if (any(names(pop) != c("z", "species", "ancestral_species"))) {
     stop(
-      "'", substitute(pop), "' should have columns 'z' and 'species'."
+      "'", substitute(pop),
+      "' should have columns 'z', 'species' and 'ancestral_species'."
     )
   }
   if (!is.numeric(pop[[1]])) {
@@ -121,6 +122,11 @@ test_comrad_pop <- function(pop) {
   if (!is.character(pop[[2]])) {
     stop(
       "'", substitute(sim_tbl), "'column 'species' should be a character."
+    )
+  }
+  if (!is.character(pop[[3]])) {
+    stop(
+      "'", substitute(sim_tbl), "'column 'ancestral_species' should be a character."
     )
   }
 }

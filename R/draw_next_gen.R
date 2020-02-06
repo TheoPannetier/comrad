@@ -44,7 +44,8 @@ draw_next_gen <- function(
 
   new_pop <- tibble::tibble(
     "z" = rep(pop$z, nb_offspring_pop),
-    "species" = rep(pop$species, nb_offspring_pop)
+    "species" = rep(pop$species, nb_offspring_pop),
+    "ancestral_species" = rep(pop$ancestral_species, nb_offspring_pop)
     # new pop inherits traits and species from parents
   )
   testarg_length(new_pop$z, sum(nb_offspring_pop))

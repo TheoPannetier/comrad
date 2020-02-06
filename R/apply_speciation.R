@@ -35,25 +35,34 @@ apply_speciation <- function(pop) {
       find_trait_gaps()
 
     if (length(gaps) > 0) {
-    gap <- gaps[1] # only the first gap is treated (soft polytomy)
-    # Split species in two -----------------------------------------------------
+      gap <- gaps[1] # only the first gap is treated (soft polytomy)
+      # Split species in two -----------------------------------------------------
 
       # Flip a coin to determine which side of the gap becomes the new species
       coin_flip <- stats::rbinom(n = 1, size = 1, prob = 0.5)
 
       # for (i in seq_along(gaps)) {
-        new_sp <- paste0("Haggis_", charlatan::ch_taxonomic_epithet())
-        sp_labels <- sp_members %>% dplyr::select(species) %>% unlist()
+      new_sp <- paste0("H_", charlatan::ch_taxonomic_epithet())
+      sp_labels <- sp_members %>%
+        dplyr::select(species) %>%
+        unlist()
+      anc_labels <- sp_members %>%
+        dplyr::select(ancestral_species) %>%
+        unlist()
+      if (coin_flip == 1) {
+        sp_labels[1:gap] <- new_sp
+        anc_labels[1:gap] <- sp
 
-        if (coin_flip == 1) {
-          sp_labels[1:gap] <- new_sp
-        } else {
-          sp_labels[(gap + 1):length(sp_labels)] <- new_sp
-        }
+      } else {
+        sp_labels[(gap + 1):length(sp_labels)] <- new_sp
+        anc_labels[(gap + 1):length(anc_labels)] <- sp
+
+      }
       # }
       # Test format & update population ---------------------------------
       testarg_char(sp_labels)
       testarg_length(sp_labels, length(sp_members$species))
+      pop$ancestral_species[where] <- anc_labels
       pop$species[where] <- sp_labels
     }
   }

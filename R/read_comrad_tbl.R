@@ -24,6 +24,7 @@ read_comrad_tbl <- function(path_to_file, skip = 16) {
       readr::col_number(),
       readr::col_number(),
       readr::col_character(),
+      readr::col_character(),
       readr::col_number()
     )
   )
