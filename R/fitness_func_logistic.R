@@ -1,4 +1,4 @@
-fitness_func_positive_logistic <- function(growth_rate,
+fitness_func_logistic <- function(growth_rate,
                                            n_eff,
                                            carr_cap) {
   # Compute fitness with positive logistic function

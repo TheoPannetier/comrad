@@ -51,7 +51,7 @@ test_that("fitness_functions", {
   expect_equal(
     get_fitness(
       0,
-      fitness_func = fitness_func_positive_logistic
+      fitness_func = fitness_func_logistic
     ),
     0.999
   )
@@ -59,7 +59,7 @@ test_that("fitness_functions", {
   expect_equal(
     get_fitness(
       rep(0, 500),
-      fitness_func = fitness_func_positive_logistic
+      fitness_func = fitness_func_logistic
     ),
     rep(default_growth_rate() / 2, 500)
   )
@@ -67,7 +67,7 @@ test_that("fitness_functions", {
   expect_equal(
     get_fitness(
       rep(0, 1000),
-      fitness_func = fitness_func_positive_logistic
+      fitness_func = fitness_func_logistic
     ),
     rep(0, 1000)
   )
@@ -75,7 +75,7 @@ test_that("fitness_functions", {
   expect_equal(
     get_fitness(
       rep(0, 10000),
-      fitness_func = fitness_func_positive_logistic
+      fitness_func = fitness_func_logistic
     ),
     rep(0, 10000)
   )
