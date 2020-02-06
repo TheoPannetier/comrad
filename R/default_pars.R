@@ -52,7 +52,11 @@ default_mutation_sd <- function() {
 #' @export
 #' @rdname default_pars
 default_init_pop <- function() {
-  rep(0, 10) # ten individuals with optimal trait value (0)
+  tibble::tibble(
+    "z" = rep(0, 10), # ten individuals with optimal trait value (0)
+    "species" = "H_scoticus",
+    "ancestral_species" = as.character(NA)
+    )
 }
 
 #' @export

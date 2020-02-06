@@ -5,6 +5,7 @@
 \title{Documentation for main parameters of the model}
 \usage{
 default_params_doc(
+  pop,
   trait_ind,
   traits_pop,
   comp_width,
@@ -16,10 +17,18 @@ default_params_doc(
   mutation_sd,
   fitness,
   nb_generations,
-  fitness_func
+  fitness_func,
+  sim_tbl
 )
 }
 \arguments{
+\item{pop}{a tibble with one row per individual in the population and two
+columns:
+\itemize{
+\item \code{z} contains (numeric) traits values
+\item \code{species} contains the species names (characters)
+}}
+
 \item{trait_ind}{numeric. Trait value \eqn{z} of a focal individual.}
 
 \item{traits_pop}{numeric vector of variable length, the trait values of
@@ -57,6 +66,9 @@ each individual as computed by \code{\link{get_fitness}}}
 simulation.}
 
 \item{fitness_func, }{object. The function to use to compute fitness.}
+
+\item{sim_tbl}{a tibble containing the output of a comrad simulation, as
+produced by \code{\link[=run_simulation]{run_simulation()}} and read by \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.}
 }
 \description{
 This function does nothing. It is intended to inherit is parameters'

@@ -4,15 +4,14 @@
 \alias{plot_population_size}
 \title{Plot population size over generations}
 \usage{
-plot_population_size(path_to_file)
+plot_population_size(comrad_tbl)
 }
 \arguments{
-\item{path_to_file}{character, path to a \code{.csv} file as produced by
-\code{\link[=run_simulation]{run_simulation()}}}
+\item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
+as produced by \code{\link[=run_simulation]{run_simulation()}}.}
 }
 \description{
-Reads a simulation data table and plots the number of individuals in the
-population over time
+Plots the number of individuals in the population over time.
 }
 \author{
 Théo Pannetier

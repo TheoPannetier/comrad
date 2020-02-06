@@ -4,19 +4,18 @@
 \alias{plot_generation_traits}
 \title{Plot trait distribution in a generation}
 \usage{
-plot_generation_traits(path_to_file, generation, binwidth = 0.02)
+plot_generation_traits(comrad_tbl, generation, binwidth = 0.02)
 }
 \arguments{
-\item{path_to_file}{character, path to a \code{.csv} file as produced by
-\code{\link[=run_simulation]{run_simulation()}}}
+\item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
+as produced by \code{\link[=run_simulation]{run_simulation()}}.}
 
 \item{generation}{numeric, the index of the generation to plot}
 
 \item{binwidth}{numeric, the width used for binning.}
 }
 \description{
-Reads a simulation data table and plots a histogram of the distribution of
-trait values in a single generation.
+Plots a histogram of the distribution of trait values in a single generation.
 }
 \author{
 Théo Pannetier

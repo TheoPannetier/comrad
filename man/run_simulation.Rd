@@ -5,9 +5,9 @@
 \title{Run the simulation}
 \usage{
 run_simulation(
-  init_pop,
-  output_path,
-  nb_generations,
+  init_pop = default_init_pop(),
+  output_path = NULL,
+  nb_generations = 20,
   sampling_frequency = set_sampling_frequency(nb_generations),
   seed = default_seed(),
   growth_rate = default_growth_rate(),
@@ -22,9 +22,11 @@ run_simulation(
 )
 }
 \arguments{
-\item{init_pop}{numeric vector, the trait values of the initial individuals.}
+\item{init_pop}{a tibble containing the initial population.}
 
-\item{output_path}{character, path to save the output file.}
+\item{output_path}{character, path to save the output file. If \code{NULL}, the
+output is not saved and the population is returned at the end of the
+simulation.}
 
 \item{nb_generations}{integer, the number of generations to run during the
 simulation.}
@@ -64,7 +66,7 @@ distrbution in which the mutations are drawn.}
 
 \item{plot_every}{if a numeric is supplied the simulation
 will plot its current state every \code{plot_every}. If \code{null} no plot is
-produced.}
+produced. Silently set to \code{NULL} if not run from Rstudio.}
 }
 \description{
 Run the competitive radiation simulation.

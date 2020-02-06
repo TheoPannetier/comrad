@@ -12,6 +12,8 @@
 #'  \item \code{testarg_log()} asserts that the argument is a logical.
 #'  \item \code{testarg_length()} asserts that the argument has the correct
 #'  length.
+#'  \item \code{test_comrad_pop()} asserts the format of a population through
+#'  the simulation is standard.
 #' }
 #'
 #' @param arg value of the asserted argument.
@@ -79,6 +81,7 @@ testarg_char <- function(arg) {
     stop("'", substitute(arg), "' is empty")
   }
 }
+
 #' @export
 #' @rdname testargs
 testarg_log <- function(arg) {
@@ -96,3 +99,35 @@ testarg_length <- function(arg, correct_length) {
     stop("'", substitute(arg), "' must have length ", correct_length)
   }
 }
+
+#' @inheritParams default_params_doc
+#' @export
+#' @rdname testargs
+test_comrad_pop <- function(pop) {
+  if (!tibble::is_tibble(pop)){
+    stop("'", substitute(pop), "' should be a tibble.")
+  }
+  if (length(pop) != 3) {
+    stop("'", substitute(pop), "' should have 3 columns.")
+  }
+  if (any(names(pop) != c("z", "species", "ancestral_species"))) {
+    stop(
+      "'", substitute(pop),
+      "' should have columns 'z', 'species' and 'ancestral_species'."
+    )
+  }
+  if (!is.numeric(pop[[1]])) {
+    stop("'", substitute(pop), "' column 'z' should be numeric.")
+  }
+  if (!is.character(pop[[2]])) {
+    stop(
+      "'", substitute(sim_tbl), "'column 'species' should be a character."
+    )
+  }
+  if (!is.character(pop[[3]])) {
+    stop(
+      "'", substitute(sim_tbl), "'column 'ancestral_species' should be a character."
+    )
+  }
+}
+

@@ -5,18 +5,18 @@
 \title{Plot the evolution of trait values in the population over generations}
 \usage{
 plot_population_trait_evolution(
-  path_to_file,
+  comrad_tbl,
   generation_range = c(0, Inf),
   xgrain = 10,
   ygrain = 0.01
 )
 }
 \arguments{
-\item{path_to_file}{character, path to a \code{.csv} file as produced by
-\code{\link[=run_simulation]{run_simulation()}}}
+\item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
+as produced by \code{\link[=run_simulation]{run_simulation()}}.}
 
 \item{generation_range}{numeric vector with length 2, supplying the first and
-last generation to plot from the dataset. Defaults to very generation in the
+last generation to plot from the dataset. Defaults to every generation in the
 table}
 
 \item{xgrain}{numeric, the width of  hexes on the x-axis (generations)}
@@ -24,8 +24,8 @@ table}
 \item{ygrain}{numeric, the width of  hexes on the y-axis (trait)}
 }
 \description{
-Reads a simulation data table and produces a hex-density plot of all trait
-values in the population over generations.
+Produces a hex-density plot of all trait values in the population over
+generations.
 }
 \author{
 Théo Pannetier

@@ -3,6 +3,12 @@
 #' This function does nothing. It is intended to inherit is parameters'
 #' documentation.
 #'
+#' @param pop a tibble with one row per individual in the population and two
+#' columns:
+#'
+#'  * `z` contains (numeric) traits values
+#'  * `species` contains the species names (characters)
+#'
 #' @param trait_ind numeric. Trait value \eqn{z} of a focal individual.
 #' @param traits_pop numeric vector of variable length, the trait values of
 #' every individual in the population.
@@ -29,11 +35,13 @@
 #' @param nb_generations integer, the number of generations to run during the
 #' simulation.
 #' @param fitness_func, object. The function to use to compute fitness.
-
+#' @param sim_tbl a tibble containing the output of a comrad simulation, as
+#' produced by [run_simulation()] and read by [read_comrad_tbl()].
 #'
 #' @author Theo Pannetier, based on skeleton stolen from Richel J.C. Bilderbeek.
 
 default_params_doc <- function(
+  pop,
   trait_ind,
   traits_pop,
   comp_width,
@@ -45,7 +53,8 @@ default_params_doc <- function(
   mutation_sd,
   fitness,
   nb_generations,
-  fitness_func
+  fitness_func,
+  sim_tbl
 ) {
   # Nuffin
 }
