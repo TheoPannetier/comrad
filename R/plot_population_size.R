@@ -9,6 +9,9 @@
 #' @export
 
 plot_population_size <- function(comrad_tbl) {
+  # Stupid but necessary for the build
+  n <- NULL
+  t <- NULL
 
   growth_plot <- comrad_tbl %>%
     dplyr::group_by(t) %>%

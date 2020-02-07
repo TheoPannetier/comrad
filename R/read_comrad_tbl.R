@@ -33,4 +33,3 @@ read_comrad_tbl <- function(path_to_file, skip = 16) {
 
   comrad_tbl
 }
-

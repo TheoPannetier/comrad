@@ -18,6 +18,11 @@
 #' @export
 
 apply_speciation <- function(pop) {
+  # Stupid but necessary for the build
+  z <- NULL
+  species <- NULL
+  ancestral_species <- NULL
+
   test_comrad_pop(pop)
 
   pop <- pop %>% dplyr::arrange(z)
@@ -36,7 +41,7 @@ apply_speciation <- function(pop) {
 
     if (length(gaps) > 0) {
       gap <- gaps[1] # only the first gap is treated (soft polytomy)
-      # Split species in two -----------------------------------------------------
+      # Split species in two ---------------------------------------------------
 
       # Flip a coin to determine which side of the gap becomes the new species
       coin_flip <- stats::rbinom(n = 1, size = 1, prob = 0.5)

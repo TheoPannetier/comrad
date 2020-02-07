@@ -15,7 +15,7 @@
 #' @export
 
 
-plot_population_trait_evolution <- function(comrad_tbl,
+plot_pop_trait_evolution <- function(comrad_tbl,
                                             generation_range = c(0, Inf),
                                             xgrain = 10,
                                             ygrain = 0.01) {
@@ -27,11 +27,17 @@ plot_population_trait_evolution <- function(comrad_tbl,
   testarg_num(ygrain)
   testarg_pos(ygrain)
 
+  # Stupid but necessary for the build
+  z <- NULL
+  t <- NULL
+
   if (generation_range[2] == Inf) {
     generation_range[2] <- max(comrad_tbl$t)
   }
   if (any(!(generation_range %in% comrad_tbl$t))) {
-    stop("generation_range is out of the scope of generations in the comrad_tbl.")
+    stop(
+      "generation_range is out of the scope of generations in the comrad_tbl."
+      )
   }
 
 

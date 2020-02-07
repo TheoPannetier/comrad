@@ -18,6 +18,10 @@ plot_generation_traits <- function(comrad_tbl,
   testarg_num(binwidth)
   testarg_pos(binwidth)
 
+  # Stupid but necessary for the build
+  z <- NULL
+  ..x.. <- NULL
+
   if (!generation %in% comrad_tbl$t) {
     stop(paste("Generation", generation, "wasn't sampled."))
   }

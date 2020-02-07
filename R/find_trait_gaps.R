@@ -14,7 +14,9 @@ find_trait_gaps <- function(traits) {
     stop("'traits' must be sorted by ascending order before checking for gaps.")
   }
 
-  trait_dist <- traits %>% diff() %>% abs() %>%
+  trait_dist <- traits %>%
+    diff() %>%
+    abs() %>%
     round(digits = 2) # 1st circle of hell: trusting floating points in R
 
   gaps <- which(trait_dist >= 0.1)

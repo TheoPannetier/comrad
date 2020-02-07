@@ -53,7 +53,8 @@ get_n_eff_shortcut <- function(traits_pop, comp_width = default_comp_width()) {
       comp_coeffs[ind_matches] %>%
         sum() + 1 # ind competes against itself!
     }
-  ) %>% unlist()
+  ) %>%
+    unlist()
 
   # Test output ----------------------------------------------------------------
   testarg_num(n_eff)
@@ -67,4 +68,3 @@ get_n_eff_shortcut <- function(traits_pop, comp_width = default_comp_width()) {
   }
   n_eff
 }
-

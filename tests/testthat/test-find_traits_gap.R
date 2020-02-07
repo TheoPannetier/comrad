@@ -23,7 +23,8 @@ test_that("abuse", {
 
   expect_error(
     object =  find_trait_gaps(5:1),
-    regexp = "'traits' must be sorted by ascending order before checking for gaps."
+    regexp =
+      "'traits' must be sorted by ascending order before checking for gaps."
   )
   expect_error(
     object =  find_trait_gaps(NA),

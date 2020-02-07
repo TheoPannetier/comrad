@@ -41,7 +41,7 @@ test_that("use", {
   )
   # Extremity split
   expect_true(
-    length(which(pop_ext_split_after$species == ancestral_species)) %in% c(1,9)
+    length(which(pop_ext_split_after$species == ancestral_species)) %in% c(1, 9)
   )
 
   # Multiple splits
@@ -76,7 +76,7 @@ abnormal_pops[[2]] <- tibble::tibble(
   "species" = character(0),
   "ancestral_species" = character(0)
   ) # empty table
-abnormal_pops[[3]][,3] <- NULL # missing column
+abnormal_pops[[3]][, 3] <- NULL # missing column
 abnormal_pops[[4]]$z <- as.character(abnormal_pops[[4]]$z) # wrong type
 abnormal_pops[[5]]$species <- as.factor(abnormal_pops[[5]]$species) # wrong type
 abnormal_pops[[6]]$z[1] <- NA # NA in numeric

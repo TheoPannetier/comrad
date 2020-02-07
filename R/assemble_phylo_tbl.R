@@ -1,4 +1,7 @@
 assemble_phylo_tbl <- function(comrad_tbl) {
+  # Stupid but necessary for the build
+  species <- NULL
+  ancestral_species <- NULL
 
   phylo_tbl <- tibble::tibble(
     "species_name" = character(),

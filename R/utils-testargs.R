@@ -104,7 +104,7 @@ testarg_length <- function(arg, correct_length) {
 #' @export
 #' @rdname testargs
 test_comrad_pop <- function(pop) {
-  if (!tibble::is_tibble(pop)){
+  if (!tibble::is_tibble(pop)) {
     stop("'", substitute(pop), "' should be a tibble.")
   }
   if (length(pop) != 3) {
@@ -113,7 +113,7 @@ test_comrad_pop <- function(pop) {
   if (length(pop[[1]]) == 0) {
     stop("'", substitute(pop), "' is empty.")
   }
-  if ( length(names(pop)) != 3 ||
+  if (length(names(pop)) != 3 ||
     any(names(pop) != c("z", "species", "ancestral_species"))) {
     stop(
       "'", substitute(pop),
@@ -129,12 +129,11 @@ test_comrad_pop <- function(pop) {
     )
   }
   if (any(is.na(pop[[2]]))) {
-    stop( "'", substitute(pop), "' column 'species' contains one or more NAs.")
+    stop("'", substitute(pop), "' column 'species' contains one or more NAs.")
   }
   if (!is.character(pop[[3]])) {
     stop(
-      "'", substitute(pop), "' column 'ancestral_species' should be a character."
+      "'", substitute(pop), "' column 'ancestral_species' is not a character."
     )
   }
 }
-

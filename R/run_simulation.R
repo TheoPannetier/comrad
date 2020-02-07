@@ -175,7 +175,7 @@ run_simulation <- function(
     fossil_record <- rbind(fossil_record, fossil_entry)
 
     if (!is.null(plot_every) && (t %% plot_every == 0)) {
-      # plot_population_trait_evolution(output)
+      # nolint # plot_pop_trait_evolution(output)
     }
   }
 
