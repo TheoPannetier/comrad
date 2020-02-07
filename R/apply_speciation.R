@@ -42,7 +42,7 @@ apply_speciation <- function(pop) {
       coin_flip <- stats::rbinom(n = 1, size = 1, prob = 0.5)
 
       # for (i in seq_along(gaps)) {
-      new_sp <- paste0("H_", charlatan::ch_taxonomic_epithet())
+      new_sp <- draw_species_name()
       sp_labels <- sp_members %>%
         dplyr::select(species) %>%
         unlist()
@@ -52,7 +52,6 @@ apply_speciation <- function(pop) {
       if (coin_flip == 1) {
         sp_labels[1:gap] <- new_sp
         anc_labels[1:gap] <- sp
-
       } else {
         sp_labels[(gap + 1):length(sp_labels)] <- new_sp
         anc_labels[(gap + 1):length(anc_labels)] <- sp
@@ -66,5 +65,6 @@ apply_speciation <- function(pop) {
       pop$species[where] <- sp_labels
     }
   }
+  test_comrad_pop(pop)
   return(pop)
 }

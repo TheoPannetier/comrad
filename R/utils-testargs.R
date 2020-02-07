@@ -110,7 +110,11 @@ test_comrad_pop <- function(pop) {
   if (length(pop) != 3) {
     stop("'", substitute(pop), "' should have 3 columns.")
   }
-  if (any(names(pop) != c("z", "species", "ancestral_species"))) {
+  if (length(pop[[1]]) == 0) {
+    stop("'", substitute(pop), "' is empty.")
+  }
+  if ( length(names(pop)) != 3 ||
+    any(names(pop) != c("z", "species", "ancestral_species"))) {
     stop(
       "'", substitute(pop),
       "' should have columns 'z', 'species' and 'ancestral_species'."
@@ -121,12 +125,15 @@ test_comrad_pop <- function(pop) {
   }
   if (!is.character(pop[[2]])) {
     stop(
-      "'", substitute(sim_tbl), "'column 'species' should be a character."
+      "'", substitute(pop), "' column 'species' should be a character."
     )
+  }
+  if (any(is.na(pop[[2]]))) {
+    stop( "'", substitute(pop), "' column 'species' contains one or more NAs.")
   }
   if (!is.character(pop[[3]])) {
     stop(
-      "'", substitute(sim_tbl), "'column 'ancestral_species' should be a character."
+      "'", substitute(pop), "' column 'ancestral_species' should be a character."
     )
   }
 }
