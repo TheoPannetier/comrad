@@ -81,7 +81,7 @@ abnormal_pops[[4]]$z <- as.character(abnormal_pops[[4]]$z) # wrong type
 abnormal_pops[[5]]$species <- as.factor(abnormal_pops[[5]]$species) # wrong type
 abnormal_pops[[6]]$z[1] <- NA # NA in numeric
 abnormal_pops[[7]]$z[1] <- NaN # boy do I hate those NaNs
-abnormal_pops[[8]]$z[1:6] <- NaN # let's test twice, that's how much I hate them
+abnormal_pops[[8]]$ancestral_species <- 1:10
 colnames(abnormal_pops[[9]]) <- rep("", 3) # no names, rude.
 abnormal_pops[[10]]$species[1] <- NA # NA in character
 
@@ -113,7 +113,7 @@ test_that("abuse", {
   )
   expect_error(
     abnormal_pops[[8]] %>% apply_speciation(),
-    "'traits' contains one or more NaNs"
+    "'pop' column 'ancestral_species' is not a character."
   )
   expect_error(
     abnormal_pops[[9]] %>% apply_speciation(),

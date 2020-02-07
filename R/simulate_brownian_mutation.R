@@ -13,6 +13,10 @@
 simulate_brownian_mutation <- function(pop_size = 1000,
                                   nb_gen = 1000,
                                   mutation_sd = default_mutation_sd()) {
+  testarg_int(pop_size)
+  testarg_int(nb_gen)
+  testarg_num(mutation_sd)
+
   # Initial pop
   pop_traits <- rep(0, pop_size)
   pop_tbl <- dplyr::tibble(
