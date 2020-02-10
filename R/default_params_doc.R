@@ -34,7 +34,7 @@
 #' each individual as computed by \code{\link{get_fitness}}
 #' @param nb_generations integer, the number of generations to run during the
 #' simulation.
-#' @param fitness_func, object. The function to use to compute fitness.
+#' @param fitness_func, a function to use to compute fitness.
 #' @param sim_tbl a tibble containing the output of a comrad simulation, as
 #' produced by [run_simulation()] and read by [read_comrad_tbl()].
 #'

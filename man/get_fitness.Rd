@@ -42,7 +42,7 @@ and \code{trait_opt} increases.
 of the population for an individual. Either \code{\link[=get_n_eff]{get_n_eff()}} or
 \code{\link[=get_n_eff_shortcut]{get_n_eff_shortcut()}}.}
 
-\item{fitness_func}{object. The function to use to compute fitness.}
+\item{fitness_func}{a function to use to compute fitness.}
 }
 \description{
 Computes the fitness of an individual or population based on its trait value

@@ -17,7 +17,6 @@ run_simulation(
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  fitness_func = fitness_func_ricker,
   plot_every = NULL
 )
 }
@@ -61,8 +60,6 @@ individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
 distrbution in which the mutations are drawn.}
-
-\item{fitness_func}{object. The function to use to compute fitness.}
 
 \item{plot_every}{if a numeric is supplied the simulation
 will plot its current state every \code{plot_every}. If \code{null} no plot is

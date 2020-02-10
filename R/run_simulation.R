@@ -41,7 +41,6 @@ run_simulation <- function(
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  fitness_func = fitness_func_ricker,
   plot_every = NULL
 ) {
   test_comrad_pop(init_pop)
@@ -137,8 +136,7 @@ run_simulation <- function(
       carr_cap_opt = carr_cap_opt,
       carr_cap_width = carr_cap_width,
       prob_mutation = prob_mutation,
-      mutation_sd = mutation_sd,
-      fitness_func = fitness_func
+      mutation_sd = mutation_sd
     )
 
     if (length(pop$species) < 1) {

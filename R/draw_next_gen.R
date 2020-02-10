@@ -6,9 +6,8 @@ draw_next_gen <- function(
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
-  mutation_sd = default_mutation_sd(),
-  fitness_func = fitness_func_ricker
-  ) {
+  mutation_sd = default_mutation_sd()
+) {
 
   # Test argument type ---------------------------------------------------------
   test_comrad_pop(pop)
@@ -33,8 +32,7 @@ draw_next_gen <- function(
     comp_width = comp_width,
     trait_opt = trait_opt,
     carr_cap_opt = carr_cap_opt,
-    carr_cap_width = carr_cap_width,
-    fitness_func = fitness_func
+    carr_cap_width = carr_cap_width
   )
   testarg_not_this(fitness_pop, Inf)
 
