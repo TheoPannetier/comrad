@@ -10,6 +10,7 @@
 get_n_eff <- function(traits_pop, comp_width = default_comp_width()) {
   # Test arguments -------------------------------------------------------------
   testarg_num(traits_pop)
+  testarg_not_this(traits_pop, c(Inf, -Inf))
   testarg_num(comp_width)
   testarg_pos(comp_width) # is a variance
 
@@ -17,11 +18,12 @@ get_n_eff <- function(traits_pop, comp_width = default_comp_width()) {
   n_eff <- sapply(
     X = traits_pop,
     FUN = function(trait_ind) {
-      get_comp_coeff_pop(
+      comp_coeff_pop <- get_comp_coeff_pop(
         trait_ind = trait_ind,
         traits_pop = traits_pop, # ind competes against whole pop, incl. itself
         comp_width = comp_width
-      ) %>% sum()
+      ) # includes competition of the individual against itself
+      sum(comp_coeff_pop)
     }
   )
 

@@ -12,22 +12,11 @@
 #' @export
 #' @author Théo Pannetier
 
-get_comp_coeff_pair <- function(
-  trait_ind_one,
-  trait_ind_two,
-  comp_width = default_comp_width()) {
+get_comp_coeff_pair <- function(trait_ind_one,
+                                trait_ind_two,
+                                comp_width = default_comp_width()) {
 
-  testarg_num(trait_ind_one)
-  testarg_num(trait_ind_two)
-  testarg_num(comp_width)
-  testarg_pos(comp_width) # is a variance
-
-  if (trait_ind_one %in% c(Inf, -Inf) && trait_ind_one == trait_ind_two) {
-    trait_dist <- 0
-  } else {
-    trait_dist <- (trait_ind_one - trait_ind_two) ^ 2
-  }
-
+  trait_dist <- (trait_ind_one - trait_ind_two) ^ 2
   comp_coeff <- exp(- (trait_dist / (2 * comp_width ^ 2)))
 
   # Solve possible NaN issues --------------------------------------------------
@@ -37,9 +26,6 @@ get_comp_coeff_pair <- function(
   } else if (comp_width == Inf && trait_dist == Inf) {
     comp_coeff <- 0 # I rule that comp_width has precedence
   }
-
-  testarg_num(comp_coeff)
-  testarg_prop(comp_coeff)
 
   comp_coeff
 }
