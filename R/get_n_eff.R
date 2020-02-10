@@ -17,7 +17,7 @@ get_n_eff <- function(traits_pop, comp_width = default_comp_width()) {
   n_eff <- sapply(
     X = traits_pop,
     FUN = function(trait_ind) {
-      get_comp_coeffs(
+      get_comp_coeff_pop(
         trait_ind = trait_ind,
         traits_pop = traits_pop, # ind competes against whole pop, incl. itself
         comp_width = comp_width

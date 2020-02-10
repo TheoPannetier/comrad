@@ -1,4 +1,5 @@
-#' Get the competition coefficient between two individuals
+#' Get the competition coefficients between an individual and the rest of the
+#' population
 #'
 #' Returns the competition coefficients \eqn{\alpha(zi, z_j)} between a focal
 #' individual \eqn{i}, and each individual \eqn{j} in the population, including
@@ -11,10 +12,11 @@
 #'
 #' @return a numeric vector containing the competitive effect caused by each
 #' individual in the population on the focal individual.
+#'
 #' @author Theo Pannetier
 #' @export
 
-get_comp_coeffs <- function(
+get_comp_coeff_pop <- function(
   trait_ind,
   traits_pop,
   comp_width = default_comp_width()) {

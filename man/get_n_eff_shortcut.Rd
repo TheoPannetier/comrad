@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_n_eff_shortcut.R
 \name{get_n_eff_shortcut}
 \alias{get_n_eff_shortcut}
-\title{Computes the effective population size, but faster}
+\title{Computes the effective population size with less computations}
 \usage{
 get_n_eff_shortcut(traits_pop, comp_width = default_comp_width())
 }
@@ -14,14 +14,14 @@ every individual in the population.}
 the intensity of competition given a distance between two trait values.}
 }
 \description{
-This function does the same job as \code{\link[=get_n_eff]{get_n_eff()}}, but faster, at the cost
-of less straightforward code.
+This function is intended to do the same job as \code{\link[=get_n_eff]{get_n_eff()}}, but with less
+computations.
 }
 \details{
 For each individual, \code{\link[=get_n_eff]{get_n_eff()}} computes the sum of its
-interactions (\code{\link[=get_comp_coeffs]{get_comp_coeffs()}}) with every other individual in the
+interactions (\code{\link[=get_comp_coeff_pair]{get_comp_coeff_pair()}}) with every other individual in the
 population. Because these interactions are symmetric
-(i.e. \code{get_comp_coeff(x, y) == get_comp_coeff(y, x)}), \code{\link[=get_n_eff]{get_n_eff()}} does
+(i.e. \code{comp_coeff(x, y) == comp_coeff(y, x)}), \code{\link[=get_n_eff]{get_n_eff()}} does
 more calculations than is actually necessary. \code{get_n_eff_shortcut()} here is
 its lazy twin, that computes the competition coefficient once for each unique
 pair of individuals.

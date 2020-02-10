@@ -11,6 +11,7 @@ get_fitness(
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
+  n_eff_func = get_n_eff,
   fitness_func = fitness_func_ricker
 )
 }
@@ -36,6 +37,10 @@ capacity (see also \code{\link{get_fitness}}).}
 how fast the carrying capacity decays as the distance between a \code{trait}
 and \code{trait_opt} increases.
 \eqn{\sigma^{2}_{K}}}
+
+\item{n_eff_func}{the function to use to compute \code{n_eff}, the effective size
+of the population for an individual. Either \code{\link[=get_n_eff]{get_n_eff()}} or
+\code{\link[=get_n_eff_shortcut]{get_n_eff_shortcut()}}.}
 
 \item{fitness_func}{object. The function to use to compute fitness.}
 }
