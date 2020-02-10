@@ -1,9 +1,7 @@
 context("test-get_fitness")
 
 test_that("use", {
-  expect_equal(get_fitness(c(Inf, -Inf), carr_cap_opt = 0), c(0, 0))
   expect_equal(get_fitness(rep(0.5, 5), carr_cap_opt = 0), rep(0, 5))
-  expect_equal(get_fitness(c(Inf, -Inf), carr_cap_opt = Inf), rep(exp(1), 2))
   expect_equal(get_fitness(rep(0.5, 5), carr_cap_opt = Inf), rep(exp(1), 5))
   expect_equal(
     get_fitness(rep(0.5, 5), carr_cap_opt = 0, growth_rate = 0), rep(1, 5)
@@ -11,6 +9,16 @@ test_that("use", {
 })
 
 test_that("abuse", {
+  expect_error(
+    object = get_fitness(Inf),
+    regexp = "'traits_pop' contains forbidden values: Inf",
+  )
+
+  expect_error(
+    object = get_fitness(-Inf),
+    regexp = "'traits_pop' contains forbidden values: -Inf",
+  )
+
   expect_error(
     object = get_fitness("doom"),
     regexp = "'traits_pop' must be numeric",

@@ -6,9 +6,6 @@
 #' generation, as sampled in a Poisson distribution.
 #'
 #' @inheritParams default_params_doc
-#' @param n_eff_func the function to use to compute `n_eff`, the effective size
-#' of the population for an individual. Either [get_n_eff()] or
-#' [get_n_eff_shortcut()].
 #'
 #' @details The equation is a per-capita version of the Ricker model:
 #' \deqn{G(z_i) = exp(r(1 - N_{eff} / K(z_i, z_opt)))}
@@ -26,7 +23,6 @@ get_fitness <- function(
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
-  n_eff_func = get_n_eff,
   fitness_func = fitness_func_ricker
 ) {
 
@@ -43,7 +39,7 @@ get_fitness <- function(
   testarg_pos(carr_cap_width)
 
   # Compute effective population sizes -----------------------------------------
-  n_eff <- n_eff_func(
+  n_eff <- get_n_eff(
     traits_pop = traits_pop,
     comp_width = comp_width
   ) # get the n_eff values experienced by each individual in the population
