@@ -10,9 +10,6 @@
 #' population is saved in the output.
 #' @param seed numeric \code{> 0}, the integer seed to set for the random number
 #' generator.
-#' @param plot_every if a numeric is supplied the simulation
-#' will plot its current state every `plot_every`. If `null` no plot is
-#' produced. Silently set to `NULL` if not run from Rstudio.
 #' @inheritParams default_params_doc
 #'
 #' @details Output is registered in a .csv file with the following structure:
@@ -40,8 +37,7 @@ run_simulation <- function(
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
-  mutation_sd = default_mutation_sd(),
-  plot_every = NULL
+  mutation_sd = default_mutation_sd()
 ) {
   test_comrad_pop(init_pop)
   if (!is.null(output_path) && !is.character(output_path)) {
@@ -68,12 +64,6 @@ run_simulation <- function(
   testarg_num(mutation_sd)
   testarg_pos(mutation_sd)
 
-  if (Sys.getenv("RSTUDIO") != "1") {
-    plot_every <- NULL
-  }
-  if (!is.null(plot_every) && !is.numeric(plot_every)) {
-    stop("plot_every must be null or numeric.")
-  }
   # Send metadata to output
   if (!is.null(output_path)) {
     cat(
@@ -171,10 +161,6 @@ run_simulation <- function(
     }
 
     fossil_record <- rbind(fossil_record, fossil_entry)
-
-    if (!is.null(plot_every) && (t %% plot_every == 0)) {
-      # nolint # plot_pop_trait_evolution(output)
-    }
   }
 
   cat(

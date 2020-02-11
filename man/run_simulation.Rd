@@ -16,8 +16,7 @@ run_simulation(
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
-  mutation_sd = default_mutation_sd(),
-  plot_every = NULL
+  mutation_sd = default_mutation_sd()
 )
 }
 \arguments{
@@ -60,10 +59,6 @@ individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
 distrbution in which the mutations are drawn.}
-
-\item{plot_every}{if a numeric is supplied the simulation
-will plot its current state every \code{plot_every}. If \code{null} no plot is
-produced. Silently set to \code{NULL} if not run from Rstudio.}
 }
 \description{
 Run the competitive radiation simulation.
