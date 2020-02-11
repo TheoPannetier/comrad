@@ -51,8 +51,12 @@ test_that("abuse", {
 
 })
 
+is_on_ci <- (Sys.getenv("TRAVIS") != "" || Sys.getenv("APPVEYOR") != "")
+
 test_that("fitness_functions", {
-  skip("skippy is a bush kangaroo")
+  if (is_on_ci) {
+    skip("Only test fitness functions on CI")
+  }
   ##  Positive logistic function
   # Case 1. N/K close to 0
   expect_equal(
