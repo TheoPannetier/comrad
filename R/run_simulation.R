@@ -43,13 +43,14 @@ run_simulation <- function(
   if (!is.null(output_path) && !is.character(output_path)) {
     stop("'output_path' must be either null or a character.")
   }
+  testarg_num(nb_generations)
+  testarg_pos(nb_generations)
+  testarg_not_this(nb_generations, c(0, Inf))
+  testarg_int(nb_generations)
   testarg_num(sampling_frequency)
   testarg_int(sampling_frequency)
   testarg_num(seed)
   testarg_int(seed)
-  testarg_num(nb_generations)
-  testarg_int(nb_generations)
-  testarg_not_this(nb_generations, c(0, Inf))
   testarg_num(growth_rate)
   testarg_pos(growth_rate)
   testarg_num(comp_width)
@@ -114,7 +115,7 @@ run_simulation <- function(
   # Go :)
   for (t in 1:nb_generations) {
 
-    cat("Running generation", t, "/", nb_generations, "\n")
+    cat("\nRunning generation", t, "/", nb_generations)
     gen_time <- proc.time()[3]
 
     # Replace pop with next generation
@@ -164,7 +165,7 @@ run_simulation <- function(
   }
 
   cat(
-    "\n", "\n Total runtime:", proc.time()[3] - start_time,
+    "\nTotal runtime:", proc.time()[3] - start_time, "\n",
     file = ifelse(is.null(output_path), "", output_path),
     append = TRUE
   )
