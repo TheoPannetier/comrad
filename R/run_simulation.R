@@ -159,18 +159,8 @@ run_simulation <- function(
     )
 
     if (length(pop$species) < 1) {
-      if (!is.null(output_path)) {
-        cat(
-          "\nPopulation has gone extinct at generation", t, "\n",
-          file = output_path,
-          append = TRUE
-        )
-        cat("\nPopulation has gone extinct at generation", t, "\n")
-        return(0) # still a normal conclusion of the simulation
-      } else {
-        cat("\nPopulation has gone extinct at generation", t, "\n")
-        return(fossil_record)
-      }
+      cat("\nPopulation has gone extinct at generation", t, "\n")
+      return(fossil_record)
     }
 
     fossil_entry <- tibble::tibble(
@@ -192,14 +182,11 @@ run_simulation <- function(
     fossil_record <- rbind(fossil_record, fossil_entry)
   }
 
-  cat(
-    "\nTotal runtime:", proc.time()[3] - start_time, "\n",
-    file = ifelse(is.null(output_path), "", output_path),
-    append = TRUE
-  )
+  cat("\nTotal runtime:", proc.time()[3] - start_time, "\n")
+
   if (is.null(output_path)) {
     return(fossil_record)
   } else {
-    return(0)
+    return()
   }
 }

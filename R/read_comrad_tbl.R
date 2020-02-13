@@ -28,8 +28,5 @@ read_comrad_tbl <- function(path_to_file, skip = 17) {
       readr::col_number()
     )
   )
-  # rm last row (total runtime)
-  comrad_tbl <- comrad_tbl[-length(comrad_tbl[[1]]), ]
-
   comrad_tbl
 }
