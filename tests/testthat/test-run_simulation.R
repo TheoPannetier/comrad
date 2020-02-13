@@ -4,7 +4,9 @@ test_that("diverging_population", {
   # Population starts with split values, expect speciation in the next step
   diverging_pop <- default_init_pop()
   diverging_pop$z[6:10] <- 0.1
-  output <- run_simulation(init_pop = diverging_pop, nb_generations = 1)
+  output <- run_simulation(
+    init_pop = diverging_pop, nb_generations = 1, output_path = NULL
+  )
   species <- output %>%
     dplyr::filter(t == 1) %>%
     dplyr::select(species) %>%
@@ -20,7 +22,7 @@ test_that("diverging_population", {
 test_that("output_format", {
   nb_generations <- 5
   gen_seq <- seq(0, nb_generations, by = set_sampling_frequency(nb_generations))
-  output <- run_simulation(nb_generations = nb_generations)
+  output <- run_simulation(nb_generations = nb_generations, output_path = NULL)
 
   expect_equal(length(output), 5)
   # Main population columns
@@ -37,14 +39,15 @@ test_that("output_format", {
 test_that("extinction", {
   expect_output(
     # TPK
-    output <- run_simulation(carr_cap_opt = 0, nb_generations = 1),
+    output <- run_simulation(
+      carr_cap_opt = 0, nb_generations = 1, output_path = NULL),
     "\\nRunning generation 1 / 1\\nPopulation has gone extinct at generation 1 "
   )
 })
 
 test_that("parameter_abuse", {
   expect_error(
-    run_simulation(init_pop = rep(0, 10)),
+    run_simulation(init_pop = rep(0, 10), output_path = NULL),
     "'init_pop' should be a tibble."
   )
   expect_error(
@@ -52,31 +55,31 @@ test_that("parameter_abuse", {
     "'output_path' must be either null or a character."
   )
   expect_error(
-    run_simulation(nb_generations = 12.3),
+    run_simulation(nb_generations = 12.3, output_path = NULL),
     "'nb_generations' must be an integer"
   )
   expect_error(
-    run_simulation(sampling_frequency = 12.3),
+    run_simulation(sampling_frequency = 12.3, output_path = NULL),
     "'sampling_frequency' must be an integer"
   )
   expect_error(
-    run_simulation(seed = 1.4),
+    run_simulation(seed = 1.4, output_path = NULL),
     "'seed' must be an integer"
   )
   expect_error(
-    run_simulation(nb_generations = 1.4),
+    run_simulation(nb_generations = 1.4, output_path = NULL),
     "'nb_generations' must be an integer"
   )
   expect_error(
-    run_simulation(nb_generations = 0),
+    run_simulation(nb_generations = 0, output_path = NULL),
     "'nb_generations' contains forbidden values: 0"
   )
   expect_error(
-    run_simulation(nb_generations = Inf),
+    run_simulation(nb_generations = Inf, output_path = NULL),
     "'nb_generations' contains forbidden values: Inf"
   )
   expect_error(
-    run_simulation(prob_mutation = 15),
+    run_simulation(prob_mutation = 15, output_path = NULL),
     "'prob_mutation' must be a numeric between 0 and 1"
   )
 

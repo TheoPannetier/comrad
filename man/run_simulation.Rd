@@ -5,8 +5,8 @@
 \title{Run the simulation}
 \usage{
 run_simulation(
+  output_path,
   init_pop = default_init_pop(),
-  output_path = NULL,
   nb_generations = 20,
   sampling_frequency = set_sampling_frequency(nb_generations),
   seed = default_seed(),
@@ -16,18 +16,19 @@ run_simulation(
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
-  mutation_sd = default_mutation_sd()
+  mutation_sd = default_mutation_sd(),
+  hpc_job_id = "local"
 )
 }
 \arguments{
-\item{init_pop}{a tibble containing the initial population.}
-
 \item{output_path}{character, path to save the output file. If \code{NULL}, the
 output is not saved and the population is returned at the end of the
-simulation.}
+simulation}
 
-\item{nb_generations}{integer, the number of generations to run during the
-simulation.}
+\item{init_pop}{a tibble containing the initial population.}
+
+\item{nb_generations}{integer, the number of generations to run the
+simulation for.}
 
 \item{sampling_frequency}{numeric \code{> 0}, the frequency at which the
 population is saved in the output.}
@@ -59,6 +60,9 @@ individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
 distrbution in which the mutations are drawn.}
+
+\item{hpc_job_id}{only relevant if run on a HPC, otherwise takes value
+\code{"local"}. If supplied, the job ID will be included in the metadata.}
 }
 \description{
 Run the competitive radiation simulation.

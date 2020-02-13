@@ -2,15 +2,19 @@
 #'
 #' Run the competitive radiation simulation.
 #'
-#' @param init_pop a tibble containing the initial population.
 #' @param output_path character, path to save the output file. If `NULL`, the
 #' output is not saved and the population is returned at the end of the
-#' simulation.
+#' simulation
+#' @param init_pop a tibble containing the initial population.
+#' @param nb_generations integer, the number of generations to run the
+#' simulation for.
 #' @param sampling_frequency numeric \code{> 0}, the frequency at which the
 #' population is saved in the output.
 #' @param seed numeric \code{> 0}, the integer seed to set for the random number
 #' generator.
 #' @inheritParams default_params_doc
+#' @param hpc_job_id only relevant if run on a HPC, otherwise takes value
+#' `"local"`. If supplied, the job ID will be included in the metadata.
 #'
 #' @details Output is registered in a .csv file with the following structure:
 #' | t | z | runtime |
@@ -26,8 +30,8 @@
 #' @export
 #'
 run_simulation <- function(
+  output_path,
   init_pop = default_init_pop(),
-  output_path = NULL,
   nb_generations = 20,
   sampling_frequency = set_sampling_frequency(nb_generations),
   seed = default_seed(),
@@ -37,7 +41,8 @@ run_simulation <- function(
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
-  mutation_sd = default_mutation_sd()
+  mutation_sd = default_mutation_sd(),
+  hpc_job_id = "local"
 ) {
   test_comrad_pop(init_pop)
   if (!is.null(output_path) && !is.character(output_path)) {
@@ -65,23 +70,39 @@ run_simulation <- function(
   testarg_num(mutation_sd)
   testarg_pos(mutation_sd)
 
+  is_on_cluster <- rappdirs::app_dir()$os == "unix" # sorry linux users
+
+  if (is_on_cluster) {
+    testarg_num(hpc_job_id)
+    testarg_int(hpc_job_id)
+  } else {
+    hpc_job_id <- "local" # brute force
+  }
+
   # Send metadata to output
+  metadata_string <- paste(
+    "### Metadata ###",
+    "\ngrowth_rate =", growth_rate,
+    "\ncomp_width =", comp_width,
+    "\ntrait_opt =", trait_opt,
+    "\ncarr_cap_opt =", carr_cap_opt,
+    "\ncarr_cap_width =", carr_cap_width,
+    "\nprob_mutation =", prob_mutation,
+    "\nmutation_sd =", mutation_sd,
+    "\n",
+    "\nseed =", seed,
+    "\nHPC job ID =", hpc_job_id,
+    "\nsimulated under comrad", as.character(utils::packageVersion("comrad")),
+    "\n",
+    "\nRunning for", nb_generations, "generations",
+    "\n"
+  )
+  if (is_on_cluster) {
+    cat(metadata_string)
+  }
   if (!is.null(output_path)) {
     cat(
-      "### Metadata ###",
-      "\ngrowth_rate =", growth_rate,
-      "\ncomp_width =", comp_width,
-      "\ntrait_opt =", trait_opt,
-      "\ncarr_cap_opt =", carr_cap_opt,
-      "\ncarr_cap_width =", carr_cap_width,
-      "\nprob_mutation =", prob_mutation,
-      "\nmutation_sd =", mutation_sd,
-      "\n",
-      "\nseed =", seed,
-      "\nsimulated under comrad", as.character(utils::packageVersion("comrad")),
-      "\n",
-      "\nRunning for", nb_generations, "generations",
-      "\n",
+      metadata_string,
       # Set up output table
       "\n### Simulation output ###",
       "\n",
@@ -89,6 +110,7 @@ run_simulation <- function(
       file = output_path
     )
   }
+
   # Set up data output table proper
   fossil_record <- tibble::tibble(
     "t" = 0,
@@ -115,7 +137,10 @@ run_simulation <- function(
   # Go :)
   for (t in 1:nb_generations) {
 
-    cat("\nRunning generation", t, "/", nb_generations)
+    if (t %% sampling_frequency == 0) {
+      cat("\nRunning generation", t, "/", nb_generations)
+    }
+
     gen_time <- proc.time()[3]
 
     # Replace pop with next generation

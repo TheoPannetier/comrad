@@ -10,7 +10,7 @@
 #' @author Théo Pannetier
 #' @export
 
-read_comrad_tbl <- function(path_to_file, skip = 16) {
+read_comrad_tbl <- function(path_to_file, skip = 17) {
 
   testarg_char(path_to_file)
   if (!grepl(".csv", path_to_file)) {
