@@ -70,11 +70,13 @@ run_simulation <- function(
   testarg_num(mutation_sd)
   testarg_pos(mutation_sd)
 
-  is_on_cluster <- rappdirs::app_dir()$os == "unix" # sorry linux users
+  is_on_unix <- rappdirs::app_dir()$os == "unix" # for the cluster
 
-  if (is_on_cluster) {
-    testarg_num(hpc_job_id)
-    testarg_int(hpc_job_id)
+  if (is_on_unix) {
+    if (hpc_job_id != "local") {
+      testarg_num(hpc_job_id)
+      testarg_int(hpc_job_id)
+    }
   } else {
     hpc_job_id <- "local" # brute force
   }
@@ -97,9 +99,10 @@ run_simulation <- function(
     "\nRunning for", nb_generations, "generations",
     "\n"
   )
-  if (is_on_cluster) {
+  if (is_on_unix) {
     cat(metadata_string)
   }
+
   if (!is.null(output_path)) {
     cat(
       metadata_string,
