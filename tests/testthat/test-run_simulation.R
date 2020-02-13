@@ -83,5 +83,16 @@ test_that("parameter_abuse", {
     "'prob_mutation' must be a numeric between 0 and 1"
   )
 
+})
+
+test_that("unix_tests", {
+  if (Sys.getenv("TRAVIS") != "") {
+    expect_error(
+      run_simulation(output_path = NULL, hpc_job_id = 0.999),
+      "'hpc_job_id' must be an integer"
+    )
+  } else {
+    testthat::skip("Run only on Unix")
+  }
 
 })
