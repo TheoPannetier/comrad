@@ -22,8 +22,8 @@ run_simulation(
 }
 \arguments{
 \item{output_path}{character, path to save the output file. If \code{NULL}, the
-output is not saved and the population is returned at the end of the
-simulation}
+output is not saved and the final generation population is returned at the
+end of the simulation.}
 
 \item{init_pop}{a tibble containing the initial population.}
 
