@@ -54,7 +54,7 @@ test_that("abuse", {
 is_on_ci <- (Sys.getenv("TRAVIS") != "" || Sys.getenv("APPVEYOR") != "")
 
 test_that("fitness_functions", {
-  if (is_on_ci) {
+  if (!is_on_ci) {
     skip("Only test fitness functions on CI")
   }
   ##  Positive logistic function
