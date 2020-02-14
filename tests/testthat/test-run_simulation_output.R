@@ -28,5 +28,22 @@ test_that("standard_output_file", {
       ggplot2::is.ggplot()
   )
 
+  # Test phylogeny
+  # not a legit phylogeny (1 tip) but the beam though
+  phylo_tbl <- comrad_tbl %>% comrad::assemble_phylo_tbl()
+  expect_equal(
+    phylo_tbl,
+    tibble::tibble(
+      "species_name" = "Haggis_scoticus",
+      "ancestor_name" = as.character(NA),
+      "time_birth" = 0,
+      "time_death" = 5
+    )
+  )
+  expect_equal(
+    phylo_tbl %>% comrad::convert_to_newick(),
+    "Haggis_scoticus:5;"
+  )
+
   unlink(temp_output_path)
 })
