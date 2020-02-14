@@ -54,7 +54,7 @@ default_mutation_sd <- function() {
 default_init_pop <- function() {
   tibble::tibble(
     "z" = rep(0, 10), # ten individuals with optimal trait value (0)
-    "species" = "Haggis_scoticus",
+    "species" = "#89ae8a",
     "ancestral_species" = as.character(NA)
     )
 }

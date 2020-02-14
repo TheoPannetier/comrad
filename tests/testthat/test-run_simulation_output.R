@@ -54,7 +54,7 @@ test_that("standard_output_file", {
   expect_equal(
     phylo_tbl,
     tibble::tibble(
-      "species_name" = "Haggis_scoticus",
+      "species_name" = "#89ae8a",
       "ancestor_name" = as.character(NA),
       "time_birth" = 0,
       "time_death" = 5
@@ -62,7 +62,7 @@ test_that("standard_output_file", {
   )
   expect_equal(
     phylo_tbl %>% comrad::convert_to_newick(),
-    "Haggis_scoticus:5;"
+    "#89ae8a:5;"
   )
   unlink(temp_output_path)
 })
