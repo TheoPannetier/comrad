@@ -13,7 +13,12 @@
 read_comrad_tbl <- function(path_to_file, skip = 17) {
 
   testarg_char(path_to_file)
-  if (!grepl(".csv", path_to_file)) {
+  path_to_file_extension <- substr(
+    path_to_file,
+    nchar(path_to_file) - 3,
+    nchar(path_to_file)
+  )
+  if (!path_to_file_extension == ".csv") {
     stop("'path_to_file' must be a .csv")
   }
 

@@ -11,17 +11,29 @@ test_that("standard_output_file", {
       dplyr::select("z", "species", "ancestral_species") %>%
       comrad::test_comrad_pop()
   )
+  expect_error(
+    read_comrad_tbl("notacsv"),
+    "'path_to_file' must be a .csv"
+  )
 
   # Plots
   expect_true(
     plot_pop_trait_evolution(comrad_tbl) %>%
       ggplot2::is.ggplot()
   )
+  expect_error(
+    plot_pop_trait_evolution(comrad_tbl, generation_range = c(0,10)),
+    "generation_range is out of the scope of generations in the comrad_tbl."
+  )
   expect_true(
     plot_generation_traits(
       comrad_tbl, generation = 1
     ) %>%
       ggplot2::is.ggplot()
+  )
+  expect_error(
+    plot_generation_traits(comrad_tbl, generation = 100),
+    "Generation 100 wasn't sampled."
   )
   expect_true(
     plot_population_size(comrad_tbl) %>%
@@ -30,7 +42,7 @@ test_that("standard_output_file", {
 
   # Test phylogeny
   # not a legit phylogeny (1 tip) but the beam though
-  phylo_tbl <- comrad_tbl %>% comrad::assemble_phylo_tbl()
+  phylo_tbl <- comrad_tbl %>% comrad:::assemble_phylo_tbl()
   expect_equal(
     phylo_tbl,
     tibble::tibble(
