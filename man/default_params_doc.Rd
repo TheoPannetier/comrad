@@ -18,7 +18,7 @@ default_params_doc(
   fitness,
   nb_generations,
   fitness_func,
-  sim_tbl
+  comrad_tbl
 )
 }
 \arguments{
@@ -67,8 +67,8 @@ simulation.}
 
 \item{fitness_func, }{a function to use to compute fitness.}
 
-\item{sim_tbl}{a tibble containing the output of a comrad simulation, as
-produced by \code{\link[=run_simulation]{run_simulation()}} and read by \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.}
+\item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
+as produced by \code{\link[=run_simulation]{run_simulation()}}.}
 }
 \description{
 This function does nothing. It is intended to inherit is parameters'

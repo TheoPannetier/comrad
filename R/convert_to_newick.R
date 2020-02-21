@@ -27,7 +27,7 @@ convert_to_newick <- function(phylo_tbl) {
     if (length(parent_row) > 1) {
       stop(
         "A string in the 'ancestor_name' column was matched by multiple rows."
-        )
+      )
     }
     string_parent <- paste0(
       newick_tbl$species_name[parent_row], ":",
