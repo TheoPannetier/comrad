@@ -47,7 +47,7 @@ apply_speciation <- function(pop) {
       coin_flip <- stats::rbinom(n = 1, size = 1, prob = 0.5)
 
       # for (i in seq_along(gaps)) {
-      new_sp <- draw_species_name()
+      new_sp <- charlatan::ch_hex_color()
       sp_labels <- sp_members %>%
         dplyr::select(species) %>%
         unlist()

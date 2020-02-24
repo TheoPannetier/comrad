@@ -3,8 +3,8 @@
 #' Run the competitive radiation simulation.
 #'
 #' @param output_path character, path to save the output file. If `NULL`, the
-#' output is not saved and the population is returned at the end of the
-#' simulation
+#' output is not saved and the final generation population is returned at the
+#' end of the simulation.
 #' @param init_pop a tibble containing the initial population.
 #' @param nb_generations integer, the number of generations to run the
 #' simulation for.
@@ -115,7 +115,7 @@ run_simulation <- function(
   }
 
   # Set up data output table proper
-  fossil_record <- tibble::tibble(
+  output_entry <- tibble::tibble(
     "t" = 0,
     "z" = init_pop$z,
     "species" = init_pop$species,
@@ -125,7 +125,7 @@ run_simulation <- function(
 
   if (!is.null(output_path)) {
     readr::write_csv(
-      fossil_record,
+      output_entry,
       path = output_path,
       append = TRUE
     )
@@ -160,10 +160,14 @@ run_simulation <- function(
 
     if (length(pop$species) < 1) {
       cat("\nPopulation has gone extinct at generation", t, "\n")
-      return(fossil_record)
+      if (is.null(output_path)) {
+        return(output_entry)
+      } else {
+        return()
+      }
     }
 
-    fossil_entry <- tibble::tibble(
+    output_entry <- tibble::tibble(
       "t" = t,
       "z" = pop$z,
       "species" = pop$species,
@@ -173,19 +177,17 @@ run_simulation <- function(
 
     if (!is.null(output_path) && t %% sampling_frequency == 0) {
       readr::write_csv(
-        fossil_entry,
+        output_entry,
         path = output_path,
         append = TRUE
       )
     }
-
-    fossil_record <- rbind(fossil_record, fossil_entry)
   }
 
   cat("\nTotal runtime:", proc.time()[3] - start_time, "\n")
 
   if (is.null(output_path)) {
-    return(fossil_record)
+    return(output_entry)
   } else {
     return()
   }

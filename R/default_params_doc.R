@@ -35,8 +35,8 @@
 #' @param nb_generations integer, the number of generations to run during the
 #' simulation.
 #' @param fitness_func, a function to use to compute fitness.
-#' @param sim_tbl a tibble containing the output of a comrad simulation, as
-#' produced by [run_simulation()] and read by [read_comrad_tbl()].
+#' @param comrad_tbl a tibble containing the output of a `comrad` simulation,
+#' as produced by [run_simulation()].
 #'
 #' @author Theo Pannetier, based on skeleton stolen from Richel J.C. Bilderbeek.
 
@@ -54,7 +54,7 @@ default_params_doc <- function(
   fitness,
   nb_generations,
   fitness_func,
-  sim_tbl
+  comrad_tbl
 ) {
   # Nuffin
 }

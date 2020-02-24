@@ -21,7 +21,6 @@ test_that("diverging_population", {
 
 test_that("output_format", {
   nb_generations <- 5
-  gen_seq <- seq(0, nb_generations, by = set_sampling_frequency(nb_generations))
   output <- run_simulation(nb_generations = nb_generations, output_path = NULL)
 
   expect_equal(length(output), 5)
@@ -32,8 +31,8 @@ test_that("output_format", {
   # Format of columns missed by test_comrad_pop()
   expect_true(any(output$t >= 0))
   expect_true(any(output$runtime >= 0))
-  # Assert all expected generations have been sampled
-  expect_equal(unique(output$t), gen_seq)
+  # Assert output corresponds to last generation
+  expect_equal(unique(output$t), nb_generations)
 })
 
 test_that("extinction", {
