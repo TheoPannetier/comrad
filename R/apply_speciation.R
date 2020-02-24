@@ -1,7 +1,7 @@
 #' Resolve speciation in a comrad community
 #'
-#' For each species, check for gaps `>=` 0.1 in trait values, and if found,
-#' members on a random side of the gap become a new species.
+#' For each species, check if there is any gap of `>=` 0.1 in trait values, and
+#' split the relevant species in two when one is found.
 #'
 #' @inheritParams default_params_doc
 #'

@@ -1,7 +1,7 @@
 #' Draw a new community from the current one
 #'
-#' Based on the current community traits, compute the fitness, draw
-#' offspring, apply mutations and speciation events were relevant.
+#' From the trait values of the current community, compute the fitness, draw
+#' offspring, apply mutations and resolve speciation events.
 #'
 #' @inheritParams default_params_doc
 #'

@@ -4,6 +4,14 @@
 #' individual.
 #'
 #' @inheritParams default_params_doc
+#'
+#' @details `n_eff` sums the competitive effects an individual receives from
+#' every individual in the community, including the individual itself. It is
+#' called effective population size because it is the size of the population
+#' that is relevant for competition.
+#' Varies from 1 (no competitor in the vicinity) to N (every individual has the
+#' same trait value).
+#'
 #' @export
 #' @author Theo Pannetier
 

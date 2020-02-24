@@ -1,14 +1,15 @@
 #' Get the competition coefficients between an individual and the rest of the
 #' community
 #'
-#' Returns the competition coefficients \eqn{\alpha(z(i), z(j)}{\alpha(z_i, z_j}
-#' between a focal individual \eqn{i}, and each individual \eqn{j} in the
-#' community, including the focal individual itself.
+#' Returns the competition coefficients experienced by a focal individual from
+#' each individual in the community, including the focal individual on itself.
 #'
 #' @inheritParams default_params_doc
 #'
 #' @return a numeric vector containing the competitive effect caused by each
-#' individual in the community on the focal individual.
+#' individual in the community on the focal individual. Each effect varies
+#' between 0 (no effect at all) and 1 (the two individuals have the same trait
+#' value).
 #'
 #' @author Theo Pannetier
 #' @export

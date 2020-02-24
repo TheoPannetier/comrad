@@ -5,8 +5,10 @@
 #' the starting and saturation fitness differ (see Details).
 #'
 #' @inheritParams default_params_doc
-#' @param n_eff effective population size experienced by an individual.
-#' @param carr_cap the carrying capacity experienced by an individual.
+#' @param n_eff Effective population size experienced by an individual, see
+#' [get_n_eff()]
+#' @param carr_cap The carrying capacity experienced by an individual, see
+#' [get_carr_cap()].
 #'
 #' @details
 #' The table below reports the fitness values associated with hallmark levels

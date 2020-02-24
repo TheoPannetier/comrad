@@ -1,9 +1,9 @@
 #' Find gaps in trait values
 #'
 #' Runs through an ordered vector of trait values, returns the positions of gaps
-#' between consecutive values.
+#' `>= 0.1` between consecutive values.
 #'
-#' @param traits a numeric vector, **ordered** by ascending values.
+#' @param traits a numeric vector, trait values **in ascending order**.
 #'
 #' @author Théo Pannetier
 #' @export

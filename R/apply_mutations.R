@@ -2,7 +2,7 @@
 #'
 #' The trait value of each individual in the input community is modified, with
 #' probability `prob_mutation`, by a mutation sampled in a normal distribution
-#' of mean `0` and variance `mutation_sd`.
+#' of mean `0` and standard deviation `mutation_sd`.
 #'
 #' @inheritParams default_params_doc
 #'
