@@ -1,6 +1,6 @@
-#' Plot the evolution of trait values in the population over generations
+#' Plot the evolution of trait values in the community over generations
 #'
-#' Produces a hex-density plot of all trait values in the population over
+#' Produces a hex-density plot of all trait values in the community over
 #' generations.
 #'
 #' @param comrad_tbl a tibble containing the output of a `comrad` simulation,
@@ -15,7 +15,7 @@
 #' @export
 
 
-plot_pop_trait_evolution <- function(comrad_tbl,
+plot_comm_trait_evolution <- function(comrad_tbl,
                                             generation_range = c(0, Inf),
                                             xgrain = 10,
                                             ygrain = 0.01) {

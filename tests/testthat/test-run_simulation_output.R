@@ -9,7 +9,7 @@ test_that("standard_output_file", {
   expect_silent(
     comrad_tbl %>%
       dplyr::select("z", "species", "ancestral_species") %>%
-      comrad::test_comrad_pop()
+      comrad::test_comrad_comm()
   )
   expect_error(
     read_comrad_tbl(1313),
@@ -26,11 +26,11 @@ test_that("standard_output_file", {
 
   # Plots
   expect_true(
-    plot_pop_trait_evolution(comrad_tbl) %>%
+    plot_comm_trait_evolution(comrad_tbl) %>%
       ggplot2::is.ggplot()
   )
   expect_error(
-    plot_pop_trait_evolution(comrad_tbl, generation_range = c(0, 10)),
+    plot_comm_trait_evolution(comrad_tbl, generation_range = c(0, 10)),
     "generation_range is out of the scope of generations in the comrad_tbl."
   )
   expect_true(
@@ -44,7 +44,7 @@ test_that("standard_output_file", {
     "Generation 100 wasn't sampled."
   )
   expect_true(
-    plot_population_size(comrad_tbl) %>%
+    plot_comm_size(comrad_tbl) %>%
       ggplot2::is.ggplot()
   )
 

@@ -8,7 +8,7 @@ assemble_phylo_tbl(comrad_tbl)
 }
 \arguments{
 \item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
-as produced by \code{\link[=run_simulation]{run_simulation()}}.}
+as produced by \code{\link[=run_simulation]{run_simulation()}} or read by \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.}
 }
 \value{
 a tibble with four columns and a row per species in the simulation

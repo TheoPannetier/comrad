@@ -2,26 +2,26 @@
 % Please edit documentation in R/apply_mutations.R
 \name{apply_mutations}
 \alias{apply_mutations}
-\title{Apply random mutations to a population}
+\title{Apply random mutations to a community}
 \usage{
 apply_mutations(
-  traits_pop,
+  traits_comm,
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd()
 )
 }
 \arguments{
-\item{traits_pop}{numeric vector of variable length, the trait values of
-every individual in the population.}
+\item{traits_comm}{numeric vector of variable length, the trait values of
+every individual in the community.}
 
 \item{prob_mutation}{numeric between 0 and 1, the probability that any new
 individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
-distrbution in which the mutations are drawn.}
+distrbution from which mutations are drawn.}
 }
 \description{
-The trait value of each individual in the input population is modified, with
+The trait value of each individual in the input community is modified, with
 probability \code{prob_mutation}, by a mutation sampled in a normal distribution
 of mean \code{0} and variance \code{mutation_sd}.
 }

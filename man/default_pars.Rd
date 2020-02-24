@@ -9,7 +9,7 @@
 \alias{default_growth_rate}
 \alias{default_prob_mutation}
 \alias{default_mutation_sd}
-\alias{default_init_pop}
+\alias{default_init_comm}
 \alias{default_seed}
 \title{Default parameter values}
 \usage{
@@ -27,7 +27,7 @@ default_prob_mutation()
 
 default_mutation_sd()
 
-default_init_pop()
+default_init_comm()
 
 default_seed()
 }

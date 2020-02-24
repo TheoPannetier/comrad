@@ -8,7 +8,7 @@ convert_sim_to_phylo(comrad_tbl, with_extinct = TRUE)
 }
 \arguments{
 \item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
-as produced by \code{\link[=run_simulation]{run_simulation()}}.}
+as produced by \code{\link[=run_simulation]{run_simulation()}} or read by \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.}
 
 \item{with_extinct}{logical, should extinct taxa be included? \code{TRUE} returns
 the full tree, \code{FALSE} returns the reconstructed tree.}

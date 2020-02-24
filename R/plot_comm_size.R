@@ -1,6 +1,6 @@
-#' Plot population size over generations
+#' Plot community size over generations
 #'
-#' Plots the number of individuals in the population over time.
+#' Plots the number of individuals in the community over time.
 #'
 #' @param comrad_tbl a tibble containing the output of a `comrad` simulation,
 #' as produced by [run_simulation()].
@@ -8,7 +8,7 @@
 #' @author Théo Pannetier
 #' @export
 
-plot_population_size <- function(comrad_tbl) {
+plot_comm_size <- function(comrad_tbl) {
   # Stupid but necessary for the build
   n <- NULL
   t <- NULL

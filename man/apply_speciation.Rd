@@ -2,16 +2,17 @@
 % Please edit documentation in R/apply_speciation.R
 \name{apply_speciation}
 \alias{apply_speciation}
-\title{Resolve speciation in a comrad population}
+\title{Resolve speciation in a comrad community}
 \usage{
-apply_speciation(pop)
+apply_speciation(comm)
 }
 \arguments{
-\item{pop}{a tibble with one row per individual in the population and two
+\item{comm}{a tibble with one row per individual in the community and three
 columns:
 \itemize{
 \item \code{z} contains (numeric) traits values
-\item \code{species} contains the species names (characters)
+\item \code{species} contains species names (characters)
+\item \code{ancestral_species} contains acnestral species names (characters)
 }}
 }
 \description{

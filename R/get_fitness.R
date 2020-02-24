@@ -1,23 +1,16 @@
-#' Get the fitness of an individual
+#' Compute fitness values
 #'
-#' Computes the fitness of an individual or population based on its trait value
-#' and the trait values of other individuals in the population. The fitness here
-#' corresponds to the average number of offspring an individual can get in a
-#' generation, as sampled in a Poisson distribution.
+#' Fitness values are computed for each individual from their trait value,
+#' the fitness landscape defined by the carrying capacity parameters, and the
+#' trait values of all other individuals in the community.
 #'
 #' @inheritParams default_params_doc
-#'
-#' @details The equation is a per-capita version of the Ricker model:
-#' \deqn{G(z_i) = exp(r(1 - N_{eff} / K(z_i, z_opt)))}
-#' where \eqn{N_{eff}} is the effective population size, i.e. sum of competitive
-#' effects experienced by the focal individual for a given trait value:
-#' \deqn{N_{eff} = sum_j(\alpha(z_i, z_j))}
 #'
 #' @author Theo Pannetier
 #' @export
 
 get_fitness <- function(
-  traits_pop,
+  traits_comm,
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),
   trait_opt = default_trait_opt(),
@@ -27,7 +20,7 @@ get_fitness <- function(
 ) {
 
   # Test argument type ---------------------------------------------------------
-  comrad::testarg_num(traits_pop)
+  comrad::testarg_num(traits_comm)
   comrad::testarg_num(growth_rate)
   comrad::testarg_pos(growth_rate)
   comrad::testarg_num(comp_width)
@@ -40,13 +33,13 @@ get_fitness <- function(
 
   # Compute effective population sizes -----------------------------------------
   n_eff <- comrad::get_n_eff(
-    traits_pop = traits_pop,
+    traits_comm = traits_comm,
     comp_width = comp_width
-  ) # get the n_eff values experienced by each individual in the population
+  ) # get the n_eff values experienced by each individual in the community
 
   # Compute k the carrying capacity --------------------------------------------
   carr_cap <- comrad::get_carr_cap(
-    trait_ind = traits_pop,
+    trait_ind = traits_comm,
     trait_opt = trait_opt,
     carr_cap_opt = carr_cap_opt,
     carr_cap_width = carr_cap_width
@@ -59,7 +52,7 @@ get_fitness <- function(
     carr_cap = carr_cap
   )
   comrad::testarg_num(fitness)
-  comrad::testarg_length(fitness, length(traits_pop))
+  comrad::testarg_length(fitness, length(traits_comm))
 
   fitness
 }

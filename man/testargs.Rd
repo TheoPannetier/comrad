@@ -10,7 +10,7 @@
 \alias{testarg_char}
 \alias{testarg_log}
 \alias{testarg_length}
-\alias{test_comrad_pop}
+\alias{test_comrad_comm}
 \title{Assert a function argument is of correct type}
 \usage{
 testarg_num(arg, allow_nan = FALSE, allow_na = FALSE)
@@ -29,7 +29,7 @@ testarg_log(arg)
 
 testarg_length(arg, correct_length)
 
-test_comrad_pop(pop)
+test_comrad_comm(comm)
 }
 \arguments{
 \item{arg}{value of the asserted argument.}
@@ -42,11 +42,12 @@ test_comrad_pop(pop)
 
 \item{correct_length}{numeric, the length the argument should have.}
 
-\item{pop}{a tibble with one row per individual in the population and two
+\item{comm}{a tibble with one row per individual in the community and three
 columns:
 \itemize{
 \item \code{z} contains (numeric) traits values
-\item \code{species} contains the species names (characters)
+\item \code{species} contains species names (characters)
+\item \code{ancestral_species} contains acnestral species names (characters)
 }}
 }
 \description{
@@ -62,8 +63,8 @@ from one or several forbidden values.
 \item \code{testarg_log()} asserts that the argument is a logical.
 \item \code{testarg_length()} asserts that the argument has the correct
 length.
-\item \code{test_comrad_pop()} asserts the format of a population through
-the simulation is standard.
+\item \code{test_comrad_comm()} asserts the format of the supplied community
+is standard.
 }
 }
 \details{

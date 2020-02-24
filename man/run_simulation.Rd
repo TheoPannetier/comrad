@@ -6,7 +6,7 @@
 \usage{
 run_simulation(
   output_path,
-  init_pop = default_init_pop(),
+  init_comm = default_init_comm(),
   nb_generations = 20,
   sampling_frequency = comrad::set_sampling_frequency(nb_generations),
   seed = default_seed(),
@@ -17,67 +17,62 @@ run_simulation(
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  hpc_job_id = "local"
+  hpc_job_id = NULL
 )
 }
 \arguments{
-\item{output_path}{character, path to save the output file. If \code{NULL}, the
-output is not saved and the final generation population is returned at the
-end of the simulation.}
+\item{output_path}{character, path to save the output file, which must be a
+\code{.csv}. If \code{NULL}, the output is not saved and the final state of the
+community is returned at the end of the simulation.}
 
-\item{init_pop}{a tibble containing the initial population.}
+\item{init_comm}{The initial community, must have the same tibble structure
+as the \code{\link[=default_init_comm]{default_init_comm()}}, which contains 10 individuals with \code{z = 0}}
 
 \item{nb_generations}{integer, the number of generations to run the
 simulation for.}
 
 \item{sampling_frequency}{numeric \code{> 0}, the frequency at which the
-population is saved in the output.}
+community is saved in the output. Default is \code{max(1, nb_generations / 100)}.}
 
-\item{seed}{numeric \code{> 0}, the integer seed to set for the random number
+\item{seed}{integer \code{> 0}, the seed to set for the random number
 generator.}
 
-\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
-absence of competition.}
+\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate. Generations
+being discrete, high values will cause chaos.}
 
-\item{comp_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{\alpha}}. Controls
-the intensity of competition given a distance between two trait values.}
+\item{comp_width}{numeric \eqn{>= 0}. Width of the competition kernel.}
 
-\item{trait_opt}{numeric. Optimal trait value \eqn{z_{opt}}, such that
+\item{trait_opt}{numeric. The optimal trait value.
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
 
-\item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
-Note that this corresponds to the maximum number of \strong{competitors} for that
-trait value, as the focal individual does not contribute to the carrying
-capacity (see also \code{\link{get_fitness}}).}
+\item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
 
-\item{carr_cap_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls
-how fast the carrying capacity decays as the distance between a \code{trait}
-and \code{trait_opt} increases.
-\eqn{\sigma^{2}_{K}}}
+\item{carr_cap_width}{numeric \eqn{>= 0}.
+Width of the carrying capacity kernel.}
 
 \item{prob_mutation}{numeric between 0 and 1, the probability that any new
 individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
-distrbution in which the mutations are drawn.}
+distrbution from which mutations are drawn.}
 
-\item{hpc_job_id}{only relevant if run on a HPC, otherwise takes value
-\code{"local"}. If supplied, the job ID will be included in the metadata.}
+\item{hpc_job_id}{used to record a job ID in the metadata, only relevant for
+simulations run on a high-performance cluster. Otherwise takes value
+\code{"local"}.}
+}
+\value{
+Returns a table with a row corresponding to each individual, and five
+columns: \code{t} is the generation time, \code{z} the individual's trait value,
+\code{species} the name of the species it belongs to, and \code{ancestral_species} the
+previous species it descends from.
+If \code{output_path = NULL}, the community at the last generation is returned.
+If the path to a \code{.csv} file is supplied, each sampled generation is appended
+to the file. In the \code{.csv}, the table is preceded by 17 lines of metadata,
+which are automatically ignored if the file is read with \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.
 }
 \description{
 Run the competitive radiation simulation.
 }
-\details{
-Output is registered in a .csv file with the following structure:
-| t | z | runtime |
-| --- | --- |--- |
-| --- | --- |--- |
-where each line is an individual (the entire population is recorded).
-\code{t} denotes the generation counter, \code{z} is a trait value, and
-\code{runtime} is the processing time elapsed during the current generation.
-In addition, the output table is preceded by metadata. Skip the 14 first
-lines to get the table proper.
-}
 \author{
-Theo Pannetier
+Théo Pannetier
 }

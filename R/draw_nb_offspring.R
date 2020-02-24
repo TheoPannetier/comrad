@@ -1,10 +1,11 @@
-#' Draw a number of offsprings given a fitness value
+#' Draw a number of offspring given a fitness value
 #'
-#' The number of offspring is drawn in a Poisson distribution with mean
-#' \code{fitness}.
+#' The number of offspring is drawn in a Poisson distribution with parameter
+#' \eqn{\lambda = fitness}. Vectorized.
 #'
-#' @inheritParams default_params_doc
+#' @param fitness numeric \eqn{>= 0}, a vector of fitness values.
 #'
+#' @seealso get_fitness
 #' @author Theo Pannetier
 #' @export
 
@@ -16,10 +17,6 @@ draw_nb_offspring <- function(fitness) {
   nb_offspring <- sapply(fitness, function(g) {
     stats::rpois(1, g)
   })
-
-  comrad::testarg_num(nb_offspring)
-  comrad::testarg_pos(nb_offspring)
-  comrad::testarg_length(nb_offspring, length(fitness))
 
   nb_offspring
 }

@@ -2,17 +2,19 @@
 % Please edit documentation in R/draw_nb_offspring.R
 \name{draw_nb_offspring}
 \alias{draw_nb_offspring}
-\title{Draw a number of offsprings given a fitness value}
+\title{Draw a number of offspring given a fitness value}
 \usage{
 draw_nb_offspring(fitness)
 }
 \arguments{
-\item{fitness}{numeric \eqn{>= 0} vector, containing the fitness values for
-each individual as computed by \code{\link{get_fitness}}}
+\item{fitness}{numeric \eqn{>= 0}, a vector of fitness values.}
 }
 \description{
-The number of offspring is drawn in a Poisson distribution with mean
-\code{fitness}.
+The number of offspring is drawn in a Poisson distribution with parameter
+\eqn{\lambda = fitness}. Vectorized.
+}
+\seealso{
+get_fitness
 }
 \author{
 Theo Pannetier

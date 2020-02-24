@@ -12,7 +12,7 @@
 convert_sim_to_phylo <- function(comrad_tbl, with_extinct = TRUE) {
   comrad_tbl %>%
     dplyr::select("z", "species", "ancestral_species") %>%
-    comrad::test_comrad_pop()
+    comrad::test_comrad_comm()
 
   newick_string <- comrad_tbl %>%
     comrad::assemble_phylo_tbl() %>%

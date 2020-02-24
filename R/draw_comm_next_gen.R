@@ -1,6 +1,6 @@
-#' Draw a new population from the current one
+#' Draw a new community from the current one
 #'
-#' Based on the current population traits, compute the fitness, draw
+#' Based on the current community traits, compute the fitness, draw
 #' offspring, apply mutations and speciation events were relevant.
 #'
 #' @inheritParams default_params_doc
@@ -8,8 +8,8 @@
 #' @author Théo Pannetier
 #' @export
 
-draw_pop_next_gen <- function(
-  pop,
+draw_comm_next_gen <- function(
+  comm,
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),
   trait_opt = default_trait_opt(),
@@ -20,7 +20,7 @@ draw_pop_next_gen <- function(
 ) {
 
   # Test argument type ---------------------------------------------------------
-  comrad::test_comrad_pop(pop)
+  comrad::test_comrad_comm(comm)
   comrad::testarg_num(growth_rate)
   comrad::testarg_pos(growth_rate)
   comrad::testarg_num(comp_width)
@@ -36,45 +36,45 @@ draw_pop_next_gen <- function(
   comrad::testarg_pos(mutation_sd)
 
   # Compute fitnesses
-  fitness_pop <- comrad::get_fitness(
-    traits_pop = pop$z,
+  fitness_comm <- comrad::get_fitness(
+    traits_comm = comm$z,
     growth_rate = growth_rate,
     comp_width = comp_width,
     trait_opt = trait_opt,
     carr_cap_opt = carr_cap_opt,
     carr_cap_width = carr_cap_width
   )
-  comrad::testarg_not_this(fitness_pop, Inf)
+  comrad::testarg_not_this(fitness_comm, Inf)
 
   # Create next generation from parent fitness ---------------------------------
-  nb_offspring_pop <- comrad::draw_nb_offspring(fitness = fitness_pop)
-  comrad::testarg_length(nb_offspring_pop, length(pop$z))
+  nb_offspring_comm <- comrad::draw_nb_offspring(fitness = fitness_comm)
+  comrad::testarg_length(nb_offspring_comm, length(comm$z))
 
-  new_pop <- tibble::tibble(
-    "z" = rep(pop$z, nb_offspring_pop),
-    "species" = rep(pop$species, nb_offspring_pop),
-    "ancestral_species" = rep(pop$ancestral_species, nb_offspring_pop)
-    # new pop inherits traits and species from parents
+  new_comm <- tibble::tibble(
+    "z" = rep(comm$z, nb_offspring_comm),
+    "species" = rep(comm$species, nb_offspring_comm),
+    "ancestral_species" = rep(comm$ancestral_species, nb_offspring_comm)
+    # new community inherits traits and species from parents
   )
-  comrad::testarg_length(new_pop$z, sum(nb_offspring_pop))
+  comrad::testarg_length(new_comm$z, sum(nb_offspring_comm))
 
   # Catch extinction -----------------------------------------------------------
-  if (length(new_pop$species) < 1) {
-    return(new_pop)
+  if (length(new_comm$species) < 1) {
+    return(new_comm)
   }
 
   # Draw and apply mutations ---------------------------------------------------
-  new_pop$z <- comrad::apply_mutations(
-    traits_pop = new_pop$z,
+  new_comm$z <- comrad::apply_mutations(
+    traits_comm = new_comm$z,
     prob_mutation = prob_mutation,
     mutation_sd = mutation_sd
   )
 
   # Resolve speciation ---------------------------------------------------------
-  new_pop <- comrad::apply_speciation(
-    pop = new_pop
+  new_comm <- comrad::apply_speciation(
+    comm = new_comm
   )
-  comrad::test_comrad_pop(new_pop)
+  comrad::test_comrad_comm(new_comm)
 
-  new_pop
+  new_comm
 }

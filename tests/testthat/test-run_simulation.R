@@ -1,11 +1,11 @@
 context("test-run_simulation")
 
-test_that("diverging_population", {
-  # Population starts with split values, expect speciation in the next step
-  diverging_pop <- default_init_pop()
+test_that("diverging_community", {
+  # community starts with split values, expect speciation in the next step
+  diverging_pop <- default_init_comm()
   diverging_pop$z[6:10] <- 0.1
   output <- run_simulation(
-    init_pop = diverging_pop, nb_generations = 1, output_path = NULL
+    init_comm = diverging_pop, nb_generations = 1, output_path = NULL
   )
   species <- output %>%
     dplyr::filter(t == 1) %>%
@@ -26,11 +26,11 @@ test_that("output_format", {
   output <- run_simulation(nb_generations = nb_generations, output_path = NULL)
 
   expect_equal(length(output), 5)
-  # Main population columns
+  # Main community columns
   expect_silent(
-    output[, c("z", "species", "ancestral_species")] %>% test_comrad_pop()
+    output[, c("z", "species", "ancestral_species")] %>% test_comrad_comm()
   )
-  # Format of columns missed by test_comrad_pop()
+  # Format of columns missed by test_comrad_comm()
   expect_true(any(output$t >= 0))
   expect_true(any(output$runtime >= 0))
   # Assert output corresponds to last generation
@@ -42,14 +42,14 @@ test_that("extinction", {
     # TPK
     output <- run_simulation(
       carr_cap_opt = 0, nb_generations = 1, output_path = NULL),
-    "\\nRunning generation 1 / 1\\nPopulation has gone extinct at generation 1 "
+    "\\nRunning generation 1 / 1\\nCommunity has gone extinct at generation 1 "
   )
 })
 
 test_that("parameter_abuse", {
   expect_error(
-    run_simulation(init_pop = rep(0, 10), output_path = NULL),
-    "'init_pop' should be a tibble."
+    run_simulation(init_comm = rep(0, 10), output_path = NULL),
+    "'init_comm' should be a tibble."
   )
   expect_error(
     run_simulation(output_path = 1),

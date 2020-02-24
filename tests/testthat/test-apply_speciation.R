@@ -1,16 +1,16 @@
 context("test-apply_speciation")
 
-ancestral_species <- unique(default_init_pop()$species)
+ancestral_species <- unique(default_init_comm()$species)
 
-pop_mid_split_before <- default_init_pop()
+pop_mid_split_before <- default_init_comm()
 pop_mid_split_before$z[6:10] <- 0.1
 pop_mid_split_after <- pop_mid_split_before %>% apply_speciation()
 
-pop_ext_split_before <- default_init_pop()
+pop_ext_split_before <- default_init_comm()
 pop_ext_split_before$z[2:10] <- 0.1
 pop_ext_split_after <- pop_ext_split_before %>% apply_speciation()
 
-pop_mult_split_before <- default_init_pop()
+pop_mult_split_before <- default_init_comm()
 pop_mult_split_before$z[4:6] <- 0.1
 pop_mult_split_before$z[7:10] <- 0.2
 pop_mult_split_after_one <- pop_mult_split_before %>% apply_speciation()
@@ -69,7 +69,7 @@ test_that("use", {
 
 })
 
-abnormal_pops <- lapply(1:10, function(x) default_init_pop())
+abnormal_pops <- lapply(1:10, function(x) default_init_comm())
 abnormal_pops[[1]] <- stats::rnorm(10) # not a tibble
 abnormal_pops[[2]] <- tibble::tibble(
   "z" = numeric(0),
@@ -87,21 +87,21 @@ abnormal_pops[[10]]$species[1] <- NA # NA in character
 
 test_that("abuse", {
   expect_error(
-    abnormal_pops[[1]] %>% apply_speciation(), "'pop' should be a tibble."
+    abnormal_pops[[1]] %>% apply_speciation(), "'comm' should be a tibble."
   )
   expect_error(
-    abnormal_pops[[2]] %>% apply_speciation(), "'pop' is empty."
+    abnormal_pops[[2]] %>% apply_speciation(), "'comm' is empty."
   )
   expect_error(
-    abnormal_pops[[3]] %>% apply_speciation(), "'pop' should have 3 columns."
+    abnormal_pops[[3]] %>% apply_speciation(), "'comm' should have 3 columns."
   )
   expect_error(
     abnormal_pops[[4]] %>% apply_speciation(),
-    "'pop' column 'z' should be numeric."
+    "'comm' column 'z' should be numeric."
   )
   expect_error(
     abnormal_pops[[5]] %>% apply_speciation(),
-    "'pop' column 'species' should be a character."
+    "'comm' column 'species' should be a character."
   )
   expect_error(
     abnormal_pops[[6]] %>% apply_speciation(),
@@ -113,19 +113,19 @@ test_that("abuse", {
   )
   expect_error(
     abnormal_pops[[8]] %>% apply_speciation(),
-    "'pop' column 'ancestral_species' is not a character."
+    "'comm' column 'ancestral_species' is not a character."
   )
   expect_error(
     abnormal_pops[[9]] %>% apply_speciation(),
-    "'pop' should have columns 'z', 'species' and 'ancestral_species'."
+    "'comm' should have columns 'z', 'species' and 'ancestral_species'."
   )
   expect_error(
     abnormal_pops[[10]] %>% apply_speciation(),
-    "'pop' column 'species' contains one or more NAs."
+    "'comm' column 'species' contains one or more NAs."
   )
 })
 
-pre_node_random <- rand_pop()
+pre_node_random <- rand_comm()
 post_node_random <- pre_node_random %>% apply_speciation()
 nb_species_before <- pre_node_random$species %>% unique() %>% length()
 nb_species_after <- post_node_random$species %>% unique() %>% length()
