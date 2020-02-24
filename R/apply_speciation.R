@@ -64,8 +64,8 @@ apply_speciation <- function(pop) {
       }
       # }
       # Test format & update population ---------------------------------
-      testarg_char(sp_labels)
-      testarg_length(sp_labels, length(sp_members$species))
+      comrad::testarg_char(sp_labels)
+      comrad::testarg_length(sp_labels, length(sp_members$species))
       pop$ancestral_species[where] <- anc_labels
       pop$species[where] <- sp_labels
     }

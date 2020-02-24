@@ -19,13 +19,13 @@ plot_pop_trait_evolution <- function(comrad_tbl,
                                             generation_range = c(0, Inf),
                                             xgrain = 10,
                                             ygrain = 0.01) {
-  testarg_num(generation_range)
-  testarg_pos(generation_range)
-  testarg_length(generation_range, 2)
-  testarg_num(xgrain)
-  testarg_pos(xgrain)
-  testarg_num(ygrain)
-  testarg_pos(ygrain)
+  comrad::testarg_num(generation_range)
+  comrad::testarg_pos(generation_range)
+  comrad::testarg_length(generation_range, 2)
+  comrad::testarg_num(xgrain)
+  comrad::testarg_pos(xgrain)
+  comrad::testarg_num(ygrain)
+  comrad::testarg_pos(ygrain)
 
   # Stupid but necessary for the build
   z <- NULL
@@ -40,7 +40,6 @@ plot_pop_trait_evolution <- function(comrad_tbl,
       )
   }
 
-
   trait_plot <- comrad_tbl %>%
     dplyr::filter(
       dplyr::between(t, generation_range[1], generation_range[2])
@@ -48,6 +47,7 @@ plot_pop_trait_evolution <- function(comrad_tbl,
     ggplot2::ggplot(ggplot2::aes(x = t, y = z)) +
     ggplot2::geom_hex(binwidth = c(xgrain, ygrain)) +
     viridis::scale_fill_viridis(option = "B") +
+    ggplot2::scale_y_continuous(minor_breaks = seq(-2, 2, 0.1)) +
     ggplot2::labs(x = "Generation", y = "Trait")
   trait_plot
 }

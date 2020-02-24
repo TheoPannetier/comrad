@@ -9,17 +9,17 @@
 #' @export
 
 draw_nb_offspring <- function(fitness) {
-  testarg_num(fitness)
-  testarg_pos(fitness)
+  comrad::testarg_num(fitness)
+  comrad::testarg_pos(fitness)
 
   # Vectorize
   nb_offspring <- sapply(fitness, function(g) {
     stats::rpois(1, g)
   })
 
-  testarg_num(nb_offspring)
-  testarg_pos(nb_offspring)
-  testarg_length(nb_offspring, length(fitness))
+  comrad::testarg_num(nb_offspring)
+  comrad::testarg_pos(nb_offspring)
+  comrad::testarg_length(nb_offspring, length(fitness))
 
   nb_offspring
 }

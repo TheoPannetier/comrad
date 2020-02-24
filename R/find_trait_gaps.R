@@ -9,7 +9,7 @@
 #' @export
 
 find_trait_gaps <- function(traits) {
-  testarg_num(traits)
+  comrad::testarg_num(traits)
   if (any(traits != sort(traits))) {
     stop("'traits' must be sorted by ascending order before checking for gaps.")
   }

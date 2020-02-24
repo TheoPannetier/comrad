@@ -21,18 +21,11 @@ get_comp_coeff_pop <- function(
   traits_pop,
   comp_width = default_comp_width()) {
 
-  testarg_length(trait_ind, 1) # not vectorized!
+  comrad::testarg_length(trait_ind, 1) # not vectorized!
 
   trait_dist <- (trait_ind - traits_pop) ^ 2
 
-  # if (trait_ind %in% c(Inf, -Inf)) { # Inf - Inf raises NaNs
-  #   nans <- which(traits_pop == trait_ind)
-  #   trait_dist[nans] <- 0 # I rule full competition in this case
-  # }
-
   coeffs <- exp(- (trait_dist / (2 * comp_width ^ 2)))
-
-  # testarg_length(coeffs, length(traits_pop))
 
   # Solve possible NaN issues --------------------------------------------------
   # NaNs can arise if both terms in the division are equal to 0 or Inf

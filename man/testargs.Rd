@@ -3,6 +3,7 @@
 \name{testargs}
 \alias{testargs}
 \alias{testarg_num}
+\alias{testarg_int}
 \alias{testarg_pos}
 \alias{testarg_prop}
 \alias{testarg_not_this}
@@ -13,6 +14,8 @@
 \title{Assert a function argument is of correct type}
 \usage{
 testarg_num(arg, allow_nan = FALSE, allow_na = FALSE)
+
+testarg_int(arg)
 
 testarg_pos(arg)
 

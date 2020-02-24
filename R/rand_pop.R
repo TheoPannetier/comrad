@@ -10,6 +10,6 @@ rand_pop <- function() {
     species = name_pool[sample(1:nb_species, n, replace = TRUE)],
     ancestral_species = rep(as.character(NA), n)
   )
-  test_comrad_pop(pop)
+  comrad::test_comrad_pop(pop)
   pop
 }

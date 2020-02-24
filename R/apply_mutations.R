@@ -15,10 +15,10 @@ apply_mutations <- function(
   mutation_sd = default_mutation_sd()
 ) {
   # Test arguments -------------------------------------------------------------
-  testarg_num(prob_mutation)
-  testarg_prop(prob_mutation)
-  testarg_num(mutation_sd)
-  testarg_pos(mutation_sd)
+  comrad::testarg_num(prob_mutation)
+  comrad::testarg_prop(prob_mutation)
+  comrad::testarg_num(mutation_sd)
+  comrad::testarg_pos(mutation_sd)
 
 
   # Apply mutations ------------------------------------------------------------
@@ -31,7 +31,7 @@ apply_mutations <- function(
   )
 
   # Test output --------------------------------------------------------------
-  testarg_num(traits_pop)
+  comrad::testarg_num(traits_pop)
 
   return(traits_pop)
 }

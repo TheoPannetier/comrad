@@ -8,7 +8,7 @@ run_simulation(
   output_path,
   init_pop = default_init_pop(),
   nb_generations = 20,
-  sampling_frequency = set_sampling_frequency(nb_generations),
+  sampling_frequency = comrad::set_sampling_frequency(nb_generations),
   seed = default_seed(),
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),

@@ -33,7 +33,7 @@ run_simulation <- function(
   output_path,
   init_pop = default_init_pop(),
   nb_generations = 20,
-  sampling_frequency = set_sampling_frequency(nb_generations),
+  sampling_frequency = comrad::set_sampling_frequency(nb_generations),
   seed = default_seed(),
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),
@@ -44,38 +44,38 @@ run_simulation <- function(
   mutation_sd = default_mutation_sd(),
   hpc_job_id = "local"
 ) {
-  test_comrad_pop(init_pop)
+  comrad::test_comrad_pop(init_pop)
   if (!is.null(output_path) && !is.character(output_path)) {
     stop("'output_path' must be either null or a character.")
   }
-  testarg_num(nb_generations)
-  testarg_pos(nb_generations)
-  testarg_not_this(nb_generations, c(0, Inf))
-  testarg_int(nb_generations)
-  testarg_num(sampling_frequency)
-  testarg_int(sampling_frequency)
-  testarg_num(seed)
-  testarg_int(seed)
-  testarg_num(growth_rate)
-  testarg_pos(growth_rate)
-  testarg_num(comp_width)
-  testarg_pos(comp_width)
-  testarg_num(trait_opt)
-  testarg_num(carr_cap_opt)
-  testarg_pos(carr_cap_opt)
-  testarg_num(carr_cap_width)
-  testarg_pos(carr_cap_width)
-  testarg_num(prob_mutation)
-  testarg_prop(prob_mutation)
-  testarg_num(mutation_sd)
-  testarg_pos(mutation_sd)
+  comrad::testarg_num(nb_generations)
+  comrad::testarg_pos(nb_generations)
+  comrad::testarg_not_this(nb_generations, c(0, Inf))
+  comrad::testarg_int(nb_generations)
+  comrad::testarg_num(sampling_frequency)
+  comrad::testarg_int(sampling_frequency)
+  comrad::testarg_num(seed)
+  comrad::testarg_int(seed)
+  comrad::testarg_num(growth_rate)
+  comrad::testarg_pos(growth_rate)
+  comrad::testarg_num(comp_width)
+  comrad::testarg_pos(comp_width)
+  comrad::testarg_num(trait_opt)
+  comrad::testarg_num(carr_cap_opt)
+  comrad::testarg_pos(carr_cap_opt)
+  comrad::testarg_num(carr_cap_width)
+  comrad::testarg_pos(carr_cap_width)
+  comrad::testarg_num(prob_mutation)
+  comrad::testarg_prop(prob_mutation)
+  comrad::testarg_num(mutation_sd)
+  comrad::testarg_pos(mutation_sd)
 
   is_on_unix <- rappdirs::app_dir()$os == "unix" # for the cluster
 
   if (is_on_unix) {
     if (hpc_job_id != "local") {
-      testarg_num(hpc_job_id)
-      testarg_int(hpc_job_id)
+      comrad::testarg_num(hpc_job_id)
+      comrad::testarg_int(hpc_job_id)
     }
   } else {
     hpc_job_id <- "local" # brute force
@@ -147,7 +147,7 @@ run_simulation <- function(
     gen_time <- proc.time()[3]
 
     # Replace pop with next generation
-    pop <- draw_next_gen(
+    pop <- comrad::draw_pop_next_gen(
       pop = pop,
       growth_rate = growth_rate,
       comp_width = comp_width,

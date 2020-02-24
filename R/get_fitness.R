@@ -27,25 +27,25 @@ get_fitness <- function(
 ) {
 
   # Test argument type ---------------------------------------------------------
-  testarg_num(traits_pop)
-  testarg_num(growth_rate)
-  testarg_pos(growth_rate)
-  testarg_num(comp_width)
-  testarg_pos(comp_width)
-  testarg_num(trait_opt)
-  testarg_num(carr_cap_opt)
-  testarg_pos(carr_cap_opt)
-  testarg_num(carr_cap_width)
-  testarg_pos(carr_cap_width)
+  comrad::testarg_num(traits_pop)
+  comrad::testarg_num(growth_rate)
+  comrad::testarg_pos(growth_rate)
+  comrad::testarg_num(comp_width)
+  comrad::testarg_pos(comp_width)
+  comrad::testarg_num(trait_opt)
+  comrad::testarg_num(carr_cap_opt)
+  comrad::testarg_pos(carr_cap_opt)
+  comrad::testarg_num(carr_cap_width)
+  comrad::testarg_pos(carr_cap_width)
 
   # Compute effective population sizes -----------------------------------------
-  n_eff <- get_n_eff(
+  n_eff <- comrad::get_n_eff(
     traits_pop = traits_pop,
     comp_width = comp_width
   ) # get the n_eff values experienced by each individual in the population
 
   # Compute k the carrying capacity --------------------------------------------
-  carr_cap <- get_carr_cap(
+  carr_cap <- comrad::get_carr_cap(
     trait_ind = traits_pop,
     trait_opt = trait_opt,
     carr_cap_opt = carr_cap_opt,
@@ -58,8 +58,8 @@ get_fitness <- function(
     n_eff = n_eff,
     carr_cap = carr_cap
   )
-  testarg_num(fitness)
-  testarg_length(fitness, length(traits_pop))
+  comrad::testarg_num(fitness)
+  comrad::testarg_length(fitness, length(traits_pop))
 
   fitness
 }

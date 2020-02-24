@@ -39,6 +39,8 @@ testarg_num <- function(arg, allow_nan = FALSE, allow_na = FALSE) {
   }
 }
 
+#' @export
+#' @rdname testargs
 testarg_int <- function(arg) {
   if (arg %% 1 != 0) {
     stop("'", substitute(arg), "' must be an integer")

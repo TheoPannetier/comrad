@@ -10,11 +10,13 @@ test_that("diverging_population", {
   species <- output %>%
     dplyr::filter(t == 1) %>%
     dplyr::select(species) %>%
-    unique %>% unlist()
+    unique %>%
+    unlist()
   ancestral_species <- output %>%
     dplyr::filter(t == 1) %>%
     dplyr::select(ancestral_species) %>%
-    unique() %>% unlist()
+    unique() %>%
+    unlist()
   expect_gt(length(species), 1)
   expect_gt(length(ancestral_species), 1)
 })
