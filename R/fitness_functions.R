@@ -15,7 +15,7 @@
 #' of saturation. Note that all three functions are `pmax()`'d.
 #' \tabular{cccccc}{
 #'   \strong{Neff / K} \tab \strong{0} \tab \strong{1/2} \tab
-#'   \strong{1} \tab \strong{2} \tab \strong{\eqn{+\infty}} \cr
+#'   \strong{1} \tab \strong{2} \tab \strong{infty} \cr
 #'   logistic \tab r \tab r/2 \tab 0 \tab 0 \tab 0 \cr
 #'   pontarp \tab 1 + r \tab 1 + r/2 \tab 1 \tab 1 - r \tab 0 \cr
 #'   ricker \tab exp(r) \tab exp(r/2) \tab 1 \tab exp(-r) \tab 0 \cr
