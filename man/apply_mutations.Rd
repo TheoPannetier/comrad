@@ -23,7 +23,7 @@ distrbution from which mutations are drawn.}
 \description{
 The trait value of each individual in the input community is modified, with
 probability \code{prob_mutation}, by a mutation sampled in a normal distribution
-of mean \code{0} and variance \code{mutation_sd}.
+of mean \code{0} and standard deviation \code{mutation_sd}.
 }
 \author{
 Theo Pannetier

@@ -23,8 +23,13 @@ get_carr_cap(
 Width of the carrying capacity kernel.}
 }
 \description{
-Computes the carrying capacity experienced by an individual with trait value
-\code{trait}.
+Computes the carrying capacity experienced by an individual.
+}
+\details{
+the carrying capacity controls the static component of the fitness,
+one that depends only on an individual's trait and not on the
+presence/absence of competitors. It defines the fitness landscape before any
+competitive effect.
 }
 \author{
 Theo Pannetier

@@ -44,8 +44,8 @@ individual is sampled with a mutation.}
 distrbution from which mutations are drawn.}
 }
 \description{
-Based on the current community traits, compute the fitness, draw
-offspring, apply mutations and speciation events were relevant.
+From the trait values of the current community, compute the fitness, draw
+offspring, apply mutations and resolve speciation events.
 }
 \author{
 Théo Pannetier

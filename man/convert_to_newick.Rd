@@ -7,7 +7,8 @@
 convert_to_newick(phylo_tbl)
 }
 \arguments{
-\item{phylo_tbl}{no description yet.}
+\item{phylo_tbl}{a table with phylogenetic information for each species, the
+output of \code{\link[=assemble_phylo_tbl]{assemble_phylo_tbl()}}}
 }
 \description{
 Reads a tibble recording species birth, death and phylogenetic relations,

@@ -17,9 +17,11 @@ fitness_func_ricker(growth_rate, n_eff, carr_cap)
 \item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}
 
-\item{n_eff}{effective population size experienced by an individual.}
+\item{n_eff}{Effective population size experienced by an individual, see
+\code{\link[=get_n_eff]{get_n_eff()}}}
 
-\item{carr_cap}{the carrying capacity experienced by an individual.}
+\item{carr_cap}{The carrying capacity experienced by an individual, see
+\code{\link[=get_carr_cap]{get_carr_cap()}}.}
 }
 \description{
 A set of equations to compute the fitness of an individual. All three
