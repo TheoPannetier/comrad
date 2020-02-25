@@ -18,17 +18,17 @@ get_fitness(
 \item{traits_comm}{numeric vector of variable length, the trait values of
 every individual in the community.}
 
-\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate. Generations
+\item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}
 
-\item{comp_width}{numeric \eqn{>= 0}. Width of the competition kernel.}
+\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
 
 \item{trait_opt}{numeric. The optimal trait value.
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
 
 \item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
 
-\item{carr_cap_width}{numeric \eqn{>= 0}.
+\item{carr_cap_width}{numeric \verb{>= 0}.
 Width of the carrying capacity kernel.}
 
 \item{fitness_func}{the name of the function used to compute fitness.}

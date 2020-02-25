@@ -14,7 +14,7 @@ fitness_func_pontarp(growth_rate, n_eff, carr_cap)
 fitness_func_ricker(growth_rate, n_eff, carr_cap)
 }
 \arguments{
-\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate. Generations
+\item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}
 
 \item{n_eff}{Effective population size experienced by an individual, see
@@ -33,7 +33,7 @@ The table below reports the fitness values associated with hallmark levels
 of saturation. Note that all three functions are \code{pmax()}'d.
 \tabular{cccccc}{
 \strong{Neff / K} \tab \strong{0} \tab \strong{1/2} \tab
-\strong{1} \tab \strong{2} \tab \strong{\deqn{+\infty}} \cr
+\strong{1} \tab \strong{2} \tab \strong{infty} \cr
 logistic \tab r \tab r/2 \tab 0 \tab 0 \tab 0 \cr
 pontarp \tab 1 + r \tab 1 + r/2 \tab 1 \tab 1 - r \tab 0 \cr
 ricker \tab exp(r) \tab exp(r/2) \tab 1 \tab exp(-r) \tab 0 \cr

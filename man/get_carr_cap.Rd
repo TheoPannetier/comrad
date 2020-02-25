@@ -12,14 +12,14 @@ get_carr_cap(
 )
 }
 \arguments{
-\item{trait_ind}{numeric. Trait value \eqn{z} of a focal individual.}
+\item{trait_ind}{numeric. Trait value \code{z} of a focal individual.}
 
 \item{trait_opt}{numeric. The optimal trait value.
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
 
 \item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
 
-\item{carr_cap_width}{numeric \eqn{>= 0}.
+\item{carr_cap_width}{numeric \verb{>= 0}.
 Width of the carrying capacity kernel.}
 }
 \description{

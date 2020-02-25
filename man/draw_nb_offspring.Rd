@@ -7,11 +7,11 @@
 draw_nb_offspring(fitness)
 }
 \arguments{
-\item{fitness}{numeric \eqn{>= 0}, a vector of fitness values.}
+\item{fitness}{numeric \verb{>= 0}, a vector of fitness values.}
 }
 \description{
-The number of offspring is drawn in a Poisson distribution with parameter
-\eqn{\lambda = fitness}. Vectorized.
+The number of offspring is drawn in a Poisson distribution in
+\code{rpois(lambda = fitness)}. Vectorized.
 }
 \seealso{
 get_fitness

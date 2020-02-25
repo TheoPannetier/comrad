@@ -10,10 +10,10 @@ get_n_eff(traits_comm, comp_width = default_comp_width())
 \item{traits_comm}{numeric vector of variable length, the trait values of
 every individual in the community.}
 
-\item{comp_width}{numeric \eqn{>= 0}. Width of the competition kernel.}
+\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
 }
 \description{
-Computes \eqn{n_eff}, the effective population size experienced by an
+Computes \code{n_eff}, the effective population size experienced by an
 individual.
 }
 \details{

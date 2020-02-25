@@ -37,23 +37,23 @@ community is saved in the output. Default is \code{max(1, nb_generations / 100)}
 \item{seed}{integer \code{> 0}, the seed to set for the random number
 generator.}
 
-\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate. Generations
+\item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}
 
-\item{comp_width}{numeric \eqn{>= 0}. Width of the competition kernel.}
+\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
 
 \item{trait_opt}{numeric. The optimal trait value.
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
 
 \item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
 
-\item{carr_cap_width}{numeric \eqn{>= 0}.
+\item{carr_cap_width}{numeric \verb{>= 0}.
 Width of the carrying capacity kernel.}
 
 \item{prob_mutation}{numeric between 0 and 1, the probability that any new
 individual is sampled with a mutation.}
 
-\item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
+\item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}
 
 \item{hpc_job_id}{used to record a job ID in the metadata, only relevant for

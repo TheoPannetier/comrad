@@ -29,28 +29,28 @@ columns:
 \item \code{ancestral_species} contains acnestral species names (characters)
 }}
 
-\item{trait_ind}{numeric. Trait value \eqn{z} of a focal individual.}
+\item{trait_ind}{numeric. Trait value \code{z} of a focal individual.}
 
 \item{traits_comm}{numeric vector of variable length, the trait values of
 every individual in the community.}
 
-\item{comp_width}{numeric \eqn{>= 0}. Width of the competition kernel.}
+\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
 
 \item{trait_opt}{numeric. The optimal trait value.
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
 
 \item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
 
-\item{carr_cap_width}{numeric \eqn{>= 0}.
+\item{carr_cap_width}{numeric \verb{>= 0}.
 Width of the carrying capacity kernel.}
 
-\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate. Generations
+\item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}
 
 \item{prob_mutation}{numeric between 0 and 1, the probability that any new
 individual is sampled with a mutation.}
 
-\item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
+\item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}
 
 \item{nb_generations}{integer, the number of generations to run during the

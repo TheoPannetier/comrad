@@ -8,12 +8,12 @@ community}
 get_comp_coeff_comm(trait_ind, traits_comm, comp_width = default_comp_width())
 }
 \arguments{
-\item{trait_ind}{numeric. Trait value \eqn{z} of a focal individual.}
+\item{trait_ind}{numeric. Trait value \code{z} of a focal individual.}
 
 \item{traits_comm}{numeric vector of variable length, the trait values of
 every individual in the community.}
 
-\item{comp_width}{numeric \eqn{>= 0}. Width of the competition kernel.}
+\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
 }
 \value{
 a numeric vector containing the competitive effect caused by each

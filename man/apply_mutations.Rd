@@ -17,7 +17,7 @@ every individual in the community.}
 \item{prob_mutation}{numeric between 0 and 1, the probability that any new
 individual is sampled with a mutation.}
 
-\item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
+\item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}
 }
 \description{
