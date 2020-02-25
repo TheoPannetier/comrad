@@ -10,20 +10,20 @@
 #'  * `species` contains species names (characters)
 #'  * `ancestral_species` contains acnestral species names (characters)
 #'
-#' @param trait_ind numeric. Trait value \eqn{z} of a focal individual.
+#' @param trait_ind numeric. Trait value `z` of a focal individual.
 #' @param traits_comm numeric vector of variable length, the trait values of
 #' every individual in the community.
-#' @param comp_width numeric \eqn{>= 0}. Width of the competition kernel.
+#' @param comp_width numeric `>= 0`. Width of the competition kernel.
 #' @param trait_opt numeric. The optimal trait value.
 #' \code{get_carr_cap(trait_opt) = carr_cap_opt}.
 #' @param carr_cap_opt numeric. Carrying capacity at the optimal trait value.
-#' @param carr_cap_width numeric \eqn{>= 0}.
+#' @param carr_cap_width numeric `>= 0`.
 #' Width of the carrying capacity kernel.
-#' @param growth_rate numeric \eqn{>= 0}, the baseline growth rate. Generations
+#' @param growth_rate numeric `>= 0`, the baseline growth rate. Generations
 #' being discrete, high values will cause chaos.
 #' @param prob_mutation numeric between 0 and 1, the probability that any new
 #' individual is sampled with a mutation.
-#' @param mutation_sd numeric \eqn{>= 0}, the standard deviation of the normal
+#' @param mutation_sd numeric `>= 0`, the standard deviation of the normal
 #' distrbution from which mutations are drawn.
 #' @param nb_generations integer, the number of generations to run during the
 #' simulation.

@@ -1,6 +1,6 @@
 #' Compute the effective population size
 #'
-#' Computes \eqn{n_eff}, the effective population size experienced by an
+#' Computes `n_eff`, the effective population size experienced by an
 #' individual.
 #'
 #' @inheritParams default_params_doc

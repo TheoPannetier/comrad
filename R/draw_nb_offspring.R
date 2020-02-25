@@ -1,9 +1,9 @@
 #' Draw a number of offspring given a fitness value
 #'
-#' The number of offspring is drawn in a Poisson distribution with parameter
-#' \eqn{\lambda = fitness}. Vectorized.
+#' The number of offspring is drawn in a Poisson distribution in
+#' `rpois(lambda = fitness)`. Vectorized.
 #'
-#' @param fitness numeric \eqn{>= 0}, a vector of fitness values.
+#' @param fitness numeric `>= 0`, a vector of fitness values.
 #'
 #' @seealso get_fitness
 #' @author Theo Pannetier
