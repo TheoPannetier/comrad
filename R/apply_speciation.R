@@ -23,7 +23,7 @@ apply_speciation <- function(comm) {
   species <- NULL
   ancestral_species <- NULL
 
-  test_comrad_comm(comm)
+  comrad::test_comrad_comm(comm)
 
   comm <- comm %>% dplyr::arrange(z)
 
@@ -70,6 +70,6 @@ apply_speciation <- function(comm) {
       comm$species[where] <- sp_labels
     }
   }
-  test_comrad_comm(comm)
+  comrad::test_comrad_comm(comm)
   return(comm)
 }

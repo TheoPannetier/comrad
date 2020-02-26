@@ -91,4 +91,3 @@ fitness_func_ricker <- function(growth_rate,
 
   fitness
 }
-

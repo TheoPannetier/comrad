@@ -28,7 +28,7 @@ get_n_eff <- function(traits_comm, comp_width = default_comp_width()) {
     FUN = function(trait_ind) {
       comp_coeff_comm <- comrad::get_comp_coeff_comm(
         trait_ind = trait_ind,
-        traits_comm = traits_comm, # ind competes against whole pop, incl. itself
+        traits_comm = traits_comm, #ind competes against whole pop, incl. itself
         comp_width = comp_width
       ) # includes competition of the individual against itself
       sum(comp_coeff_comm)
