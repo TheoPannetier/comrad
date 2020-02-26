@@ -1,0 +1,46 @@
+---
+title: "Simulate diversification in a community with `comrad`"
+author: "Théo Pannetier"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{demo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# Introduction
+Welcome to `comrad`!
+
+`comrad` is an individual-based simulation of a community that undergoes 
+adaptation, speciation, and extinction in a simple ecological setting. 
+The model is based on the work of Pontarp et al. (2012) and other similar
+eco-evo models.
+
+`comrad` hasn't found its definitive purpose: it's work-in-progress, and bound
+to evolve, branch and adapt in the near future. Below is a showcase of what it
+can do already.
+
+```{r setup}
+library(comrad)
+```
+
+# The model
+Develop a section about the model, including equations.
+
+# Simulation
+
+# Results
+
+## Overview
+Population growth, trait distribution, species
+
+## Phylogenies
+
+# References
+Pontarp, M., J. Ripa, and P. Lundberg, 2012. On the origin of phylogenetic structure in competitive metacommunities. Evolutionary Ecology Research 14:269–284.
