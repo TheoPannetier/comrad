@@ -4,18 +4,25 @@
 \alias{get_n_eff}
 \title{Compute the effective population size}
 \usage{
-get_n_eff(traits_pop, comp_width = default_comp_width())
+get_n_eff(traits_comm, comp_width = default_comp_width())
 }
 \arguments{
-\item{traits_pop}{numeric vector of variable length, the trait values of
-every individual in the population.}
+\item{traits_comm}{numeric vector of variable length, the trait values of
+every individual in the community.}
 
-\item{comp_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{\alpha}}. Controls
-the intensity of competition given a distance between two trait values.}
+\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
 }
 \description{
-Computes \eqn{n_eff}, the effective population size experienced by an
+Computes \code{n_eff}, the effective population size experienced by an
 individual.
+}
+\details{
+\code{n_eff} sums the competitive effects an individual receives from
+every individual in the community, including the individual itself. It is
+called effective population size because it is the size of the population
+that is relevant for competition.
+Varies from 1 (no competitor in the vicinity) to N (every individual has the
+same trait value).
 }
 \author{
 Theo Pannetier

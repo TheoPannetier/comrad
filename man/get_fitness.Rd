@@ -2,10 +2,10 @@
 % Please edit documentation in R/get_fitness.R
 \name{get_fitness}
 \alias{get_fitness}
-\title{Get the fitness of an individual}
+\title{Compute fitness values}
 \usage{
 get_fitness(
-  traits_pop,
+  traits_comm,
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),
   trait_opt = default_trait_opt(),
@@ -15,42 +15,28 @@ get_fitness(
 )
 }
 \arguments{
-\item{traits_pop}{numeric vector of variable length, the trait values of
-every individual in the population.}
+\item{traits_comm}{numeric vector of variable length, the trait values of
+every individual in the community.}
 
-\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
-absence of competition.}
+\item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
+being discrete, high values will cause chaos.}
 
-\item{comp_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{\alpha}}. Controls
-the intensity of competition given a distance between two trait values.}
+\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
 
-\item{trait_opt}{numeric. Optimal trait value \eqn{z_{opt}}, such that
+\item{trait_opt}{numeric. The optimal trait value.
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
 
-\item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
-Note that this corresponds to the maximum number of \strong{competitors} for that
-trait value, as the focal individual does not contribute to the carrying
-capacity (see also \code{\link{get_fitness}}).}
+\item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
 
-\item{carr_cap_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls
-how fast the carrying capacity decays as the distance between a \code{trait}
-and \code{trait_opt} increases.
-\eqn{\sigma^{2}_{K}}}
+\item{carr_cap_width}{numeric \verb{>= 0}.
+Width of the carrying capacity kernel.}
 
-\item{fitness_func}{a function to use to compute fitness.}
+\item{fitness_func}{the name of the function used to compute fitness.}
 }
 \description{
-Computes the fitness of an individual or population based on its trait value
-and the trait values of other individuals in the population. The fitness here
-corresponds to the average number of offspring an individual can get in a
-generation, as sampled in a Poisson distribution.
-}
-\details{
-The equation is a per-capita version of the Ricker model:
-\deqn{G(z_i) = exp(r(1 - N_{eff} / K(z_i, z_opt)))}
-where \eqn{N_{eff}} is the effective population size, i.e. sum of competitive
-effects experienced by the focal individual for a given trait value:
-\deqn{N_{eff} = sum_j(\alpha(z_i, z_j))}
+Fitness values are computed for each individual from their trait value,
+the fitness landscape defined by the carrying capacity parameters, and the
+trait values of all other individuals in the community.
 }
 \author{
 Theo Pannetier

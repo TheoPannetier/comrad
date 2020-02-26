@@ -12,8 +12,8 @@
 #'  \item \code{testarg_log()} asserts that the argument is a logical.
 #'  \item \code{testarg_length()} asserts that the argument has the correct
 #'  length.
-#'  \item \code{test_comrad_pop()} asserts the format of a population through
-#'  the simulation is standard.
+#'  \item \code{test_comrad_comm()} asserts the format of the supplied community
+#'  is standard.
 #' }
 #'
 #' @param arg value of the asserted argument.
@@ -39,6 +39,8 @@ testarg_num <- function(arg, allow_nan = FALSE, allow_na = FALSE) {
   }
 }
 
+#' @export
+#' @rdname testargs
 testarg_int <- function(arg) {
   if (arg %% 1 != 0) {
     stop("'", substitute(arg), "' must be an integer")
@@ -103,37 +105,37 @@ testarg_length <- function(arg, correct_length) {
 #' @inheritParams default_params_doc
 #' @export
 #' @rdname testargs
-test_comrad_pop <- function(pop) {
-  if (!tibble::is_tibble(pop)) {
-    stop("'", substitute(pop), "' should be a tibble.")
+test_comrad_comm <- function(comm) {
+  if (!tibble::is_tibble(comm)) {
+    stop("'", substitute(comm), "' should be a tibble.")
   }
-  if (length(pop) != 3) {
-    stop("'", substitute(pop), "' should have 3 columns.")
+  if (length(comm) != 3) {
+    stop("'", substitute(comm), "' should have 3 columns.")
   }
-  if (length(pop[[1]]) == 0) {
-    stop("'", substitute(pop), "' is empty.")
+  if (length(comm[[1]]) == 0) {
+    stop("'", substitute(comm), "' is empty.")
   }
-  if (length(names(pop)) != 3 ||
-    any(names(pop) != c("z", "species", "ancestral_species"))) {
+  if (length(names(comm)) != 3 ||
+    any(names(comm) != c("z", "species", "ancestral_species"))) {
     stop(
-      "'", substitute(pop),
+      "'", substitute(comm),
       "' should have columns 'z', 'species' and 'ancestral_species'."
     )
   }
-  if (!is.numeric(pop[[1]])) {
-    stop("'", substitute(pop), "' column 'z' should be numeric.")
+  if (!is.numeric(comm[[1]])) {
+    stop("'", substitute(comm), "' column 'z' should be numeric.")
   }
-  if (!is.character(pop[[2]])) {
+  if (!is.character(comm[[2]])) {
     stop(
-      "'", substitute(pop), "' column 'species' should be a character."
+      "'", substitute(comm), "' column 'species' should be a character."
     )
   }
-  if (any(is.na(pop[[2]]))) {
-    stop("'", substitute(pop), "' column 'species' contains one or more NAs.")
+  if (any(is.na(comm[[2]]))) {
+    stop("'", substitute(comm), "' column 'species' contains one or more NAs.")
   }
-  if (!is.character(pop[[3]])) {
+  if (!is.character(comm[[3]])) {
     stop(
-      "'", substitute(pop), "' column 'ancestral_species' is not a character."
+      "'", substitute(comm), "' column 'ancestral_species' is not a character."
     )
   }
 }

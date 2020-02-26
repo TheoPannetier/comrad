@@ -1,9 +1,13 @@
 #' Get the carrying capacity for a given trait value
 #'
-#' Computes the carrying capacity experienced by an individual with trait value
-#' \code{trait}.
+#' Computes the carrying capacity experienced by an individual.
 #'
 #' @inheritParams default_params_doc
+#'
+#' @details the carrying capacity controls the static component of the fitness,
+#' one that depends only on an individual's trait and not on the
+#' presence/absence of competitors. It defines the fitness landscape before any
+#' competitive effect.
 #'
 #' @author Theo Pannetier
 #' @export
@@ -14,12 +18,12 @@ get_carr_cap <- function(
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width()
   ) {
-  testarg_num(trait_ind)
-  testarg_num(trait_opt)
-  testarg_num(carr_cap_opt)
-  testarg_pos(carr_cap_opt) # is a nb of ind
-  testarg_num(carr_cap_width)
-  testarg_pos(carr_cap_width) # is a variance
+  comrad::testarg_num(trait_ind)
+  comrad::testarg_num(trait_opt)
+  comrad::testarg_num(carr_cap_opt)
+  comrad::testarg_pos(carr_cap_opt) # is a nb of ind
+  comrad::testarg_num(carr_cap_width)
+  comrad::testarg_pos(carr_cap_width) # is a variance
 
   trait_dist <- (trait_opt - trait_ind) ^ 2
   if (trait_opt == Inf) {
@@ -43,9 +47,9 @@ get_carr_cap <- function(
     carr_cap[nans] <- carr_cap_opt
   }
 
-  testarg_num(carr_cap) # catch NAs, NaNs and NULL
-  testarg_pos(carr_cap)
-  testarg_length(carr_cap, length(trait_ind))
+  comrad::testarg_num(carr_cap) # catch NAs, NaNs and NULL
+  comrad::testarg_pos(carr_cap)
+  comrad::testarg_length(carr_cap, length(trait_ind))
 
   carr_cap
 }

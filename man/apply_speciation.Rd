@@ -2,21 +2,22 @@
 % Please edit documentation in R/apply_speciation.R
 \name{apply_speciation}
 \alias{apply_speciation}
-\title{Resolve speciation in a comrad population}
+\title{Resolve speciation in a comrad community}
 \usage{
-apply_speciation(pop)
+apply_speciation(comm)
 }
 \arguments{
-\item{pop}{a tibble with one row per individual in the population and two
+\item{comm}{a tibble with one row per individual in the community and three
 columns:
 \itemize{
 \item \code{z} contains (numeric) traits values
-\item \code{species} contains the species names (characters)
+\item \code{species} contains species names (characters)
+\item \code{ancestral_species} contains acnestral species names (characters)
 }}
 }
 \description{
-For each species, check for gaps \code{>=} 0.1 in trait values, and if found,
-members on a random side of the gap become a new species.
+For each species, check if there is any gap of \code{>=} 0.1 in trait values, and
+split the relevant species in two when one is found.
 }
 \note{
 \code{apply_speciation()} can currently only split one species into two. If

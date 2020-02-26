@@ -7,11 +7,11 @@
 find_trait_gaps(traits)
 }
 \arguments{
-\item{traits}{a numeric vector, \strong{ordered} by ascending values.}
+\item{traits}{a numeric vector, trait values \strong{in ascending order}.}
 }
 \description{
 Runs through an ordered vector of trait values, returns the positions of gaps
-between consecutive values.
+\verb{>= 0.1} between consecutive values.
 }
 \author{
 Théo Pannetier

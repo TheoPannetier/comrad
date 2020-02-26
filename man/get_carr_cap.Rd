@@ -12,24 +12,24 @@ get_carr_cap(
 )
 }
 \arguments{
-\item{trait_ind}{numeric. Trait value \eqn{z} of a focal individual.}
+\item{trait_ind}{numeric. Trait value \code{z} of a focal individual.}
 
-\item{trait_opt}{numeric. Optimal trait value \eqn{z_{opt}}, such that
+\item{trait_opt}{numeric. The optimal trait value.
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
 
-\item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
-Note that this corresponds to the maximum number of \strong{competitors} for that
-trait value, as the focal individual does not contribute to the carrying
-capacity (see also \code{\link{get_fitness}}).}
+\item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
 
-\item{carr_cap_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls
-how fast the carrying capacity decays as the distance between a \code{trait}
-and \code{trait_opt} increases.
-\eqn{\sigma^{2}_{K}}}
+\item{carr_cap_width}{numeric \verb{>= 0}.
+Width of the carrying capacity kernel.}
 }
 \description{
-Computes the carrying capacity experienced by an individual with trait value
-\code{trait}.
+Computes the carrying capacity experienced by an individual.
+}
+\details{
+the carrying capacity controls the static component of the fitness,
+one that depends only on an individual's trait and not on the
+presence/absence of competitors. It defines the fitness landscape before any
+competitive effect.
 }
 \author{
 Theo Pannetier

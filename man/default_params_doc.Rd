@@ -5,9 +5,9 @@
 \title{Documentation for main parameters of the model}
 \usage{
 default_params_doc(
-  pop,
+  comm,
   trait_ind,
-  traits_pop,
+  traits_comm,
   comp_width,
   trait_opt,
   carr_cap_opt,
@@ -15,60 +15,51 @@ default_params_doc(
   growth_rate,
   prob_mutation,
   mutation_sd,
-  fitness,
   nb_generations,
   fitness_func,
   comrad_tbl
 )
 }
 \arguments{
-\item{pop}{a tibble with one row per individual in the population and two
+\item{comm}{a tibble with one row per individual in the community and three
 columns:
 \itemize{
 \item \code{z} contains (numeric) traits values
-\item \code{species} contains the species names (characters)
+\item \code{species} contains species names (characters)
+\item \code{ancestral_species} contains acnestral species names (characters)
 }}
 
-\item{trait_ind}{numeric. Trait value \eqn{z} of a focal individual.}
+\item{trait_ind}{numeric. Trait value \code{z} of a focal individual.}
 
-\item{traits_pop}{numeric vector of variable length, the trait values of
-every individual in the population.}
+\item{traits_comm}{numeric vector of variable length, the trait values of
+every individual in the community.}
 
-\item{comp_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{\alpha}}. Controls
-the intensity of competition given a distance between two trait values.}
+\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
 
-\item{trait_opt}{numeric. Optimal trait value \eqn{z_{opt}}, such that
+\item{trait_opt}{numeric. The optimal trait value.
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
 
-\item{carr_cap_opt}{numeric. Maximum carrying capacity at \eqn{z = z_{opt}}.
-Note that this corresponds to the maximum number of \strong{competitors} for that
-trait value, as the focal individual does not contribute to the carrying
-capacity (see also \code{\link{get_fitness}}).}
+\item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
 
-\item{carr_cap_width}{numeric \eqn{>= 0} 0. \eqn{\sigma^{2}_{K}}. Controls
-how fast the carrying capacity decays as the distance between a \code{trait}
-and \code{trait_opt} increases.
-\eqn{\sigma^{2}_{K}}}
+\item{carr_cap_width}{numeric \verb{>= 0}.
+Width of the carrying capacity kernel.}
 
-\item{growth_rate}{numeric \eqn{>= 0}, the baseline growth rate in the
-absence of competition.}
+\item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
+being discrete, high values will cause chaos.}
 
 \item{prob_mutation}{numeric between 0 and 1, the probability that any new
 individual is sampled with a mutation.}
 
-\item{mutation_sd}{numeric \eqn{>= 0}, the standard deviation of the normal
-distrbution in which the mutations are drawn.}
-
-\item{fitness}{numeric \eqn{>= 0} vector, containing the fitness values for
-each individual as computed by \code{\link{get_fitness}}}
+\item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
+distrbution from which mutations are drawn.}
 
 \item{nb_generations}{integer, the number of generations to run during the
 simulation.}
 
-\item{fitness_func, }{a function to use to compute fitness.}
+\item{fitness_func, }{the name of the function used to compute fitness.}
 
 \item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
-as produced by \code{\link[=run_simulation]{run_simulation()}}.}
+as produced by \code{\link[=run_simulation]{run_simulation()}} or read by \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.}
 }
 \description{
 This function does nothing. It is intended to inherit is parameters'

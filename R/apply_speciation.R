@@ -1,7 +1,7 @@
-#' Resolve speciation in a comrad population
+#' Resolve speciation in a comrad community
 #'
-#' For each species, check for gaps `>=` 0.1 in trait values, and if found,
-#' members on a random side of the gap become a new species.
+#' For each species, check if there is any gap of `>=` 0.1 in trait values, and
+#' split the relevant species in two when one is found.
 #'
 #' @inheritParams default_params_doc
 #'
@@ -17,21 +17,21 @@
 #' @author Théo Pannetier
 #' @export
 
-apply_speciation <- function(pop) {
+apply_speciation <- function(comm) {
   # Stupid but necessary for the build
   z <- NULL
   species <- NULL
   ancestral_species <- NULL
 
-  test_comrad_pop(pop)
+  test_comrad_comm(comm)
 
-  pop <- pop %>% dplyr::arrange(z)
+  comm <- comm %>% dplyr::arrange(z)
 
-  for (sp in unique(pop$species)) {
+  for (sp in unique(comm$species)) {
     # Keep track of species members' position
-    where <- which(pop$species == sp)
+    where <- which(comm$species == sp)
     # Extract members of focal species
-    sp_members <- pop %>% dplyr::filter(species == sp)
+    sp_members <- comm %>% dplyr::filter(species == sp)
 
     # Check for gaps in trait values -------------------------------------------
     gaps <- sp_members %>%
@@ -63,13 +63,13 @@ apply_speciation <- function(pop) {
 
       }
       # }
-      # Test format & update population ---------------------------------
-      testarg_char(sp_labels)
-      testarg_length(sp_labels, length(sp_members$species))
-      pop$ancestral_species[where] <- anc_labels
-      pop$species[where] <- sp_labels
+      # Test format & update community ---------------------------------
+      comrad::testarg_char(sp_labels)
+      comrad::testarg_length(sp_labels, length(sp_members$species))
+      comm$ancestral_species[where] <- anc_labels
+      comm$species[where] <- sp_labels
     }
   }
-  test_comrad_pop(pop)
-  return(pop)
+  test_comrad_comm(comm)
+  return(comm)
 }

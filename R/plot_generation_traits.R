@@ -13,14 +13,14 @@
 plot_generation_traits <- function(comrad_tbl,
                                   generation,
                                   binwidth = 0.02) {
-  testarg_num(generation)
-  testarg_pos(generation)
-  testarg_num(binwidth)
-  testarg_pos(binwidth)
+  comrad::testarg_num(generation)
+  comrad::testarg_pos(generation)
+  comrad::testarg_num(binwidth)
+  comrad::testarg_pos(binwidth)
 
   # Stupid but necessary for the build
   z <- NULL
-  ..x.. <- NULL
+  ..x.. <- NULL # nolint
 
   if (!generation %in% comrad_tbl$t) {
     stop(paste("Generation", generation, "wasn't sampled."))

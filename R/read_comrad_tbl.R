@@ -12,7 +12,7 @@
 
 read_comrad_tbl <- function(path_to_file, skip = 17) {
 
-  testarg_char(path_to_file)
+  comrad::testarg_char(path_to_file)
   path_to_file_extension <- substr(
     path_to_file,
     nchar(path_to_file) - 3,

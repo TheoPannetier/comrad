@@ -4,7 +4,8 @@
 #' figures out the branch lenghts and return a phylogenetic tree in Newick
 #' format. Based on [DDD::L2phylo()].
 #'
-#' @param phylo_tbl no description yet.
+#' @param phylo_tbl a table with phylogenetic information for each species, the
+#' output of [assemble_phylo_tbl()]
 #'
 #' @author Théo Pannetier
 #' @export

@@ -18,8 +18,8 @@
 #' @export
 
 set_sampling_frequency <- function(nb_generations) {
-  testarg_num(nb_generations)
-  testarg_pos(nb_generations)
+  comrad::testarg_num(nb_generations)
+  comrad::testarg_pos(nb_generations)
 
   max(1, 10 ^ floor(log10(nb_generations) - 2))
 }

@@ -2,38 +2,39 @@
 #'
 #' Run the competitive radiation simulation.
 #'
-#' @param output_path character, path to save the output file. If `NULL`, the
-#' output is not saved and the final generation population is returned at the
-#' end of the simulation.
-#' @param init_pop a tibble containing the initial population.
+#' @param output_path character, path to save the output file, which must be a
+#' `.csv`. If `NULL`, the output is not saved and the final state of the
+#' community is returned at the end of the simulation.
+#' @param init_comm The initial community, must have the same tibble structure
+#' as the [default_init_comm()], which contains 10 individuals with `z = 0`
 #' @param nb_generations integer, the number of generations to run the
 #' simulation for.
 #' @param sampling_frequency numeric \code{> 0}, the frequency at which the
-#' population is saved in the output.
-#' @param seed numeric \code{> 0}, the integer seed to set for the random number
+#' community is saved in the output. Default is `max(1, nb_generations / 100)`.
+#' @param seed integer \code{> 0}, the seed to set for the random number
 #' generator.
 #' @inheritParams default_params_doc
-#' @param hpc_job_id only relevant if run on a HPC, otherwise takes value
-#' `"local"`. If supplied, the job ID will be included in the metadata.
+#' @param hpc_job_id used to record a job ID in the metadata, only relevant for
+#' simulations run on a high-performance cluster. Otherwise takes value
+#' `"local"`.
 #'
-#' @details Output is registered in a .csv file with the following structure:
-#' | t | z | runtime |
-#' | --- | --- |--- |
-#' | --- | --- |--- |
-#' where each line is an individual (the entire population is recorded).
-#' \code{t} denotes the generation counter, \code{z} is a trait value, and
-#' \code{runtime} is the processing time elapsed during the current generation.
-#' In addition, the output table is preceded by metadata. Skip the 14 first
-#' lines to get the table proper.
+#' @return Returns a table with a row corresponding to each individual, and five
+#' columns: `t` is the generation time, `z` the individual's trait value,
+#' `species` the name of the species it belongs to, and `ancestral_species` the
+#' previous species it descends from.
+#' If `output_path = NULL`, the community at the last generation is returned.
+#' If the path to a `.csv` file is supplied, each sampled generation is appended
+#' to the file. In the `.csv`, the table is preceded by 17 lines of metadata,
+#' which are automatically ignored if the file is read with [read_comrad_tbl()].
 #'
-#' @author Theo Pannetier
+#' @author Théo Pannetier
 #' @export
 #'
 run_simulation <- function(
   output_path,
-  init_pop = default_init_pop(),
+  init_comm = default_init_comm(),
   nb_generations = 20,
-  sampling_frequency = set_sampling_frequency(nb_generations),
+  sampling_frequency = comrad::set_sampling_frequency(nb_generations),
   seed = default_seed(),
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),
@@ -42,40 +43,52 @@ run_simulation <- function(
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  hpc_job_id = "local"
+  hpc_job_id = NULL
 ) {
-  test_comrad_pop(init_pop)
-  if (!is.null(output_path) && !is.character(output_path)) {
-    stop("'output_path' must be either null or a character.")
+  comrad::test_comrad_comm(init_comm)
+  if (!is.null(output_path)) {
+    if (!is.character(output_path)) {
+      stop("'output_path' must be either null or a character.")
+    } else {
+      output_path_extension <- substr(
+        output_path,
+        nchar(output_path) - 3,
+        nchar(output_path)
+      )
+      if (!output_path_extension == ".csv") {
+        stop("'output_path' must be a .csv")
+      }
+    }
   }
-  testarg_num(nb_generations)
-  testarg_pos(nb_generations)
-  testarg_not_this(nb_generations, c(0, Inf))
-  testarg_int(nb_generations)
-  testarg_num(sampling_frequency)
-  testarg_int(sampling_frequency)
-  testarg_num(seed)
-  testarg_int(seed)
-  testarg_num(growth_rate)
-  testarg_pos(growth_rate)
-  testarg_num(comp_width)
-  testarg_pos(comp_width)
-  testarg_num(trait_opt)
-  testarg_num(carr_cap_opt)
-  testarg_pos(carr_cap_opt)
-  testarg_num(carr_cap_width)
-  testarg_pos(carr_cap_width)
-  testarg_num(prob_mutation)
-  testarg_prop(prob_mutation)
-  testarg_num(mutation_sd)
-  testarg_pos(mutation_sd)
+
+  comrad::testarg_num(nb_generations)
+  comrad::testarg_pos(nb_generations)
+  comrad::testarg_not_this(nb_generations, c(0, Inf))
+  comrad::testarg_int(nb_generations)
+  comrad::testarg_num(sampling_frequency)
+  comrad::testarg_int(sampling_frequency)
+  comrad::testarg_num(seed)
+  comrad::testarg_int(seed)
+  comrad::testarg_num(growth_rate)
+  comrad::testarg_pos(growth_rate)
+  comrad::testarg_num(comp_width)
+  comrad::testarg_pos(comp_width)
+  comrad::testarg_num(trait_opt)
+  comrad::testarg_num(carr_cap_opt)
+  comrad::testarg_pos(carr_cap_opt)
+  comrad::testarg_num(carr_cap_width)
+  comrad::testarg_pos(carr_cap_width)
+  comrad::testarg_num(prob_mutation)
+  comrad::testarg_prop(prob_mutation)
+  comrad::testarg_num(mutation_sd)
+  comrad::testarg_pos(mutation_sd)
 
   is_on_unix <- rappdirs::app_dir()$os == "unix" # for the cluster
 
   if (is_on_unix) {
-    if (hpc_job_id != "local") {
-      testarg_num(hpc_job_id)
-      testarg_int(hpc_job_id)
+    if (!is.null(hpc_job_id)) {
+      comrad::testarg_num(hpc_job_id)
+      comrad::testarg_int(hpc_job_id)
     }
   } else {
     hpc_job_id <- "local" # brute force
@@ -117,8 +130,8 @@ run_simulation <- function(
   # Set up data output table proper
   output_entry <- tibble::tibble(
     "t" = 0,
-    "z" = init_pop$z,
-    "species" = init_pop$species,
+    "z" = init_comm$z,
+    "species" = init_comm$species,
     "ancestral_species" = as.character(NA),
     "runtime" = 0
   )
@@ -131,8 +144,8 @@ run_simulation <- function(
     )
   }
 
-  # Set initial population
-  pop <- init_pop
+  # Set initial community
+  comm <- init_comm
 
   # Set timer
   start_time <- proc.time()[3]
@@ -146,9 +159,9 @@ run_simulation <- function(
 
     gen_time <- proc.time()[3]
 
-    # Replace pop with next generation
-    pop <- draw_next_gen(
-      pop = pop,
+    # Replace comm with next generation
+    comm <- comrad::draw_comm_next_gen(
+      comm = comm,
       growth_rate = growth_rate,
       comp_width = comp_width,
       trait_opt = trait_opt,
@@ -158,8 +171,8 @@ run_simulation <- function(
       mutation_sd = mutation_sd
     )
 
-    if (length(pop$species) < 1) {
-      cat("\nPopulation has gone extinct at generation", t, "\n")
+    if (length(comm$species) < 1) {
+      cat("\nCommunity has gone extinct at generation", t, "\n")
       if (is.null(output_path)) {
         return(output_entry)
       } else {
@@ -169,9 +182,9 @@ run_simulation <- function(
 
     output_entry <- tibble::tibble(
       "t" = t,
-      "z" = pop$z,
-      "species" = pop$species,
-      "ancestral_species" = pop$ancestral_species,
+      "z" = comm$z,
+      "species" = comm$species,
+      "ancestral_species" = comm$ancestral_species,
       "runtime" = proc.time()[3] - gen_time
     )
 
