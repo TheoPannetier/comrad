@@ -17,7 +17,8 @@ columns:
 }
 \description{
 For each species, check if there is any gap of \code{>=} 0.1 in trait values, and
-split the relevant species in two when one is found.
+split the relevant species in two when one is found. The less numerous half
+becomes the new species.
 }
 \note{
 \code{apply_speciation()} can currently only split one species into two. If
