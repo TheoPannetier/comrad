@@ -17,8 +17,8 @@ table}
 \description{
 Produces a plot of trait evolution where individuals are binned as bubbles
 which colour indicate the species identity and the size the number of
-individuals in the bin. Equivalent to \code{\link[=plot_comm_trait_evolution]{plot_comm_trait_evolution()}}, plus
-species identities.
+individuals in the bin. Plots both species identity and individual densities,
+but at the expense of resolution (compared to \code{\link[=plot_comm_trait_evolution]{plot_comm_trait_evolution()}}).
 }
 \author{
 Théo Pannetier

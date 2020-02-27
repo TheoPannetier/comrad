@@ -21,6 +21,7 @@ plot_comm_size <- function(comrad_tbl, colouring = "auto") {
   # Stupid but necessary for the build
   n <- NULL
   t <- NULL
+  species <- NULL
 
   # Extract species names for colours
   species_names <- unique(comrad_tbl$species)

@@ -7,8 +7,9 @@
 plot_comm_trait_evolution(
   comrad_tbl,
   generation_range = c(0, Inf),
-  xgrain = 10,
-  ygrain = 0.01
+  xgrain = 100,
+  ygrain = 0.01,
+  hex_fill = "counts"
 )
 }
 \arguments{
@@ -22,6 +23,10 @@ table}
 \item{xgrain}{numeric, the width of  hexes on the x-axis (generations)}
 
 \item{ygrain}{numeric, the width of  hexes on the y-axis (trait)}
+
+\item{hex_fill}{character with two options, \code{"counts"} and \code{"species"}.
+\code{"counts"} colours hexes by the count of individuals, and \code{"species"} by
+species identity.}
 }
 \description{
 Produces a hex-density plot of all trait values in the community over

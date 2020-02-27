@@ -2,8 +2,8 @@
 #'
 #' Produces a plot of trait evolution where individuals are binned as bubbles
 #' which colour indicate the species identity and the size the number of
-#' individuals in the bin. Equivalent to [plot_comm_trait_evolution()], plus
-#' species identities.
+#' individuals in the bin. Plots both species identity and individual densities,
+#' but at the expense of resolution (compared to [plot_comm_trait_evolution()]).
 #'
 #' @param comrad_tbl a tibble containing the output of a `comrad` simulation,
 #' as produced by [run_simulation()].
@@ -39,8 +39,8 @@ plot_comm_bubbles <- function(comrad_tbl,
     dplyr::filter(
       dplyr::between(t, generation_range[1], generation_range[2])
     )
-  species_hexes <- unique(comrad_tbl$species)
-  names(species_hexes) <- species_hexes
+  species_names <- unique(comrad_tbl$species)
+  names(species_names) <- species_names
 
   trait_plot <- comrad_tbl %>%
     ggplot2::ggplot(ggplot2::aes(x = t, y = z)) +
@@ -55,7 +55,7 @@ plot_comm_bubbles <- function(comrad_tbl,
         "size" = TRUE, "colour" = FALSE, "count" = FALSE, "alpha" = FALSE
       )
     ) +
-    ggplot2::scale_colour_manual(values = species_hexes) +
+    ggplot2::scale_colour_manual(values = species_names) +
     ggplot2::scale_y_continuous(minor_breaks = seq(-2, 2, 0.1)) +
     ggplot2::labs(x = "Generation", y = "Trait value")
 
