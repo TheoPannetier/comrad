@@ -4,11 +4,18 @@
 \alias{plot_comm_size}
 \title{Plot community size over generations}
 \usage{
-plot_comm_size(comrad_tbl)
+plot_comm_size(comrad_tbl, colouring = "auto")
 }
 \arguments{
 \item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
 as produced by \code{\link[=run_simulation]{run_simulation()}}.}
+
+\item{colouring}{character specifying how to colour each species. Default
+\code{auto} lets \code{ggplot} pick colours as usual. \code{species_names} is used when
+colour hexes are sampled as species names during the simulation, and will
+colour each species with its colour. This ensures consistency across plots
+but may make colours harder to distinguish based on which hexes where
+sampled.}
 }
 \description{
 Plots the number of individuals in the community over time.
