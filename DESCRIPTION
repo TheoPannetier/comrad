@@ -1,7 +1,7 @@
 Package: comrad
 Type: Package
 Title: R implementation of a Competitive Radiation model
-Version: 0.12.0
+Version: 0.13.0
 Author: Theo Pannetier
 Maintainer: Theo Pannetier <t.s.c.pannetier@rug.nl>
 Description: This R package is based on the eco-evolutionary model introduced in 
@@ -26,7 +26,8 @@ Imports:
     viridis,
     rmarkdown,
     charlatan,
-    rappdirs
+    rappdirs,
+    lattice
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr

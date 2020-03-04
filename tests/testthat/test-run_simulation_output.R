@@ -34,13 +34,13 @@ test_that("standard_output_file", {
     "generation_range is out of the scope of generations in the comrad_tbl."
   )
   expect_true(
-    plot_generation_traits(
+    plot_comm_traits(
       comrad_tbl, generation = 1
     ) %>%
       ggplot2::is.ggplot()
   )
   expect_error(
-    plot_generation_traits(comrad_tbl, generation = 100),
+    plot_comm_traits(comrad_tbl, generation = 100),
     "Generation 100 wasn't sampled."
   )
   expect_true(

@@ -33,6 +33,7 @@ get_fitness <- function(
 
   # Compute effective population sizes -----------------------------------------
   n_eff <- comrad::get_n_eff(
+    z = traits_comm,
     traits_comm = traits_comm,
     comp_width = comp_width
   ) # get the n_eff values experienced by each individual in the community
