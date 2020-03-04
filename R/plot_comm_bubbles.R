@@ -10,16 +10,28 @@
 #' @param generation_range numeric vector with length 2, supplying the first and
 #' last generation to plot from the dataset. Defaults to every generation in the
 #' table
-#'
+#' @param xlim numeric vector, the range of x-values, passed to
+#' `ggplot::coord_cartesian()` if not `NULL`.
+#' @param ylim numeric vector, the range of y-values, passed to
+#' `ggplot::coord_cartesian()` if not `NULL`.
 #' @author Théo Pannetier
 #' @export
 
 plot_comm_bubbles <- function(comrad_tbl,
-                              generation_range = c(0, Inf)
+                              generation_range = c(0, Inf),
+                              xlim = NULL,
+                              ylim = NULL
+
 ) {
   comrad::testarg_num(generation_range)
   comrad::testarg_pos(generation_range)
   comrad::testarg_length(generation_range, 2)
+  if (!is.null(xlim[1]) && (!is.numeric(xlim) || length(xlim) != 2)) {
+    stop("custom 'xlim' must be a length-2 numeric vector.")
+  }
+  if (!is.null(ylim[1]) && (!is.numeric(ylim) || length(ylim) != 2)) {
+    stop("custom 'ylim' must be a length-2 numeric vector.")
+  }
 
   # Stupid but necessary for the build
   z <- NULL
@@ -55,6 +67,7 @@ plot_comm_bubbles <- function(comrad_tbl,
         "size" = TRUE, "colour" = FALSE, "count" = FALSE, "alpha" = FALSE
       )
     ) +
+    ggplot2::coord_cartesian(xlim = xlim, ylim = ylim) +
     ggplot2::scale_colour_manual(values = species_names) +
     ggplot2::scale_y_continuous(minor_breaks = seq(-2, 2, 0.1)) +
     ggplot2::labs(x = "Generation", y = "Trait value")

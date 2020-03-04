@@ -10,7 +10,7 @@
 #' @author Théo Pannetier
 #' @export
 
-plot_generation_traits <- function(comrad_tbl,
+plot_comm_traits <- function(comrad_tbl,
                                   generation,
                                   binwidth = 0.02) {
   comrad::testarg_num(generation)

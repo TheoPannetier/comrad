@@ -9,6 +9,8 @@ plot_comm_trait_evolution(
   generation_range = c(0, Inf),
   xgrain = 100,
   ygrain = 0.01,
+  xlim = NULL,
+  ylim = NULL,
   hex_fill = "counts"
 )
 }
@@ -23,6 +25,12 @@ table}
 \item{xgrain}{numeric, the width of  hexes on the x-axis (generations)}
 
 \item{ygrain}{numeric, the width of  hexes on the y-axis (trait)}
+
+\item{xlim}{numeric vector, the range of x-values, passed to
+\code{ggplot::coord_cartesian()} if not \code{NULL}.}
+
+\item{ylim}{numeric vector, the range of y-values, passed to
+\code{ggplot::coord_cartesian()} if not \code{NULL}.}
 
 \item{hex_fill}{character with two options, \code{"counts"} and \code{"species"}.
 \code{"counts"} colours hexes by the count of individuals, and \code{"species"} by

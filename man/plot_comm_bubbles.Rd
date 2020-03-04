@@ -4,7 +4,12 @@
 \alias{plot_comm_bubbles}
 \title{Plot population densities and trait distribution over time, with bubbles}
 \usage{
-plot_comm_bubbles(comrad_tbl, generation_range = c(0, Inf))
+plot_comm_bubbles(
+  comrad_tbl,
+  generation_range = c(0, Inf),
+  xlim = NULL,
+  ylim = NULL
+)
 }
 \arguments{
 \item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
@@ -13,6 +18,12 @@ as produced by \code{\link[=run_simulation]{run_simulation()}}.}
 \item{generation_range}{numeric vector with length 2, supplying the first and
 last generation to plot from the dataset. Defaults to every generation in the
 table}
+
+\item{xlim}{numeric vector, the range of x-values, passed to
+\code{ggplot::coord_cartesian()} if not \code{NULL}.}
+
+\item{ylim}{numeric vector, the range of y-values, passed to
+\code{ggplot::coord_cartesian()} if not \code{NULL}.}
 }
 \description{
 Produces a plot of trait evolution where individuals are binned as bubbles
