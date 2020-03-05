@@ -23,6 +23,9 @@ plot_comm_bubbles <- function(comrad_tbl,
                               ylim = NULL
 
 ) {
+  comrad::test_comrad_comm(
+    comrad_tbl %>% dplyr::select("z", "species", "ancestral_species")
+  )
   comrad::testarg_num(generation_range)
   comrad::testarg_pos(generation_range)
   comrad::testarg_length(generation_range, 2)

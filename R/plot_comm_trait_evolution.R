@@ -29,6 +29,9 @@ plot_comm_trait_evolution <- function(comrad_tbl,
                                       xlim = NULL,
                                       ylim = NULL,
                                       hex_fill = "counts") {
+  comrad::test_comrad_comm(
+    comrad_tbl %>% dplyr::select("z", "species", "ancestral_species")
+  )
   comrad::testarg_num(generation_range)
   comrad::testarg_pos(generation_range)
   comrad::testarg_length(generation_range, 2)
