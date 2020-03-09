@@ -42,10 +42,13 @@ plot_comm_traits <- function(comrad_tbl,
     ) +
     ggplot2::scale_fill_manual(
       values = species_names
+    ) +
+    ggplot2::scale_x_continuous(
+      minor_breaks = seq(-10, 10, 0.1)
+    ) +
+    ggplot2::labs(
+      x = "Trait",
+      y = "Count",
+      title = paste("Generation", generation, "/", max_gen)
     )
-  ggplot2::labs(
-    x = "Trait",
-    y = "Count",
-    title = paste("Generation", generation, "/", max_gen)
-  )
 }
