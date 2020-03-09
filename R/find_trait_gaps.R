@@ -4,12 +4,12 @@
 #' `>= trait_gap` between consecutive values.
 #'
 #' @param traits a numeric vector, trait values **in ascending order**.
-#' @param trait_gap numeric, the width of a gap triggering speciation.
+#' @inheritParams default_params_doc
 #'
 #' @author Théo Pannetier
 #' @export
 
-find_trait_gaps <- function(traits, trait_gap = 0.1) {
+find_trait_gaps <- function(traits, trait_gap = default_trait_gap()) {
   comrad::testarg_num(traits)
   if (any(traits != sort(traits))) {
     stop("'traits' must be sorted by ascending order before checking for gaps.")

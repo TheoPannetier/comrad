@@ -25,6 +25,7 @@
 #' individual is sampled with a mutation.
 #' @param mutation_sd numeric `>= 0`, the standard deviation of the normal
 #' distrbution from which mutations are drawn.
+#' @param trait_gap numeric, the width of a gap triggering speciation.
 #' @param nb_generations integer, the number of generations to run during the
 #' simulation.
 #' @param fitness_func, the name of the function used to compute fitness.
@@ -44,6 +45,7 @@ default_params_doc <- function(
   growth_rate,
   prob_mutation,
   mutation_sd,
+  trait_gap,
   nb_generations,
   fitness_func,
   comrad_tbl

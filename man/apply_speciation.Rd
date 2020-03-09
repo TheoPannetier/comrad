@@ -4,7 +4,7 @@
 \alias{apply_speciation}
 \title{Resolve speciation in a comrad community}
 \usage{
-apply_speciation(comm, trait_gap = 0.1)
+apply_speciation(comm, trait_gap = default_trait_gap())
 }
 \arguments{
 \item{comm}{a tibble with one row per individual in the community and three

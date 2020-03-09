@@ -5,7 +5,6 @@
 #' half becomes the new species.
 #'
 #' @inheritParams default_params_doc
-#' @param trait_gap numeric, the width of a gap triggering speciation.
 #' @note `apply_speciation()` can currently only split one species into two. If
 #' multiple gaps emerge in a species at a single time step, only the first one
 #' will be treated. As long as branching does not happen at every generation,
@@ -18,7 +17,7 @@
 #' @author Théo Pannetier
 #' @export
 
-apply_speciation <- function(comm, trait_gap = 0.1) {
+apply_speciation <- function(comm, trait_gap = default_trait_gap()) {
   # Stupid but necessary for the build
   z <- NULL
   species <- NULL

@@ -16,7 +16,8 @@ draw_comm_next_gen <- function(
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
-  mutation_sd = default_mutation_sd()
+  mutation_sd = default_mutation_sd(),
+  trait_gap = default_trait_gap()
 ) {
 
   # Test argument type ---------------------------------------------------------
@@ -72,7 +73,8 @@ draw_comm_next_gen <- function(
 
   # Resolve speciation ---------------------------------------------------------
   new_comm <- comrad::apply_speciation(
-    comm = new_comm
+    comm = new_comm,
+    trait_gap = trait_gap
   )
   comrad::test_comrad_comm(new_comm)
 

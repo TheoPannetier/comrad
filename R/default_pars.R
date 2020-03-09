@@ -64,3 +64,9 @@ default_init_comm <- function() {
 default_seed <- function() {
   180
 }
+
+#' @export
+#' @rdname default_pars
+default_trait_gap <- function() {
+  0.1
+}

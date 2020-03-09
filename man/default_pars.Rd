@@ -11,6 +11,7 @@
 \alias{default_mutation_sd}
 \alias{default_init_comm}
 \alias{default_seed}
+\alias{default_trait_gap}
 \title{Default parameter values}
 \usage{
 default_comp_width()
@@ -30,6 +31,8 @@ default_mutation_sd()
 default_init_comm()
 
 default_seed()
+
+default_trait_gap()
 }
 \description{
 Return default values of the simulation parameters, i.e. the default settings

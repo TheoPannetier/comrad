@@ -43,6 +43,7 @@ run_simulation <- function(
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
+  trait_gap = default_trait_gap(),
   hpc_job_id = NULL
 ) {
   comrad::test_comrad_comm(init_comm)
@@ -82,6 +83,8 @@ run_simulation <- function(
   comrad::testarg_prop(prob_mutation)
   comrad::testarg_num(mutation_sd)
   comrad::testarg_pos(mutation_sd)
+  comrad::testarg_num(trait_gap)
+  comrad::testarg_pos(trait_gap)
 
   is_on_unix <- rappdirs::app_dir()$os == "unix" # for the cluster
 
@@ -168,7 +171,8 @@ run_simulation <- function(
       carr_cap_opt = carr_cap_opt,
       carr_cap_width = carr_cap_width,
       prob_mutation = prob_mutation,
-      mutation_sd = mutation_sd
+      mutation_sd = mutation_sd,
+      trait_gap = trait_gap
     )
 
     if (length(comm$species) < 1) {

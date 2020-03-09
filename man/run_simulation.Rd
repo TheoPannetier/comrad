@@ -17,6 +17,7 @@ run_simulation(
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
+  trait_gap = default_trait_gap(),
   hpc_job_id = NULL
 )
 }
@@ -55,6 +56,8 @@ individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}
+
+\item{trait_gap}{numeric, the width of a gap triggering speciation.}
 
 \item{hpc_job_id}{used to record a job ID in the metadata, only relevant for
 simulations run on a high-performance cluster. Otherwise takes value

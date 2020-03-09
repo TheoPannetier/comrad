@@ -4,7 +4,7 @@
 \alias{find_trait_gaps}
 \title{Find gaps in trait values}
 \usage{
-find_trait_gaps(traits, trait_gap = 0.1)
+find_trait_gaps(traits, trait_gap = default_trait_gap())
 }
 \arguments{
 \item{traits}{a numeric vector, trait values \strong{in ascending order}.}
