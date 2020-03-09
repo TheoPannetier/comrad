@@ -21,16 +21,19 @@ plot_trait_disparity <- function(comrad_tbl,
   comrad::testarg_pos(generation_range)
   comrad::testarg_length(generation_range, 2)
 
+  z <- NULL
+  trait_disparity <- NULL
+
   comrad_tbl %>%
     dplyr::group_by(t) %>%
     dplyr::summarise(
-      "trait_disparity" = var(z)
+      trait_disparity = stats::var(z)
     ) %>%
     ggplot2::ggplot(ggplot2::aes(x = t, y = trait_disparity)) +
     ggplot2::geom_area() +
     ggplot2::labs(
       x = "Generations",
-      y = bquote(sigma(z)^2)
+      y = bquote(sigma(z) ^ 2)
     )
 
 }

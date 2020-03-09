@@ -20,7 +20,7 @@ plot_comm_traits <- function(comrad_tbl,
 
   # Stupid but necessary for the build
   z <- NULL
-  ..x.. <- NULL # nolint
+  species <- NULL
 
   if (!generation %in% comrad_tbl$t) {
     stop(paste("Generation", generation, "wasn't sampled."))

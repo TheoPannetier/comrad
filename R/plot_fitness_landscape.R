@@ -23,7 +23,7 @@ plot_fitness_landscape <- function(comrad_tbl,
 
   comrad::test_comrad_comm(
     comrad_tbl %>% dplyr::select("z", "species", "ancestral_species")
-    )
+  )
   comrad::testarg_num(generation)
   comrad::testarg_pos(generation)
   comrad::testarg_num(comp_width)
@@ -34,6 +34,8 @@ plot_fitness_landscape <- function(comrad_tbl,
   if (!generation %in% comrad_tbl$t) {
     stop(paste("Generation", generation, "wasn't sampled."))
   }
+
+  max_gen <- max(comrad_tbl$t)
 
   if (is.null(z_seq)) {
     z_range <- comrad_tbl$z[comrad_tbl$t == generation]
@@ -56,5 +58,8 @@ plot_fitness_landscape <- function(comrad_tbl,
 
   fitness_landscape %>%
     ggplot2::ggplot(ggplot2::aes(x = z, y = fitness)) +
-    ggplot2::geom_area()
+    ggplot2::geom_area() +
+    ggplot2::labs(
+      title = paste("Generation", generation, "/", max_gen)
+    )
 }

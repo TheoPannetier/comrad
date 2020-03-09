@@ -4,7 +4,7 @@
 \alias{plot_comm_traits}
 \title{Plot trait distribution in a generation}
 \usage{
-plot_comm_traits(comrad_tbl, generation, binwidth = 0.02)
+plot_comm_traits(comrad_tbl, generation, binwidth = 0.01)
 }
 \arguments{
 \item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
