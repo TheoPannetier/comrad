@@ -11,8 +11,8 @@
 #' @export
 
 plot_comm_traits <- function(comrad_tbl,
-                                  generation,
-                                  binwidth = 0.02) {
+                             generation,
+                             binwidth = 0.01) {
   comrad::testarg_num(generation)
   comrad::testarg_pos(generation)
   comrad::testarg_num(binwidth)
@@ -28,16 +28,24 @@ plot_comm_traits <- function(comrad_tbl,
 
   max_gen <- max(comrad_tbl$t)
 
+  # Extract species names for colours
+  species_names <- unique(comrad_tbl$species)
+  names(species_names) <- species_names
+
   gen_data <- comrad_tbl %>% dplyr::filter(comrad_tbl$t == generation)
   gen_data %>%
-    ggplot2::ggplot(ggplot2::aes(x = z, fill = ..x..)) +
-    ggplot2::geom_histogram(binwidth = binwidth) +
-    ggplot2::scale_fill_gradient2(
-      low = "blue", mid = "blue", high = "blue", name = "Trait"
-      ) +
-    ggplot2::labs(
-      x = "Trait",
-      y = "Count",
-      title = paste("Generation", generation, "/", max_gen)
+    ggplot2::ggplot(ggplot2::aes(x = z, fill = species)) +
+    ggplot2::geom_histogram(
+      binwidth = binwidth,
+      alpha = 0.6,
+      show.legend = FALSE
+    ) +
+    ggplot2::scale_fill_manual(
+      values = species_names
     )
+  ggplot2::labs(
+    x = "Trait",
+    y = "Count",
+    title = paste("Generation", generation, "/", max_gen)
+  )
 }
