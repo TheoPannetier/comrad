@@ -37,7 +37,7 @@ get_fitness_landscape <- function(z_seq,
   # Compute fitness, wrap in tibble
   fitness_landscape <- tibble::tibble(
     "z" = z_seq,
-    "fitness" = exp(growth_rate * (0 - n_eff / k))
+    "fitness" = exp(growth_rate * (1 - n_eff / k))
   )
   fitness_landscape
 }
