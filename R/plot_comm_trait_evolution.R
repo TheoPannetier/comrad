@@ -28,7 +28,7 @@ plot_comm_trait_evolution <- function(comrad_tbl,
                                       ygrain = 0.01,
                                       xlim = NULL,
                                       ylim = NULL,
-                                      hex_fill = "counts") {
+                                      hex_fill = "species") {
   comrad::test_comrad_comm(
     comrad_tbl %>% dplyr::select("z", "species", "ancestral_species")
   )

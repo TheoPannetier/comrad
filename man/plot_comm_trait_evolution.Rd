@@ -11,7 +11,7 @@ plot_comm_trait_evolution(
   ygrain = 0.01,
   xlim = NULL,
   ylim = NULL,
-  hex_fill = "counts"
+  hex_fill = "species"
 )
 }
 \arguments{
