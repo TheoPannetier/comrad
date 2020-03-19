@@ -13,6 +13,9 @@
 plot_comm_traits <- function(comrad_tbl,
                              generation,
                              binwidth = 0.01) {
+  comrad::test_comrad_comm(
+    comrad_tbl %>% dplyr::select("z", "species", "ancestral_species")
+  )
   comrad::testarg_num(generation)
   comrad::testarg_pos(generation)
   comrad::testarg_num(binwidth)
