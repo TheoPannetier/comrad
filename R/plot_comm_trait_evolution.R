@@ -67,7 +67,9 @@ plot_comm_trait_evolution <- function(comrad_tbl,
   names(species_names) <- species_names
 
   tiny_species <- species_names[
-    sapply(species_names, function(x) {sum(comrad_tbl$species == x)})  < 3
+    sapply(species_names, function(x) {
+      sum(comrad_tbl$species == x)
+      })  < 3
   ]
   if (length(tiny_species) > 0) { # cause issues with the hexes
     comrad_tbl <- comrad_tbl %>%

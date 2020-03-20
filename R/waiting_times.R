@@ -24,7 +24,8 @@ waiting_times <- function(phylo) {
   time <- NULL
 
   # Get time and N from ape
-  ltt_tbl <- phylo %>% ape::ltt.plot.coords() %>%
+  ltt_tbl <- phylo %>%
+    ape::ltt.plot.coords() %>%
     tibble::as_tibble()
 
   ltt_tbl <- ltt_tbl %>% dplyr::mutate(

@@ -41,6 +41,7 @@ plot_comm_bubbles <- function(comrad_tbl,
   t <- NULL
   species <- NULL
   count <- NULL
+  stat <- NULL
 
   if (generation_range[2] == Inf) {
     generation_range[2] <- max(comrad_tbl$t)

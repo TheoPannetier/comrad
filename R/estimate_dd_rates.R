@@ -32,23 +32,23 @@ estimate_dd_rates <- function(multi_phylo) {
   }
 
   # Declare empty variables for check
-  N <- NULL
-  time <- NULL
-  event_rate <- NULL
-  waiting_time <- NULL
-  prop_speciation <- NULL
-  prop_extinction <- NULL
-  speciation_rate <- NULL
-  extinction_rate <- NULL
-  mean_waiting_time <- NULL
-  nb_events <- NULL
-  event <- NULL
-  total_events <- NULL
+  N <- NULL # nolint
+  time <- NULL #nolint
+  event_rate <- NULL #nolint
+  waiting_time <- NULL # nolint
+  prop_speciation <- NULL # nolint
+  prop_extinction <- NULL # nolint
+  speciation_rate <- NULL # nolint
+  extinction_rate <- NULL # nolint
+  mean_waiting_time <- NULL # nolint
+  nb_events <- NULL # nolint
+  event <- NULL # nolint
+  total_events <- NULL # nolint
 
   replicates <- seq_along(multi_phylo)
 
   # Extract waiting times for all phylos
-  times_tbl <- lapply(replicates, function (i) {
+  times_tbl <- lapply(replicates, function(i) {
     phylo <- multi_phylo[[i]]
     waiting_times(phylo) %>%
       dplyr::mutate("replicate" = i)
@@ -77,4 +77,3 @@ estimate_dd_rates <- function(multi_phylo) {
     )
   rates_tbl
 }
-
