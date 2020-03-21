@@ -26,11 +26,10 @@ read_comrad_tbl <- function(path_to_file, skip = 17) {
     path_to_file,
     skip = skip, # skip metadata
     col_types = readr::cols(
-      readr::col_number(),
-      readr::col_number(),
-      readr::col_character(),
-      readr::col_character(),
-      readr::col_number()
+      readr::col_number(),    # t
+      readr::col_number(),    # z
+      readr::col_character(), # species
+      readr::col_character() # ancestral_species
     )
   )
   comrad_tbl

@@ -125,7 +125,7 @@ run_simulation <- function(
       # Set up output table
       "\n### Simulation output ###",
       "\n",
-      "\nt,z,species,ancestral_species,runtime\n",
+      "\nt,z,species,ancestral_species\n",
       file = output_path
     )
   }
@@ -135,8 +135,7 @@ run_simulation <- function(
     "t" = 0,
     "z" = init_comm$z,
     "species" = init_comm$species,
-    "ancestral_species" = as.character(NA),
-    "runtime" = 0
+    "ancestral_species" = as.character(NA)
   )
 
   if (!is.null(output_path)) {
@@ -155,10 +154,6 @@ run_simulation <- function(
 
   # Go :)
   for (t in 1:nb_generations) {
-
-    if (t %% sampling_frequency == 0) {
-      cat("\nRunning generation", t, "/", nb_generations)
-    }
 
     gen_time <- proc.time()[3]
 
@@ -188,9 +183,15 @@ run_simulation <- function(
       "t" = t,
       "z" = comm$z,
       "species" = comm$species,
-      "ancestral_species" = comm$ancestral_species,
-      "runtime" = proc.time()[3] - gen_time
+      "ancestral_species" = comm$ancestral_species
     )
+
+    if (t %% sampling_frequency == 0) {
+      cat(
+        "\nRunning generation", t, "/", nb_generations,
+        "\trun time =", proc.time()[3] - gen_time
+      )
+    }
 
     if (!is.null(output_path) && t %% sampling_frequency == 0) {
       readr::write_csv(
