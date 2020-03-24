@@ -67,6 +67,12 @@ default_seed <- function() {
 
 #' @export
 #' @rdname default_pars
+default_sampling_prop <- function() {
+  0.5
+}
+
+#' @export
+#' @rdname default_pars
 default_trait_gap <- function() {
   0.1
 }

@@ -18,6 +18,7 @@ run_simulation(
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   trait_gap = default_trait_gap(),
+  sampling_prop = default_sampling_prop(),
   hpc_job_id = NULL
 )
 }
@@ -33,7 +34,8 @@ as the \code{\link[=default_init_comm]{default_init_comm()}}, which contains 10 
 simulation for.}
 
 \item{sampling_frequency}{numeric \code{> 0}, the frequency at which the
-community is saved in the output. Default is \code{max(1, nb_generations / 100)}.}
+community is saved in the output. See \code{\link[=set_sampling_frequency]{set_sampling_frequency()}} for the
+default option.}
 
 \item{seed}{integer \code{> 0}, the seed to set for the random number
 generator.}
@@ -58,6 +60,10 @@ individual is sampled with a mutation.}
 distrbution from which mutations are drawn.}
 
 \item{trait_gap}{numeric, the width of a gap triggering speciation.}
+
+\item{sampling_prop}{numeric (between 0 and 1), the proportion of
+individuals. The fraction of individuals returned is approximative
+because of a truncation.}
 
 \item{hpc_job_id}{used to record a job ID in the metadata, only relevant for
 simulations run on a high-performance cluster. Otherwise takes value

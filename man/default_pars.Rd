@@ -11,6 +11,7 @@
 \alias{default_mutation_sd}
 \alias{default_init_comm}
 \alias{default_seed}
+\alias{default_sampling_prop}
 \alias{default_trait_gap}
 \title{Default parameter values}
 \usage{
@@ -31,6 +32,8 @@ default_mutation_sd()
 default_init_comm()
 
 default_seed()
+
+default_sampling_prop()
 
 default_trait_gap()
 }
