@@ -3,10 +3,13 @@
 #' Computes `n_eff`, the effective population size experienced by an
 #' individual.
 #'
-#' @param z numeric, the trait value(s) to get the effective size for. NOte that
-#' this does not need to be one of the values in `traits_comm`.
+#' @param z numeric, the trait value(s) to get the effective size for. `z` and
+#' `traits_comm` will usually be the same vector, including during the
+#' simulation. However `z` can be different for `traits_comm`, if one wants to
+#' know the fitness on the trait axis at points not occupied by any individual,
+#' typically when constructing the fitness landscape.
 #' @param traits_comm numeric vector, the trait values of all individuals in the
-#' community?
+#' community.
 #' @inheritParams default_params_doc
 #' @details `n_eff` sums the competitive effects an individual receives from
 #' every individual in the community, including the individual itself. It is
