@@ -63,7 +63,7 @@ plot_comm_traits_anim <- function(comrad_tbl,
       x = "Trait",
       y = "Count"
     )
-  zz + gganimate::transition_time(t) +
+  zz + gganimate::transition_time(as.integer(t)) +
     ggplot2::labs(
       title = paste("Generation: {frame_time} /", max_gen)
     )
