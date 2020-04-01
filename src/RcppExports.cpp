@@ -6,12 +6,12 @@
 using namespace Rcpp;
 
 // get_n_eff_cpp
-std::vector<double> get_n_eff_cpp(NumericVector z, double comp_width);
+std::vector<double> get_n_eff_cpp(std::vector<double> z, double comp_width);
 RcppExport SEXP _comrad_get_n_eff_cpp(SEXP zSEXP, SEXP comp_widthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type z(zSEXP);
+    Rcpp::traits::input_parameter< std::vector<double> >::type z(zSEXP);
     Rcpp::traits::input_parameter< double >::type comp_width(comp_widthSEXP);
     rcpp_result_gen = Rcpp::wrap(get_n_eff_cpp(z, comp_width));
     return rcpp_result_gen;
