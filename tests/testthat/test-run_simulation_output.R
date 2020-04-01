@@ -1,30 +1,41 @@
 context("test-run_simulation_output")
 
-test_that("standard_output_file", {
-  temp_output_path <- paste0(tempfile("comrad_test_output"), ".csv")
-  run_simulation(output_path = temp_output_path, nb_generations = 5)
+temp_output_path <- paste0(tempfile("comrad_test_output"), ".csv")
+run_simulation(output_path = temp_output_path, nb_generations = 5)
+# Load results in the env
+expect_silent(comrad_tbl <- read_comrad_tbl(temp_output_path))
 
-  # Comrad table is standard
-  expect_silent(comrad_tbl <- read_comrad_tbl(temp_output_path))
+test_that("standard_output_file", {
+  # Check results format are comrad-standard
   expect_silent(
     comrad_tbl %>%
       dplyr::select("z", "species", "ancestral_species") %>%
       comrad::test_comrad_comm()
   )
-  expect_error(
-    read_comrad_tbl(1313),
-    "'path_to_file' must be a character."
-  )
-  expect_error(
-    read_comrad_tbl(character(0)),
-    "'path_to_file' is empty"
-  )
-  expect_error(
-    read_comrad_tbl("notacsv"),
-    "'path_to_file' must be a .csv"
-  )
+})
 
-  # Plots
+test_that("test_phylo", {
+  # Test phylogeny
+  # not a legit phylogeny (1 tip), but the beam though
+  # at least provides a check that a phylo object is produced correctly
+  phylo_tbl <- comrad_tbl %>% comrad::assemble_phylo_tbl()
+  expect_equal(
+    phylo_tbl,
+    tibble::tibble(
+      "species_name" = "#89ae8a",
+      "ancestor_name" = as.character(NA),
+      "time_birth" = 0,
+      "time_death" = 5
+    )
+  )
+  expect_equal(
+    phylo_tbl %>% comrad::convert_to_newick(),
+    "#89ae8a:5;"
+  )
+})
+
+# Since we have the data, why not test whether plots can be produced?
+test_that("test_plots", {
   expect_true(
     plot_comm_trait_evolution(comrad_tbl) %>%
       ggplot2::is.ggplot()
@@ -55,24 +66,24 @@ test_that("standard_output_file", {
     plot_comm_trait_evolution(comrad_tbl, generation_range = c(0, 10)),
     "generation_range is out of the scope of generations in the comrad_tbl."
   )
+})
 
-  # Test phylogeny
-  # not a legit phylogeny (1 tip), but the beam though
-  phylo_tbl <- comrad_tbl %>% comrad::assemble_phylo_tbl()
-  expect_equal(
-    phylo_tbl,
-    tibble::tibble(
-      "species_name" = "#89ae8a",
-      "ancestor_name" = as.character(NA),
-      "time_birth" = 0,
-      "time_death" = 5
-    )
+# Done with this tmp file -> thanks -> byyye
+unlink(temp_output_path)
+
+test_that("read_tbl abuse", {
+  expect_error(
+    read_comrad_tbl(1313),
+    "'path_to_file' must be a character."
   )
-  expect_equal(
-    phylo_tbl %>% comrad::convert_to_newick(),
-    "#89ae8a:5;"
+  expect_error(
+    read_comrad_tbl(character(0)),
+    "'path_to_file' is empty"
   )
-  unlink(temp_output_path)
+  expect_error(
+    read_comrad_tbl("notacsv"),
+    "'path_to_file' must be a .csv"
+  )
 })
 
 test_that("phylogeny_hoaxids", {
