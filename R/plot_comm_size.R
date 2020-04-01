@@ -24,7 +24,7 @@ plot_comm_size <- function(comrad_tbl,
     comrad_tbl %>% dplyr::select("z", "species", "ancestral_species")
   )
   if (!colouring %in% c("auto", "species_names")) {
-    stop("'colouring' must be either 'auto' or 'species_names' (see doc).")
+    stop("'colouring' must be either 'auto' or 'species_names', see doc.")
   }
   if (!which_geom %in% c("area", "line")) {
     stop("'which_geom' must be either 'area' or 'line'.")
