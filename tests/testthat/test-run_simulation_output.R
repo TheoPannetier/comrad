@@ -55,15 +55,110 @@ test_that("test_plots", {
     "Generation 100 wasn't sampled."
   )
   expect_true(
-    plot_comm_size(comrad_tbl) %>%
+    plot_comm_size(comrad_tbl, which_geom = "area") %>%
       ggplot2::is.ggplot()
+  )
+  expect_true(
+    plot_comm_size(comrad_tbl, which_geom = "line") %>%
+      ggplot2::is.ggplot()
+  )
+  expect_error(
+    plot_comm_size(comrad_tbl, colouring = "poor_choice"),
+    "'colouring' must be either 'auto' or 'species_names', see doc."
+  )
+  expect_error(
+    plot_comm_size(comrad_tbl, which_geom = "poor_choice"),
+    "'which_geom' must be either 'area' or 'line'."
   )
   expect_true(
     plot_comm_bubbles(comrad_tbl) %>%
       ggplot2::is.ggplot()
   )
+  expect_true(
+    plot_comm_trait_evolution(comrad_tbl, hex_fill = "counts") %>%
+      ggplot2::is.ggplot()
+  )
   expect_error(
     plot_comm_trait_evolution(comrad_tbl, generation_range = c(0, 10)),
+    "generation_range is out of the scope of generations in the comrad_tbl."
+  )
+  expect_error(
+    plot_comm_trait_evolution(comrad_tbl, hex_fill = "poor_choice"),
+    "'hex_fill' must be either 'counts' or 'species', see doc."
+  )
+  expect_error(
+    plot_comm_trait_evolution(comrad_tbl, xlim = 1:3),
+    "custom 'xlim' must be a length-2 numeric vector."
+  )
+  expect_error(
+    plot_comm_trait_evolution(comrad_tbl, ylim = 5:7),
+    "custom 'ylim' must be a length-2 numeric vector."
+  )
+  # Tailored test for the tiny species filtering option
+  comrad_tbl_tiny <- comrad_tbl %>%
+    dplyr::bind_rows(
+      # Tiny dummy species with 1 ind appears at gen 5
+      tibble::tibble(
+        "t" = 5,
+        "z" = 0,
+        "species" = "dummy!",
+        "ancestral_species" = "old_dummy!"
+      )
+    )
+  # Check that dummy is excluded
+  expect_equivalent(
+    plot_comm_trait_evolution(comrad_tbl_tiny, hex_fill = "counts"),
+    plot_comm_trait_evolution(comrad_tbl, hex_fill = "counts")
+  )
+  expect_true(
+    plot_fitness_landscape(
+      comrad_tbl,
+      generation = 1,
+      comp_width = comrad::default_comp_width(),
+      carr_cap_width = comrad::default_carr_cap_width()
+    ) %>%
+      ggplot2::is.ggplot()
+  )
+  expect_error(
+    plot_fitness_landscape(
+      comrad_tbl,
+      generation = 100,
+      comp_width = comrad::default_comp_width(),
+      carr_cap_width = comrad::default_carr_cap_width()
+    ),
+    "Generation 100 wasn't sampled."
+  )
+  expect_true(
+    plot_fitness_landscape_evolution(
+      comrad_tbl = comrad_tbl,
+      carr_cap_width = comrad::default_carr_cap_width(),
+      comp_width = comrad::default_comp_width()
+    ) %>%
+      class() == "trellis"
+  )
+  expect_error(
+    plot_fitness_landscape_evolution(
+      comrad_tbl = comrad_tbl,
+      generation_range = c(0, 10),
+      carr_cap_width = comrad::default_carr_cap_width(),
+      comp_width = comrad::default_comp_width()
+    ),
+    "generation_range is out of the scope of generations in the comrad_tbl."
+  )
+  expect_true(
+    plot_trait_disparity(comrad_tbl) %>%
+      ggplot2::is.ggplot()
+  )
+  expect_true(
+    plot_comm_traits_anim(comrad_tbl) %>%
+      ggplot2::is.ggplot()
+  )
+  expect_error(
+    plot_comm_traits_anim(comrad::default_init_comm()),
+    "'comrad_tbl' must contain a column 't' with generation times."
+  )
+  expect_error(
+    plot_comm_traits_anim(comrad_tbl, generation_range = c(0, 10)),
     "generation_range is out of the scope of generations in the comrad_tbl."
   )
 })
