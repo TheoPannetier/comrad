@@ -41,7 +41,7 @@ plot_comm_trait_evolution <- function(comrad_tbl,
   comrad::testarg_pos(ygrain)
 
   if (!hex_fill %in% c("counts", "species")) {
-    stop("'hex_fill' must be either 'counts' or 'species' (see doc).")
+    stop("'hex_fill' must be either 'counts' or 'species', see doc.")
   }
   if (!is.null(xlim[1]) && (!is.numeric(xlim) || length(xlim) != 2)) {
     stop("custom 'xlim' must be a length-2 numeric vector.")
