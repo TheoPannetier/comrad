@@ -11,12 +11,12 @@ test_that("use", {
 test_that("abuse", {
   expect_error(
     object = get_fitness(Inf),
-    regexp = "'z' contains forbidden values: Inf",
+    regexp = "'traits_comm' contains forbidden values: Inf",
   )
 
   expect_error(
     object = get_fitness(-Inf),
-    regexp = "'z' contains forbidden values: -Inf",
+    regexp = "'traits_comm' contains forbidden values: -Inf",
   )
 
   expect_error(
