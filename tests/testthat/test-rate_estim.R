@@ -31,4 +31,3 @@ test_that("waiting_times", {
   )
 
 })
-
