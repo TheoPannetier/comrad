@@ -33,13 +33,7 @@ estimate_dd_rates <- function(multi_phylo) {
 
   # Declare empty variables for check
   N <- NULL # nolint
-  time <- NULL #nolint
-  event_rate <- NULL #nolint
   waiting_time <- NULL # nolint
-  prop_speciation <- NULL # nolint
-  prop_extinction <- NULL # nolint
-  speciation_rate <- NULL # nolint
-  extinction_rate <- NULL # nolint
   mean_waiting_time <- NULL # nolint
   nb_events <- NULL # nolint
   event <- NULL # nolint
