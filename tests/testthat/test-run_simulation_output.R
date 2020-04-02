@@ -74,6 +74,18 @@ test_that("test_plots", {
     plot_comm_bubbles(comrad_tbl) %>%
       ggplot2::is.ggplot()
   )
+  expect_error(
+    plot_comm_bubbles(comrad_tbl, generation_range = c(0, 10)),
+    "generation_range is out of the scope of generations in the comrad_tbl."
+  )
+  expect_error(
+    plot_comm_bubbles(comrad_tbl, xlim = 1:3),
+    "custom 'xlim' must be a length-2 numeric vector."
+  )
+  expect_error(
+    plot_comm_bubbles(comrad_tbl, ylim = 5:7),
+    "custom 'ylim' must be a length-2 numeric vector."
+  )
   expect_true(
     plot_comm_trait_evolution(comrad_tbl, hex_fill = "counts") %>%
       ggplot2::is.ggplot()
