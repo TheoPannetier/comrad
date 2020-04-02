@@ -19,9 +19,11 @@ The sampling frequency is set as follows:
 \itemize{
 \item if \code{nb_generations < 1000}, sampling frequency is set to 1
 (every generation).
-\item if \code{nb_generations >= 1000}, sampling frequency is set to the
-order of magnitude of \code{nb_generations} - 2, e.g. 2 for
-\code{nb_generations >= 1000}, 3 for \code{nb_generations >= 10000}, etc.
+\item if \code{nb_generations >= 1000}, sampling frequency is set to twice
+the order of magnitude of \code{nb_generations} - 2. E.g. for
+\code{nb_generations >= 1000}, the community is sampled every 20
+generations, every 200 generations for \code{nb_generations >= 10000},
+etc.
 }
 }
 \author{

@@ -35,6 +35,9 @@ vignettes/*.pdf
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 
+# Can't help this
+tests/testthat/Rplots.pdf
+
 # Simulation outputs
 data/
 figs/
@@ -43,3 +46,4 @@ local/
 pontarp_matlab_code/
 notes/
 cluster_scripts/
+inst/doc

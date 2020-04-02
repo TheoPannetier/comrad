@@ -15,6 +15,7 @@ default_params_doc(
   growth_rate,
   prob_mutation,
   mutation_sd,
+  trait_gap,
   nb_generations,
   fitness_func,
   comrad_tbl
@@ -52,6 +53,8 @@ individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}
+
+\item{trait_gap}{numeric, the width of a gap triggering speciation.}
 
 \item{nb_generations}{integer, the number of generations to run during the
 simulation.}

@@ -12,7 +12,8 @@ draw_comm_next_gen(
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
-  mutation_sd = default_mutation_sd()
+  mutation_sd = default_mutation_sd(),
+  trait_gap = default_trait_gap()
 )
 }
 \arguments{
@@ -42,6 +43,8 @@ individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}
+
+\item{trait_gap}{numeric, the width of a gap triggering speciation.}
 }
 \description{
 From the trait values of the current community, compute the fitness, draw

@@ -4,11 +4,14 @@
 \alias{get_n_eff}
 \title{Compute the effective population size}
 \usage{
-get_n_eff(traits_comm, comp_width = default_comp_width())
+get_n_eff(z, traits_comm, comp_width = default_comp_width())
 }
 \arguments{
-\item{traits_comm}{numeric vector of variable length, the trait values of
-every individual in the community.}
+\item{z}{numeric, the trait value(s) to get the effective size for. NOte that
+this does not need to be one of the values in \code{traits_comm}.}
+
+\item{traits_comm}{numeric vector, the trait values of all individuals in the
+community?}
 
 \item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
 }
@@ -21,8 +24,6 @@ individual.
 every individual in the community, including the individual itself. It is
 called effective population size because it is the size of the population
 that is relevant for competition.
-Varies from 1 (no competitor in the vicinity) to N (every individual has the
-same trait value).
 }
 \author{
 Theo Pannetier

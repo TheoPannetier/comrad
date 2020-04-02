@@ -10,7 +10,11 @@
 #' @param nb_generations integer, the number of generations to run the
 #' simulation for.
 #' @param sampling_frequency numeric \code{> 0}, the frequency at which the
-#' community is saved in the output. Default is `max(1, nb_generations / 100)`.
+#' community is saved in the output. See [set_sampling_frequency()] for the
+#' default option.
+#' @param sampling_prop numeric (between 0 and 1), the proportion of
+#' individuals. The fraction of individuals returned is approximative
+#' because of a truncation.
 #' @param seed integer \code{> 0}, the seed to set for the random number
 #' generator.
 #' @inheritParams default_params_doc
@@ -43,6 +47,8 @@ run_simulation <- function(
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
+  trait_gap = default_trait_gap(),
+  sampling_prop = default_sampling_prop(),
   hpc_job_id = NULL
 ) {
   comrad::test_comrad_comm(init_comm)
@@ -82,6 +88,10 @@ run_simulation <- function(
   comrad::testarg_prop(prob_mutation)
   comrad::testarg_num(mutation_sd)
   comrad::testarg_pos(mutation_sd)
+  comrad::testarg_num(trait_gap)
+  comrad::testarg_pos(trait_gap)
+  comrad::testarg_num(sampling_prop)
+  comrad::testarg_prop(sampling_prop)
 
   is_on_unix <- rappdirs::app_dir()$os == "unix" # for the cluster
 
@@ -122,23 +132,22 @@ run_simulation <- function(
       # Set up output table
       "\n### Simulation output ###",
       "\n",
-      "\nt,z,species,ancestral_species,runtime\n",
+      "\nt,z,species,ancestral_species\n",
       file = output_path
     )
   }
 
   # Set up data output table proper
-  output_entry <- tibble::tibble(
+  output <- tibble::tibble(
     "t" = 0,
     "z" = init_comm$z,
     "species" = init_comm$species,
-    "ancestral_species" = as.character(NA),
-    "runtime" = 0
+    "ancestral_species" = as.character(NA)
   )
 
   if (!is.null(output_path)) {
     readr::write_csv(
-      output_entry,
+      output,
       path = output_path,
       append = TRUE
     )
@@ -153,10 +162,6 @@ run_simulation <- function(
   # Go :)
   for (t in 1:nb_generations) {
 
-    if (t %% sampling_frequency == 0) {
-      cat("\nRunning generation", t, "/", nb_generations)
-    }
-
     gen_time <- proc.time()[3]
 
     # Replace comm with next generation
@@ -168,39 +173,50 @@ run_simulation <- function(
       carr_cap_opt = carr_cap_opt,
       carr_cap_width = carr_cap_width,
       prob_mutation = prob_mutation,
-      mutation_sd = mutation_sd
+      mutation_sd = mutation_sd,
+      trait_gap = trait_gap
     )
 
     if (length(comm$species) < 1) {
       cat("\nCommunity has gone extinct at generation", t, "\n")
       if (is.null(output_path)) {
-        return(output_entry)
+        return(output)
       } else {
         return()
       }
     }
 
-    output_entry <- tibble::tibble(
+    output <- tibble::tibble(
       "t" = t,
       "z" = comm$z,
       "species" = comm$species,
-      "ancestral_species" = comm$ancestral_species,
-      "runtime" = proc.time()[3] - gen_time
+      "ancestral_species" = comm$ancestral_species
     )
 
-    if (!is.null(output_path) && t %% sampling_frequency == 0) {
-      readr::write_csv(
-        output_entry,
-        path = output_path,
-        append = TRUE
+    if (t %% sampling_frequency == 0) {
+      cat(
+        "\nRunning generation", t, "/", nb_generations,
+        "\trun time =", proc.time()[3] - gen_time
       )
+      if (!is.null(output_path)) {
+        # Write only a sample of the output
+        sampled_output <- comrad::sample_output(
+          output = output,
+          sampling_prop = sampling_prop
+        )
+        readr::write_csv(
+          sampled_output,
+          path = output_path,
+          append = TRUE
+        )
+      }
     }
   }
 
   cat("\nTotal runtime:", proc.time()[3] - start_time, "\n")
 
   if (is.null(output_path)) {
-    return(output_entry)
+    return(output)
   } else {
     return()
   }

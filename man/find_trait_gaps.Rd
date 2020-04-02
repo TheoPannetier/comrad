@@ -4,14 +4,16 @@
 \alias{find_trait_gaps}
 \title{Find gaps in trait values}
 \usage{
-find_trait_gaps(traits)
+find_trait_gaps(traits, trait_gap = default_trait_gap())
 }
 \arguments{
 \item{traits}{a numeric vector, trait values \strong{in ascending order}.}
+
+\item{trait_gap}{numeric, the width of a gap triggering speciation.}
 }
 \description{
 Runs through an ordered vector of trait values, returns the positions of gaps
-\verb{>= 0.1} between consecutive values.
+\verb{>= trait_gap} between consecutive values.
 }
 \author{
 Théo Pannetier

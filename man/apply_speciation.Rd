@@ -4,7 +4,7 @@
 \alias{apply_speciation}
 \title{Resolve speciation in a comrad community}
 \usage{
-apply_speciation(comm)
+apply_speciation(comm, trait_gap = default_trait_gap())
 }
 \arguments{
 \item{comm}{a tibble with one row per individual in the community and three
@@ -14,10 +14,13 @@ columns:
 \item \code{species} contains species names (characters)
 \item \code{ancestral_species} contains acnestral species names (characters)
 }}
+
+\item{trait_gap}{numeric, the width of a gap triggering speciation.}
 }
 \description{
-For each species, check if there is any gap of \code{>=} 0.1 in trait values, and
-split the relevant species in two when one is found.
+For each species, check if there is any gap \verb{>= trait_gap} in trait values,
+and split the relevant species in two when one is found. The less numerous
+half becomes the new species.
 }
 \note{
 \code{apply_speciation()} can currently only split one species into two. If

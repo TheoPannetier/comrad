@@ -25,14 +25,13 @@ test_that("output_format", {
   nb_generations <- 5
   output <- run_simulation(nb_generations = nb_generations, output_path = NULL)
 
-  expect_equal(length(output), 5)
+  expect_equal(length(output), 4)
   # Main community columns
   expect_silent(
     output[, c("z", "species", "ancestral_species")] %>% test_comrad_comm()
   )
   # Format of columns missed by test_comrad_comm()
   expect_true(any(output$t >= 0))
-  expect_true(any(output$runtime >= 0))
   # Assert output corresponds to last generation
   expect_equal(unique(output$t), nb_generations)
 })
@@ -42,7 +41,7 @@ test_that("extinction", {
     # TPK
     output <- run_simulation(
       carr_cap_opt = 0, nb_generations = 1, output_path = NULL),
-    "\\nRunning generation 1 / 1\\nCommunity has gone extinct at generation 1 "
+    "\\nCommunity has gone extinct at generation 1 "
   )
 })
 

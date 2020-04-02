@@ -23,4 +23,5 @@ convert_sim_to_phylo <- function(comrad_tbl, with_extinct = TRUE) {
   if (!with_extinct) {
     phylo <- ape::drop.fossil(phylo)
   }
+  phylo
 }
