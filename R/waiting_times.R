@@ -17,8 +17,10 @@
 #' @export
 
 waiting_times <- function(phylo) {
-  if (!ape::is.binary.phylo(phylo)) {
-    stop("'phylo' must be a 'phylo' object.")
+  if (!class(phylo) == "phylo") {
+    stop("'phylo' must be a binary 'phylo' object.")
+  } else if (!ape::is.binary.phylo(phylo)) {
+    stop("'phylo' must be a binary 'phylo' object.")
   }
 
   time <- NULL
@@ -28,28 +30,32 @@ waiting_times <- function(phylo) {
     ape::ltt.plot.coords() %>%
     tibble::as_tibble()
 
-  ltt_tbl <- ltt_tbl %>% dplyr::mutate(
+  wt_tbl <- ltt_tbl %>% dplyr::mutate(
     waiting_time = time - dplyr::lag(time)
   ) %>%
     dplyr::mutate(
       # ape misplaces time relative to N, fix that
       time = dplyr::lag(time - min(time))
     )
-  # first row is useless
-  ltt_tbl <- ltt_tbl[-1, ]
+
+  # Remove crown or stem entries
+  if (ltt_tbl$time[1] == ltt_tbl$time[2]) { # crown
+    wt_tbl <- wt_tbl[-c(1, 2), ]
+  } else { # stem
+    wt_tbl <- wt_tbl[-1, ]
+  }
 
   # Time to speciation or extinction ?
-  ltt_tbl <- ltt_tbl %>%
+  wt_tbl <- wt_tbl %>%
     dplyr::mutate(
       "event" = ifelse(
-        test = dplyr::lead(ltt_tbl$N) - ltt_tbl$N > 0,
+        test = dplyr::lead(wt_tbl$N) - wt_tbl$N > 0,
         yes = "speciation",
         no = "extinction"
       )
     )
   # exclude last row, waiting time is cut by present
-  ltt_tbl <- ltt_tbl[-nrow(ltt_tbl), ]
+  wt_tbl <- wt_tbl[-nrow(wt_tbl), ]
 
-
-  ltt_tbl
+  wt_tbl
 }

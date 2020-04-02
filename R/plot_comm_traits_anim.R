@@ -24,10 +24,9 @@ plot_comm_traits_anim <- function(comrad_tbl,
   comrad::testarg_num(binwidth)
   comrad::testarg_pos(binwidth)
 
-  # Stupid but necessary for the build
-  z <- NULL
-  species <- NULL
-
+  if (!"t" %in% colnames(comrad_tbl)) {
+    stop("'comrad_tbl' must contain a column 't' with generation times.")
+  }
   if (generation_range[2] == Inf) {
     generation_range[2] <- max(comrad_tbl$t)
   }
@@ -36,6 +35,10 @@ plot_comm_traits_anim <- function(comrad_tbl,
       "generation_range is out of the scope of generations in the comrad_tbl."
     )
   }
+
+  # Stupid but necessary for the build
+  z <- NULL
+  species <- NULL
 
   max_gen <- max(comrad_tbl$t)
 
@@ -63,7 +66,7 @@ plot_comm_traits_anim <- function(comrad_tbl,
       x = "Trait",
       y = "Count"
     )
-  zz + gganimate::transition_time(t) +
+  zz + gganimate::transition_time(as.integer(t)) +
     ggplot2::labs(
       title = paste("Generation: {frame_time} /", max_gen)
     )

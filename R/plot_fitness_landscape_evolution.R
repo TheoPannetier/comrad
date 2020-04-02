@@ -73,7 +73,6 @@ plot_fitness_landscape_evolution <- function(comrad_tbl,
   lattice::wireframe(
     fitness ~ t * z,
     data = landscape_seq,
-    # col.regions = terrain.colors(1000),
     scales = list(arrows = F),
     shade = TRUE,
     ylim = c(0, max(landscape_seq$z))

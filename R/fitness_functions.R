@@ -42,7 +42,7 @@ fitness_func_logistic <- function(growth_rate,
   ) {
     # I rule that growth_rate has precedence
     nans <- which(is.nan(fitness))
-    fitness[nans] <- growth_rate
+    fitness[nans] <- pmax(0, growth_rate)
   }
 
   fitness
@@ -64,7 +64,7 @@ fitness_func_pontarp <- function(growth_rate,
   ) {
     # I rule that growth_rate has precedence
     nans <- which(is.nan(fitness))
-    fitness[nans] <- growth_rate
+    fitness[nans] <- pmax(0, 1 + growth_rate)
   }
 
   fitness

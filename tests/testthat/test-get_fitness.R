@@ -90,6 +90,16 @@ test_that("fitness_functions", {
     ),
     rep(0, 10000)
   )
+  # Handling NaN situations
+  expect_equal(
+    get_fitness(
+      rep(0.5, 5),
+      carr_cap_opt = 0,
+      growth_rate = 0,
+      fitness_func = fitness_func_logistic
+      ),
+    rep(0, 5)
+  )
 
   ##  Ricker function
   # Case 1. N/K close to 0
@@ -158,6 +168,15 @@ test_that("fitness_functions", {
     ),
     rep(max(1 - default_growth_rate(), 0), 2000)
   )
-
+  # Handling NaN situations
+  expect_equal(
+    get_fitness(
+      rep(0.5, 5),
+      carr_cap_opt = 0,
+      growth_rate = 0,
+      fitness_func = fitness_func_pontarp
+    ),
+    rep(1, 5)
+  )
 
 })
