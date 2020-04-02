@@ -32,6 +32,10 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
+# Rcpp object files produced by the rcpp branch
+*.so
+*.o
+
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 
