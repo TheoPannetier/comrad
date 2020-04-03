@@ -54,25 +54,20 @@ NumericVector get_n_eff_cpp_tj(const NumericVector& z, float comp_width) {
   return n_eff;
 }
 
-
-
 // [[Rcpp::export]]
-NumericVector get_n_eff_cpp_tj2(const NumericVector& z, double comp_width) {
-  NumericMatrix n_eff_m(z.length(), z.length());
+std::vector<float> get_n_eff_cpp_tj2(const std::vector<double>& z, float comp_width) {
+  std::vector<float> n_eff(z.size(), 0.f);
+  float mult = 1.0f / (2.f * (comp_width * comp_width));
 
-  NumericVector n_eff(z.length(), 0);
-  double mult = 1.0 / (2 * (comp_width * comp_width));
 
-  for(int i = 0; i < z.length(); ++i) {
-    double n_eff_i = 0;
-    for(int j = 0; j < i; ++j) {
-      if(n_eff_m(i, j) == 0) {
-        n_eff_m(i, j) = exp(   - ( (z(i) - z(j)) * (z(i) - z(j)) ) * mult);
-        n_eff_m(j, i) = n_eff_m(i, j);
-      }
-      n_eff_i += n_eff_m(i, j);
+  for(int i = 0; i < z.size(); ++i) {
+    float z_i = z[i];
+    for(int j = i; j < z.size(); ++j) {
+      float add = expf(   - ( (z_i - z[j]) * (z_i - z[j]) ) * mult);
+      n_eff[i] += add;
+      if(i != j) n_eff[j] += add;
     }
-    n_eff(i) = n_eff_i;
   }
+
   return n_eff;
 }

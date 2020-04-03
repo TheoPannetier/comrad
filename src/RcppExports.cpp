@@ -30,13 +30,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // get_n_eff_cpp_tj2
-NumericVector get_n_eff_cpp_tj2(const NumericVector& z, double comp_width);
+std::vector<float> get_n_eff_cpp_tj2(const std::vector<double>& z, float comp_width);
 RcppExport SEXP _comrad_get_n_eff_cpp_tj2(SEXP zSEXP, SEXP comp_widthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type z(zSEXP);
-    Rcpp::traits::input_parameter< double >::type comp_width(comp_widthSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type z(zSEXP);
+    Rcpp::traits::input_parameter< float >::type comp_width(comp_widthSEXP);
     rcpp_result_gen = Rcpp::wrap(get_n_eff_cpp_tj2(z, comp_width));
     return rcpp_result_gen;
 END_RCPP
