@@ -49,3 +49,19 @@ get_n_eff <- function(z,
 
   n_eff
 }
+
+#' @export
+#' @author Thijs Janzen
+get_n_eff_tj <- function(z, trait_vec, comp_width) {
+
+  local_fun <- function(x) {
+    return(sum(sapply(trait_vec, dnorm, mean = x, sd = comp_width)))
+  }
+
+  n_eff <- sapply(z, local_fun)
+
+  return(n_eff * comp_width * sqrt(2 * pi))  # for some reason, the original comp thing did not take this term into account?
+}
+
+
+
