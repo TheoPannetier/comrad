@@ -6,46 +6,20 @@
 using namespace Rcpp;
 
 // get_n_eff_cpp
-std::vector<double> get_n_eff_cpp(std::vector<double> z, double comp_width);
+std::vector<float> get_n_eff_cpp(const std::vector<double>& z, float comp_width);
 RcppExport SEXP _comrad_get_n_eff_cpp(SEXP zSEXP, SEXP comp_widthSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::vector<double> >::type z(zSEXP);
-    Rcpp::traits::input_parameter< double >::type comp_width(comp_widthSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_n_eff_cpp(z, comp_width));
-    return rcpp_result_gen;
-END_RCPP
-}
-// get_n_eff_cpp_tj
-NumericVector get_n_eff_cpp_tj(const NumericVector& z, float comp_width);
-RcppExport SEXP _comrad_get_n_eff_cpp_tj(SEXP zSEXP, SEXP comp_widthSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type z(zSEXP);
-    Rcpp::traits::input_parameter< float >::type comp_width(comp_widthSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_n_eff_cpp_tj(z, comp_width));
-    return rcpp_result_gen;
-END_RCPP
-}
-// get_n_eff_cpp_tj2
-std::vector<float> get_n_eff_cpp_tj2(const std::vector<double>& z, float comp_width);
-RcppExport SEXP _comrad_get_n_eff_cpp_tj2(SEXP zSEXP, SEXP comp_widthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<double>& >::type z(zSEXP);
     Rcpp::traits::input_parameter< float >::type comp_width(comp_widthSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_n_eff_cpp_tj2(z, comp_width));
+    rcpp_result_gen = Rcpp::wrap(get_n_eff_cpp(z, comp_width));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_comrad_get_n_eff_cpp", (DL_FUNC) &_comrad_get_n_eff_cpp, 2},
-    {"_comrad_get_n_eff_cpp_tj", (DL_FUNC) &_comrad_get_n_eff_cpp_tj, 2},
-    {"_comrad_get_n_eff_cpp_tj2", (DL_FUNC) &_comrad_get_n_eff_cpp_tj2, 2},
     {NULL, NULL, 0}
 };
 

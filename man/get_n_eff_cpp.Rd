@@ -20,5 +20,5 @@ called effective population size because it is the size of the population
 that is relevant for competition.
 }
 \author{
-Théo Pannetier
+Thijs Janzen, Théo Pannetier
 }

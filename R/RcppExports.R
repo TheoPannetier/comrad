@@ -13,19 +13,11 @@
 #' called effective population size because it is the size of the population
 #' that is relevant for competition.
 #' @name get_n_eff_cpp
-#' @author Théo Pannetier
+#' @author Thijs Janzen, Théo Pannetier
 #' @export
 NULL
 
 get_n_eff_cpp <- function(z, comp_width) {
     .Call('_comrad_get_n_eff_cpp', PACKAGE = 'comrad', z, comp_width)
-}
-
-get_n_eff_cpp_tj <- function(z, comp_width) {
-    .Call('_comrad_get_n_eff_cpp_tj', PACKAGE = 'comrad', z, comp_width)
-}
-
-get_n_eff_cpp_tj2 <- function(z, comp_width) {
-    .Call('_comrad_get_n_eff_cpp_tj2', PACKAGE = 'comrad', z, comp_width)
 }
 
