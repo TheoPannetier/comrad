@@ -7,11 +7,14 @@
 get_n_eff(z, traits_comm, comp_width = default_comp_width())
 }
 \arguments{
-\item{z}{numeric, the trait value(s) to get the effective size for. NOte that
-this does not need to be one of the values in \code{traits_comm}.}
+\item{z}{numeric, the trait value(s) to get the effective size for. \code{z} and
+\code{traits_comm} will usually be the same vector, including during the
+simulation. However \code{z} can be different for \code{traits_comm}, if one wants to
+know the fitness on the trait axis at points not occupied by any individual,
+typically when constructing the fitness landscape.}
 
 \item{traits_comm}{numeric vector, the trait values of all individuals in the
-community?}
+community.}
 
 \item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
 }
