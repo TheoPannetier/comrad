@@ -17,16 +17,19 @@ using namespace Rcpp;
 //' @export
 
 // [[Rcpp::export]]
-std::vector<float> get_n_eff_cpp(const std::vector<double>& z, float comp_width) {
+std::vector<float> get_n_eff_cpp(const std::vector<float>& z, float comp_width) {
   std::vector<float> n_eff(z.size(), 0.f);
-  float mult = 1.0f / (2.f * (comp_width * comp_width));
 
-  for(int i = 0; i < z.size(); ++i) {
+  // faster to compute these out of the for loops
+  int z_length =  z.size();
+  float denom = 1.0f / (2.f * (comp_width * comp_width));
+
+  for(int i = 0; i < z_length; ++i) {
     float z_i = z[i];
-    for(int j = i; j < z.size(); ++j) {
-      float add = expf(-((z_i - z[j]) * (z_i - z[j]) ) * mult);
-      n_eff[i] += add;
-      if(i != j) n_eff[j] += add;
+    for(int j = i; j < z_length; ++j) {
+      float comp_coeff = expf(-((z_i - z[j]) * (z_i - z[j]) ) * denom);
+      n_eff[i] += comp_coeff;
+      if(i != j) n_eff[j] += comp_coeff;
     }
   }
 
