@@ -1,17 +1,23 @@
 ---
 title: "`comrad` demo"
-author: "Theo Pannetier"
+author: "Théo Pannetier"
+output: rmarkdown::html_vignette
 date: "4/3/2020"
-output: html_document
 vignette: >
-  %\VignetteIndexEntry{`comrad` demo}
+  %\VignetteIndexEntry{demo}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library("comrad")
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include = FALSE}
+library(comrad)
 ```
 
 ## Introduction and biological context
