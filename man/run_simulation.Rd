@@ -38,7 +38,7 @@ community is saved in the output. See \code{\link[=set_sampling_frequency]{set_s
 default option.}
 
 \item{seed}{integer \code{> 0}, the seed to set for the random number
-generator.}
+generator. Defaults to an integer based on current day and time.}
 
 \item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}

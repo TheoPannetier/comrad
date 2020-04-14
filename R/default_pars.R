@@ -62,7 +62,16 @@ default_init_comm <- function() {
 #' @export
 #' @rdname default_pars
 default_seed <- function() {
-  180
+  date_string <- Sys.time()
+  seed <- as.numeric(
+    paste0(
+      substring(date_string, 9, 10), # Day of the month
+      substring(date_string, 12, 13), # hour
+      substring(date_string, 15, 16), # minutes
+      substring(date_string, 18, 19) # seconds
+    )
+  )
+  seed
 }
 
 #' @export
