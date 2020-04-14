@@ -83,7 +83,6 @@ abnormal_comms[[6]]$z[1] <- NA # NA in numeric
 abnormal_comms[[7]]$z[1] <- NaN # boy do I hate those NaNs
 abnormal_comms[[8]]$ancestral_species <- 1:10
 colnames(abnormal_comms[[9]]) <- rep("", 3) # no names, rude.
-abnormal_comms[[10]]$species[1] <- NA # NA in character
 
 test_that("abuse", {
   expect_error(
@@ -119,10 +118,6 @@ test_that("abuse", {
   expect_error(
     abnormal_comms[[9]] %>% apply_speciation(),
     "'comm' should have columns 'z', 'species' and 'ancestral_species'."
-  )
-  expect_error(
-    abnormal_comms[[10]] %>% apply_speciation(),
-    "'comm' column 'species' contains one or more NAs."
   )
 })
 
