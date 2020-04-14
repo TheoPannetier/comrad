@@ -14,8 +14,8 @@
 #' @name draw_nb_offspring_cpp
 NULL
 
-draw_nb_offspring_cpp <- function(fitness) {
-    .Call('_comrad_draw_nb_offspring_cpp', PACKAGE = 'comrad', fitness)
+draw_nb_offspring_cpp <- function(fitness, seed) {
+    .Call('_comrad_draw_nb_offspring_cpp', PACKAGE = 'comrad', fitness, seed)
 }
 
 #' Compute the effective population size

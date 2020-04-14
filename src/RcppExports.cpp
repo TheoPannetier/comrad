@@ -6,13 +6,14 @@
 using namespace Rcpp;
 
 // draw_nb_offspring_cpp
-std::vector<int> draw_nb_offspring_cpp(std::vector<float> fitness);
-RcppExport SEXP _comrad_draw_nb_offspring_cpp(SEXP fitnessSEXP) {
+std::vector<int> draw_nb_offspring_cpp(std::vector<float> fitness, int seed);
+RcppExport SEXP _comrad_draw_nb_offspring_cpp(SEXP fitnessSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::vector<float> >::type fitness(fitnessSEXP);
-    rcpp_result_gen = Rcpp::wrap(draw_nb_offspring_cpp(fitness));
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
+    rcpp_result_gen = Rcpp::wrap(draw_nb_offspring_cpp(fitness, seed));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -30,7 +31,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_comrad_draw_nb_offspring_cpp", (DL_FUNC) &_comrad_draw_nb_offspring_cpp, 1},
+    {"_comrad_draw_nb_offspring_cpp", (DL_FUNC) &_comrad_draw_nb_offspring_cpp, 2},
     {"_comrad_get_n_eff_cpp", (DL_FUNC) &_comrad_get_n_eff_cpp, 2},
     {NULL, NULL, 0}
 };

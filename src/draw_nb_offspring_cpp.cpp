@@ -15,12 +15,12 @@ using namespace Rcpp;
 //' @name draw_nb_offspring_cpp
 
 // [[Rcpp::export]]
-std::vector<int> draw_nb_offspring_cpp(std::vector<float> fitness) {
+std::vector<int> draw_nb_offspring_cpp(std::vector<float> fitness, int seed) {
   int nb_inds = fitness.size();
 
   std::vector<int> nb_offspring(nb_inds);
 
-  std::default_random_engine generator;
+  std::default_random_engine generator(seed);
 
   for (int i = 0; i < nb_inds; ++i) {
     std::poisson_distribution<int> dist(fitness[i]);
