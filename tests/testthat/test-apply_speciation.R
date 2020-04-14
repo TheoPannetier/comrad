@@ -2,53 +2,53 @@ context("test-apply_speciation")
 
 ancestral_species <- unique(default_init_comm()$species)
 
-pop_mid_split_before <- default_init_comm()
-pop_mid_split_before$z[6:10] <- 0.1
-pop_mid_split_after <- pop_mid_split_before %>% apply_speciation()
+comm_mid_split_before <- default_init_comm()
+comm_mid_split_before$z[6:10] <- 0.1
+comm_mid_split_after <- comm_mid_split_before %>% apply_speciation()
 
-pop_ext_split_before <- default_init_comm()
-pop_ext_split_before$z[2:10] <- 0.1
-pop_ext_split_after <- pop_ext_split_before %>% apply_speciation()
+comm_ext_split_before <- default_init_comm()
+comm_ext_split_before$z[2:10] <- 0.1
+comm_ext_split_after <- comm_ext_split_before %>% apply_speciation()
 
-pop_mult_split_before <- default_init_comm()
-pop_mult_split_before$z[4:6] <- 0.1
-pop_mult_split_before$z[7:10] <- 0.2
-pop_mult_split_after_one <- pop_mult_split_before %>% apply_speciation()
-pop_mult_split_after_two <- pop_mult_split_after_one %>% apply_speciation()
-first_sp <- pop_mult_split_after_two$species[1:3] %>% unique()
-second_sp <- pop_mult_split_after_two$species[4:6] %>% unique()
-third_sp <- pop_mult_split_after_two$species[7:10] %>% unique()
+comm_mult_split_before <- default_init_comm()
+comm_mult_split_before$z[4:6] <- 0.1
+comm_mult_split_before$z[7:10] <- 0.2
+comm_mult_split_after_one <- comm_mult_split_before %>% apply_speciation()
+comm_mult_split_after_two <- comm_mult_split_after_one %>% apply_speciation()
+first_sp <- comm_mult_split_after_two$species[1:3] %>% unique()
+second_sp <- comm_mult_split_after_two$species[4:6] %>% unique()
+third_sp <- comm_mult_split_after_two$species[7:10] %>% unique()
 
 test_that("use", {
   # Output format
-  expect_silent(pop_mid_split_before %>% apply_speciation())
+  expect_silent(comm_mid_split_before %>% apply_speciation())
 
   # Middle split
-  expect_true(pop_mid_split_after$species[5] != pop_mid_split_after$species[6])
+  expect_true(comm_mid_split_after$species[5] != comm_mid_split_after$species[6])
   expect_true(
     all.equal(
-      pop_mid_split_before$z %>% sort(),
-      pop_mid_split_after$z %>% sort()
+      comm_mid_split_before$z %>% sort(),
+      comm_mid_split_after$z %>% sort()
     )
   )
   expect_equal(
-    (pop_mid_split_after$species == ancestral_species) %>% sum(), 5
+    (comm_mid_split_after$species == ancestral_species) %>% sum(), 5
   )
   expect_equal(
-    (pop_mid_split_after$ancestral_species == ancestral_species) %>%
+    (comm_mid_split_after$ancestral_species == ancestral_species) %>%
       sum(na.rm = TRUE),
     5
   )
   # Extremity split
   expect_true(
-    length(which(pop_ext_split_after$species == ancestral_species)) %in% c(1, 9)
+    length(which(comm_ext_split_after$species == ancestral_species)) %in% c(1, 9)
   )
 
   # Multiple splits
   # 1st step
   # expect only one split to have occurred yet
   expect_equal(
-    pop_mult_split_after_one$species %>% unique() %>% length(), 2
+    comm_mult_split_after_one$species %>% unique() %>% length(), 2
   )
   # 2nd step
   # assert splits have occurred at the expected positions
@@ -69,58 +69,59 @@ test_that("use", {
 
 })
 
-abnormal_pops <- lapply(1:10, function(x) default_init_comm())
-abnormal_pops[[1]] <- stats::rnorm(10) # not a tibble
-abnormal_pops[[2]] <- tibble::tibble(
+abnormal_comms <- lapply(1:10, function(x) default_init_comm())
+abnormal_comms[[1]] <- stats::rnorm(10) # not a tibble
+abnormal_comms[[2]] <- tibble::tibble(
   "z" = numeric(0),
   "species" = character(0),
   "ancestral_species" = character(0)
   ) # empty table
-abnormal_pops[[3]][, 3] <- NULL # missing column
-abnormal_pops[[4]]$z <- as.character(abnormal_pops[[4]]$z) # wrong type
-abnormal_pops[[5]]$species <- as.factor(abnormal_pops[[5]]$species) # wrong type
-abnormal_pops[[6]]$z[1] <- NA # NA in numeric
-abnormal_pops[[7]]$z[1] <- NaN # boy do I hate those NaNs
-abnormal_pops[[8]]$ancestral_species <- 1:10
-colnames(abnormal_pops[[9]]) <- rep("", 3) # no names, rude.
-abnormal_pops[[10]]$species[1] <- NA # NA in character
+abnormal_comms[[3]][, 3] <- NULL # missing column
+abnormal_comms[[4]]$z <- as.character(abnormal_comms[[4]]$z) # wrong type
+abnormal_comms[[5]]$species <- as.factor(abnormal_comms[[5]]$species) # wrong type
+abnormal_comms[[6]]$z[1] <- NA # NA in numeric
+abnormal_comms[[7]]$z[1] <- NaN # boy do I hate those NaNs
+abnormal_comms[[8]]$ancestral_species <- 1:10
+colnames(abnormal_comms[[9]]) <- rep("", 3) # no names, rude.
+abnormal_comms[[10]]$species[1] <- NA # NA in character
 
 test_that("abuse", {
   expect_error(
-    abnormal_pops[[1]] %>% apply_speciation(), "'comm' should be a tibble."
+    abnormal_comms[[1]] %>% apply_speciation(), "'comm' should be a tibble."
   )
   expect_error(
-    abnormal_pops[[2]] %>% apply_speciation(), "'comm' is empty."
+    abnormal_comms[[2]] %>% apply_speciation(), "'comm' is empty."
   )
   expect_error(
-    abnormal_pops[[3]] %>% apply_speciation(), "'comm' should have 3 columns."
+    abnormal_comms[[3]] %>% apply_speciation(),
+    "'comm' should have 3 columns."
   )
   expect_error(
-    abnormal_pops[[4]] %>% apply_speciation(),
-    "'comm' column 'z' should be numeric."
+    abnormal_comms[[4]] %>% apply_speciation(),
+    "'comm' col classes should be numeric, character and character, respectively."
   )
   expect_error(
-    abnormal_pops[[5]] %>% apply_speciation(),
-    "'comm' column 'species' should be a character."
+    abnormal_comms[[5]] %>% apply_speciation(),
+    "'comm' col classes should be numeric, character and character, respectively."
   )
   expect_error(
-    abnormal_pops[[6]] %>% apply_speciation(),
+    abnormal_comms[[6]] %>% apply_speciation(),
     "'traits' contains one or more NAs"
   )
   expect_error(
-    abnormal_pops[[7]] %>% apply_speciation(),
+    abnormal_comms[[7]] %>% apply_speciation(),
     "'traits' contains one or more NaNs"
   )
   expect_error(
-    abnormal_pops[[8]] %>% apply_speciation(),
-    "'comm' column 'ancestral_species' is not a character."
+    abnormal_comms[[8]] %>% apply_speciation(),
+    "'comm' col classes should be numeric, character and character, respectively."
   )
   expect_error(
-    abnormal_pops[[9]] %>% apply_speciation(),
+    abnormal_comms[[9]] %>% apply_speciation(),
     "'comm' should have columns 'z', 'species' and 'ancestral_species'."
   )
   expect_error(
-    abnormal_pops[[10]] %>% apply_speciation(),
+    abnormal_comms[[10]] %>% apply_speciation(),
     "'comm' column 'species' contains one or more NAs."
   )
 })
