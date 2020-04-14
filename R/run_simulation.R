@@ -16,7 +16,7 @@
 #' individuals. The fraction of individuals returned is approximative
 #' because of a truncation.
 #' @param seed integer \code{> 0}, the seed to set for the random number
-#' generator.
+#' generator. Defaults to an integer based on current day and time.
 #' @inheritParams default_params_doc
 #' @param hpc_job_id used to record a job ID in the metadata, only relevant for
 #' simulations run on a high-performance cluster. Otherwise takes value
@@ -144,7 +144,6 @@ run_simulation <- function(
     "species" = init_comm$species,
     "ancestral_species" = as.character(NA)
   )
-
   if (!is.null(output_path)) {
     readr::write_csv(
       output,
@@ -155,14 +154,13 @@ run_simulation <- function(
 
   # Set initial community
   comm <- init_comm
-
   # Set timer
   start_time <- proc.time()[3]
+  # Let's not forget the seed
+  set.seed(seed)
 
   # Go :)
   for (t in 1:nb_generations) {
-
-    gen_time <- proc.time()[3]
 
     # Replace comm with next generation
     comm <- comrad::draw_comm_next_gen(
@@ -174,7 +172,8 @@ run_simulation <- function(
       carr_cap_width = carr_cap_width,
       prob_mutation = prob_mutation,
       mutation_sd = mutation_sd,
-      trait_gap = trait_gap
+      trait_gap = trait_gap,
+      seed = seed
     )
 
     if (length(comm$species) < 1) {
@@ -194,10 +193,7 @@ run_simulation <- function(
     )
 
     if (t %% sampling_frequency == 0) {
-      cat(
-        "\nRunning generation", t, "/", nb_generations,
-        "\trun time =", proc.time()[3] - gen_time
-      )
+      cat("\nRunning generation", t, "/", nb_generations)
       if (!is.null(output_path)) {
         # Write only a sample of the output
         sampled_output <- comrad::sample_output(

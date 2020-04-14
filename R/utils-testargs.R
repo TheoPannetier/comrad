@@ -109,33 +109,25 @@ test_comrad_comm <- function(comm) {
   if (!tibble::is_tibble(comm)) {
     stop("'", substitute(comm), "' should be a tibble.")
   }
-  if (length(comm) != 3) {
-    stop("'", substitute(comm), "' should have 3 columns.")
-  }
-  if (length(comm[[1]]) == 0) {
+  if (length(attributes(comm)$row.names) == 0) {
     stop("'", substitute(comm), "' is empty.")
   }
-  if (length(names(comm)) != 3 ||
-    any(names(comm) != c("z", "species", "ancestral_species"))) {
+  if (length(attributes(comm)$names) != 3) {
+    stop("'", substitute(comm), "' should have 3 columns.")
+  }
+  if (any(attributes(comm)$names != c("z", "species", "ancestral_species"))) {
     stop(
       "'", substitute(comm),
       "' should have columns 'z', 'species' and 'ancestral_species'."
     )
   }
-  if (!is.numeric(comm[[1]])) {
-    stop("'", substitute(comm), "' column 'z' should be numeric.")
-  }
-  if (!is.character(comm[[2]])) {
+  col_classes <- c(
+    class(comm$z), class(comm$species), class(comm$ancestral_species)
+  )
+  if (any(col_classes != c("numeric", "character", "character"))) {
     stop(
-      "'", substitute(comm), "' column 'species' should be a character."
-    )
-  }
-  if (any(is.na(comm[[2]]))) {
-    stop("'", substitute(comm), "' column 'species' contains one or more NAs.")
-  }
-  if (!is.character(comm[[3]])) {
-    stop(
-      "'", substitute(comm), "' column 'ancestral_species' is not a character."
+      "'", substitute(comm),
+      "' col classes should be numeric, character and character, respectively."
     )
   }
 }
