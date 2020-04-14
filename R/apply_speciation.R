@@ -25,32 +25,26 @@ apply_speciation <- function(comm, trait_gap = default_trait_gap()) {
 
   comrad::test_comrad_comm(comm)
 
-  comm <- comm %>% dplyr::arrange(z)
+  comm <- comm[order(comm$z), ]
 
   for (sp in unique(comm$species)) {
     # Keep track of species members' position
     where <- which(comm$species == sp)
     # Extract members of focal species
-    sp_members <- comm %>% dplyr::filter(species == sp)
+    sp_members <- comm[comm$species == sp, ]
     nb_inds <- length(sp_members$z)
 
     # Check for gaps in trait values -------------------------------------------
-    gaps <- sp_members %>%
-      dplyr::select(z) %>%
-      unlist() %>%
-      find_trait_gaps(trait_gap = trait_gap)
+    traits <- sp_members$z
+    gaps <- find_trait_gaps(traits = traits, trait_gap = trait_gap)
 
     if (length(gaps) > 0) {
       gap <- gaps[1] # only the first gap is treated  for now (soft polytomy)
+
       # Split species in two ---------------------------------------------------
       new_sp <- charlatan::ch_hex_color()
-      sp_labels <- sp_members %>%
-        dplyr::select(species) %>%
-        unlist()
-      anc_labels <- sp_members %>%
-        dplyr::select(ancestral_species) %>%
-        unlist()
-
+      sp_labels <- sp_members$species
+      anc_labels <- sp_members$ancestral_species
       # Less numerous becomes new species
       if (gap < nb_inds / 2) {
         sp_labels[1:gap] <- new_sp
@@ -77,6 +71,5 @@ apply_speciation <- function(comm, trait_gap = default_trait_gap()) {
       comm$species[where] <- sp_labels
     }
   }
-  comrad::test_comrad_comm(comm)
   return(comm)
 }

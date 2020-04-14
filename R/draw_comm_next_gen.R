@@ -4,6 +4,8 @@
 #' offspring, apply mutations and resolve speciation events.
 #'
 #' @inheritParams default_params_doc
+#' @param seed integer \code{> 0}, the seed to set for the random number
+#' generator. Defaults to an integer based on current day and time.
 #'
 #' @author Théo Pannetier
 #' @export
@@ -17,7 +19,8 @@ draw_comm_next_gen <- function(
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_gap = default_trait_gap()
+  trait_gap = default_trait_gap(),
+  seed = comrad::default_seed()
 ) {
 
   # Test argument type ---------------------------------------------------------
@@ -48,7 +51,10 @@ draw_comm_next_gen <- function(
   comrad::testarg_not_this(fitness_comm, Inf)
 
   # Create next generation from parent fitness ---------------------------------
-  nb_offspring_comm <- comrad::draw_nb_offspring(fitness = fitness_comm)
+  nb_offspring_comm <- comrad::draw_nb_offspring_cpp(
+    fitness = fitness_comm,
+    seed = seed
+    )
   comrad::testarg_length(nb_offspring_comm, length(comm$z))
 
   new_comm <- tibble::tibble(
@@ -63,14 +69,12 @@ draw_comm_next_gen <- function(
   if (length(new_comm$species) < 1) {
     return(new_comm)
   }
-
   # Draw and apply mutations ---------------------------------------------------
   new_comm$z <- comrad::apply_mutations(
     traits_comm = new_comm$z,
     prob_mutation = prob_mutation,
     mutation_sd = mutation_sd
   )
-
   # Resolve speciation ---------------------------------------------------------
   new_comm <- comrad::apply_speciation(
     comm = new_comm,
