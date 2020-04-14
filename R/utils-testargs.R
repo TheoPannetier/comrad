@@ -121,14 +121,13 @@ test_comrad_comm <- function(comm) {
       "' should have columns 'z', 'species' and 'ancestral_species'."
     )
   }
-  col_classes <- sapply(1:3, function(x) class(comm[[x]]) )
+  col_classes <- c(
+    class(comm$z), class(comm$species), class(comm$ancestral_species)
+  )
   if (any(col_classes != c("numeric", "character", "character"))) {
     stop(
       "'", substitute(comm),
       "' col classes should be numeric, character and character, respectively."
     )
-  }
-  if (any(is.na(comm[[2]]))) {
-    stop("'", substitute(comm), "' column 'species' contains one or more NAs.")
   }
 }
