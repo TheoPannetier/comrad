@@ -13,7 +13,8 @@ draw_comm_next_gen(
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_gap = default_trait_gap()
+  trait_gap = default_trait_gap(),
+  seed = comrad::default_seed()
 )
 }
 \arguments{
@@ -45,6 +46,9 @@ individual is sampled with a mutation.}
 distrbution from which mutations are drawn.}
 
 \item{trait_gap}{numeric, the width of a gap triggering speciation.}
+
+\item{seed}{integer \code{> 0}, the seed to set for the random number
+generator. Defaults to an integer based on current day and time.}
 }
 \description{
 From the trait values of the current community, compute the fitness, draw

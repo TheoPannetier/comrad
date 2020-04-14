@@ -174,7 +174,8 @@ run_simulation <- function(
       carr_cap_width = carr_cap_width,
       prob_mutation = prob_mutation,
       mutation_sd = mutation_sd,
-      trait_gap = trait_gap
+      trait_gap = trait_gap,
+      seed = seed
     )
 
     if (length(comm$species) < 1) {

@@ -7,7 +7,8 @@ using namespace Rcpp;
 //' The number of offspring is drawn in a Poisson distribution in
 //' `rpois(lambda = fitness)`. Vectorized.
 //'
-//' @param fitness numeric `>= 0`, a vector of fitness values.
+//' @param fitness a vector of positive floats, the fitness value(s).
+//' @param seed. Integer, the seed passed for random number generation.
 //'
 //' @seealso get_fitness
 //' @author Theo Pannetier
