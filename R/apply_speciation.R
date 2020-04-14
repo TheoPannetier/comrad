@@ -77,6 +77,5 @@ apply_speciation <- function(comm, trait_gap = default_trait_gap()) {
       comm$species[where] <- sp_labels
     }
   }
-  comrad::test_comrad_comm(comm)
   return(comm)
 }
