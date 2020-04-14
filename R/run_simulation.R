@@ -16,7 +16,7 @@
 #' individuals. The fraction of individuals returned is approximative
 #' because of a truncation.
 #' @param seed integer \code{> 0}, the seed to set for the random number
-#' generator.
+#' generator. Defaults to an integer based on current day and time.
 #' @inheritParams default_params_doc
 #' @param hpc_job_id used to record a job ID in the metadata, only relevant for
 #' simulations run on a high-performance cluster. Otherwise takes value
@@ -144,7 +144,6 @@ run_simulation <- function(
     "species" = init_comm$species,
     "ancestral_species" = as.character(NA)
   )
-
   if (!is.null(output_path)) {
     readr::write_csv(
       output,
@@ -155,9 +154,10 @@ run_simulation <- function(
 
   # Set initial community
   comm <- init_comm
-
   # Set timer
   start_time <- proc.time()[3]
+  # Let's not forget the seed
+  set.seed(seed)
 
   # Go :)
   for (t in 1:nb_generations) {
