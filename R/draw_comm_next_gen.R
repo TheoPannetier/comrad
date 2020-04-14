@@ -69,14 +69,12 @@ draw_comm_next_gen <- function(
   if (length(new_comm$species) < 1) {
     return(new_comm)
   }
-
   # Draw and apply mutations ---------------------------------------------------
   new_comm$z <- comrad::apply_mutations(
     traits_comm = new_comm$z,
     prob_mutation = prob_mutation,
     mutation_sd = mutation_sd
   )
-
   # Resolve speciation ---------------------------------------------------------
   new_comm <- comrad::apply_speciation(
     comm = new_comm,
