@@ -162,8 +162,6 @@ run_simulation <- function(
   # Go :)
   for (t in 1:nb_generations) {
 
-    gen_time <- proc.time()[3]
-
     # Replace comm with next generation
     comm <- comrad::draw_comm_next_gen(
       comm = comm,
@@ -195,10 +193,7 @@ run_simulation <- function(
     )
 
     if (t %% sampling_frequency == 0) {
-      cat(
-        "\nRunning generation", t, "/", nb_generations,
-        "\trun time =", proc.time()[3] - gen_time
-      )
+      cat("\nRunning generation", t, "/", nb_generations)
       if (!is.null(output_path)) {
         # Write only a sample of the output
         sampled_output <- comrad::sample_output(
