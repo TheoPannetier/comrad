@@ -10,7 +10,7 @@
 #' @author Théo Pannetier
 #' @export
 
-read_comrad_tbl <- function(path_to_file, skip = 17) {
+read_comrad_tbl <- function(path_to_file, skip = 18) {
 
   comrad::testarg_char(path_to_file)
   path_to_file_extension <- substr(

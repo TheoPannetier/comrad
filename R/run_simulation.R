@@ -118,6 +118,7 @@ run_simulation <- function(
     "\nseed =", seed,
     "\nHPC job ID =", hpc_job_id,
     "\nsimulated under comrad", as.character(utils::packageVersion("comrad")),
+    "\n", R.version$version.string,
     "\n",
     "\nRunning for", nb_generations, "generations",
     "\n"
