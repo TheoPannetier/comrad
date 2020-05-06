@@ -12,3 +12,5 @@
 ^pontarp_matlab_code/.+$
 ^cluster_scripts/.+$
 
+^doc$
+^Meta$
