@@ -9,8 +9,8 @@
 #' as the [default_init_comm()], which contains 10 individuals with `z = 0`
 #' @param nb_gens integer, the number of generations to run the
 #' simulation for.
-#' @param sampling_frequency numeric \code{> 0}, the frequency at which the
-#' community is saved in the output. See [set_sampling_frequency()] for the
+#' @param sampling_freq numeric \code{> 0}, the frequency (in generations) at
+#' which the community is written to output. See [set_sampling_freq()] for the
 #' default option.
 #' @param sampling_prop numeric (between 0 and 1), the proportion of
 #' individuals. The fraction of individuals returned is approximative
@@ -38,7 +38,7 @@ run_simulation <- function(
   path_to_output,
   nb_gens,
   init_comm = default_init_comm(),
-  sampling_frequency = comrad::set_sampling_frequency(nb_gens),
+  sampling_freq = comrad::set_sampling_freq(nb_gens),
   seed = default_seed(),
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),
@@ -71,8 +71,8 @@ run_simulation <- function(
   comrad::testarg_pos(nb_gens)
   comrad::testarg_not_this(nb_gens, c(0, Inf))
   comrad::testarg_int(nb_gens)
-  comrad::testarg_num(sampling_frequency)
-  comrad::testarg_int(sampling_frequency)
+  comrad::testarg_num(sampling_freq)
+  comrad::testarg_int(sampling_freq)
   comrad::testarg_num(seed)
   comrad::testarg_int(seed)
   comrad::testarg_num(growth_rate)
@@ -193,7 +193,7 @@ run_simulation <- function(
       "ancestral_species" = comm$ancestral_species
     )
 
-    if (t %% sampling_frequency == 0) {
+    if (t %% sampling_freq == 0) {
       cat("\nRunning generation", t, "/", nb_gens)
       if (!is.null(path_to_output)) {
         # Write only a sample of the output

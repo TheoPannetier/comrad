@@ -19,7 +19,7 @@
 #' @author Theo Pannetier
 #' @export
 
-set_sampling_frequency <- function(nb_gens) {
+set_sampling_freq <- function(nb_gens) {
   comrad::testarg_num(nb_gens)
   comrad::testarg_pos(nb_gens)
 

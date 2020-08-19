@@ -56,8 +56,8 @@ distrbution from which mutations are drawn.}
 
 \item{trait_gap}{numeric, the width of a gap triggering speciation.}
 
-\item{nb_gens}{integer, the number of generations to run during the
-simulation.}
+\item{nb_gens}{integer, how many generations should the simulation be run
+for?}
 
 \item{fitness_func, }{the name of the function used to compute fitness.}
 

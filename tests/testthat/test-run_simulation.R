@@ -59,8 +59,8 @@ test_that("parameter_abuse", {
     "'nb_gens' must be an integer"
   )
   expect_error(
-    run_simulation(sampling_frequency = 12.3, path_to_output = NULL, nb_gens = 20),
-    "'sampling_frequency' must be an integer"
+    run_simulation(sampling_freq = 12.3, path_to_output = NULL, nb_gens = 20),
+    "'sampling_freq' must be an integer"
   )
   expect_error(
     run_simulation(seed = 1.4, path_to_output = NULL, nb_gens = 20),

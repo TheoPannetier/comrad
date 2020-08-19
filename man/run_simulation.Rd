@@ -6,9 +6,9 @@
 \usage{
 run_simulation(
   path_to_output,
+  nb_gens,
   init_comm = default_init_comm(),
-  nb_gens = 20,
-  sampling_frequency = comrad::set_sampling_frequency(nb_gens),
+  sampling_freq = comrad::set_sampling_freq(nb_gens),
   seed = default_seed(),
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),
@@ -27,14 +27,14 @@ run_simulation(
 \code{.csv}. If \code{NULL}, the output is not saved and the final state of the
 community is returned at the end of the simulation.}
 
-\item{init_comm}{The initial community, must have the same tibble structure
-as the \code{\link[=default_init_comm]{default_init_comm()}}, which contains 10 individuals with \code{z = 0}}
-
 \item{nb_gens}{integer, the number of generations to run the
 simulation for.}
 
-\item{sampling_frequency}{numeric \code{> 0}, the frequency at which the
-community is saved in the output. See \code{\link[=set_sampling_frequency]{set_sampling_frequency()}} for the
+\item{init_comm}{The initial community, must have the same tibble structure
+as the \code{\link[=default_init_comm]{default_init_comm()}}, which contains 10 individuals with \code{z = 0}}
+
+\item{sampling_freq}{numeric \code{> 0}, the frequency at which the
+community is saved in the output. See \code{\link[=set_sampling_freq]{set_sampling_freq()}} for the
 default option.}
 
 \item{seed}{integer \code{> 0}, the seed to set for the random number
