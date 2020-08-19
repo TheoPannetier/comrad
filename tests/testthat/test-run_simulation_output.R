@@ -1,7 +1,7 @@
 context("test-run_simulation_output")
 
 temp_path_to_output <- paste0(tempfile("comrad_test_output"), ".csv")
-run_simulation(path_to_output = temp_path_to_output, nb_generations = 5)
+run_simulation(path_to_output = temp_path_to_output, nb_gens = 5)
 # Load results in the env
 expect_silent(comrad_tbl <- read_comrad_tbl(temp_path_to_output))
 

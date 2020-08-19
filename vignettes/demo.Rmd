@@ -81,7 +81,7 @@ temp_path_to_output <- paste0(tempfile("comrad_temp_output"), ".csv")
 
 comrad_tbl <- comrad::run_simulation(
   path_to_output = temp_path_to_output,
-  nb_generations = 1000
+  nb_gens = 1000
 )
 ```
 
@@ -108,8 +108,8 @@ parameter values (about 2,500 individuals per generation at equilibrium for defa
 half of the individuals (randomly sampled) in the community are saved – 
 `sampling_prop = 0.5`. I found this is sufficient to have enough info on the
 community.
-Generations are sampled every twice a tenth of the order of magnitude of `nb_generations`, i.e. every 20 for `nb_generations = 100`, every 200 for
-`nb_generations = 1000`, every 200 again for `nb_generations = 3000`, etc.
+Generations are sampled every twice a tenth of the order of magnitude of `nb_gens`, i.e. every 20 for `nb_gens = 100`, every 200 for
+`nb_gens = 1000`, every 200 again for `nb_gens = 3000`, etc.
 
 `path_to_output = NULL` will return the output of the last generation (only) 
 instead of saving it.

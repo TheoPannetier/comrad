@@ -7,7 +7,7 @@
 #' community is returned at the end of the simulation.
 #' @param init_comm The initial community, must have the same tibble structure
 #' as the [default_init_comm()], which contains 10 individuals with `z = 0`
-#' @param nb_generations integer, the number of generations to run the
+#' @param nb_gens integer, the number of generations to run the
 #' simulation for.
 #' @param sampling_frequency numeric \code{> 0}, the frequency at which the
 #' community is saved in the output. See [set_sampling_frequency()] for the
@@ -36,9 +36,9 @@
 #'
 run_simulation <- function(
   path_to_output,
+  nb_gens,
   init_comm = default_init_comm(),
-  nb_generations = 20,
-  sampling_frequency = comrad::set_sampling_frequency(nb_generations),
+  sampling_frequency = comrad::set_sampling_frequency(nb_gens),
   seed = default_seed(),
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),
@@ -67,10 +67,10 @@ run_simulation <- function(
     }
   }
 
-  comrad::testarg_num(nb_generations)
-  comrad::testarg_pos(nb_generations)
-  comrad::testarg_not_this(nb_generations, c(0, Inf))
-  comrad::testarg_int(nb_generations)
+  comrad::testarg_num(nb_gens)
+  comrad::testarg_pos(nb_gens)
+  comrad::testarg_not_this(nb_gens, c(0, Inf))
+  comrad::testarg_int(nb_gens)
   comrad::testarg_num(sampling_frequency)
   comrad::testarg_int(sampling_frequency)
   comrad::testarg_num(seed)
@@ -120,7 +120,7 @@ run_simulation <- function(
     "\nsimulated under comrad", as.character(utils::packageVersion("comrad")),
     "\n", R.version$version.string,
     "\n",
-    "\nRunning for", nb_generations, "generations",
+    "\nRunning for", nb_gens, "generations",
     "\n"
   )
   if (is_on_unix) {
@@ -161,7 +161,7 @@ run_simulation <- function(
   set.seed(seed)
 
   # Go :)
-  for (t in 1:nb_generations) {
+  for (t in 1:nb_gens) {
 
     # Replace comm with next generation
     comm <- comrad::draw_comm_next_gen(
@@ -194,7 +194,7 @@ run_simulation <- function(
     )
 
     if (t %% sampling_frequency == 0) {
-      cat("\nRunning generation", t, "/", nb_generations)
+      cat("\nRunning generation", t, "/", nb_gens)
       if (!is.null(path_to_output)) {
         # Write only a sample of the output
         sampled_output <- comrad::sample_output(

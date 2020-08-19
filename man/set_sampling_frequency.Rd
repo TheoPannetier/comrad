@@ -4,25 +4,25 @@
 \alias{set_sampling_frequency}
 \title{Set default sampling frequency}
 \usage{
-set_sampling_frequency(nb_generations)
+set_sampling_frequency(nb_gens)
 }
 \arguments{
-\item{nb_generations}{integer, the number of generations to run during the
+\item{nb_gens}{integer, the number of generations to run during the
 simulation.}
 }
 \description{
 Returns an appropriate sampling frequency based on the order of magnitude of
-\code{nb_generations}.
+\code{nb_gens}.
 }
 \details{
 The sampling frequency is set as follows:
 \itemize{
-\item if \code{nb_generations < 1000}, sampling frequency is set to 1
+\item if \code{nb_gens < 1000}, sampling frequency is set to 1
 (every generation).
-\item if \code{nb_generations >= 1000}, sampling frequency is set to twice
-the order of magnitude of \code{nb_generations} - 2. E.g. for
-\code{nb_generations >= 1000}, the community is sampled every 20
-generations, every 200 generations for \code{nb_generations >= 10000},
+\item if \code{nb_gens >= 1000}, sampling frequency is set to twice
+the order of magnitude of \code{nb_gens} - 2. E.g. for
+\code{nb_gens >= 1000}, the community is sampled every 20
+generations, every 200 generations for \code{nb_gens >= 10000},
 etc.
 }
 }

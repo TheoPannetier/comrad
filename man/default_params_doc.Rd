@@ -16,7 +16,7 @@ default_params_doc(
   prob_mutation,
   mutation_sd,
   trait_gap,
-  nb_generations,
+  nb_gens,
   fitness_func,
   comrad_tbl
 )
@@ -56,7 +56,7 @@ distrbution from which mutations are drawn.}
 
 \item{trait_gap}{numeric, the width of a gap triggering speciation.}
 
-\item{nb_generations}{integer, the number of generations to run during the
+\item{nb_gens}{integer, the number of generations to run during the
 simulation.}
 
 \item{fitness_func, }{the name of the function used to compute fitness.}

@@ -7,8 +7,8 @@
 run_simulation(
   path_to_output,
   init_comm = default_init_comm(),
-  nb_generations = 20,
-  sampling_frequency = comrad::set_sampling_frequency(nb_generations),
+  nb_gens = 20,
+  sampling_frequency = comrad::set_sampling_frequency(nb_gens),
   seed = default_seed(),
   growth_rate = default_growth_rate(),
   comp_width = default_comp_width(),
@@ -30,7 +30,7 @@ community is returned at the end of the simulation.}
 \item{init_comm}{The initial community, must have the same tibble structure
 as the \code{\link[=default_init_comm]{default_init_comm()}}, which contains 10 individuals with \code{z = 0}}
 
-\item{nb_generations}{integer, the number of generations to run the
+\item{nb_gens}{integer, the number of generations to run the
 simulation for.}
 
 \item{sampling_frequency}{numeric \code{> 0}, the frequency at which the

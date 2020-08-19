@@ -26,8 +26,8 @@
 #' @param mutation_sd numeric `>= 0`, the standard deviation of the normal
 #' distrbution from which mutations are drawn.
 #' @param trait_gap numeric, the width of a gap triggering speciation.
-#' @param nb_generations integer, the number of generations to run during the
-#' simulation.
+#' @param nb_gens integer, how many generations should the simulation be run
+#' for?
 #' @param fitness_func, the name of the function used to compute fitness.
 #' @param comrad_tbl a tibble containing the output of a `comrad` simulation,
 #' as produced by [run_simulation()] or read by [read_comrad_tbl()].
@@ -46,7 +46,7 @@ default_params_doc <- function(
   prob_mutation,
   mutation_sd,
   trait_gap,
-  nb_generations,
+  nb_gens,
   fitness_func,
   comrad_tbl
 ) {
