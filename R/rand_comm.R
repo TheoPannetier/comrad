@@ -13,7 +13,7 @@ rand_comm <- function() {
     charlatan::ch_taxonomic_epithet(nb_species)
   )
   comm <- tibble::tibble(
-    z = stats::rnorm(n, 0, sd = default_carr_cap_width()),
+    z = stats::rnorm(n, 0, sd = default_carrying_cap_sd()),
     species = name_pool[sample(1:nb_species, n, replace = TRUE)],
     ancestral_species = rep(as.character(NA), n)
   )

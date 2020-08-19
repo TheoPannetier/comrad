@@ -21,13 +21,13 @@ default_trait_opt <- function() {
 
 #' @export
 #' @rdname default_pars
-default_carr_cap_opt <- function() {
+default_carrying_cap_opt <- function() {
   1000
 }
 
 #' @export
 #' @rdname default_pars
-default_carr_cap_width <- function() {
+default_carrying_cap_sd <- function() {
   0.5
 }
 

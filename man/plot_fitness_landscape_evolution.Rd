@@ -10,7 +10,7 @@ plot_fitness_landscape_evolution(
   generation_range = c(0, Inf),
   fitness_lim = c(0, get_fitness(0)),
   competition_sd,
-  carr_cap_width
+  carrying_cap_sd
 )
 }
 \arguments{
@@ -33,8 +33,9 @@ z-axis, the fitness.}
 the competition coefficient. Modulates the the strength of competition
 between two individuals given their distance in trait space.}
 
-\item{carr_cap_width}{numeric \verb{>= 0}.
-Width of the carrying capacity kernel.}
+\item{carrying_cap_sd}{numeric \verb{>= 0}. Parameter \eqn{\sigma_K} of the
+carrying capacity. Modulates how fast the carrying capacity decays when
+moving away from the optimal trait value.}
 }
 \description{
 Computes the fitness landscape along the time sequence defined by

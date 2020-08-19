@@ -67,7 +67,7 @@ $$
 $$
 $K_{opt}$ is the carrying capacity at the optimal trait value $z_{opt}$, set at
 1000 and 0 respectively. $\sigma_{K}$ is the SD for the "niche" kernel, and is
-dubbed `carr_cap_width` in `comrad`.
+dubbed `carrying_cap_sd` in `comrad`.
 
 ## Installation
 ```{r lib_comrad, eval=FALSE}

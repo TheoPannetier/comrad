@@ -17,7 +17,7 @@ plot_fitness_landscape <- function(comrad_tbl,
                                    generation,
                                    z_seq = NULL,
                                    competition_sd,
-                                   carr_cap_width) {
+                                   carrying_cap_sd) {
   z <- NULL
   fitness <- NULL
 
@@ -28,8 +28,8 @@ plot_fitness_landscape <- function(comrad_tbl,
   comrad::testarg_pos(generation)
   comrad::testarg_num(competition_sd)
   comrad::testarg_pos(competition_sd)
-  comrad::testarg_num(carr_cap_width)
-  comrad::testarg_pos(carr_cap_width)
+  comrad::testarg_num(carrying_cap_sd)
+  comrad::testarg_pos(carrying_cap_sd)
 
   if (!generation %in% comrad_tbl$t) {
     stop(paste("Generation", generation, "wasn't sampled."))
@@ -52,8 +52,8 @@ plot_fitness_landscape <- function(comrad_tbl,
     traits_comm = traits_comm,
     growth_rate = default_growth_rate(),
     competition_sd = competition_sd,
-    carr_cap_opt = default_carr_cap_opt(),
-    carr_cap_width = carr_cap_width
+    carrying_cap_opt = default_carrying_cap_opt(),
+    carrying_cap_sd = carrying_cap_sd
   )
 
   fitness_landscape %>%

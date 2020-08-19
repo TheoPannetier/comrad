@@ -9,8 +9,8 @@ draw_comm_next_gen(
   growth_rate = default_growth_rate(),
   competition_sd = default_competition_sd(),
   trait_opt = default_trait_opt(),
-  carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width(),
+  carrying_cap_opt = default_carrying_cap_opt(),
+  carrying_cap_sd = default_carrying_cap_sd(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   trait_gap = default_trait_gap(),
@@ -33,13 +33,14 @@ being discrete, high values will cause chaos.}
 the competition coefficient. Modulates the the strength of competition
 between two individuals given their distance in trait space.}
 
-\item{trait_opt}{numeric. The optimal trait value.
-\code{get_carr_cap(trait_opt) = carr_cap_opt}.}
+\item{trait_opt}{numeric. The optimal trait value, \eqn{z_{opt}}.
+\code{get_carrying_cap(trait_opt) = carrying_cap_opt}.}
 
-\item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
+\item{carrying_cap_opt}{numeric, value of the carrying capacity at \code{trait_opt}}
 
-\item{carr_cap_width}{numeric \verb{>= 0}.
-Width of the carrying capacity kernel.}
+\item{carrying_cap_sd}{numeric \verb{>= 0}. Parameter \eqn{\sigma_K} of the
+carrying capacity. Modulates how fast the carrying capacity decays when
+moving away from the optimal trait value.}
 
 \item{prob_mutation}{numeric between 0 and 1, the probability that any new
 individual is sampled with a mutation.}

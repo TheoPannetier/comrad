@@ -40,7 +40,7 @@ test_that("extinction", {
   expect_output(
     # TPK
     output <- run_simulation(
-      carr_cap_opt = 0, nb_gens = 1, path_to_output = NULL),
+      carrying_cap_opt = 0, nb_gens = 1, path_to_output = NULL),
     "\\nCommunity has gone extinct at generation 1 "
   )
 })

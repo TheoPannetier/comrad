@@ -4,8 +4,8 @@
 \alias{default_pars}
 \alias{default_competition_sd}
 \alias{default_trait_opt}
-\alias{default_carr_cap_opt}
-\alias{default_carr_cap_width}
+\alias{default_carrying_cap_opt}
+\alias{default_carrying_cap_sd}
 \alias{default_growth_rate}
 \alias{default_prob_mutation}
 \alias{default_mutation_sd}
@@ -19,9 +19,9 @@ default_competition_sd()
 
 default_trait_opt()
 
-default_carr_cap_opt()
+default_carrying_cap_opt()
 
-default_carr_cap_width()
+default_carrying_cap_sd()
 
 default_growth_rate()
 

@@ -40,12 +40,12 @@ run_simulation <- function(
   init_comm = default_init_comm(),
   growth_rate = default_growth_rate(),
   competition_sd = default_competition_sd(),
+  carrying_cap_sd = default_carrying_cap_sd(),
+  carrying_cap_opt = default_carrying_cap_opt(),
   trait_opt = default_trait_opt(),
-  carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_gap = default_trait_gap(),
+  trait_dist_spec = default_trait_dist_spec(),
   sampling_freq = comrad::set_sampling_freq(nb_gens),
   sampling_frac = default_sampling_frac(),
   seed = default_seed(),
@@ -80,16 +80,16 @@ run_simulation <- function(
   comrad::testarg_num(competition_sd)
   comrad::testarg_pos(competition_sd)
   comrad::testarg_num(trait_opt)
-  comrad::testarg_num(carr_cap_opt)
-  comrad::testarg_pos(carr_cap_opt)
-  comrad::testarg_num(carr_cap_width)
-  comrad::testarg_pos(carr_cap_width)
+  comrad::testarg_num(carrying_cap_opt)
+  comrad::testarg_pos(carrying_cap_opt)
+  comrad::testarg_num(carrying_cap_sd)
+  comrad::testarg_pos(carrying_cap_sd)
   comrad::testarg_num(prob_mutation)
   comrad::testarg_prop(prob_mutation)
   comrad::testarg_num(mutation_sd)
   comrad::testarg_pos(mutation_sd)
-  comrad::testarg_num(trait_gap)
-  comrad::testarg_pos(trait_gap)
+  comrad::testarg_num(trait_dist_spec)
+  comrad::testarg_pos(trait_dist_spec)
   comrad::testarg_num(sampling_frac)
   comrad::testarg_prop(sampling_frac)
 
@@ -110,8 +110,8 @@ run_simulation <- function(
     "\ngrowth_rate =", growth_rate,
     "\ncompetition_sd =", competition_sd,
     "\ntrait_opt =", trait_opt,
-    "\ncarr_cap_opt =", carr_cap_opt,
-    "\ncarr_cap_width =", carr_cap_width,
+    "\ncarrying_cap_opt =", carrying_cap_opt,
+    "\ncarrying_cap_sd =", carrying_cap_sd,
     "\nprob_mutation =", prob_mutation,
     "\nmutation_sd =", mutation_sd,
     "\n",
@@ -169,11 +169,11 @@ run_simulation <- function(
       growth_rate = growth_rate,
       competition_sd = competition_sd,
       trait_opt = trait_opt,
-      carr_cap_opt = carr_cap_opt,
-      carr_cap_width = carr_cap_width,
+      carrying_cap_opt = carrying_cap_opt,
+      carrying_cap_sd = carrying_cap_sd,
       prob_mutation = prob_mutation,
       mutation_sd = mutation_sd,
-      trait_gap = trait_gap,
+      trait_dist_spec = trait_dist_spec,
       seed = seed
     )
 

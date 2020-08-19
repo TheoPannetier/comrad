@@ -16,11 +16,12 @@
 #' @param competition_sd numeric `>= 0`.Parameter \eqn{\sigma_{\alpha}} of
 #' the competition coefficient. Modulates the the strength of competition
 #' between two individuals given their distance in trait space.
-#' @param trait_opt numeric. The optimal trait value.
-#' \code{get_carr_cap(trait_opt) = carr_cap_opt}.
-#' @param carr_cap_opt numeric. Carrying capacity at the optimal trait value.
-#' @param carr_cap_width numeric `>= 0`.
-#' Width of the carrying capacity kernel.
+#' @param trait_opt numeric. The optimal trait value, \eqn{z_{opt}}.
+#' \code{get_carrying_cap(trait_opt) = carrying_cap_opt}.
+#' @param carrying_cap_sd numeric `>= 0`. Parameter \eqn{\sigma_K} of the
+#' carrying capacity. Modulates how fast the carrying capacity decays when
+#' moving away from the optimal trait value.
+#' @param carrying_cap_opt numeric, value of the carrying capacity at `trait_opt`
 #' @param growth_rate numeric `>= 0`, the baseline growth rate. Generations
 #' being discrete, high values will cause chaos.
 #' @param prob_mutation numeric between 0 and 1, the probability that any new
@@ -42,8 +43,8 @@ default_params_doc <- function(
   traits_comm,
   competition_sd,
   trait_opt,
-  carr_cap_opt,
-  carr_cap_width,
+  carrying_cap_opt,
+  carrying_cap_sd,
   growth_rate,
   prob_mutation,
   mutation_sd,

@@ -7,8 +7,8 @@
 #' @inheritParams default_params_doc
 #' @param n_eff Effective population size experienced by an individual, see
 #' [get_n_eff()]
-#' @param carr_cap The carrying capacity experienced by an individual, see
-#' [get_carr_cap()].
+#' @param carrying_cap The carrying capacity experienced by an individual, see
+#' [get_carrying_cap()].
 #'
 #' @details
 #' The table below reports the fitness values associated with hallmark levels
@@ -30,15 +30,15 @@ NULL
 #' @export
 fitness_func_logistic <- function(growth_rate,
                                   n_eff,
-                                  carr_cap) {
+                                  carrying_cap) {
   # Compute fitness with positive logistic function
-  fitness <- pmax(0, growth_rate * (1 - n_eff / carr_cap))
+  fitness <- pmax(0, growth_rate * (1 - n_eff / carrying_cap))
 
   # Solve possible NaN issues --------------------------------------------------
   if (
     # In case of conflict between parameters
-    (growth_rate == 0 && any((n_eff / carr_cap) %in% c(Inf, -Inf))) ||
-    (growth_rate == Inf && any((n_eff / carr_cap) == 1))
+    (growth_rate == 0 && any((n_eff / carrying_cap) %in% c(Inf, -Inf))) ||
+    (growth_rate == Inf && any((n_eff / carrying_cap) == 1))
   ) {
     # I rule that growth_rate has precedence
     nans <- which(is.nan(fitness))
@@ -52,15 +52,15 @@ fitness_func_logistic <- function(growth_rate,
 #' @export
 fitness_func_pontarp <- function(growth_rate,
                                  n_eff,
-                                 carr_cap) {
+                                 carrying_cap) {
   # Compute fitness with positive logistic function
-  fitness <- pmax(0, 1 + growth_rate * (1 - n_eff / carr_cap))
+  fitness <- pmax(0, 1 + growth_rate * (1 - n_eff / carrying_cap))
 
   # Solve possible NaN issues --------------------------------------------------
   if (
     # In case of conflict between parameters
-    (growth_rate == 0 && any((n_eff / carr_cap) %in% c(Inf, -Inf))) ||
-    (growth_rate == Inf && any((n_eff / carr_cap) == 1))
+    (growth_rate == 0 && any((n_eff / carrying_cap) %in% c(Inf, -Inf))) ||
+    (growth_rate == Inf && any((n_eff / carrying_cap) == 1))
   ) {
     # I rule that growth_rate has precedence
     nans <- which(is.nan(fitness))
@@ -74,15 +74,15 @@ fitness_func_pontarp <- function(growth_rate,
 #' @export
 fitness_func_ricker <- function(growth_rate,
                                 n_eff,
-                                carr_cap) {
+                                carrying_cap) {
   # Compute fitness with the function from the Ricker model
-  fitness <- exp(growth_rate * (1 - n_eff / carr_cap))
+  fitness <- exp(growth_rate * (1 - n_eff / carrying_cap))
 
   # Solve possible NaN issues --------------------------------------------------
   if (
     # In case of conflict between parameters
-    (growth_rate == 0 && any((n_eff / carr_cap) %in% c(Inf, -Inf))) ||
-    (growth_rate == Inf && any((n_eff / carr_cap) == 1))
+    (growth_rate == 0 && any((n_eff / carrying_cap) %in% c(Inf, -Inf))) ||
+    (growth_rate == Inf && any((n_eff / carrying_cap) == 1))
   ) {
     # I rule that growth_rate has precedence
     nans <- which(is.nan(fitness))

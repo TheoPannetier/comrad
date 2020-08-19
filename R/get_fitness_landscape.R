@@ -20,14 +20,14 @@ get_fitness_landscape <- function(z_seq,
                                   traits_comm,
                                   growth_rate = default_growth_rate(),
                                   competition_sd = default_competition_sd(),
-                                  carr_cap_opt = default_carr_cap_opt(),
-                                  carr_cap_width = default_carr_cap_width()
+                                  carrying_cap_opt = default_carrying_cap_opt(),
+                                  carrying_cap_sd = default_carrying_cap_sd()
 ) {
   # Compute intermediary variables
-  k <- get_carr_cap(
+  k <- get_carrying_cap(
     z_seq,
-    carr_cap_opt = carr_cap_opt,
-    carr_cap_width = carr_cap_width
+    carrying_cap_opt = carrying_cap_opt,
+    carrying_cap_sd = carrying_cap_sd
   )
   n_eff <-  get_n_eff(
     z_seq,

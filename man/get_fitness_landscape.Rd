@@ -9,8 +9,8 @@ get_fitness_landscape(
   traits_comm,
   growth_rate = default_growth_rate(),
   competition_sd = default_competition_sd(),
-  carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width()
+  carrying_cap_opt = default_carrying_cap_opt(),
+  carrying_cap_sd = default_carrying_cap_sd()
 )
 }
 \arguments{
@@ -27,10 +27,11 @@ being discrete, high values will cause chaos.}
 the competition coefficient. Modulates the the strength of competition
 between two individuals given their distance in trait space.}
 
-\item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
+\item{carrying_cap_opt}{numeric, value of the carrying capacity at \code{trait_opt}}
 
-\item{carr_cap_width}{numeric \verb{>= 0}.
-Width of the carrying capacity kernel.}
+\item{carrying_cap_sd}{numeric \verb{>= 0}. Parameter \eqn{\sigma_K} of the
+carrying capacity. Modulates how fast the carrying capacity decays when
+moving away from the optimal trait value.}
 }
 \value{
 a \code{tibble} with \code{z_seq} rows and columns \code{z}, \code{fitness}.

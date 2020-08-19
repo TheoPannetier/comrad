@@ -22,7 +22,7 @@ plot_fitness_landscape_evolution <- function(comrad_tbl,
                                              generation_range = c(0, Inf),
                                              fitness_lim = c(0, get_fitness(0)),
                                              competition_sd,
-                                             carr_cap_width
+                                             carrying_cap_sd
 ) {
   comrad::test_comrad_comm(
     comrad_tbl %>% dplyr::select("z", "species", "ancestral_species")
@@ -35,8 +35,8 @@ plot_fitness_landscape_evolution <- function(comrad_tbl,
   comrad::testarg_length(fitness_lim, 2)
   comrad::testarg_num(competition_sd)
   comrad::testarg_pos(competition_sd)
-  comrad::testarg_num(carr_cap_width)
-  comrad::testarg_pos(carr_cap_width)
+  comrad::testarg_num(carrying_cap_sd)
+  comrad::testarg_pos(carrying_cap_sd)
 
   if (generation_range[2] == Inf) {
     generation_range[2] <- max(comrad_tbl$t)
@@ -64,7 +64,7 @@ plot_fitness_landscape_evolution <- function(comrad_tbl,
         z_seq = z_seq,
         traits_comm = traits_comm,
         competition_sd = competition_sd,
-        carr_cap_width = carr_cap_width
+        carrying_cap_sd = carrying_cap_sd
       ) %>%
         cbind(t)
     })

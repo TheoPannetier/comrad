@@ -9,7 +9,7 @@ plot_fitness_landscape(
   generation,
   z_seq = NULL,
   competition_sd,
-  carr_cap_width
+  carrying_cap_sd
 )
 }
 \arguments{
@@ -27,8 +27,9 @@ minimal and maximal value in \code{comrad_tbl}}
 the competition coefficient. Modulates the the strength of competition
 between two individuals given their distance in trait space.}
 
-\item{carr_cap_width}{numeric \verb{>= 0}.
-Width of the carrying capacity kernel.}
+\item{carrying_cap_sd}{numeric \verb{>= 0}. Parameter \eqn{\sigma_K} of the
+carrying capacity. Modulates how fast the carrying capacity decays when
+moving away from the optimal trait value.}
 }
 \description{
 Computes the fitness landscape along trait range \code{z_seq} at time \code{generation}
