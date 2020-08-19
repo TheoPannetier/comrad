@@ -15,7 +15,7 @@ run_simulation(
   trait_opt = default_trait_opt(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_gap = default_trait_gap(),
+  trait_dist_sp = default_trait_dist_sp(),
   sampling_freq = comrad::set_sampling_freq(nb_gens),
   sampling_frac = default_sampling_frac(),
   seed = default_seed(),
@@ -55,7 +55,8 @@ individual is sampled with a mutation.}
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}
 
-\item{trait_gap}{numeric, the width of a gap triggering speciation.}
+\item{trait_dist_sp}{numeric, the minimal trait distance between two
+clusters of individuals triggering speciation.}
 
 \item{sampling_freq}{numeric \code{> 0}, the frequency (in generations) at
 which the community is written to output. See \code{\link[=set_sampling_freq]{set_sampling_freq()}} for the

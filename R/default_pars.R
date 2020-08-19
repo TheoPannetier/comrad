@@ -82,6 +82,6 @@ default_sampling_frac <- function() {
 
 #' @export
 #' @rdname default_pars
-default_trait_gap <- function() {
+default_trait_dist_sp <- function() {
   0.1
 }

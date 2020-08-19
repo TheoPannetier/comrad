@@ -12,7 +12,7 @@
 \alias{default_init_comm}
 \alias{default_seed}
 \alias{default_sampling_frac}
-\alias{default_trait_gap}
+\alias{default_trait_dist_sp}
 \title{Default parameter values}
 \usage{
 default_competition_sd()
@@ -35,7 +35,7 @@ default_seed()
 
 default_sampling_frac()
 
-default_trait_gap()
+default_trait_dist_sp()
 }
 \description{
 Return default values of the simulation parameters, i.e. the default settings

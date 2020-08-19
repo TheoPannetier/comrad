@@ -19,7 +19,7 @@ draw_comm_next_gen <- function(
   carrying_cap_sd = default_carrying_cap_sd(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_gap = default_trait_gap(),
+  trait_dist_sp = default_trait_dist_sp(),
   seed = comrad::default_seed()
 ) {
 
@@ -78,7 +78,7 @@ draw_comm_next_gen <- function(
   # Resolve speciation ---------------------------------------------------------
   new_comm <- comrad::apply_speciation(
     comm = new_comm,
-    trait_gap = trait_gap
+    trait_dist_sp = trait_dist_sp
   )
   comrad::test_comrad_comm(new_comm)
 

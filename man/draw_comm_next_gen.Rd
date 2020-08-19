@@ -13,7 +13,7 @@ draw_comm_next_gen(
   carrying_cap_sd = default_carrying_cap_sd(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_gap = default_trait_gap(),
+  trait_dist_sp = default_trait_dist_sp(),
   seed = comrad::default_seed()
 )
 }
@@ -48,7 +48,8 @@ individual is sampled with a mutation.}
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}
 
-\item{trait_gap}{numeric, the width of a gap triggering speciation.}
+\item{trait_dist_sp}{numeric, the minimal trait distance between two
+clusters of individuals triggering speciation.}
 
 \item{seed}{integer \code{> 0}, the seed to set for the random number
 generator. Defaults to an integer based on current day and time.}

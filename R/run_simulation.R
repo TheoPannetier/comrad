@@ -45,7 +45,7 @@ run_simulation <- function(
   trait_opt = default_trait_opt(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_dist_spec = default_trait_dist_spec(),
+  trait_dist_sp = default_trait_dist_sp(),
   sampling_freq = comrad::set_sampling_freq(nb_gens),
   sampling_frac = default_sampling_frac(),
   seed = default_seed(),
@@ -88,8 +88,8 @@ run_simulation <- function(
   comrad::testarg_prop(prob_mutation)
   comrad::testarg_num(mutation_sd)
   comrad::testarg_pos(mutation_sd)
-  comrad::testarg_num(trait_dist_spec)
-  comrad::testarg_pos(trait_dist_spec)
+  comrad::testarg_num(trait_dist_sp)
+  comrad::testarg_pos(trait_dist_sp)
   comrad::testarg_num(sampling_frac)
   comrad::testarg_prop(sampling_frac)
 
@@ -107,11 +107,11 @@ run_simulation <- function(
   # Send metadata to output
   metadata_string <- paste(
     "### Metadata ###",
-    "\ngrowth_rate =", growth_rate,
     "\ncompetition_sd =", competition_sd,
-    "\ntrait_opt =", trait_opt,
-    "\ncarrying_cap_opt =", carrying_cap_opt,
     "\ncarrying_cap_sd =", carrying_cap_sd,
+    "\ncarrying_cap_opt =", carrying_cap_opt,
+    "\ntrait_opt =", trait_opt,
+    "\ngrowth_rate =", growth_rate,
     "\nprob_mutation =", prob_mutation,
     "\nmutation_sd =", mutation_sd,
     "\n",
@@ -173,7 +173,7 @@ run_simulation <- function(
       carrying_cap_sd = carrying_cap_sd,
       prob_mutation = prob_mutation,
       mutation_sd = mutation_sd,
-      trait_dist_spec = trait_dist_spec,
+      trait_dist_sp = trait_dist_sp,
       seed = seed
     )
 
