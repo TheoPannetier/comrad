@@ -12,7 +12,7 @@
 get_fitness <- function(
   traits_comm,
   growth_rate = default_growth_rate(),
-  comp_width = default_comp_width(),
+  competition_sd = default_competition_sd(),
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
@@ -23,8 +23,8 @@ get_fitness <- function(
   comrad::testarg_not_this(traits_comm, c(Inf, -Inf))
   comrad::testarg_num(growth_rate)
   comrad::testarg_pos(growth_rate)
-  comrad::testarg_num(comp_width)
-  comrad::testarg_pos(comp_width)
+  comrad::testarg_num(competition_sd)
+  comrad::testarg_pos(competition_sd)
   comrad::testarg_num(trait_opt)
   comrad::testarg_num(carr_cap_opt)
   comrad::testarg_pos(carr_cap_opt)
@@ -34,7 +34,7 @@ get_fitness <- function(
   # Compute effective population sizes -----------------------------------------
   n_eff <- comrad::get_n_eff_cpp(
     z = traits_comm,
-    comp_width = comp_width
+    competition_sd = competition_sd
   ) # get the n_eff values experienced by each individual in the community
 
   # Compute k the carrying capacity --------------------------------------------

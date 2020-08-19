@@ -8,7 +8,7 @@ default_params_doc(
   comm,
   trait_ind,
   traits_comm,
-  comp_width,
+  competition_sd,
   trait_opt,
   carr_cap_opt,
   carr_cap_width,
@@ -35,7 +35,9 @@ columns:
 \item{traits_comm}{numeric vector of variable length, the trait values of
 every individual in the community.}
 
-\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
+\item{competition_sd}{numeric \verb{>= 0}.Parameter \eqn{\sigma_{\alpha}} of
+the competition coefficient. Modulates the the strength of competition
+between two individuals given their distance in trait space.}
 
 \item{trait_opt}{numeric. The optimal trait value.
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}

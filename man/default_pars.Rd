@@ -2,7 +2,7 @@
 % Please edit documentation in R/default_pars.R
 \name{default_pars}
 \alias{default_pars}
-\alias{default_comp_width}
+\alias{default_competition_sd}
 \alias{default_trait_opt}
 \alias{default_carr_cap_opt}
 \alias{default_carr_cap_width}
@@ -15,7 +15,7 @@
 \alias{default_trait_gap}
 \title{Default parameter values}
 \usage{
-default_comp_width()
+default_competition_sd()
 
 default_trait_opt()
 

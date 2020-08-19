@@ -38,17 +38,17 @@ run_simulation <- function(
   path_to_output,
   nb_gens,
   init_comm = default_init_comm(),
-  sampling_freq = comrad::set_sampling_freq(nb_gens),
-  seed = default_seed(),
   growth_rate = default_growth_rate(),
-  comp_width = default_comp_width(),
+  competition_sd = default_competition_sd(),
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   trait_gap = default_trait_gap(),
+  sampling_freq = comrad::set_sampling_freq(nb_gens),
   sampling_frac = default_sampling_frac(),
+  seed = default_seed(),
   hpc_job_id = NULL
 ) {
   comrad::test_comrad_comm(init_comm)
@@ -77,8 +77,8 @@ run_simulation <- function(
   comrad::testarg_int(seed)
   comrad::testarg_num(growth_rate)
   comrad::testarg_pos(growth_rate)
-  comrad::testarg_num(comp_width)
-  comrad::testarg_pos(comp_width)
+  comrad::testarg_num(competition_sd)
+  comrad::testarg_pos(competition_sd)
   comrad::testarg_num(trait_opt)
   comrad::testarg_num(carr_cap_opt)
   comrad::testarg_pos(carr_cap_opt)
@@ -108,7 +108,7 @@ run_simulation <- function(
   metadata_string <- paste(
     "### Metadata ###",
     "\ngrowth_rate =", growth_rate,
-    "\ncomp_width =", comp_width,
+    "\ncompetition_sd =", competition_sd,
     "\ntrait_opt =", trait_opt,
     "\ncarr_cap_opt =", carr_cap_opt,
     "\ncarr_cap_width =", carr_cap_width,
@@ -167,7 +167,7 @@ run_simulation <- function(
     comm <- comrad::draw_comm_next_gen(
       comm = comm,
       growth_rate = growth_rate,
-      comp_width = comp_width,
+      competition_sd = competition_sd,
       trait_opt = trait_opt,
       carr_cap_opt = carr_cap_opt,
       carr_cap_width = carr_cap_width,

@@ -8,17 +8,17 @@ run_simulation(
   path_to_output,
   nb_gens,
   init_comm = default_init_comm(),
-  sampling_freq = comrad::set_sampling_freq(nb_gens),
-  seed = default_seed(),
   growth_rate = default_growth_rate(),
-  comp_width = default_comp_width(),
+  competition_sd = default_competition_sd(),
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   trait_gap = default_trait_gap(),
+  sampling_freq = comrad::set_sampling_freq(nb_gens),
   sampling_frac = default_sampling_frac(),
+  seed = default_seed(),
   hpc_job_id = NULL
 )
 }
@@ -33,17 +33,12 @@ simulation for.}
 \item{init_comm}{The initial community, must have the same tibble structure
 as the \code{\link[=default_init_comm]{default_init_comm()}}, which contains 10 individuals with \code{z = 0}}
 
-\item{sampling_freq}{numeric \code{> 0}, the frequency (in generations) at
-which the community is written to output. See \code{\link[=set_sampling_freq]{set_sampling_freq()}} for the
-default option.}
-
-\item{seed}{integer \code{> 0}, the seed to set for the random number
-generator. Defaults to an integer based on current day and time.}
-
 \item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}
 
-\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
+\item{competition_sd}{numeric \verb{>= 0}.Parameter \eqn{\sigma_{\alpha}} of
+the competition coefficient. Modulates the the strength of competition
+between two individuals given their distance in trait space.}
 
 \item{trait_opt}{numeric. The optimal trait value.
 \code{get_carr_cap(trait_opt) = carr_cap_opt}.}
@@ -61,9 +56,16 @@ distrbution from which mutations are drawn.}
 
 \item{trait_gap}{numeric, the width of a gap triggering speciation.}
 
+\item{sampling_freq}{numeric \code{> 0}, the frequency (in generations) at
+which the community is written to output. See \code{\link[=set_sampling_freq]{set_sampling_freq()}} for the
+default option.}
+
 \item{sampling_frac}{numeric (between 0 and 1), fraction of the community
 (in terms of individuals) written to output at every sampled generation. A
 truncation is operated.}
+
+\item{seed}{integer \code{> 0}, the seed to set for the random number
+generator. Defaults to an integer based on current day and time.}
 
 \item{hpc_job_id}{used to record a job ID in the metadata, only relevant for
 simulations run on a high-performance cluster. Otherwise takes value

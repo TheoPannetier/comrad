@@ -19,7 +19,7 @@
 get_fitness_landscape <- function(z_seq,
                                   traits_comm,
                                   growth_rate = default_growth_rate(),
-                                  comp_width = default_comp_width(),
+                                  competition_sd = default_competition_sd(),
                                   carr_cap_opt = default_carr_cap_opt(),
                                   carr_cap_width = default_carr_cap_width()
 ) {
@@ -32,7 +32,7 @@ get_fitness_landscape <- function(z_seq,
   n_eff <-  get_n_eff(
     z_seq,
     traits_comm = traits_comm,
-    comp_width = comp_width
+    competition_sd = competition_sd
   )
   # Compute fitness, wrap in tibble
   fitness_landscape <- tibble::tibble(

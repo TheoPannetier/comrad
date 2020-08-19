@@ -8,7 +8,7 @@ get_fitness_landscape(
   z_seq,
   traits_comm,
   growth_rate = default_growth_rate(),
-  comp_width = default_comp_width(),
+  competition_sd = default_competition_sd(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width()
 )
@@ -23,7 +23,9 @@ community for which the fitness landscape is to be computed}
 \item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}
 
-\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
+\item{competition_sd}{numeric \verb{>= 0}.Parameter \eqn{\sigma_{\alpha}} of
+the competition coefficient. Modulates the the strength of competition
+between two individuals given their distance in trait space.}
 
 \item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
 

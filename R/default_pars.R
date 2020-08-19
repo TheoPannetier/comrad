@@ -9,7 +9,7 @@ NULL
 
 #' @export
 #' @rdname default_pars
-default_comp_width <- function() {
+default_competition_sd <- function() {
   0.2
 }
 

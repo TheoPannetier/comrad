@@ -9,7 +9,7 @@ test_that("regular_cases", {
     get_comp_coeff_comm(
       trait_ind = 0,
       traits_comm = seq(-1, 0, by = 0.25),
-      comp_width = 0.2
+      competition_sd = 0.2
     ),
     c(3.726653e-06, 8.838263e-04, 4.393693e-02, 4.578334e-01, 1),
     tolerance = 1e-07
@@ -25,7 +25,7 @@ test_that("regular_cases", {
     get_comp_coeff_comm(
       trait_ind = 0,
       traits_comm = rep(0, 5),
-      comp_width = Inf
+      competition_sd = Inf
     ),
     rep(1, 5)
   )
@@ -35,7 +35,7 @@ test_that("regular_cases", {
     get_comp_coeff_comm(
       trait_ind = 0,
       traits_comm = rep(0, 5),
-      comp_width = 0
+      competition_sd = 0
     ),
     rep(0, 5)
   )
@@ -50,7 +50,7 @@ test_that("random_comms", {
     random_coeffs <- get_comp_coeff_comm(
       trait_ind = random_comm[1],
       traits_comm =  random_comm,
-      comp_width = random_sd
+      competition_sd = random_sd
     )
     expect_silent(testarg_num(random_coeffs))
     expect_silent(testarg_prop(random_coeffs))
@@ -60,7 +60,7 @@ test_that("random_comms", {
       get_comp_coeff_comm(
         trait_ind = random_comm[1],
         traits_comm =  random_comm,
-        comp_width = 0
+        competition_sd = 0
       ),
       rep(0, 5)
     )
@@ -69,7 +69,7 @@ test_that("random_comms", {
       get_comp_coeff_comm(
         trait_ind = random_comm[1],
         traits_comm = random_comm,
-        comp_width = Inf
+        competition_sd = Inf
       ),
       rep(1, 5)
     )

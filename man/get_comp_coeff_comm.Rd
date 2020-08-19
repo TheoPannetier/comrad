@@ -5,7 +5,11 @@
 \title{Get the competition coefficients between an individual and the rest of the
 community}
 \usage{
-get_comp_coeff_comm(trait_ind, traits_comm, comp_width = default_comp_width())
+get_comp_coeff_comm(
+  trait_ind,
+  traits_comm,
+  competition_sd = default_competition_sd()
+)
 }
 \arguments{
 \item{trait_ind}{numeric. Trait value \code{z} of a focal individual.}
@@ -13,7 +17,9 @@ get_comp_coeff_comm(trait_ind, traits_comm, comp_width = default_comp_width())
 \item{traits_comm}{numeric vector of variable length, the trait values of
 every individual in the community.}
 
-\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
+\item{competition_sd}{numeric \verb{>= 0}.Parameter \eqn{\sigma_{\alpha}} of
+the competition coefficient. Modulates the the strength of competition
+between two individuals given their distance in trait space.}
 }
 \value{
 a numeric vector containing the competitive effect caused by each

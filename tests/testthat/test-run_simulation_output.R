@@ -126,7 +126,7 @@ test_that("test_plots", {
     plot_fitness_landscape(
       comrad_tbl,
       generation = 1,
-      comp_width = comrad::default_comp_width(),
+      competition_sd = comrad::default_competition_sd(),
       carr_cap_width = comrad::default_carr_cap_width()
     ) %>%
       ggplot2::is.ggplot()
@@ -135,7 +135,7 @@ test_that("test_plots", {
     plot_fitness_landscape(
       comrad_tbl,
       generation = 100,
-      comp_width = comrad::default_comp_width(),
+      competition_sd = comrad::default_competition_sd(),
       carr_cap_width = comrad::default_carr_cap_width()
     ),
     "Generation 100 wasn't sampled."
@@ -144,7 +144,7 @@ test_that("test_plots", {
     plot_fitness_landscape_evolution(
       comrad_tbl = comrad_tbl,
       carr_cap_width = comrad::default_carr_cap_width(),
-      comp_width = comrad::default_comp_width()
+      competition_sd = comrad::default_competition_sd()
     ) %>%
       class() == "trellis"
   )
@@ -153,7 +153,7 @@ test_that("test_plots", {
       comrad_tbl = comrad_tbl,
       generation_range = c(0, 10),
       carr_cap_width = comrad::default_carr_cap_width(),
-      comp_width = comrad::default_comp_width()
+      competition_sd = comrad::default_competition_sd()
     ),
     "generation_range is out of the scope of generations in the comrad_tbl."
   )

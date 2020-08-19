@@ -13,7 +13,9 @@
 #' @param trait_ind numeric. Trait value `z` of a focal individual.
 #' @param traits_comm numeric vector of variable length, the trait values of
 #' every individual in the community.
-#' @param comp_width numeric `>= 0`. Width of the competition kernel.
+#' @param competition_sd numeric `>= 0`.Parameter \eqn{\sigma_{\alpha}} of
+#' the competition coefficient. Modulates the the strength of competition
+#' between two individuals given their distance in trait space.
 #' @param trait_opt numeric. The optimal trait value.
 #' \code{get_carr_cap(trait_opt) = carr_cap_opt}.
 #' @param carr_cap_opt numeric. Carrying capacity at the optimal trait value.
@@ -38,7 +40,7 @@ default_params_doc <- function(
   comm,
   trait_ind,
   traits_comm,
-  comp_width,
+  competition_sd,
   trait_opt,
   carr_cap_opt,
   carr_cap_width,

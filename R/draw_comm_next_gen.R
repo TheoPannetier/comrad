@@ -13,7 +13,7 @@
 draw_comm_next_gen <- function(
   comm,
   growth_rate = default_growth_rate(),
-  comp_width = default_comp_width(),
+  competition_sd = default_competition_sd(),
   trait_opt = default_trait_opt(),
   carr_cap_opt = default_carr_cap_opt(),
   carr_cap_width = default_carr_cap_width(),
@@ -27,8 +27,8 @@ draw_comm_next_gen <- function(
   comrad::test_comrad_comm(comm)
   comrad::testarg_num(growth_rate)
   comrad::testarg_pos(growth_rate)
-  comrad::testarg_num(comp_width)
-  comrad::testarg_pos(comp_width)
+  comrad::testarg_num(competition_sd)
+  comrad::testarg_pos(competition_sd)
   comrad::testarg_num(trait_opt)
   comrad::testarg_num(carr_cap_opt)
   comrad::testarg_pos(carr_cap_opt)
@@ -43,7 +43,7 @@ draw_comm_next_gen <- function(
   fitness_comm <- comrad::get_fitness(
     traits_comm = comm$z,
     growth_rate = growth_rate,
-    comp_width = comp_width,
+    competition_sd = competition_sd,
     trait_opt = trait_opt,
     carr_cap_opt = carr_cap_opt,
     carr_cap_width = carr_cap_width

@@ -21,7 +21,7 @@ plot_fitness_landscape_evolution <- function(comrad_tbl,
                                              z_seq = NULL,
                                              generation_range = c(0, Inf),
                                              fitness_lim = c(0, get_fitness(0)),
-                                             comp_width,
+                                             competition_sd,
                                              carr_cap_width
 ) {
   comrad::test_comrad_comm(
@@ -33,8 +33,8 @@ plot_fitness_landscape_evolution <- function(comrad_tbl,
   comrad::testarg_num(fitness_lim)
   comrad::testarg_pos(fitness_lim)
   comrad::testarg_length(fitness_lim, 2)
-  comrad::testarg_num(comp_width)
-  comrad::testarg_pos(comp_width)
+  comrad::testarg_num(competition_sd)
+  comrad::testarg_pos(competition_sd)
   comrad::testarg_num(carr_cap_width)
   comrad::testarg_pos(carr_cap_width)
 
@@ -63,7 +63,7 @@ plot_fitness_landscape_evolution <- function(comrad_tbl,
       get_fitness_landscape(
         z_seq = z_seq,
         traits_comm = traits_comm,
-        comp_width = comp_width,
+        competition_sd = competition_sd,
         carr_cap_width = carr_cap_width
       ) %>%
         cbind(t)

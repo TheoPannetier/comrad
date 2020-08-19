@@ -58,7 +58,7 @@ $$
   \alpha(z_i,z_j) = e^{-\frac{(z_i - z_j)^2}{2\sigma_{\alpha}^2} }
 $$
 varies from 0 to 1; $\sigma_{\alpha}$ is the SD for the competition kernel,
-and called `comp_width` in `comrad`.
+and called `competition_sd` in `comrad`.
 
 $K(z_i)$ is the carrying capacity at $z_i$, i.e. the
 number of individuals that can maintain the same trait value *and* $W \ge 1$.
