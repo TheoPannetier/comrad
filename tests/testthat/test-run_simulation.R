@@ -5,7 +5,7 @@ test_that("diverging_community", {
   diverging_pop <- default_init_comm()
   diverging_pop$z[6:10] <- 0.1
   output <- run_simulation(
-    init_comm = diverging_pop, nb_generations = 1, output_path = NULL
+    init_comm = diverging_pop, nb_generations = 1, path_to_output = NULL
   )
   species <- output %>%
     dplyr::filter(t == 1) %>%
@@ -23,7 +23,7 @@ test_that("diverging_community", {
 
 test_that("output_format", {
   nb_generations <- 5
-  output <- run_simulation(nb_generations = nb_generations, output_path = NULL)
+  output <- run_simulation(nb_generations = nb_generations, path_to_output = NULL)
 
   expect_equal(length(output), 4)
   # Main community columns
@@ -40,46 +40,46 @@ test_that("extinction", {
   expect_output(
     # TPK
     output <- run_simulation(
-      carr_cap_opt = 0, nb_generations = 1, output_path = NULL),
+      carr_cap_opt = 0, nb_generations = 1, path_to_output = NULL),
     "\\nCommunity has gone extinct at generation 1 "
   )
 })
 
 test_that("parameter_abuse", {
   expect_error(
-    run_simulation(init_comm = rep(0, 10), output_path = NULL),
+    run_simulation(init_comm = rep(0, 10), path_to_output = NULL),
     "'init_comm' should be a tibble."
   )
   expect_error(
-    run_simulation(output_path = 1),
-    "'output_path' must be either null or a character."
+    run_simulation(path_to_output = 1),
+    "'path_to_output' must be either null or a character."
   )
   expect_error(
-    run_simulation(nb_generations = 12.3, output_path = NULL),
+    run_simulation(nb_generations = 12.3, path_to_output = NULL),
     "'nb_generations' must be an integer"
   )
   expect_error(
-    run_simulation(sampling_frequency = 12.3, output_path = NULL),
+    run_simulation(sampling_frequency = 12.3, path_to_output = NULL),
     "'sampling_frequency' must be an integer"
   )
   expect_error(
-    run_simulation(seed = 1.4, output_path = NULL),
+    run_simulation(seed = 1.4, path_to_output = NULL),
     "'seed' must be an integer"
   )
   expect_error(
-    run_simulation(nb_generations = 1.4, output_path = NULL),
+    run_simulation(nb_generations = 1.4, path_to_output = NULL),
     "'nb_generations' must be an integer"
   )
   expect_error(
-    run_simulation(nb_generations = 0, output_path = NULL),
+    run_simulation(nb_generations = 0, path_to_output = NULL),
     "'nb_generations' contains forbidden values: 0"
   )
   expect_error(
-    run_simulation(nb_generations = Inf, output_path = NULL),
+    run_simulation(nb_generations = Inf, path_to_output = NULL),
     "'nb_generations' contains forbidden values: Inf"
   )
   expect_error(
-    run_simulation(prob_mutation = 15, output_path = NULL),
+    run_simulation(prob_mutation = 15, path_to_output = NULL),
     "'prob_mutation' must be a numeric between 0 and 1"
   )
 
@@ -88,7 +88,7 @@ test_that("parameter_abuse", {
 test_that("unix_tests", {
   if (Sys.getenv("TRAVIS") != "") {
     expect_error(
-      run_simulation(output_path = NULL, hpc_job_id = 0.999),
+      run_simulation(path_to_output = NULL, hpc_job_id = 0.999),
       "'hpc_job_id' must be an integer"
     )
   } else {

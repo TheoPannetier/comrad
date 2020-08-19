@@ -5,7 +5,7 @@
 \title{Run the simulation}
 \usage{
 run_simulation(
-  output_path,
+  path_to_output,
   init_comm = default_init_comm(),
   nb_generations = 20,
   sampling_frequency = comrad::set_sampling_frequency(nb_generations),
@@ -23,7 +23,7 @@ run_simulation(
 )
 }
 \arguments{
-\item{output_path}{character, path to save the output file, which must be a
+\item{path_to_output}{character, path to save the output file, which must be a
 \code{.csv}. If \code{NULL}, the output is not saved and the final state of the
 community is returned at the end of the simulation.}
 
@@ -74,7 +74,7 @@ Returns a table with a row corresponding to each individual, and five
 columns: \code{t} is the generation time, \code{z} the individual's trait value,
 \code{species} the name of the species it belongs to, and \code{ancestral_species} the
 previous species it descends from.
-If \code{output_path = NULL}, the community at the last generation is returned.
+If \code{path_to_output = NULL}, the community at the last generation is returned.
 If the path to a \code{.csv} file is supplied, each sampled generation is appended
 to the file. In the \code{.csv}, the table is preceded by 17 lines of metadata,
 which are automatically ignored if the file is read with \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.

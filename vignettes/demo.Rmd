@@ -77,10 +77,10 @@ remotes::install_github("TheoPannetier/comrad")
 ## Running the simulation
 To run the simulation, call `run_simulation()`.
 ```{r run_sim}
-temp_output_path <- paste0(tempfile("comrad_temp_output"), ".csv")
+temp_path_to_output <- paste0(tempfile("comrad_temp_output"), ".csv")
 
 comrad_tbl <- comrad::run_simulation(
-  output_path = temp_output_path,
+  path_to_output = temp_path_to_output,
   nb_generations = 1000
 )
 ```
@@ -99,7 +99,7 @@ The community starts with 10 individuals with trait 0, of species `"#89ae8a"`.
 I use colour hexes for species names, this makes for some nice and consistent
 plotting.
 
-`output_path` is the only argument without a default. Providing the name of a 
+`path_to_output` is the only argument without a default. Providing the name of a 
 `.csv` file will save the community at every sampled generation in that file.
 Saved data contains one row per individual, and contains that individual's trait
 value $z$, its species label, and the label of its ancestor species (to build
@@ -111,7 +111,7 @@ community.
 Generations are sampled every twice a tenth of the order of magnitude of `nb_generations`, i.e. every 20 for `nb_generations = 100`, every 200 for
 `nb_generations = 1000`, every 200 again for `nb_generations = 3000`, etc.
 
-`output_path = NULL` will return the output of the last generation (only) 
+`path_to_output = NULL` will return the output of the last generation (only) 
 instead of saving it.
 
 Saved communities can be loaded from the csv with `readr::read_csv()` as usual,
@@ -119,7 +119,7 @@ but I also save some lines of metadata in a header. For an easy loading,
 use `comrad::read_comrad_tbl()` instead.
 
 ```{r read_comm}
-comrad_tbl <- comrad::read_comrad_tbl(path_to_file = temp_output_path)
+comrad_tbl <- comrad::read_comrad_tbl(path_to_file = temp_path_to_output)
 comrad_tbl
 ```
 

@@ -1,9 +1,9 @@
 context("test-run_simulation_output")
 
-temp_output_path <- paste0(tempfile("comrad_test_output"), ".csv")
-run_simulation(output_path = temp_output_path, nb_generations = 5)
+temp_path_to_output <- paste0(tempfile("comrad_test_output"), ".csv")
+run_simulation(path_to_output = temp_path_to_output, nb_generations = 5)
 # Load results in the env
-expect_silent(comrad_tbl <- read_comrad_tbl(temp_output_path))
+expect_silent(comrad_tbl <- read_comrad_tbl(temp_path_to_output))
 
 test_that("standard_output_file", {
   # Check results format are comrad-standard
@@ -176,7 +176,7 @@ test_that("test_plots", {
 })
 
 # Done with this tmp file -> thanks -> byyye
-unlink(temp_output_path)
+unlink(temp_path_to_output)
 
 test_that("read_tbl abuse", {
   expect_error(
