@@ -4,7 +4,7 @@
 \alias{read_comrad_tbl}
 \title{Read simulation data}
 \usage{
-read_comrad_tbl(path_to_file, skip = 18)
+read_comrad_tbl(path_to_file, skip = 19)
 }
 \arguments{
 \item{path_to_file}{character, path to the \code{.csv} file.}

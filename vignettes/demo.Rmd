@@ -155,7 +155,7 @@ The simulation can take quite long, but interesting things happen after many
 generations. Below is an example with $\sigma_z = 0.1$ & $\sigma_K = 1$.
 
 ```{r load_sim, echo=FALSE, warning=FALSE}
-comrad_tbl <- comrad::read_comrad_tbl("demo_data/comrad_output_example.csv")
+comrad_tbl <- comrad::read_comrad_tbl("demo_data/comrad_output_example.csv", skip = 18)
 ```
 
 ```{r data_viz4}

@@ -114,6 +114,7 @@ run_simulation <- function(
     "\ngrowth_rate =", growth_rate,
     "\nprob_mutation =", prob_mutation,
     "\nmutation_sd =", mutation_sd,
+    "\ntrait_dist_sp =", trait_dist_sp,
     "\n",
     "\nseed =", seed,
     "\nHPC job ID =", hpc_job_id,
