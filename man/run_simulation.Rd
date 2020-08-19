@@ -18,7 +18,7 @@ run_simulation(
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   trait_gap = default_trait_gap(),
-  sampling_prop = default_sampling_prop(),
+  sampling_frac = default_sampling_frac(),
   hpc_job_id = NULL
 )
 }
@@ -33,8 +33,8 @@ simulation for.}
 \item{init_comm}{The initial community, must have the same tibble structure
 as the \code{\link[=default_init_comm]{default_init_comm()}}, which contains 10 individuals with \code{z = 0}}
 
-\item{sampling_freq}{numeric \code{> 0}, the frequency at which the
-community is saved in the output. See \code{\link[=set_sampling_freq]{set_sampling_freq()}} for the
+\item{sampling_freq}{numeric \code{> 0}, the frequency (in generations) at
+which the community is written to output. See \code{\link[=set_sampling_freq]{set_sampling_freq()}} for the
 default option.}
 
 \item{seed}{integer \code{> 0}, the seed to set for the random number
@@ -61,9 +61,9 @@ distrbution from which mutations are drawn.}
 
 \item{trait_gap}{numeric, the width of a gap triggering speciation.}
 
-\item{sampling_prop}{numeric (between 0 and 1), the proportion of
-individuals. The fraction of individuals returned is approximative
-because of a truncation.}
+\item{sampling_frac}{numeric (between 0 and 1), fraction of the community
+(in terms of individuals) written to output at every sampled generation. A
+truncation is operated.}
 
 \item{hpc_job_id}{used to record a job ID in the metadata, only relevant for
 simulations run on a high-performance cluster. Otherwise takes value

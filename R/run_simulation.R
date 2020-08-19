@@ -12,9 +12,9 @@
 #' @param sampling_freq numeric \code{> 0}, the frequency (in generations) at
 #' which the community is written to output. See [set_sampling_freq()] for the
 #' default option.
-#' @param sampling_prop numeric (between 0 and 1), the proportion of
-#' individuals. The fraction of individuals returned is approximative
-#' because of a truncation.
+#' @param sampling_frac numeric (between 0 and 1), fraction of the community
+#' (in terms of individuals) written to output at every sampled generation. A
+#' truncation is operated.
 #' @param seed integer \code{> 0}, the seed to set for the random number
 #' generator. Defaults to an integer based on current day and time.
 #' @inheritParams default_params_doc
@@ -48,7 +48,7 @@ run_simulation <- function(
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   trait_gap = default_trait_gap(),
-  sampling_prop = default_sampling_prop(),
+  sampling_frac = default_sampling_frac(),
   hpc_job_id = NULL
 ) {
   comrad::test_comrad_comm(init_comm)
@@ -90,8 +90,8 @@ run_simulation <- function(
   comrad::testarg_pos(mutation_sd)
   comrad::testarg_num(trait_gap)
   comrad::testarg_pos(trait_gap)
-  comrad::testarg_num(sampling_prop)
-  comrad::testarg_prop(sampling_prop)
+  comrad::testarg_num(sampling_frac)
+  comrad::testarg_prop(sampling_frac)
 
   is_on_unix <- rappdirs::app_dir()$os == "unix" # for the cluster
 
@@ -199,7 +199,7 @@ run_simulation <- function(
         # Write only a sample of the output
         sampled_output <- comrad::sample_output(
           output = output,
-          sampling_prop = sampling_prop
+          sampling_frac = sampling_frac
         )
         readr::write_csv(
           sampled_output,
