@@ -105,23 +105,23 @@ run_simulation <- function(
   }
 
   # Send metadata to output
-  metadata_string <- paste(
+  metadata_string <- paste0(
     "### Metadata ###",
-    "\ncompetition_sd =", competition_sd,
-    "\ncarrying_cap_sd =", carrying_cap_sd,
-    "\ncarrying_cap_opt =", carrying_cap_opt,
-    "\ntrait_opt =", trait_opt,
-    "\ngrowth_rate =", growth_rate,
-    "\nprob_mutation =", prob_mutation,
-    "\nmutation_sd =", mutation_sd,
-    "\ntrait_dist_sp =", trait_dist_sp,
+    "\ncompetition_sd = ", competition_sd,
+    "\ncarrying_cap_sd = ", carrying_cap_sd,
+    "\ncarrying_cap_opt = ", carrying_cap_opt,
+    "\ntrait_opt = ", trait_opt,
+    "\ngrowth_rate = ", growth_rate,
+    "\nprob_mutation = ", prob_mutation,
+    "\nmutation_sd = ", mutation_sd,
+    "\ntrait_dist_sp = ", trait_dist_sp,
     "\n",
-    "\nseed =", seed,
-    "\nHPC job ID =", hpc_job_id,
-    "\nsimulated under comrad", as.character(utils::packageVersion("comrad")),
+    "\nseed = ", seed,
+    "\nHPC job ID = ", hpc_job_id,
+    "\nsimulated under comrad ", as.character(utils::packageVersion("comrad")),
     "\n", R.version$version.string,
     "\n",
-    "\nRunning for", nb_gens, "generations",
+    "\nRunning for ", nb_gens, " generations",
     "\n"
   )
   if (is_on_unix) {
@@ -156,8 +156,6 @@ run_simulation <- function(
 
   # Set initial community
   comm <- init_comm
-  # Set timer
-  start_time <- proc.time()[3]
   # Let's not forget the seed
   set.seed(seed)
 
@@ -211,11 +209,7 @@ run_simulation <- function(
     }
   }
 
-  cat("\nTotal runtime:", proc.time()[3] - start_time, "\n")
-
   if (is.null(path_to_output)) {
     return(output)
-  } else {
-    return()
   }
 }
