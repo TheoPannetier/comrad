@@ -21,14 +21,14 @@
 
 get_n_eff <- function(z,
                       traits_comm,
-                      comp_width = default_comp_width()) {
+                      competition_sd = default_competition_sd()) {
   # Test arguments -------------------------------------------------------------
   comrad::testarg_num(z)
   comrad::testarg_not_this(z, c(Inf, -Inf))
   comrad::testarg_num(traits_comm)
   comrad::testarg_not_this(traits_comm, c(Inf, -Inf))
-  comrad::testarg_num(comp_width)
-  comrad::testarg_pos(comp_width) # is a variance
+  comrad::testarg_num(competition_sd)
+  comrad::testarg_pos(competition_sd) # is a variance
 
   # Sum competition coefficients for each individual ---------------------------
   n_eff <- sapply(
@@ -37,7 +37,7 @@ get_n_eff <- function(z,
       comp_coeff_comm <- comrad::get_comp_coeff_comm(
         trait_ind = trait_ind,
         traits_comm = traits_comm, #ind competes against whole pop, incl. itself
-        comp_width = comp_width
+        competition_sd = competition_sd
       ) # includes competition of the individual against itself
       sum(comp_coeff_comm)
     }

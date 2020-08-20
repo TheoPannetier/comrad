@@ -13,21 +13,25 @@
 #' @param trait_ind numeric. Trait value `z` of a focal individual.
 #' @param traits_comm numeric vector of variable length, the trait values of
 #' every individual in the community.
-#' @param comp_width numeric `>= 0`. Width of the competition kernel.
-#' @param trait_opt numeric. The optimal trait value.
-#' \code{get_carr_cap(trait_opt) = carr_cap_opt}.
-#' @param carr_cap_opt numeric. Carrying capacity at the optimal trait value.
-#' @param carr_cap_width numeric `>= 0`.
-#' Width of the carrying capacity kernel.
+#' @param competition_sd numeric `>= 0`.Parameter \eqn{\sigma_{\alpha}} of
+#' the competition coefficient. Modulates the the strength of competition
+#' between two individuals given their distance in trait space.
+#' @param trait_opt numeric. The optimal trait value, \eqn{z_{opt}}.
+#' \code{get_carrying_cap(trait_opt) = carrying_cap_opt}.
+#' @param carrying_cap_sd numeric `>= 0`. Parameter \eqn{\sigma_K} of the
+#' carrying capacity. Modulates how fast the carrying capacity decays when
+#' moving away from the optimal trait value.
+#' @param carrying_cap_opt numeric, value of the carrying capacity at `trait_opt`
 #' @param growth_rate numeric `>= 0`, the baseline growth rate. Generations
 #' being discrete, high values will cause chaos.
 #' @param prob_mutation numeric between 0 and 1, the probability that any new
 #' individual is sampled with a mutation.
 #' @param mutation_sd numeric `>= 0`, the standard deviation of the normal
 #' distrbution from which mutations are drawn.
-#' @param trait_gap numeric, the width of a gap triggering speciation.
-#' @param nb_generations integer, the number of generations to run during the
-#' simulation.
+#' @param trait_dist_sp numeric, the minimal trait distance between two
+#' clusters of individuals triggering speciation.
+#' @param nb_gens integer, how many generations should the simulation be run
+#' for?
 #' @param fitness_func, the name of the function used to compute fitness.
 #' @param comrad_tbl a tibble containing the output of a `comrad` simulation,
 #' as produced by [run_simulation()] or read by [read_comrad_tbl()].
@@ -38,15 +42,15 @@ default_params_doc <- function(
   comm,
   trait_ind,
   traits_comm,
-  comp_width,
+  competition_sd,
   trait_opt,
-  carr_cap_opt,
-  carr_cap_width,
+  carrying_cap_opt,
+  carrying_cap_sd,
   growth_rate,
   prob_mutation,
   mutation_sd,
-  trait_gap,
-  nb_generations,
+  trait_dist_sp,
+  nb_gens,
   fitness_func,
   comrad_tbl
 ) {

@@ -9,7 +9,7 @@ NULL
 
 #' @export
 #' @rdname default_pars
-default_comp_width <- function() {
+default_competition_sd <- function() {
   0.2
 }
 
@@ -21,13 +21,13 @@ default_trait_opt <- function() {
 
 #' @export
 #' @rdname default_pars
-default_carr_cap_opt <- function() {
+default_carrying_cap_opt <- function() {
   1000
 }
 
 #' @export
 #' @rdname default_pars
-default_carr_cap_width <- function() {
+default_carrying_cap_sd <- function() {
   0.5
 }
 
@@ -76,12 +76,12 @@ default_seed <- function() {
 
 #' @export
 #' @rdname default_pars
-default_sampling_prop <- function() {
+default_sampling_frac <- function() {
   0.5
 }
 
 #' @export
 #' @rdname default_pars
-default_trait_gap <- function() {
+default_trait_dist_sp <- function() {
   0.1
 }

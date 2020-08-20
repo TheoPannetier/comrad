@@ -1,10 +1,10 @@
 context("test-get_fitness")
 
 test_that("use", {
-  expect_equal(get_fitness(rep(0.5, 5), carr_cap_opt = 0), rep(0, 5))
-  expect_equal(get_fitness(rep(0.5, 5), carr_cap_opt = Inf), rep(exp(1), 5))
+  expect_equal(get_fitness(rep(0.5, 5), carrying_cap_opt = 0), rep(0, 5))
+  expect_equal(get_fitness(rep(0.5, 5), carrying_cap_opt = Inf), rep(exp(1), 5))
   expect_equal(
-    get_fitness(rep(0.5, 5), carr_cap_opt = 0, growth_rate = 0), rep(1, 5)
+    get_fitness(rep(0.5, 5), carrying_cap_opt = 0, growth_rate = 0), rep(1, 5)
   )
 })
 
@@ -32,20 +32,20 @@ test_that("abuse", {
     regexp = "'growth_rate' must be numeric",
   )
   expect_error(
-    object = get_fitness(rep(0.5, 3), comp_width = TRUE),
-    regexp = "'comp_width' must be numeric",
+    object = get_fitness(rep(0.5, 3), competition_sd = TRUE),
+    regexp = "'competition_sd' must be numeric",
   )
   expect_error(
     object = get_fitness(rep(0.5, 3), trait_opt = "x"),
     regexp = "'trait_opt' must be numeric",
   )
   expect_error(
-    object = get_fitness(rep(0.5, 3), carr_cap_opt = -1),
-    regexp = "'carr_cap_opt' must be a positive numeric",
+    object = get_fitness(rep(0.5, 3), carrying_cap_opt = -1),
+    regexp = "'carrying_cap_opt' must be a positive numeric",
   )
   expect_error(
-    object = get_fitness(rep(0.5, 3), carr_cap_width = "elmo"),
-    regexp = "'carr_cap_width' must be numeric",
+    object = get_fitness(rep(0.5, 3), carrying_cap_sd = "elmo"),
+    regexp = "'carrying_cap_sd' must be numeric",
   )
 
 
@@ -94,7 +94,7 @@ test_that("fitness_functions", {
   expect_equal(
     get_fitness(
       rep(0.5, 5),
-      carr_cap_opt = 0,
+      carrying_cap_opt = 0,
       growth_rate = 0,
       fitness_func = fitness_func_logistic
       ),
@@ -172,7 +172,7 @@ test_that("fitness_functions", {
   expect_equal(
     get_fitness(
       rep(0.5, 5),
-      carr_cap_opt = 0,
+      carrying_cap_opt = 0,
       growth_rate = 0,
       fitness_func = fitness_func_pontarp
     ),

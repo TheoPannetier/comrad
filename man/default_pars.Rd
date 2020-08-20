@@ -2,26 +2,26 @@
 % Please edit documentation in R/default_pars.R
 \name{default_pars}
 \alias{default_pars}
-\alias{default_comp_width}
+\alias{default_competition_sd}
 \alias{default_trait_opt}
-\alias{default_carr_cap_opt}
-\alias{default_carr_cap_width}
+\alias{default_carrying_cap_opt}
+\alias{default_carrying_cap_sd}
 \alias{default_growth_rate}
 \alias{default_prob_mutation}
 \alias{default_mutation_sd}
 \alias{default_init_comm}
 \alias{default_seed}
-\alias{default_sampling_prop}
-\alias{default_trait_gap}
+\alias{default_sampling_frac}
+\alias{default_trait_dist_sp}
 \title{Default parameter values}
 \usage{
-default_comp_width()
+default_competition_sd()
 
 default_trait_opt()
 
-default_carr_cap_opt()
+default_carrying_cap_opt()
 
-default_carr_cap_width()
+default_carrying_cap_sd()
 
 default_growth_rate()
 
@@ -33,9 +33,9 @@ default_init_comm()
 
 default_seed()
 
-default_sampling_prop()
+default_sampling_frac()
 
-default_trait_gap()
+default_trait_dist_sp()
 }
 \description{
 Return default values of the simulation parameters, i.e. the default settings

@@ -13,13 +13,13 @@
 draw_comm_next_gen <- function(
   comm,
   growth_rate = default_growth_rate(),
-  comp_width = default_comp_width(),
+  competition_sd = default_competition_sd(),
   trait_opt = default_trait_opt(),
-  carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width(),
+  carrying_cap_opt = default_carrying_cap_opt(),
+  carrying_cap_sd = default_carrying_cap_sd(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_gap = default_trait_gap(),
+  trait_dist_sp = default_trait_dist_sp(),
   seed = comrad::default_seed()
 ) {
 
@@ -27,13 +27,13 @@ draw_comm_next_gen <- function(
   comrad::test_comrad_comm(comm)
   comrad::testarg_num(growth_rate)
   comrad::testarg_pos(growth_rate)
-  comrad::testarg_num(comp_width)
-  comrad::testarg_pos(comp_width)
+  comrad::testarg_num(competition_sd)
+  comrad::testarg_pos(competition_sd)
   comrad::testarg_num(trait_opt)
-  comrad::testarg_num(carr_cap_opt)
-  comrad::testarg_pos(carr_cap_opt)
-  comrad::testarg_num(carr_cap_width)
-  comrad::testarg_pos(carr_cap_width)
+  comrad::testarg_num(carrying_cap_opt)
+  comrad::testarg_pos(carrying_cap_opt)
+  comrad::testarg_num(carrying_cap_sd)
+  comrad::testarg_pos(carrying_cap_sd)
   comrad::testarg_num(prob_mutation)
   comrad::testarg_prop(prob_mutation)
   comrad::testarg_num(mutation_sd)
@@ -43,10 +43,10 @@ draw_comm_next_gen <- function(
   fitness_comm <- comrad::get_fitness(
     traits_comm = comm$z,
     growth_rate = growth_rate,
-    comp_width = comp_width,
+    competition_sd = competition_sd,
     trait_opt = trait_opt,
-    carr_cap_opt = carr_cap_opt,
-    carr_cap_width = carr_cap_width
+    carrying_cap_opt = carrying_cap_opt,
+    carrying_cap_sd = carrying_cap_sd
   )
   comrad::testarg_not_this(fitness_comm, Inf)
 
@@ -78,7 +78,7 @@ draw_comm_next_gen <- function(
   # Resolve speciation ---------------------------------------------------------
   new_comm <- comrad::apply_speciation(
     comm = new_comm,
-    trait_gap = trait_gap
+    trait_dist_sp = trait_dist_sp
   )
   comrad::test_comrad_comm(new_comm)
 

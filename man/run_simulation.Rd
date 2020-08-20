@@ -5,53 +5,49 @@
 \title{Run the simulation}
 \usage{
 run_simulation(
-  output_path,
+  path_to_output,
+  nb_gens,
   init_comm = default_init_comm(),
-  nb_generations = 20,
-  sampling_frequency = comrad::set_sampling_frequency(nb_generations),
-  seed = default_seed(),
   growth_rate = default_growth_rate(),
-  comp_width = default_comp_width(),
+  competition_sd = default_competition_sd(),
+  carrying_cap_sd = default_carrying_cap_sd(),
+  carrying_cap_opt = default_carrying_cap_opt(),
   trait_opt = default_trait_opt(),
-  carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_gap = default_trait_gap(),
-  sampling_prop = default_sampling_prop(),
+  trait_dist_sp = default_trait_dist_sp(),
+  sampling_freq = comrad::set_sampling_freq(nb_gens),
+  sampling_frac = default_sampling_frac(),
+  seed = default_seed(),
   hpc_job_id = NULL
 )
 }
 \arguments{
-\item{output_path}{character, path to save the output file, which must be a
+\item{path_to_output}{character, path to save the output file, which must be a
 \code{.csv}. If \code{NULL}, the output is not saved and the final state of the
 community is returned at the end of the simulation.}
+
+\item{nb_gens}{integer, the number of generations to run the
+simulation for.}
 
 \item{init_comm}{The initial community, must have the same tibble structure
 as the \code{\link[=default_init_comm]{default_init_comm()}}, which contains 10 individuals with \code{z = 0}}
 
-\item{nb_generations}{integer, the number of generations to run the
-simulation for.}
-
-\item{sampling_frequency}{numeric \code{> 0}, the frequency at which the
-community is saved in the output. See \code{\link[=set_sampling_frequency]{set_sampling_frequency()}} for the
-default option.}
-
-\item{seed}{integer \code{> 0}, the seed to set for the random number
-generator. Defaults to an integer based on current day and time.}
-
 \item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}
 
-\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
+\item{competition_sd}{numeric \verb{>= 0}.Parameter \eqn{\sigma_{\alpha}} of
+the competition coefficient. Modulates the the strength of competition
+between two individuals given their distance in trait space.}
 
-\item{trait_opt}{numeric. The optimal trait value.
-\code{get_carr_cap(trait_opt) = carr_cap_opt}.}
+\item{carrying_cap_sd}{numeric \verb{>= 0}. Parameter \eqn{\sigma_K} of the
+carrying capacity. Modulates how fast the carrying capacity decays when
+moving away from the optimal trait value.}
 
-\item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
+\item{carrying_cap_opt}{numeric, value of the carrying capacity at \code{trait_opt}}
 
-\item{carr_cap_width}{numeric \verb{>= 0}.
-Width of the carrying capacity kernel.}
+\item{trait_opt}{numeric. The optimal trait value, \eqn{z_{opt}}.
+\code{get_carrying_cap(trait_opt) = carrying_cap_opt}.}
 
 \item{prob_mutation}{numeric between 0 and 1, the probability that any new
 individual is sampled with a mutation.}
@@ -59,11 +55,19 @@ individual is sampled with a mutation.}
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}
 
-\item{trait_gap}{numeric, the width of a gap triggering speciation.}
+\item{trait_dist_sp}{numeric, the minimal trait distance between two
+clusters of individuals triggering speciation.}
 
-\item{sampling_prop}{numeric (between 0 and 1), the proportion of
-individuals. The fraction of individuals returned is approximative
-because of a truncation.}
+\item{sampling_freq}{numeric \code{> 0}, the frequency (in generations) at
+which the community is written to output. See \code{\link[=set_sampling_freq]{set_sampling_freq()}} for the
+default option.}
+
+\item{sampling_frac}{numeric (between 0 and 1), fraction of the community
+(in terms of individuals) written to output at every sampled generation. A
+truncation is operated.}
+
+\item{seed}{integer \code{> 0}, the seed to set for the random number
+generator. Defaults to an integer based on current day and time.}
 
 \item{hpc_job_id}{used to record a job ID in the metadata, only relevant for
 simulations run on a high-performance cluster. Otherwise takes value
@@ -74,7 +78,7 @@ Returns a table with a row corresponding to each individual, and five
 columns: \code{t} is the generation time, \code{z} the individual's trait value,
 \code{species} the name of the species it belongs to, and \code{ancestral_species} the
 previous species it descends from.
-If \code{output_path = NULL}, the community at the last generation is returned.
+If \code{path_to_output = NULL}, the community at the last generation is returned.
 If the path to a \code{.csv} file is supplied, each sampled generation is appended
 to the file. In the \code{.csv}, the table is preceded by 17 lines of metadata,
 which are automatically ignored if the file is read with \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.

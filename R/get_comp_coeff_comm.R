@@ -17,18 +17,18 @@
 get_comp_coeff_comm <- function(
   trait_ind,
   traits_comm,
-  comp_width = default_comp_width()) {
+  competition_sd = default_competition_sd()) {
 
   comrad::testarg_length(trait_ind, 1) # not vectorized!
 
   trait_dist <- (trait_ind - traits_comm) ^ 2
 
-  coeffs <- exp(- (trait_dist / (2 * comp_width ^ 2)))
+  coeffs <- exp(- (trait_dist / (2 * competition_sd ^ 2)))
 
   # Solve possible NaN issues --------------------------------------------------
   # NaNs can arise if both terms in the division are equal to 0 or Inf
-  if (comp_width == 0) {
-    coeffs[which(trait_dist == 0)] <- 0 # as if trait_dist / comp_width = 0
+  if (competition_sd == 0) {
+    coeffs[which(trait_dist == 0)] <- 0 # as if trait_dist / competition_sd = 0
   }
   coeffs
 }

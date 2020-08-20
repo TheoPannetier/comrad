@@ -7,7 +7,7 @@
 \item{z}{numeric vector, the trait values of all individuals in the
 community.}
 
-\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
+\item{competition_sd}{numeric \verb{>= 0}. Width of the competition kernel.}
 }
 \description{
 Computes \code{n_eff}, the effective population size experienced by an

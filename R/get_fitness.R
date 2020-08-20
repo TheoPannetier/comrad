@@ -12,10 +12,10 @@
 get_fitness <- function(
   traits_comm,
   growth_rate = default_growth_rate(),
-  comp_width = default_comp_width(),
+  competition_sd = default_competition_sd(),
   trait_opt = default_trait_opt(),
-  carr_cap_opt = default_carr_cap_opt(),
-  carr_cap_width = default_carr_cap_width(),
+  carrying_cap_opt = default_carrying_cap_opt(),
+  carrying_cap_sd = default_carrying_cap_sd(),
   fitness_func = fitness_func_ricker) {
 
   # Test argument type ---------------------------------------------------------
@@ -23,33 +23,33 @@ get_fitness <- function(
   comrad::testarg_not_this(traits_comm, c(Inf, -Inf))
   comrad::testarg_num(growth_rate)
   comrad::testarg_pos(growth_rate)
-  comrad::testarg_num(comp_width)
-  comrad::testarg_pos(comp_width)
+  comrad::testarg_num(competition_sd)
+  comrad::testarg_pos(competition_sd)
   comrad::testarg_num(trait_opt)
-  comrad::testarg_num(carr_cap_opt)
-  comrad::testarg_pos(carr_cap_opt)
-  comrad::testarg_num(carr_cap_width)
-  comrad::testarg_pos(carr_cap_width)
+  comrad::testarg_num(carrying_cap_opt)
+  comrad::testarg_pos(carrying_cap_opt)
+  comrad::testarg_num(carrying_cap_sd)
+  comrad::testarg_pos(carrying_cap_sd)
 
   # Compute effective population sizes -----------------------------------------
   n_eff <- comrad::get_n_eff_cpp(
     z = traits_comm,
-    comp_width = comp_width
+    competition_sd = competition_sd
   ) # get the n_eff values experienced by each individual in the community
 
   # Compute k the carrying capacity --------------------------------------------
-  carr_cap <- comrad::get_carr_cap(
+  carrying_cap <- comrad::get_carrying_cap(
     trait_ind = traits_comm,
     trait_opt = trait_opt,
-    carr_cap_opt = carr_cap_opt,
-    carr_cap_width = carr_cap_width
+    carrying_cap_opt = carrying_cap_opt,
+    carrying_cap_sd = carrying_cap_sd
   )
 
   # Compute the fitness based on the Ricker model-------------------------------
   fitness <- fitness_func(
     growth_rate = growth_rate,
     n_eff = n_eff,
-    carr_cap = carr_cap
+    carrying_cap = carrying_cap
   )
   comrad::testarg_num(fitness)
   comrad::testarg_length(fitness, length(traits_comm))

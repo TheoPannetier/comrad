@@ -4,7 +4,7 @@
 \alias{get_n_eff}
 \title{Compute the effective population size}
 \usage{
-get_n_eff(z, traits_comm, comp_width = default_comp_width())
+get_n_eff(z, traits_comm, competition_sd = default_competition_sd())
 }
 \arguments{
 \item{z}{numeric, the trait value(s) to get the effective size for. \code{z} and
@@ -16,7 +16,9 @@ typically when constructing the fitness landscape.}
 \item{traits_comm}{numeric vector, the trait values of all individuals in the
 community.}
 
-\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
+\item{competition_sd}{numeric \verb{>= 0}.Parameter \eqn{\sigma_{\alpha}} of
+the competition coefficient. Modulates the the strength of competition
+between two individuals given their distance in trait space.}
 }
 \description{
 Computes \code{n_eff}, the effective population size experienced by an

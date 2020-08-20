@@ -1,14 +1,14 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$
-^pics$
 ^codecov\.yml$
 
-^data/.+$
-^figs/.+$
-^local/.+$
-^images/.+$
-^notes/.+$
-^pontarp_matlab_code/.+$
-^cluster_scripts/.+$
-
+^doc$
+^Meta$
+^data$
+^pics$
+^figs$
+^local$
+^notes$
+^pontarp_matlab_code$
+^cluster_scripts$

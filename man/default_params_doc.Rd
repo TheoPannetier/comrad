@@ -8,15 +8,15 @@ default_params_doc(
   comm,
   trait_ind,
   traits_comm,
-  comp_width,
+  competition_sd,
   trait_opt,
-  carr_cap_opt,
-  carr_cap_width,
+  carrying_cap_opt,
+  carrying_cap_sd,
   growth_rate,
   prob_mutation,
   mutation_sd,
-  trait_gap,
-  nb_generations,
+  trait_dist_sp,
+  nb_gens,
   fitness_func,
   comrad_tbl
 )
@@ -35,15 +35,18 @@ columns:
 \item{traits_comm}{numeric vector of variable length, the trait values of
 every individual in the community.}
 
-\item{comp_width}{numeric \verb{>= 0}. Width of the competition kernel.}
+\item{competition_sd}{numeric \verb{>= 0}.Parameter \eqn{\sigma_{\alpha}} of
+the competition coefficient. Modulates the the strength of competition
+between two individuals given their distance in trait space.}
 
-\item{trait_opt}{numeric. The optimal trait value.
-\code{get_carr_cap(trait_opt) = carr_cap_opt}.}
+\item{trait_opt}{numeric. The optimal trait value, \eqn{z_{opt}}.
+\code{get_carrying_cap(trait_opt) = carrying_cap_opt}.}
 
-\item{carr_cap_opt}{numeric. Carrying capacity at the optimal trait value.}
+\item{carrying_cap_opt}{numeric, value of the carrying capacity at \code{trait_opt}}
 
-\item{carr_cap_width}{numeric \verb{>= 0}.
-Width of the carrying capacity kernel.}
+\item{carrying_cap_sd}{numeric \verb{>= 0}. Parameter \eqn{\sigma_K} of the
+carrying capacity. Modulates how fast the carrying capacity decays when
+moving away from the optimal trait value.}
 
 \item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}
@@ -54,10 +57,11 @@ individual is sampled with a mutation.}
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}
 
-\item{trait_gap}{numeric, the width of a gap triggering speciation.}
+\item{trait_dist_sp}{numeric, the minimal trait distance between two
+clusters of individuals triggering speciation.}
 
-\item{nb_generations}{integer, the number of generations to run during the
-simulation.}
+\item{nb_gens}{integer, how many generations should the simulation be run
+for?}
 
 \item{fitness_func, }{the name of the function used to compute fitness.}
 

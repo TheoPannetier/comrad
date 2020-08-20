@@ -4,18 +4,18 @@
 \alias{sample_output}
 \title{Sample a fraction of the output of a \code{comrad} simulation}
 \usage{
-sample_output(output, sampling_prop = default_sampling_prop())
+sample_output(output, sampling_frac = default_sampling_frac())
 }
 \arguments{
 \item{output}{the output of a single generation of \code{\link[=run_simulation]{run_simulation()}}}
 
-\item{sampling_prop}{numeric (between 0 and 1), the proportion of
+\item{sampling_frac}{numeric (between 0 and 1), the proportion of
 individuals. The fraction of individuals returned is approximative
 because of a truncation.}
 }
 \description{
 Subset \code{output}, returning the number of rows (individuals) specified through
-\code{sampling_prop}
+\code{sampling_frac}
 }
 \author{
 Théo Pannetier
