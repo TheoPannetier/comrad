@@ -93,9 +93,9 @@ run_simulation <- function(
   comrad::testarg_num(sampling_frac)
   comrad::testarg_prop(sampling_frac)
 
-  is_on_unix <- rappdirs::app_dir()$os == "unix" # for the cluster
+  is_on_peregrine <- Sys.getenv("HOSTNAME") == "peregrine.hpc.rug.nl"
 
-  if (is_on_unix) {
+  if (is_on_peregrine) {
     if (!is.null(hpc_job_id)) {
       comrad::testarg_num(hpc_job_id)
       comrad::testarg_int(hpc_job_id)
@@ -124,7 +124,7 @@ run_simulation <- function(
     "\nRunning for ", nb_gens, " generations",
     "\n"
   )
-  if (is_on_unix) {
+  if (is_on_peregrine) {
     cat(metadata_string)
   }
 
