@@ -28,7 +28,8 @@ plot_comm_trait_evolution <- function(comrad_tbl,
                                       ygrain = 0.01,
                                       xlim = NULL,
                                       ylim = NULL,
-                                      hex_fill = "species") {
+                                      hex_fill = "species"
+                                      ) {
   comrad::test_comrad_comm(
     comrad_tbl %>% dplyr::select("z", "species", "ancestral_species")
   )
@@ -65,18 +66,6 @@ plot_comm_trait_evolution <- function(comrad_tbl,
   }
   species_names <- unique(comrad_tbl$species)
   names(species_names) <- species_names
-
-  tiny_species <- species_names[
-    sapply(species_names, function(x) {
-      sum(comrad_tbl$species == x)
-      })  < 3
-  ]
-  if (length(tiny_species) > 0) { # cause issues with the hexes
-    comrad_tbl <- comrad_tbl %>%
-      dplyr::filter(
-        species != tiny_species,
-      )
-  }
 
   trait_plot <- comrad_tbl %>%
     dplyr::filter(

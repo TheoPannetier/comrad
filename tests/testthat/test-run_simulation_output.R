@@ -119,8 +119,14 @@ test_that("test_plots", {
     )
   # Check that dummy is excluded
   expect_equivalent(
-    plot_comm_trait_evolution(comrad_tbl_tiny, hex_fill = "counts"),
-    plot_comm_trait_evolution(comrad_tbl, hex_fill = "counts")
+    plot_comm_trait_evolution(
+      comrad_tbl_tiny %>% exclude_ephemeral_spp(),
+      hex_fill = "counts"
+    ),
+    plot_comm_trait_evolution(
+      comrad_tbl,
+      hex_fill = "counts"
+    )
   )
   expect_true(
     plot_fitness_landscape(
