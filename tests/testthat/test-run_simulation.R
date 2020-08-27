@@ -84,15 +84,3 @@ test_that("parameter_abuse", {
   )
 
 })
-
-test_that("unix_tests", {
-  if (Sys.getenv("TRAVIS") != "") {
-    expect_error(
-      run_simulation(path_to_output = NULL, hpc_job_id = 0.999, nb_gens = 20),
-      "'hpc_job_id' must be an integer"
-    )
-  } else {
-    testthat::skip("Run only on Unix")
-  }
-
-})
