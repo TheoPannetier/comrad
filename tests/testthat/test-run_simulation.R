@@ -84,3 +84,18 @@ test_that("parameter_abuse", {
   )
 
 })
+
+testthat::test_that("Simulation is reproducible", {
+  # Same seed generates same results
+  sim_reps <- purrr::map(
+    c(180, 180, 999), # seeds
+    function(seed) {
+      run_simulation(
+        path_to_output = NULL,
+        nb_gens = 500,
+        seed = seed
+      )
+    })
+  expect_equal(sim_reps[[1]], sim_reps[[2]])
+  expect_failure(expect_equal(sim_reps[[1]], sim_reps[[3]]))
+})
