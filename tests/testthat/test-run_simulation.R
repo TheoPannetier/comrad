@@ -85,7 +85,10 @@ test_that("parameter_abuse", {
 
 })
 
+is_on_ci <- (Sys.getenv("TRAVIS") != "" || Sys.getenv("APPVEYOR") != "")
+
 testthat::test_that("Simulation is reproducible", {
+  if (!is_on_ci) skip("Only run on CI")
   # Same seed generates same results
   sim_reps <- purrr::map(
     c(180, 180, 999), # seeds

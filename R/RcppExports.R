@@ -7,7 +7,6 @@
 #' `rpois(lambda = fitness)`. Vectorized.
 #'
 #' @param fitness a vector of positive floats, the fitness value(s).
-#' @param seed. Integer, the seed passed for random number generation.
 #'
 #' @seealso get_fitness
 #' @author Theo Pannetier

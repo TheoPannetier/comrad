@@ -4,8 +4,6 @@
 #' offspring, apply mutations and resolve speciation events.
 #'
 #' @inheritParams default_params_doc
-#' @param seed integer \code{> 0}, the seed to set for the random number
-#' generator. Defaults to an integer based on current day and time.
 #'
 #' @author Théo Pannetier
 #' @export
@@ -19,8 +17,7 @@ draw_comm_next_gen <- function(
   carrying_cap_sd = default_carrying_cap_sd(),
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_dist_sp = default_trait_dist_sp(),
-  seed = comrad::default_seed()
+  trait_dist_sp = default_trait_dist_sp()
 ) {
 
   # Test argument type ---------------------------------------------------------
@@ -52,9 +49,8 @@ draw_comm_next_gen <- function(
 
   # Create next generation from parent fitness ---------------------------------
   nb_offspring_comm <- comrad::draw_nb_offspring_cpp(
-    fitness = fitness_comm,
-    seed = seed
-    )
+    fitness = fitness_comm
+  )
   comrad::testarg_length(nb_offspring_comm, length(comm$z))
 
   new_comm <- tibble::tibble(

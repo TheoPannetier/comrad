@@ -5,8 +5,6 @@
 \title{Draw a number of offspring given a fitness value}
 \arguments{
 \item{fitness}{a vector of positive floats, the fitness value(s).}
-
-\item{seed.}{Integer, the seed passed for random number generation.}
 }
 \description{
 The number of offspring is drawn in a Poisson distribution in

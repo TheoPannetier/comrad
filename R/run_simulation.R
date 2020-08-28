@@ -172,8 +172,7 @@ run_simulation <- function(
       carrying_cap_sd = carrying_cap_sd,
       prob_mutation = prob_mutation,
       mutation_sd = mutation_sd,
-      trait_dist_sp = trait_dist_sp,
-      seed = seed
+      trait_dist_sp = trait_dist_sp
     )
 
     if (length(comm$species) < 1) {
