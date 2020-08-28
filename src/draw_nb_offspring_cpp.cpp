@@ -1,6 +1,4 @@
 #include <Rcpp.h>
-#include <random>
-#include <chrono>
 using namespace Rcpp;
 
 //' Draw a number of offspring given a fitness value
