@@ -24,7 +24,7 @@
 
 plot_comm_trait_evolution <- function(comrad_tbl,
                                       generation_range = c(0, Inf),
-                                      xgrain = 100,
+                                      xgrain = 200,
                                       ygrain = 0.01,
                                       xlim = NULL,
                                       ylim = NULL,
