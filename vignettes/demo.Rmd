@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup, include = FALSE}
-library(comrad)
+library(comrad); library(ape)
 ```
 
 ## Introduction and biological context
