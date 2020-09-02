@@ -17,44 +17,28 @@
 #' @export
 
 assemble_phylo_tbl <- function(comrad_tbl) {
-  # Stupid but necessary for the build
-  species <- NULL
-  ancestral_species <- NULL
 
-  phylo_tbl <- tibble::tibble(
-    "species_name" = character(),
-    "ancestor_name" = character(),
-    "time_birth" = numeric(),
-    "time_death" = numeric()
+  spp <- unique(comrad_tbl$species)
+  names(spp) <- spp # for automatied labelling by map_dfr
+
+  phylo_tbl <- purrr::map_dfr(
+    spp,
+    function (sp) {
+      is_sp <- comrad_tbl$species == sp
+
+      time_range <- comrad_tbl$t[is_sp]
+
+      ancestor_name <- unique(
+        comrad_tbl$ancestral_species[is_sp]
+      )
+
+      sp_entry <- tibble::tibble(
+        "ancestor_name" = ancestor_name,
+        "time_birth" = min(time_range),
+        "time_death" = max(time_range)
+      )
+    },
+    .id = "species_name"
   )
-
-  for (sp in unique(comrad_tbl$species)) {
-
-    time_birth <- comrad_tbl %>%
-      dplyr::filter(species == sp) %>%
-      dplyr::select(t) %>%
-      unlist() %>%
-      min()
-    time_death <- comrad_tbl %>%
-      dplyr::filter(species == sp) %>%
-      dplyr::select(t) %>%
-      unlist() %>%
-      max()
-    ancestor_name <- comrad_tbl %>%
-      dplyr::filter(species == sp) %>%
-      dplyr::select(ancestral_species) %>%
-      unlist() %>%
-      unique()
-
-    sp_entry <- tibble::tibble(
-      "species_name" = sp,
-      "ancestor_name" = ancestor_name,
-      "time_birth" = time_birth,
-      "time_death" = time_death
-    )
-
-    phylo_tbl <- rbind(phylo_tbl, sp_entry)
-  }
-  phylo_tbl
-
+  return(phylo_tbl)
 }
