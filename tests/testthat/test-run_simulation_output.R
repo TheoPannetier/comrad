@@ -30,7 +30,7 @@ test_that("test_phylo", {
   )
   expect_equal(
     phylo_tbl %>% comrad::convert_to_newick(),
-    "#89ae8a:5;"
+    "(#89ae8a:5);"
   )
 })
 
