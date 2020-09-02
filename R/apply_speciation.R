@@ -27,7 +27,9 @@ apply_speciation <- function(comm, trait_dist_sp = default_trait_dist_sp()) {
 
   comm <- comm[order(comm$z), ]
 
-  for (sp in unique(comm$species)) {
+  spp <- unique(comm$species)
+
+  for (sp in spp) {
     # Keep track of species members' position
     where <- which(comm$species == sp)
     # Extract members of focal species
@@ -42,7 +44,10 @@ apply_speciation <- function(comm, trait_dist_sp = default_trait_dist_sp()) {
       gap <- gaps[1] # only the first gap is treated  for now (soft polytomy)
 
       # Split species in two ---------------------------------------------------
-      new_sp <- charlatan::ch_hex_color()
+      new_sp <- NULL
+      while (is.null(new_sp) || new_sp %in% spp) {
+        new_sp <- charlatan::ch_hex_color()
+      }
       sp_labels <- sp_members$species
       anc_labels <- sp_members$ancestral_species
       # Less numerous becomes new species
