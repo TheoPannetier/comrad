@@ -16,12 +16,12 @@
 #' @author Théo Pannetier
 #' @export
 
-assemble_phylo_tbl <- function(comrad_tbl) {
+build_spp_tbl <- function(comrad_tbl) {
 
   spp <- unique(comrad_tbl$species)
   names(spp) <- spp # for automatied labelling by map_dfr
 
-  phylo_tbl <- purrr::map_dfr(
+  spp_tbl <- purrr::map_dfr(
     spp,
     function (sp) {
       is_sp <- comrad_tbl$species == sp
@@ -40,5 +40,5 @@ assemble_phylo_tbl <- function(comrad_tbl) {
     },
     .id = "species_name"
   )
-  return(phylo_tbl)
+  return(spp_tbl)
 }

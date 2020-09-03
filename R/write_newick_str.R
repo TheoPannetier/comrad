@@ -4,16 +4,16 @@
 #' figures out the branch lenghts and return a phylogenetic tree in Newick
 #' format. Based on [DDD::L2phylo()].
 #'
-#' @param phylo_tbl a table with phylogenetic information for each species, the
-#' output of [assemble_phylo_tbl()]
+#' @param spp_tbl a table with phylogenetic information for each species, the
+#' output of [build_spp_tbl()]
 #'
 #' @author Théo Pannetier
 #' @export
 
-convert_to_newick <- function(phylo_tbl) {
+write_newick_str <- function(spp_tbl) {
 
   # species must be ordered by chronological order
-  newick_tbl <- phylo_tbl[order(phylo_tbl$time_birth), ]
+  newick_tbl <- spp_tbl[order(spp_tbl$time_birth), ]
 
   # Concatenate Newick string recursively
   while (nrow(newick_tbl) > 1) {
@@ -39,15 +39,15 @@ convert_to_newick <- function(phylo_tbl) {
       child_name, ":",
       newick_tbl$time_death[child] - newick_tbl$time_birth[child]
     )
-    newick_string <- paste0("(", string_parent, ",", string_child, ")")
+    newick_str <- paste0("(", string_parent, ",", string_child, ")")
 
-    newick_tbl$species_name[parent] <- newick_string
+    newick_tbl$species_name[parent] <- newick_str
     newick_tbl$time_death[parent] <- newick_tbl$time_birth[child]
     newick_tbl <- newick_tbl[-child, ]
   }
 
-  newick_string <- paste0(
+  newick_str <- paste0(
     "(", newick_tbl$species_name, ":", newick_tbl$time_death, ");"
   )
-  newick_string
+  newick_str
 }

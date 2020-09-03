@@ -18,9 +18,9 @@ test_that("test_phylo", {
   # Test phylogeny
   # not a legit phylogeny (1 tip), but the beam though
   # at least provides a check that a phylo object is produced correctly
-  phylo_tbl <- comrad_tbl %>% comrad::assemble_phylo_tbl()
+  spp_tbl <- comrad_tbl %>% comrad::build_spp_tbl()
   expect_equal(
-    phylo_tbl,
+    spp_tbl,
     tibble::tibble(
       "species_name" = "#89ae8a",
       "ancestor_name" = as.character(NA),
@@ -29,7 +29,7 @@ test_that("test_phylo", {
     )
   )
   expect_equal(
-    phylo_tbl %>% comrad::convert_to_newick(),
+    spp_tbl %>% comrad::write_newick_str(),
     "(#89ae8a:5);"
   )
 })
@@ -201,7 +201,7 @@ test_that("read_tbl abuse", {
 
 test_that("phylogeny_hoaxids", {
   # Now with a proper phylogeny
-  phylo_tbl_hoaxids <- tibble::tibble(
+  spp_tbl_hoaxids <- tibble::tibble(
     "species_name" = c(
       "Haggis_scoticus", "Dahu_senestris", "Dahu_dextris", "Thylarctos_plumetus"
     ),
@@ -212,7 +212,7 @@ test_that("phylogeny_hoaxids", {
     "time_death" = c(5, 5, 5, 5)
   )
   expect_silent(
-    newick_str <- phylo_tbl_hoaxids %>% comrad::convert_to_newick()
+    newick_str <- spp_tbl_hoaxids %>% comrad::write_newick_str()
   )
   # can't test plots without creating unwanted Rplots.pdf in /testthat
 })

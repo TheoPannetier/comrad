@@ -9,16 +9,16 @@
 #' @author Théo Pannetier
 #' @export
 
-convert_sim_to_phylo <- function(comrad_tbl, with_extinct = TRUE) {
+sim_to_phylo <- function(comrad_tbl, with_extinct = TRUE) {
   comrad_tbl %>%
     dplyr::select("z", "species", "ancestral_species") %>%
     comrad::test_comrad_comm()
 
-  newick_string <- comrad_tbl %>%
-    comrad::assemble_phylo_tbl() %>%
-    comrad::convert_to_newick()
+  newick_str <- comrad_tbl %>%
+    comrad::build_spp_tbl() %>%
+    comrad::write_newick_str()
 
-  phylo <- ape::read.tree(text = newick_string)
+  phylo <- ape::read.tree(text = newick_str)
 
   if (!with_extinct) {
     phylo <- ape::drop.fossil(phylo)

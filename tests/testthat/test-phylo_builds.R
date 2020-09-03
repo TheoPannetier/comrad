@@ -11,7 +11,7 @@ testthat::test_that("phylo builds", {
     "ancestral_species" = as.character(NA)
   )
   testthat::expect_silent(
-    phylo <- comrad_tbl %>% convert_sim_to_phylo()
+    phylo <- comrad_tbl %>% sim_to_phylo()
   )
   testthat::expect_equal(
     phylo, exptd_phylo
@@ -29,7 +29,7 @@ testthat::test_that("phylo builds", {
     "ancestral_species" = c(rep(NA, 1000), rep("sp1", 501))
   )
   testthat::expect_silent(
-    phylo <- comrad_tbl %>% convert_sim_to_phylo()
+    phylo <- comrad_tbl %>% sim_to_phylo()
   )
   testthat::expect_equal(
     phylo, exptd_phylo
@@ -48,7 +48,7 @@ testthat::test_that("phylo builds", {
     "ancestral_species" = c(rep(NA, 750), rep("sp1", 501))
   )
   testthat::expect_silent(
-    phylo <- comrad_tbl %>% convert_sim_to_phylo()
+    phylo <- comrad_tbl %>% sim_to_phylo()
   )
   testthat::expect_equal(
     phylo, exptd_phylo
@@ -107,7 +107,7 @@ testthat::test_that("trait distribution shouldn't matter", {
         comrad_tbl$z <- rnorm(length(gen_seq), 0, 1)
 
         testthat::expect_silent(
-          phylo <- comrad_tbl %>% convert_sim_to_phylo()
+          phylo <- comrad_tbl %>% sim_to_phylo()
         )
         testthat::expect_equal(
           phylo, exptd_phylo
