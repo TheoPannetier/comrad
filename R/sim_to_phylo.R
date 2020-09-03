@@ -5,11 +5,13 @@
 #' @inheritParams default_params_doc
 #' @param with_extinct logical, should extinct taxa be included? `TRUE` returns
 #' the full tree, `FALSE` returns the reconstructed tree.
-#'
+#' @param include_stem logical, should the stem lineage and stem age be
+#' included? If not, the string stops at crown lineages.
+
 #' @author Théo Pannetier
 #' @export
 
-sim_to_phylo <- function(comrad_tbl, with_extinct = TRUE) {
+sim_to_phylo <- function(comrad_tbl, include_stem = TRUE, with_extinct = TRUE) {
   comrad_tbl %>%
     dplyr::select("z", "species", "ancestral_species") %>%
     comrad::test_comrad_comm()
@@ -23,5 +25,5 @@ sim_to_phylo <- function(comrad_tbl, with_extinct = TRUE) {
   if (!with_extinct) {
     phylo <- ape::drop.fossil(phylo)
   }
-  phylo
+  return(phylo)
 }

@@ -6,11 +6,13 @@
 #'
 #' @param spp_tbl a table with phylogenetic information for each species, the
 #' output of [build_spp_tbl()]
+#' @param include_stem logical, should the stem lineage and stem age be
+#' included? If not, the string stops at crown lineages.
 #'
 #' @author Théo Pannetier
 #' @export
 
-write_newick_str <- function(spp_tbl) {
+write_newick_str <- function(spp_tbl, include_stem = TRUE) {
 
   # species must be ordered by chronological order
   newick_tbl <- spp_tbl[order(spp_tbl$time_birth), ]
@@ -46,8 +48,14 @@ write_newick_str <- function(spp_tbl) {
     newick_tbl <- newick_tbl[-child, ]
   }
 
-  newick_str <- paste0(
-    "(", newick_tbl$species_name, ":", newick_tbl$time_death, ");"
-  )
-  newick_str
+  if (include_stem) {
+    newick_str <- paste0(
+      "(", newick_tbl$species_name, ":", newick_tbl$time_death, ");"
+    )
+  } else {
+    newick_str <- paste0(
+      newick_tbl$species_name, ";"
+    )
+  }
+  return(newick_str)
 }
