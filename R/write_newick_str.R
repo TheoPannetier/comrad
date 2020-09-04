@@ -14,6 +14,10 @@
 
 write_newick_str <- function(spp_tbl, include_stem = TRUE) {
 
+  if (include_stem && nrow(spp_tbl) == 1) {
+    stop("can't get a crown tree: only one lineage in the community")
+  }
+
   # species must be ordered by chronological order
   newick_tbl <- spp_tbl[order(spp_tbl$time_birth), ]
 

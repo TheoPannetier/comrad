@@ -24,6 +24,9 @@ sim_to_phylo <- function(comrad_tbl, include_stem = TRUE, with_extinct = TRUE) {
 
   if (!with_extinct) {
     phylo <- ape::drop.fossil(phylo)
+    if (!include_stem && ape::Ntip(phylo) == 1) {
+      stop("can't get a crown tree: only one living lineage in the community")
+    }
   }
   return(phylo)
 }
