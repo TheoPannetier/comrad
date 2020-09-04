@@ -1,9 +1,8 @@
 
-testthat::test_that("phylo builds", {
+testthat::test_that("single lineage cases", {
   #
   # sp1 >---------------------> sp1
   #
-  exptd_phylo <- ape::read.tree(text = "(sp1:1000);")
   comrad_tbl <- tibble::tibble(
     "t" = 1:1000,
     "z" = 0,
@@ -13,24 +12,44 @@ testthat::test_that("phylo builds", {
   testthat::expect_silent(
     phylo <- comrad_tbl %>% sim_to_phylo()
   )
+  # Tests
   testthat::expect_equal(
-    phylo, exptd_phylo
+    phylo, ape::read.tree(text = "(sp1:1000);")
+  )
+  testthat::expect_silent(
+    phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE)
+  )
+  testthat::expect_equal(
+    phylo,
+    ape::read.tree(text = "(sp1:1000);")
+  )
+  # No crown lineages
+  testthat::expect_error(
+    phylo <- comrad_tbl %>% sim_to_phylo(include_stem = FALSE),
+    "can't get a crown tree: only one lineage in the community"
   )
 
+})
+
+testthat::test_that("two-lineages cases", {
   #                |-----------> sp1
   # sp1 >----------|
   #                |-----------> sp2
-
-  exptd_phylo <- ape::read.tree(text = "((sp1:500, sp2:500):500);")
   comrad_tbl <- tibble::tibble(
     "t" = c(1:1000, 500:1000),
     "z" = 0,
     "species" = c(rep("sp1", 1000), rep("sp2", 501)),
     "ancestral_species" = c(rep(NA, 1000), rep("sp1", 501))
   )
-  testthat::expect_silent(
-    phylo <- comrad_tbl %>% sim_to_phylo()
+  # Stem
+  phylo <- comrad_tbl %>% sim_to_phylo()
+  exptd_phylo <- ape::read.tree(text = "((sp1:500, sp2:500):500);")
+  testthat::expect_equal(
+    phylo,  exptd_phylo
   )
+  # Crown
+  phylo <- comrad_tbl %>% sim_to_phylo(include_stem = FALSE)
+  exptd_phylo <- ape::read.tree(text = "(sp1:500,sp2:500);")
   testthat::expect_equal(
     phylo, exptd_phylo
   )
@@ -40,20 +59,110 @@ testthat::test_that("phylo builds", {
   # sp1 >----------|
   #                |-----------> sp2
   #
-  exptd_phylo <- ape::read.tree(text = "((sp1:250, sp2:500):500);")
   comrad_tbl <- tibble::tibble(
     "t" = c(1:750, 500:1000),
     "z" = 0,
     "species" = c(rep("sp1", 750), rep("sp2", 501)),
     "ancestral_species" = c(rep(NA, 750), rep("sp1", 501))
   )
-  testthat::expect_silent(
-    phylo <- comrad_tbl %>% sim_to_phylo()
-  )
+  # Full, stem
+  phylo <- comrad_tbl %>% sim_to_phylo()
+  exptd_phylo <- ape::read.tree(text = "((sp1:250, sp2:500):500);")
   testthat::expect_equal(
     phylo, exptd_phylo
   )
+  # Full, crown
+  phylo <- comrad_tbl %>% sim_to_phylo(include_stem = FALSE)
+  exptd_phylo <- ape::read.tree(text = "(sp1:250, sp2:500);")
+  testthat::expect_equal(
+    phylo, exptd_phylo
+  )
+  # Extant, stem
+  phylo <- comrad_tbl %>% sim_to_phylo(include_stem = TRUE, with_extinct = FALSE)
+  exptd_phylo <- ape::read.tree(text = "(sp2:1000);")
+  testthat::expect_equal(
+    phylo, exptd_phylo
+  )
+  # Extant, crown
+  testthat::expect_error(
+    phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE, include_stem = FALSE),
+    "can't get a crown tree: only one living lineage in the community"
+  )
+
+  # Daughter goes extinct
+  #                |-----------> sp1
+  # sp1 >----------|
+  #                |----X sp2
+  comrad_tbl <- tibble::tibble(
+    "t" = c(1:1000, 500:750),
+    "z" = 0,
+    "species" = c(rep("sp1", 1000), rep("sp2", 251)),
+    "ancestral_species" = c(rep(NA, 1000), rep("sp1", 251))
+  )
+  # Full, stem
+  phylo <- comrad_tbl %>% sim_to_phylo()
+  exptd_phylo <- ape::read.tree(text = "((sp1:500, sp2:250):500);")
+  testthat::expect_equal(
+    phylo, exptd_phylo
+  )
+  # Full, crown
+  phylo <- comrad_tbl %>% sim_to_phylo(include_stem = FALSE)
+  exptd_phylo <- ape::read.tree(text = "(sp1:500, sp2:250);")
+  testthat::expect_equal(
+    phylo, exptd_phylo
+  )
+  # Extant, stem
+  phylo <- comrad_tbl %>% sim_to_phylo(include_stem = TRUE, with_extinct = FALSE)
+  exptd_phylo <- ape::read.tree(text = "(sp1:1000);")
+  testthat::expect_equal(
+    phylo, exptd_phylo
+  )
+  # Extant, crown
+  testthat::expect_error(
+    phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE, include_stem = FALSE),
+    "can't get a crown tree: only one living lineage in the community"
+  )
 })
+
+testthat::test_that("three lineages cases", {
+  #                 |------ sp1
+  #         |-------|
+  #         |       |------ sp3
+  # --------|
+  #         |-------X sp2
+
+  comrad_tbl <- tibble::tibble(
+    "t" = c(1:1000, 250:500, 750:1000),
+    "z" = 0,
+    "species" = c(rep("sp1", 1000), rep("sp2", 251), rep("sp3", 251)),
+    "ancestral_species" = c(rep(NA, 1000), rep("sp1", 251), rep("sp1", 251))
+  )
+  # Full, stem
+  exptd_phylo <- ape::read.tree(
+    text = "(((sp1:250, sp3:250):500, sp2:250):250);"
+  )
+  phylo <- comrad_tbl %>% sim_to_phylo()
+  expect_equal(phylo, exptd_phylo)
+  # Full, crown
+  exptd_phylo <- ape::read.tree(
+    text = "((sp1:250, sp3:250):500, sp2:250);"
+  )
+  phylo <- comrad_tbl %>% sim_to_phylo(include_stem = FALSE)
+  expect_equal(phylo, exptd_phylo)
+  # Extant, stem
+  exptd_phylo <- ape::read.tree(
+    text = "((sp1:250, sp3:250):500);"
+  )
+  phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE)
+  expect_equal(phylo, exptd_phylo)
+  # Extant, crown
+  exptd_phylo <- ape::read.tree(
+    text = "(sp1:250, sp3:250);"
+  )
+  phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE, include_stem = FALSE)
+  expect_equal(phylo, exptd_phylo)
+})
+
 
 testthat::test_that("trait distribution shouldn't matter", {
   if (Sys.getenv("TRAVIS") == "") {
