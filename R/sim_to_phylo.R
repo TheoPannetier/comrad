@@ -18,7 +18,7 @@ sim_to_phylo <- function(comrad_tbl, include_stem = TRUE, with_extinct = TRUE) {
 
   newick_str <- comrad_tbl %>%
     comrad::build_spp_tbl() %>%
-    comrad::write_newick_str()
+    comrad::write_newick_str(include_stem = include_stem)
 
   phylo <- ape::read.tree(text = newick_str)
 
