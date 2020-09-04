@@ -28,7 +28,6 @@ testthat::test_that("single lineage cases", {
     phylo <- comrad_tbl %>% sim_to_phylo(include_stem = FALSE),
     "can't get a crown tree: only one lineage in the community"
   )
-
 })
 
 testthat::test_that("two-lineages cases", {
@@ -80,8 +79,10 @@ testthat::test_that("two-lineages cases", {
   # Extant, stem
   phylo <- comrad_tbl %>% sim_to_phylo(include_stem = TRUE, with_extinct = FALSE)
   exptd_phylo <- ape::read.tree(text = "(sp2:1000);")
-  testthat::expect_equal(
-    phylo, exptd_phylo
+  testthat::expect_failure( # ape cuts the stem out
+    testthat::expect_equal(
+      phylo, exptd_phylo
+    )
   )
   # Extant, crown
   testthat::expect_error(
@@ -114,8 +115,10 @@ testthat::test_that("two-lineages cases", {
   # Extant, stem
   phylo <- comrad_tbl %>% sim_to_phylo(include_stem = TRUE, with_extinct = FALSE)
   exptd_phylo <- ape::read.tree(text = "(sp1:1000);")
-  testthat::expect_equal(
-    phylo, exptd_phylo
+  testthat::expect_failure( # ape cuts the stem out
+    testthat::expect_equal(
+      phylo, exptd_phylo
+    )
   )
   # Extant, crown
   testthat::expect_error(
@@ -137,24 +140,29 @@ testthat::test_that("three lineages cases", {
     "species" = c(rep("sp1", 1000), rep("sp2", 251), rep("sp3", 251)),
     "ancestral_species" = c(rep(NA, 1000), rep("sp1", 251), rep("sp1", 251))
   )
+
   # Full, stem
   exptd_phylo <- ape::read.tree(
     text = "(((sp1:250, sp3:250):500, sp2:250):250);"
   )
   phylo <- comrad_tbl %>% sim_to_phylo()
   expect_equal(phylo, exptd_phylo)
+
   # Full, crown
   exptd_phylo <- ape::read.tree(
     text = "((sp1:250, sp3:250):500, sp2:250);"
   )
   phylo <- comrad_tbl %>% sim_to_phylo(include_stem = FALSE)
   expect_equal(phylo, exptd_phylo)
+
   # Extant, stem
   exptd_phylo <- ape::read.tree(
     text = "((sp1:250, sp3:250):500);"
   )
   phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE)
-  expect_equal(phylo, exptd_phylo)
+  testthat::expect_failure( # ape cuts the stem out
+    expect_equal(phylo, exptd_phylo)
+  )
   # Extant, crown
   exptd_phylo <- ape::read.tree(
     text = "(sp1:250, sp3:250);"
@@ -162,7 +170,6 @@ testthat::test_that("three lineages cases", {
   phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE, include_stem = FALSE)
   expect_equal(phylo, exptd_phylo)
 })
-
 
 testthat::test_that("trait distribution shouldn't matter", {
   if (Sys.getenv("TRAVIS") == "") {
