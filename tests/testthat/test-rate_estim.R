@@ -4,9 +4,9 @@ test_that("waiting_times", {
   # Fixed string, fixed tree
   # "Small" CR tree with 4 final tips, includes an extinction event
   # Simulated with DDD::dd_sim(c(0.2, 0.1, Inf), 5)
-  newick_string <- "(((t1:0.2965557774,t5:0.2965557774):4.105982616,t3:
+  newick_str <- "(((t1:0.2965557774,t5:0.2965557774):4.105982616,t3:
   2.675245559):0.5974616064,(t2:0.5634109445,t4:0.5634109445):4.436589055):0;"
-  phylo <- ape::read.tree(text = newick_string)
+  phylo <- ape::read.tree(text = newick_str)
 
   wt <- waiting_times(phylo)
   # Expected output

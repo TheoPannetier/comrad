@@ -85,14 +85,20 @@ test_that("parameter_abuse", {
 
 })
 
-test_that("unix_tests", {
-  if (Sys.getenv("TRAVIS") != "") {
-    expect_error(
-      run_simulation(path_to_output = NULL, hpc_job_id = 0.999, nb_gens = 20),
-      "'hpc_job_id' must be an integer"
-    )
-  } else {
-    testthat::skip("Run only on Unix")
-  }
+is_on_ci <- (Sys.getenv("TRAVIS") != "" || Sys.getenv("APPVEYOR") != "")
 
+testthat::test_that("Simulation is reproducible", {
+  if (!is_on_ci) skip("Only run on CI")
+  # Same seed generates same results
+  sim_reps <- purrr::map(
+    c(180, 180, 999), # seeds
+    function(seed) {
+      run_simulation(
+        path_to_output = NULL,
+        nb_gens = 500,
+        seed = seed
+      )
+    })
+  expect_equal(sim_reps[[1]], sim_reps[[2]])
+  expect_failure(expect_equal(sim_reps[[1]], sim_reps[[3]]))
 })

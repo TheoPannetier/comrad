@@ -37,18 +37,18 @@
 run_simulation <- function(
   path_to_output,
   nb_gens,
-  init_comm = default_init_comm(),
-  growth_rate = default_growth_rate(),
-  competition_sd = default_competition_sd(),
-  carrying_cap_sd = default_carrying_cap_sd(),
-  carrying_cap_opt = default_carrying_cap_opt(),
-  trait_opt = default_trait_opt(),
-  prob_mutation = default_prob_mutation(),
-  mutation_sd = default_mutation_sd(),
-  trait_dist_sp = default_trait_dist_sp(),
+  init_comm = comrad::default_init_comm(),
+  growth_rate = comrad::default_growth_rate(),
+  competition_sd = comrad::default_competition_sd(),
+  carrying_cap_sd = comrad::default_carrying_cap_sd(),
+  carrying_cap_opt = comrad::default_carrying_cap_opt(),
+  trait_opt = comrad::default_trait_opt(),
+  prob_mutation = comrad::default_prob_mutation(),
+  mutation_sd = comrad::default_mutation_sd(),
+  trait_dist_sp = comrad::default_trait_dist_sp(),
   sampling_freq = comrad::set_sampling_freq(nb_gens),
-  sampling_frac = default_sampling_frac(),
-  seed = default_seed(),
+  sampling_frac = comrad::default_sampling_frac(),
+  seed = comrad::default_seed(),
   hpc_job_id = NULL
 ) {
   comrad::test_comrad_comm(init_comm)
@@ -93,9 +93,9 @@ run_simulation <- function(
   comrad::testarg_num(sampling_frac)
   comrad::testarg_prop(sampling_frac)
 
-  is_on_unix <- rappdirs::app_dir()$os == "unix" # for the cluster
+  is_on_peregrine <- Sys.getenv("HOSTNAME") == "peregrine.hpc.rug.nl"
 
-  if (is_on_unix) {
+  if (is_on_peregrine) {
     if (!is.null(hpc_job_id)) {
       comrad::testarg_num(hpc_job_id)
       comrad::testarg_int(hpc_job_id)
@@ -105,26 +105,26 @@ run_simulation <- function(
   }
 
   # Send metadata to output
-  metadata_string <- paste(
+  metadata_string <- paste0(
     "### Metadata ###",
-    "\ncompetition_sd =", competition_sd,
-    "\ncarrying_cap_sd =", carrying_cap_sd,
-    "\ncarrying_cap_opt =", carrying_cap_opt,
-    "\ntrait_opt =", trait_opt,
-    "\ngrowth_rate =", growth_rate,
-    "\nprob_mutation =", prob_mutation,
-    "\nmutation_sd =", mutation_sd,
-    "\ntrait_dist_sp =", trait_dist_sp,
+    "\ncompetition_sd = ", competition_sd,
+    "\ncarrying_cap_sd = ", carrying_cap_sd,
+    "\ncarrying_cap_opt = ", carrying_cap_opt,
+    "\ntrait_opt = ", trait_opt,
+    "\ngrowth_rate = ", growth_rate,
+    "\nprob_mutation = ", prob_mutation,
+    "\nmutation_sd = ", mutation_sd,
+    "\ntrait_dist_sp = ", trait_dist_sp,
     "\n",
-    "\nseed =", seed,
-    "\nHPC job ID =", hpc_job_id,
-    "\nsimulated under comrad", as.character(utils::packageVersion("comrad")),
+    "\nseed = ", seed,
+    "\nHPC job ID = ", hpc_job_id,
+    "\nsimulated under comrad ", as.character(utils::packageVersion("comrad")),
     "\n", R.version$version.string,
     "\n",
-    "\nRunning for", nb_gens, "generations",
+    "\nRunning for ", nb_gens, " generations",
     "\n"
   )
-  if (is_on_unix) {
+  if (is_on_peregrine) {
     cat(metadata_string)
   }
 
@@ -156,8 +156,6 @@ run_simulation <- function(
 
   # Set initial community
   comm <- init_comm
-  # Set timer
-  start_time <- proc.time()[3]
   # Let's not forget the seed
   set.seed(seed)
 
@@ -174,8 +172,7 @@ run_simulation <- function(
       carrying_cap_sd = carrying_cap_sd,
       prob_mutation = prob_mutation,
       mutation_sd = mutation_sd,
-      trait_dist_sp = trait_dist_sp,
-      seed = seed
+      trait_dist_sp = trait_dist_sp
     )
 
     if (length(comm$species) < 1) {
@@ -211,11 +208,7 @@ run_simulation <- function(
     }
   }
 
-  cat("\nTotal runtime:", proc.time()[3] - start_time, "\n")
-
   if (is.null(path_to_output)) {
     return(output)
-  } else {
-    return()
   }
 }

@@ -23,5 +23,8 @@ set_sampling_freq <- function(nb_gens) {
   comrad::testarg_num(nb_gens)
   comrad::testarg_pos(nb_gens)
 
-  max(1, 2 * 10 ^ floor(log10(nb_gens) - 2))
+  sampling_freq <- purrr::map_dbl(nb_gens, function(nb_gen) {
+    max(1, 2 * 10 ^ floor(log10(nb_gen) - 2))
+  })
+  return(sampling_freq)
 }

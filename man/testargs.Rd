@@ -11,6 +11,7 @@
 \alias{testarg_log}
 \alias{testarg_length}
 \alias{test_comrad_comm}
+\alias{test_comrad_tbl}
 \title{Assert a function argument is of correct type}
 \usage{
 testarg_num(arg, allow_nan = FALSE, allow_na = FALSE)
@@ -30,6 +31,8 @@ testarg_log(arg)
 testarg_length(arg, correct_length)
 
 test_comrad_comm(comm)
+
+test_comrad_tbl(comrad_tbl)
 }
 \arguments{
 \item{arg}{value of the asserted argument.}
@@ -49,6 +52,9 @@ columns:
 \item \code{species} contains species names (characters)
 \item \code{ancestral_species} contains acnestral species names (characters)
 }}
+
+\item{comrad_tbl}{a tibble containing the output of a \code{comrad} simulation,
+as produced by \code{\link[=run_simulation]{run_simulation()}}.}
 }
 \description{
 \itemize{

@@ -7,7 +7,6 @@
 #' `rpois(lambda = fitness)`. Vectorized.
 #'
 #' @param fitness a vector of positive floats, the fitness value(s).
-#' @param seed. Integer, the seed passed for random number generation.
 #'
 #' @seealso get_fitness
 #' @author Theo Pannetier
@@ -15,8 +14,8 @@
 #' @name draw_nb_offspring_cpp
 NULL
 
-draw_nb_offspring_cpp <- function(fitness, seed) {
-    .Call('_comrad_draw_nb_offspring_cpp', PACKAGE = 'comrad', fitness, seed)
+draw_nb_offspring_cpp <- function(fitness) {
+    .Call('_comrad_draw_nb_offspring_cpp', PACKAGE = 'comrad', fitness)
 }
 
 #' Compute the effective population size
