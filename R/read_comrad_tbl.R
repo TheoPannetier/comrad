@@ -10,7 +10,7 @@
 #' @author Théo Pannetier
 #' @export
 
-read_comrad_tbl <- function(path_to_file, skip = 19) {
+read_comrad_tbl <- function(path_to_file, skip = 20) {
 
   comrad::testarg_char(path_to_file)
   if (!path_to_file %>% stringr::str_detect("\\.csv$")) {

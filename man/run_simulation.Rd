@@ -8,6 +8,7 @@ run_simulation(
   path_to_output,
   nb_gens,
   init_comm = comrad::default_init_comm(),
+  init_comm_is_from = NA,
   growth_rate = comrad::default_growth_rate(),
   competition_sd = comrad::default_competition_sd(),
   carrying_cap_sd = comrad::default_carrying_cap_sd(),
@@ -30,8 +31,13 @@ community is returned at the end of the simulation.}
 \item{nb_gens}{integer, the number of generations to run the
 simulation for.}
 
-\item{init_comm}{The initial community, must have the same tibble structure
-as the \code{\link[=default_init_comm]{default_init_comm()}}, which contains 10 individuals with \code{z = 0}}
+\item{init_comm}{The initial community. Default is \code{\link[=default_init_comm]{default_init_comm()}}, any
+other input should have the same structure, i.e. a data frame with four
+columns, "t" / "z" / "species" / "ancestral_species", and one row for each
+individual in the community.}
+
+\item{init_comm_is_from}{optional string passed to metadata, where the
+initial community was taken from (a filename or anything else).}
 
 \item{growth_rate}{numeric \verb{>= 0}, the baseline growth rate. Generations
 being discrete, high values will cause chaos.}
@@ -80,7 +86,7 @@ columns: \code{t} is the generation time, \code{z} the individual's trait value,
 previous species it descends from.
 If \code{path_to_output = NULL}, the community at the last generation is returned.
 If the path to a \code{.csv} file is supplied, each sampled generation is appended
-to the file. In the \code{.csv}, the table is preceded by 17 lines of metadata,
+to the file. In the \code{.csv}, the table is preceded by some lines of metadata,
 which are automatically ignored if the file is read with \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.
 }
 \description{
