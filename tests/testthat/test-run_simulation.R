@@ -48,7 +48,7 @@ test_that("extinction", {
 test_that("parameter_abuse", {
   expect_error(
     run_simulation(init_comm = rep(0, 10), path_to_output = NULL, nb_gens = 20),
-    "'init_comm' should be a tibble."
+    "'init_comm' is not a tibble."
   )
   expect_error(
     run_simulation(path_to_output = 1, nb_gens = 20),

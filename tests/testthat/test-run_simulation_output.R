@@ -172,7 +172,7 @@ test_that("test_plots", {
       ggplot2::is.ggplot()
   )
   expect_error(
-    plot_comm_traits_anim(comrad::default_init_comm()),
+    plot_comm_traits_anim(comrad::default_init_comm() %>% dplyr::select(-t)),
     "'comrad_tbl' must contain a column 't' with generation times."
   )
   expect_error(

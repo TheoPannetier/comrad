@@ -2,15 +2,15 @@ context("test-apply_speciation")
 
 ancestral_species <- unique(default_init_comm()$species)
 
-comm_mid_split_before <- default_init_comm()
+comm_mid_split_before <- default_init_comm() %>% dplyr::select(-t)
 comm_mid_split_before$z[6:10] <- 0.1
 comm_mid_split_after <- comm_mid_split_before %>% apply_speciation()
 
-comm_ext_split_before <- default_init_comm()
+comm_ext_split_before <- default_init_comm() %>% dplyr::select(-t)
 comm_ext_split_before$z[2:10] <- 0.1
 comm_ext_split_after <- comm_ext_split_before %>% apply_speciation()
 
-comm_mult_split_before <- default_init_comm()
+comm_mult_split_before <- default_init_comm() %>% dplyr::select(-t)
 comm_mult_split_before$z[4:6] <- 0.1
 comm_mult_split_before$z[7:10] <- 0.2
 comm_mult_split_after_one <- comm_mult_split_before %>% apply_speciation()
@@ -69,7 +69,7 @@ test_that("use", {
 
 })
 
-abnormal_comms <- lapply(1:10, function(x) default_init_comm())
+abnormal_comms <- lapply(1:10, function(x) default_init_comm() %>% dplyr::select(-t))
 abnormal_comms[[1]] <- stats::rnorm(10) # not a tibble
 abnormal_comms[[2]] <- tibble::tibble(
   "z" = numeric(0),
