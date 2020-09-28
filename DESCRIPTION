@@ -23,6 +23,7 @@ Imports:
     tibble,
     magrittr,
     purrr,
+    stringr,
     viridis,
     rmarkdown,
     charlatan,
