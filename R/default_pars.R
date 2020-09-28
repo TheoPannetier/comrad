@@ -53,6 +53,7 @@ default_mutation_sd <- function() {
 #' @rdname default_pars
 default_init_comm <- function() {
   tibble::tibble(
+    "t" = rep(0, 10),
     "z" = rep(0, 10), # ten individuals with optimal trait value (0)
     "species" = "#89ae8a",
     "ancestral_species" = as.character(NA)

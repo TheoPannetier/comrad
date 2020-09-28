@@ -5,8 +5,12 @@
 #' @param path_to_output character, path to save the output file, which must be a
 #' `.csv`. If `NULL`, the output is not saved and the final state of the
 #' community is returned at the end of the simulation.
-#' @param init_comm The initial community, must have the same tibble structure
-#' as the [default_init_comm()], which contains 10 individuals with `z = 0`
+#' @param init_comm The initial community. Default is [default_init_comm()], any
+#' other input should have the same structure, i.e. a data frame with four
+#' columns, "t" / "z" / "species" / "ancestral_species", and one row for each
+#' individual in the community.
+#' @param init_comm_is_from optional string passed to metadata, where the
+#' initial community was taken from (a filename or anything else).
 #' @param nb_gens integer, the number of generations to run the
 #' simulation for.
 #' @param sampling_freq numeric \code{> 0}, the frequency (in generations) at
@@ -28,7 +32,7 @@
 #' previous species it descends from.
 #' If `path_to_output = NULL`, the community at the last generation is returned.
 #' If the path to a `.csv` file is supplied, each sampled generation is appended
-#' to the file. In the `.csv`, the table is preceded by 17 lines of metadata,
+#' to the file. In the `.csv`, the table is preceded by some lines of metadata,
 #' which are automatically ignored if the file is read with [read_comrad_tbl()].
 #'
 #' @author Théo Pannetier
@@ -38,6 +42,7 @@ run_simulation <- function(
   path_to_output,
   nb_gens,
   init_comm = comrad::default_init_comm(),
+  init_comm_is_from = NA,
   growth_rate = comrad::default_growth_rate(),
   competition_sd = comrad::default_competition_sd(),
   carrying_cap_sd = comrad::default_carrying_cap_sd(),
@@ -51,22 +56,23 @@ run_simulation <- function(
   seed = comrad::default_seed(),
   hpc_job_id = NULL
 ) {
-  comrad::test_comrad_comm(init_comm)
+  comrad::test_comrad_tbl(init_comm)
+  first_gen <- init_comm %>% dplyr::pull(t) %>% unique()
+  if (length(first_gen) > 1) {
+    stop("\"init_comm\" should contain a single generation.")
+  }
+  if (!is.na(init_comm_is_from)) {
+    testarg_char(init_comm_is_from)
+  }
   if (!is.null(path_to_output)) {
     if (!is.character(path_to_output)) {
       stop("'path_to_output' must be either null or a character.")
     } else {
-      path_to_output_extension <- substr(
-        path_to_output,
-        nchar(path_to_output) - 3,
-        nchar(path_to_output)
-      )
-      if (!path_to_output_extension == ".csv") {
+      if (!path_to_output %>% stringr::str_detect("\\.csv$")) {
         stop("'path_to_output' must be a .csv")
       }
     }
   }
-
   comrad::testarg_num(nb_gens)
   comrad::testarg_pos(nb_gens)
   comrad::testarg_not_this(nb_gens, c(0, Inf))
@@ -101,10 +107,10 @@ run_simulation <- function(
       comrad::testarg_int(hpc_job_id)
     }
   } else {
-    hpc_job_id <- "local" # brute force
+    hpc_job_id <- "local"
   }
 
-  # Send metadata to output
+  # Prepare metadata
   metadata_string <- paste0(
     "### Metadata ###",
     "\ncompetition_sd = ", competition_sd,
@@ -121,6 +127,7 @@ run_simulation <- function(
     "\nsimulated under comrad ", as.character(utils::packageVersion("comrad")),
     "\n", R.version$version.string,
     "\n",
+    "\nStarting community from: ", init_comm_is_from,
     "\nRunning for ", nb_gens, " generations",
     "\n"
   )
@@ -140,63 +147,52 @@ run_simulation <- function(
   }
 
   # Set up data output table proper
-  output <- tibble::tibble(
-    "t" = 0,
-    "z" = init_comm$z,
-    "species" = init_comm$species,
-    "ancestral_species" = as.character(NA)
-  )
+  comrad_tbl <- init_comm
   if (!is.null(path_to_output)) {
     readr::write_csv(
-      output,
+      comrad_tbl,
       path = path_to_output,
       append = TRUE
     )
   }
-
-  # Set initial community
-  comm <- init_comm
   # Let's not forget the seed
   set.seed(seed)
 
   # Go :)
-  for (t in 1:nb_gens) {
-
+  time_seq <- (first_gen + 1):(first_gen + nb_gens)
+  for (t in time_seq) {
     # Replace comm with next generation
-    comm <- comrad::draw_comm_next_gen(
-      comm = comm,
-      growth_rate = growth_rate,
-      competition_sd = competition_sd,
-      trait_opt = trait_opt,
-      carrying_cap_opt = carrying_cap_opt,
-      carrying_cap_sd = carrying_cap_sd,
-      prob_mutation = prob_mutation,
-      mutation_sd = mutation_sd,
-      trait_dist_sp = trait_dist_sp
+    comrad_tbl <- dplyr::bind_cols(
+      # Time [t]
+      "t" = t,
+      # Community next gen [z, species, ancestral_species]
+      comrad::draw_comm_next_gen(
+        comm = comrad_tbl[, c("z", "species", "ancestral_species")], # not t
+        growth_rate = growth_rate,
+        competition_sd = competition_sd,
+        trait_opt = trait_opt,
+        carrying_cap_opt = carrying_cap_opt,
+        carrying_cap_sd = carrying_cap_sd,
+        prob_mutation = prob_mutation,
+        mutation_sd = mutation_sd,
+        trait_dist_sp = trait_dist_sp
+      )
     )
-
-    if (length(comm$species) < 1) {
+    if (nrow(comrad_tbl) < 1) {
       cat("\nCommunity has gone extinct at generation", t, "\n")
       if (is.null(path_to_output)) {
-        return(output)
+        return(comrad_tbl)
       } else {
         return()
       }
     }
-
-    output <- tibble::tibble(
-      "t" = t,
-      "z" = comm$z,
-      "species" = comm$species,
-      "ancestral_species" = comm$ancestral_species
-    )
 
     if (t %% sampling_freq == 0) {
       cat("\nRunning generation", t, "/", nb_gens)
       if (!is.null(path_to_output)) {
         # Write only a sample of the output
         sampled_output <- comrad::sample_output(
-          output = output,
+          output = comrad_tbl,
           sampling_frac = sampling_frac
         )
         readr::write_csv(
@@ -209,6 +205,6 @@ run_simulation <- function(
   }
 
   if (is.null(path_to_output)) {
-    return(output)
+    return(comrad_tbl)
   }
 }
