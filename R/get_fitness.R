@@ -34,7 +34,8 @@ get_fitness <- function(
   # Compute effective population sizes -----------------------------------------
   n_eff <- comrad::get_n_eff_cpp(
     z = traits_comm,
-    competition_sd = competition_sd
+    competition_sd = competition_sd,
+    algo = 'simd_omp'
   ) # get the n_eff values experienced by each individual in the community
 
   # Compute k the carrying capacity --------------------------------------------

@@ -25,16 +25,21 @@ draw_nb_offspring_cpp <- function(fitness) {
 #' @param z numeric vector, the trait values of all individuals in the
 #' community.
 #' @param competition_sd numeric `>= 0`. Width of the competition kernel.
+#' @param algo string, one of "orig", "simd", "omp", "simd_omp"
 #' @details `n_eff` sums the competitive effects an individual receives from
 #' every individual in the community, including the individual itself. It is
 #' called effective population size because it is the size of the population
 #' that is relevant for competition.
 #' @name get_n_eff_cpp
-#' @author Thijs Janzen, Théo Pannetier
+#' @author Hanno Hildenbrandt
 #' @export
 NULL
 
-get_n_eff_cpp <- function(z, competition_sd) {
-    .Call('_comrad_get_n_eff_cpp', PACKAGE = 'comrad', z, competition_sd)
+get_n_eff_cpp <- function(z, competition_sd, algo = "orig") {
+    .Call('_comrad_get_n_eff_cpp', PACKAGE = 'comrad', z, competition_sd, algo)
+}
+
+simd_size <- function() {
+    .Call('_comrad_simd_size', PACKAGE = 'comrad')
 }
 
