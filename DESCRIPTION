@@ -30,9 +30,10 @@ Imports:
     rappdirs,
     lattice,
     gganimate,
-    Rcpp
+    Rcpp,
+    RcppXsimd
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 VignetteBuilder: knitr
 LinkingTo: 
-    Rcpp
+    Rcpp, RcppXsimd

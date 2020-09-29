@@ -1,4 +1,10 @@
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::plugins(cpp14)]]
+
 #include <Rcpp.h>
+#include "xsimd/xsimd.hpp"
+
+
 using namespace Rcpp;
 
 //' Compute the effective population size
