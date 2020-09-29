@@ -1,5 +1,6 @@
 // [[Rcpp::plugins(openmp)]]
 // [[Rcpp::plugins(cpp14)]]
+// [[Rcpp::depends(RcppXsimd)]]
 
 #include <Rcpp.h>
 #include "xsimd/xsimd.hpp"
