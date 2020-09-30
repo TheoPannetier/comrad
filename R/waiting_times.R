@@ -25,10 +25,9 @@ waiting_times <- function(phylo) {
 
   time <- NULL
 
-  # Get time and N from ape
+  # Get time and N from phylobates
   ltt_tbl <- phylo %>%
-    ape::ltt.plot.coords() %>%
-    tibble::as_tibble()
+    phylobates::get_ltt_tbl()
 
   wt_tbl <- ltt_tbl %>% dplyr::mutate(
     waiting_time = time - dplyr::lag(time)
