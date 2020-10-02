@@ -7,7 +7,9 @@
 waiting_times(phylo)
 }
 \arguments{
-\item{phylo}{a \code{phylo} object, as created by \code{ape} functions}
+\item{phylo}{an object of the class \code{phylo} as introduced in
+\link[ape:read.tree]{ape}. The phylogeny must start with the crown node
+(not stem), and be binary (no hard polytomies).#'}
 }
 \value{
 a \code{tibble} with a row per event and four columns:

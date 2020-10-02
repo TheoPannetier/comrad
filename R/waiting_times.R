@@ -3,8 +3,9 @@
 #' Turns the phylogeny into a lineage-through-time table, and for which
 #' event computes the time to next event.
 #'
-#' @param phylo a `phylo` object, as created by `ape` functions
-#'
+#' @param phylo an object of the class `phylo` as introduced in
+#' [ape][ape::read.tree]. The phylogeny must start with the crown node
+#' (not stem), and be binary (no hard polytomies).#'
 #' @return a `tibble` with a row per event and four columns:
 #'
 #' * `time`, time of an event
@@ -27,7 +28,7 @@ waiting_times <- function(phylo) {
 
   # Get time and N from phylobates
   ltt_tbl <- phylo %>%
-    phylobates::get_ltt_tbl()
+    get_ltt_tbl()
 
   wt_tbl <- ltt_tbl %>% dplyr::mutate(
     waiting_time = time - dplyr::lag(time)
