@@ -17,15 +17,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // get_n_eff_cpp
-DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const std::string& algo);
-RcppExport SEXP _comrad_get_n_eff_cpp(SEXP zSEXP, SEXP competition_sdSEXP, SEXP algoSEXP) {
+DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt);
+RcppExport SEXP _comrad_get_n_eff_cpp(SEXP zSEXP, SEXP competition_sdSEXP, SEXP brute_force_optSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const DoubleVector& >::type z(zSEXP);
     Rcpp::traits::input_parameter< float >::type competition_sd(competition_sdSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type algo(algoSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_n_eff_cpp(z, competition_sd, algo));
+    Rcpp::traits::input_parameter< const std::string& >::type brute_force_opt(brute_force_optSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_n_eff_cpp(z, competition_sd, brute_force_opt));
     return rcpp_result_gen;
 END_RCPP
 }

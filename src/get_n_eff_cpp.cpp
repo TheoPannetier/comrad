@@ -16,7 +16,7 @@ namespace {
 
 
   // original
-  simd_vector get_n_eff_orig(const simd_vector& z, float denom)
+  simd_vector get_n_eff(const simd_vector& z, float denom)
   {
     simd_vector n_eff(z.size(), 0.f);
     int z_length = static_cast<int>(z.size());
@@ -60,7 +60,7 @@ namespace {
   }
 
 
-  simd_vector get_n_eff_algo_omp(const simd_vector& z, float denom)
+  simd_vector get_n_eff_omp(const simd_vector& z, float denom)
   {
     simd_vector n_eff(z.size(), 0.f);
     const int N = static_cast<int>(z.size());
@@ -72,7 +72,7 @@ namespace {
   }
 
 
-  simd_vector get_n_eff_algo_simd(const simd_vector& z, float denom)
+  simd_vector get_n_eff_simd(const simd_vector& z, float denom)
   {
     const auto N = static_cast<int>(z.size());
     simd_vector n_eff(N, 0.f);
@@ -92,7 +92,7 @@ namespace {
   }
 
 
-  simd_vector get_n_eff_algo_simd_omp(const simd_vector& z, float denom)
+  simd_vector get_n_eff_simd_omp(const simd_vector& z, float denom)
   {
     const auto N = static_cast<int>(z.size());
     simd_vector n_eff(N, 0.f);
@@ -113,12 +113,12 @@ namespace {
   }
 
 
-  const std::map<std::string, std::function<simd_vector(const simd_vector&, float)>> algo_map = {
-    {"orig", &get_n_eff_orig},
+  const std::map<std::string, std::function<simd_vector(const simd_vector&, float)>> brute_force_map = {
+    {"none", &get_n_eff},
     {"algo", &get_n_eff_algo},
-    {"omp", &get_n_eff_algo_omp},
-    {"simd", &get_n_eff_algo_simd},
-    {"simd_omp", &get_n_eff_algo_simd_omp}
+    {"omp", &get_n_eff_omp},
+    {"simd", &get_n_eff_simd},
+    {"simd_omp", &get_n_eff_simd_omp}
   };
 
 }
@@ -133,7 +133,11 @@ using namespace Rcpp;
 //' @param z numeric vector, the trait values of all individuals in the
 //' community.
 //' @param competition_sd numeric `>= 0`. Width of the competition kernel.
-//' @param algo string, one of "orig", "simd", "omp", "simd_omp"
+//' @param brute_force_opt a string specifying which brute force option to use
+//' to speed up the calculation of competition coefficients. Defaults to "none".
+//' Other options are omp", for multithreading with OpenMP, "simd" for single
+//' instruction, multiple data (SIMD) via the C++ library
+//' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
 //' @details `n_eff` sums the competitive effects an individual receives from
 //' every individual in the community, including the individual itself. It is
 //' called effective population size because it is the size of the population
@@ -143,11 +147,11 @@ using namespace Rcpp;
 //' @export
 
 // [[Rcpp::export]]
-DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const std::string& algo = "orig")
+DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt = "none")
 {
-  auto it = algo_map.find(algo);
-  if (it == algo_map.end()) {
-    throw std::runtime_error("invalid argument 'algo'");
+  auto it = brute_force_map.find(brute_force_opt);
+  if (it == brute_force_map.end()) {
+    throw std::runtime_error("invalid argument 'brute_force_opt'");
   }
   simd_vector sz(z.size());
   std::transform(z.begin(), z.end(), sz.begin(), [](double x) {

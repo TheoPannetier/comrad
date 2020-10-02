@@ -5,6 +5,12 @@
 #' trait values of all other individuals in the community.
 #'
 #' @inheritParams default_params_doc
+#' @param brute_force_opt a string specifying which brute force option to use
+#' to speed up the calculation of competition coefficients. Defaults to "none".
+#' Other options are "omp", for multithreading with OpenMP, "simd" for single
+#' instruction, multiple data (SIMD) via the C++ library
+#' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
+
 #'
 #' @author Theo Pannetier
 #' @export
@@ -16,7 +22,8 @@ get_fitness <- function(
   trait_opt = default_trait_opt(),
   carrying_cap_opt = default_carrying_cap_opt(),
   carrying_cap_sd = default_carrying_cap_sd(),
-  fitness_func = fitness_func_ricker) {
+  fitness_func = fitness_func_ricker,
+  brute_force_opt = "none") {
 
   # Test argument type ---------------------------------------------------------
   comrad::testarg_num(traits_comm)
@@ -35,7 +42,7 @@ get_fitness <- function(
   n_eff <- comrad::get_n_eff_cpp(
     z = traits_comm,
     competition_sd = competition_sd,
-    algo = 'simd_omp'
+    brute_force_opt = brute_force_opt
   ) # get the n_eff values experienced by each individual in the community
 
   # Compute k the carrying capacity --------------------------------------------

@@ -25,7 +25,11 @@ draw_nb_offspring_cpp <- function(fitness) {
 #' @param z numeric vector, the trait values of all individuals in the
 #' community.
 #' @param competition_sd numeric `>= 0`. Width of the competition kernel.
-#' @param algo string, one of "orig", "simd", "omp", "simd_omp"
+#' @param brute_force_opt a string specifying which brute force option to use
+#' to speed up the calculation of competition coefficients. Defaults to "none".
+#' Other options are omp", for multithreading with OpenMP, "simd" for single
+#' instruction, multiple data (SIMD) via the C++ library
+#' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
 #' @details `n_eff` sums the competitive effects an individual receives from
 #' every individual in the community, including the individual itself. It is
 #' called effective population size because it is the size of the population
@@ -43,8 +47,8 @@ NULL
 #' @export
 NULL
 
-get_n_eff_cpp <- function(z, competition_sd, algo = "orig") {
-    .Call('_comrad_get_n_eff_cpp', PACKAGE = 'comrad', z, competition_sd, algo)
+get_n_eff_cpp <- function(z, competition_sd, brute_force_opt = "none") {
+    .Call('_comrad_get_n_eff_cpp', PACKAGE = 'comrad', z, competition_sd, brute_force_opt)
 }
 
 simd_size <- function() {
