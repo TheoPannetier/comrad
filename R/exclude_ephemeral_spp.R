@@ -20,6 +20,9 @@ exclude_ephemeral_spp <- function(comrad_tbl,
   comrad::testarg_num(min_nb_gens)
   comrad::testarg_int(min_nb_gens)
 
+  species <- NULL # no NOTE
+  n <- NULL # no NOTE
+
   ephemeral_spp <- comrad_tbl %>%
     dplyr::group_by(t, species) %>%
     dplyr::count() %>%
