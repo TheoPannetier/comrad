@@ -8,6 +8,8 @@
 community.}
 
 \item{competition_sd}{numeric \verb{>= 0}. Width of the competition kernel.}
+
+\item{algo}{string, one of "orig", "simd", "omp", "simd_omp"}
 }
 \description{
 Computes \code{n_eff}, the effective population size experienced by an
@@ -20,5 +22,5 @@ called effective population size because it is the size of the population
 that is relevant for competition.
 }
 \author{
-Thijs Janzen, Théo Pannetier
+Hanno Hildenbrandt
 }

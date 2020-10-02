@@ -162,6 +162,12 @@ DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const st
   return res;
 }
 
+//' SIMD size
+//'
+//' Returns the number of cores that can be used for SIMD
+//' @name simd_size
+//' @author Hanno Hildenbrandt
+//' @export
 
 // [[Rcpp::export]]
 int simd_size()

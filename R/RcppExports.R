@@ -35,6 +35,14 @@ draw_nb_offspring_cpp <- function(fitness) {
 #' @export
 NULL
 
+#' SIMD size
+#'
+#' Returns the number of cores that can be used for SIMD
+#' @name simd_size
+#' @author Hanno Hildenbrandt
+#' @export
+NULL
+
 get_n_eff_cpp <- function(z, competition_sd, algo = "orig") {
     .Call('_comrad_get_n_eff_cpp', PACKAGE = 'comrad', z, competition_sd, algo)
 }
