@@ -1,8 +1,8 @@
 #' Resolve speciation in a comrad community
 #'
-#' For each species, check if there is any gap `>= trait_dist_sp` in trait values,
-#' and split the relevant species in two when one is found. The less numerous
-#' half becomes the new species.
+#' For each species, check if there is any gap `>= trait_dist_sp` in trait
+#' values, and split the relevant species in two when one is found. The less
+#' numerous half becomes the new species.
 #'
 #' @inheritParams default_params_doc
 #' @note `apply_speciation()` can currently only split one species into two. If
@@ -18,10 +18,11 @@
 #' @export
 
 apply_speciation <- function(comm, trait_dist_sp = default_trait_dist_sp()) {
-  # Stupid but necessary for the build
-  z <- NULL
-  species <- NULL
-  ancestral_species <- NULL
+
+  # no NOTE
+  z <- NULL # nolint
+  species <- NULL # nolint
+  ancestral_species <- NULL # nolint
 
   comrad::test_comrad_comm(comm)
 
@@ -38,7 +39,10 @@ apply_speciation <- function(comm, trait_dist_sp = default_trait_dist_sp()) {
 
     # Check for gaps in trait values -------------------------------------------
     traits <- sp_members$z
-    gaps <- comrad::find_trait_gaps(traits = traits, trait_dist_sp = trait_dist_sp)
+    gaps <- comrad::find_trait_gaps(
+      traits = traits,
+      trait_dist_sp = trait_dist_sp
+    )
 
     if (length(gaps) > 0) {
       gap <- gaps[1] # only the first gap is treated  for now (soft polytomy)

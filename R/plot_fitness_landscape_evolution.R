@@ -17,7 +17,7 @@
 #' @author Théo Pannetier
 #' @export
 #'
-plot_fitness_landscape_evolution <- function(comrad_tbl,
+plot_fitness_landscape_evol <- function(comrad_tbl,
                                              z_seq = NULL,
                                              generation_range = c(0, Inf),
                                              fitness_lim = c(0, get_fitness(0)),

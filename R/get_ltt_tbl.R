@@ -22,12 +22,15 @@ get_ltt_tbl <- function(phylo) {
     stop("\"phylo\" must be rooted.")
   }
 
-  . <- NULL # no NOTE
-  time_child <- NULL # no NOTE
-  N <- NULL # no NOTE
-  event <- NULL # no NOTE
-  increment <- NULL # no NOTE
-  time <- NULL # no NOTE
+  # no NOTE
+  # nolint start
+  . <- NULL
+  time_child <- NULL
+  N <- NULL
+  event <- NULL
+  increment <- NULL
+  time <- NULL
+  # nolint end
 
   ltt_tbl <- get_edge_tbl(phylo) %>%
     dplyr::transmute(

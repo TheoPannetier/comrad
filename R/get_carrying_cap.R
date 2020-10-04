@@ -30,19 +30,20 @@ get_carrying_cap <- function(
     trait_dist[which(trait_ind == Inf)] <- 0 # replace NaNs with 0
   }
 
-  carrying_cap <- carrying_cap_opt * exp(- (trait_dist / (2 * carrying_cap_sd ^ 2)))
+  carrying_cap <- carrying_cap_opt *
+    exp(- (trait_dist / (2 * carrying_cap_sd ^ 2)))
 
   # Solve possible NaN issues --------------------------------------------------
   # NaNs can arise if both terms in the division are equal to 0 or Inf
-  if (carrying_cap_sd == 0) { # I rule that carrying_cap_sd has precedence
+  if (carrying_cap_sd == 0) { # carrying_cap_sd has precedence
     nans <- which(trait_dist == 0)
-    carrying_cap[nans] <- carrying_cap_opt # as if trait_dist / carrying_cap_sd = 0
-  } else if (carrying_cap_sd == Inf) {# I rule that carrying_cap_sd has precedence
+    carrying_cap[nans] <- carrying_cap_opt # as if trait_dist/carrying_cap_sd=0
+  } else if (carrying_cap_sd == Inf) {# carrying_cap_sd has precedence
     nans <- which(trait_dist == Inf)
-    carrying_cap[nans] <- carrying_cap_opt # as if trait_dist / carrying_cap_sd = 0
+    carrying_cap[nans] <- carrying_cap_opt # as if trait_dist/carrying_cap_sd=0
   }
   # NaNs can also arise if carrying_cap_opt is set to Inf and the exp term is 0
-  if (carrying_cap_opt == Inf) { # I rule that carrying_cap_opt has precedence
+  if (carrying_cap_opt == Inf) { # carrying_cap_opt has precedence
     nans <- which(exp(- (trait_dist / (2 * carrying_cap_sd ^ 2))) == 0)
     carrying_cap[nans] <- carrying_cap_opt
   }
