@@ -23,7 +23,7 @@ draw_comm_next_gen <- function(
   prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   trait_dist_sp = default_trait_dist_sp(),
-  brute_force_opt = none
+  brute_force_opt = "none"
 ) {
 
   # Test argument type ---------------------------------------------------------
