@@ -20,7 +20,6 @@ namespace {
   {
     simd_vector n_eff(z.size(), 0.f);
     int z_length = static_cast<int>(z.size());
-
     for (int i = 0; i < z_length; ++i) {
       float z_i = z[i];
       for (int j = i; j < z_length; ++j) {
@@ -52,8 +51,7 @@ namespace {
   simd_vector get_n_eff_algo(const simd_vector& z, float denom)
   {
     simd_vector n_eff(z.size(), 0.f);
-    const int N = static_cast<int>(z.size());
-    for (int i = 0; i < N; ++i) {
+    for (auto i = 0; i < z.size(); ++i) {
       n_eff[i] = std::accumulate(z.begin(), z.end(), 0.0f, reduction_op(z[i], denom));
     }
     return n_eff;
@@ -121,10 +119,35 @@ namespace {
     {"simd_omp", &get_n_eff_algo_simd_omp}
   };
 
+
+  std::string n_eff_cpp_algo = "simd_omp";  // default algorithm
+
 }
 
 
 using namespace Rcpp;
+
+
+// [[Rcpp::export]]
+std::string get_n_eff_cpp_algo()
+{
+  return n_eff_cpp_algo;
+}
+
+
+//' Sets the n_eff_cpp algorithm
+//'
+//' @param algo string, one of "orig", "algo", "simd", "omp", "simd_omp"
+// [[Rcpp::export]]
+void set_n_eff_cpp_algo(std::string algo = "simd_omp")
+{
+  auto it = algo_map.find(algo);
+  if (it == algo_map.end()) {
+    throw std::runtime_error("invalid argument 'algo'");
+  }
+  n_eff_cpp_algo = algo;
+}
+
 
 //' Compute the effective population size
 //'
@@ -133,7 +156,7 @@ using namespace Rcpp;
 //' @param z numeric vector, the trait values of all individuals in the
 //' community.
 //' @param competition_sd numeric `>= 0`. Width of the competition kernel.
-//' @param algo string, one of "orig", "simd", "omp", "simd_omp"
+//' @param algo string, one of "orig", "algo", "simd", "omp", ("simd_omp")
 //' @details `n_eff` sums the competitive effects an individual receives from
 //' every individual in the community, including the individual itself. It is
 //' called effective population size because it is the size of the population
@@ -141,19 +164,15 @@ using namespace Rcpp;
 //' @name get_n_eff_cpp
 //' @author Hanno Hildenbrandt
 //' @export
-
 // [[Rcpp::export]]
-DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const std::string& algo = "orig")
+DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd)
 {
-  auto it = algo_map.find(algo);
-  if (it == algo_map.end()) {
-    throw std::runtime_error("invalid argument 'algo'");
-  }
   simd_vector sz(z.size());
   std::transform(z.begin(), z.end(), sz.begin(), [](double x) {
     return static_cast<float>(x);
   });
   const float denom = 1.0f / (2.f * (competition_sd * competition_sd));
+  auto it = algo_map.find(get_n_eff_cpp_algo());
   auto n_eff = it->second(sz, denom);
   auto res = DoubleVector(n_eff.size());
   std::transform(n_eff.cbegin(), n_eff.cend(), res.begin(), [](float x) {
@@ -166,5 +185,5 @@ DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const st
 // [[Rcpp::export]]
 int simd_size()
 {
-  return simd_type::size;
+  return static_cast<int>(simd_type::size);
 }

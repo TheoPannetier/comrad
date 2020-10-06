@@ -188,7 +188,7 @@ run_simulation <- function(
     }
 
     if (t %% sampling_freq == 0) {
-      cat("\nRunning generation", t, "/", nb_gens)
+      cat("\nRunning generation", t, "/", nb_gens, dim(comrad_tbl)[1])
       if (!is.null(path_to_output)) {
         # Write only a sample of the output
         sampled_output <- comrad::sample_output(

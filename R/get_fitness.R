@@ -16,7 +16,8 @@ get_fitness <- function(
   trait_opt = default_trait_opt(),
   carrying_cap_opt = default_carrying_cap_opt(),
   carrying_cap_sd = default_carrying_cap_sd(),
-  fitness_func = fitness_func_ricker) {
+  fitness_func = fitness_func_ricker
+  ) {
 
   # Test argument type ---------------------------------------------------------
   comrad::testarg_num(traits_comm)
@@ -34,8 +35,7 @@ get_fitness <- function(
   # Compute effective population sizes -----------------------------------------
   n_eff <- comrad::get_n_eff_cpp(
     z = traits_comm,
-    competition_sd = competition_sd,
-    algo = 'simd_omp'
+    competition_sd = competition_sd
   ) # get the n_eff values experienced by each individual in the community
 
   # Compute k the carrying capacity --------------------------------------------

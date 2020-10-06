@@ -10,7 +10,7 @@ read_comrad_tbl(path_to_file, skip = 20)
 \item{path_to_file}{character, path to the \code{.csv} file.}
 
 \item{skip}{numeric, number of lines (of metadata) to skip. Passed to
-\code{\link[readr:read_csv]{readr::read_csv()}}.}
+\code{\link[readr:read_delim]{readr::read_csv()}}.}
 }
 \description{
 Reads a \code{.csv} file as produced by \code{\link[=run_simulation]{run_simulation()}} and returns the parsed
