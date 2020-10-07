@@ -10,52 +10,40 @@
 #'
 #' * `time`, time of an event
 #' * `N`, number of species in the tree at that time
-#' * `waiting_time`, time to the next event
 #' * `next_event`, type of the next event; either `"speciation"` or
 #' `"extinction"`
+#' * `waiting_time`, time to the next event
 #'
 #' @author Théo Pannetier
 #' @export
 
 waiting_times <- function(phylo) {
-  if (!class(phylo) == "phylo") {
-    stop("'phylo' must be a binary 'phylo' object.")
-  } else if (!ape::is.binary.phylo(phylo)) {
-    stop("'phylo' must be a binary 'phylo' object.")
-  }
 
-  time <- NULL
+  if (!class(phylo) == "phylo") {
+    stop("'phylo' must be a 'phylo' object.")
+  }
+  time <- NULL # no NOTE
 
   # Get time and N from phylobates
   ltt_tbl <- phylo %>%
-    get_ltt_tbl()
+    get_ltt_tbl() %>%
+    dplyr::mutate("time" = time - min(time))
+  # Drop last row (present)
+  ltt_tbl <- ltt_tbl[-nrow(ltt_tbl), ]
 
-  wt_tbl <- ltt_tbl %>% dplyr::mutate(
-    waiting_time = time - dplyr::lag(time)
-  ) %>%
+  wt_tbl <- ltt_tbl %>%
+    # What is next event ?
     dplyr::mutate(
-      # ape misplaces time relative to N, fix that
-      time = dplyr::lag(time - min(time))
-    )
-
-  # Remove crown or stem entries
-  if (ltt_tbl$time[1] == ltt_tbl$time[2]) { # crown
-    wt_tbl <- wt_tbl[-c(1, 2), ]
-  } else { # stem
-    wt_tbl <- wt_tbl[-1, ]
-  }
-
-  # Time to speciation or extinction ?
-  wt_tbl <- wt_tbl %>%
-    dplyr::mutate(
-      "event" = ifelse(
-        test = dplyr::lead(wt_tbl$N) - wt_tbl$N > 0,
+      "next_event" = ifelse(
+        test = dplyr::lead(ltt_tbl$N) - ltt_tbl$N > 0,
         yes = "speciation",
         no = "extinction"
-      )
+      ),
+      # Time to next event
+      "waiting_time" = dplyr::lead(time) - time
     )
-  # exclude last row, waiting time is cut by present
+  # Drop last row, waiting time cut by present (NA)
   wt_tbl <- wt_tbl[-nrow(wt_tbl), ]
 
-  wt_tbl
+  return(wt_tbl)
 }
