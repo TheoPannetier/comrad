@@ -42,7 +42,7 @@ estimate_dd_rates <- function(multi_phylo, pool_events = TRUE) {
 
   # Extract waiting times for all phylos
   times_tbl <- multi_phylo %>%
-    purrr::map_dfr(waiting_times, .id = "replicate")
+    purrr::map_dfr(waiting_times, pool_events = pool_events, .id = "replicate")
 
   if (pool_events) {
     # Prop of speciation/extinction events in each N bin
