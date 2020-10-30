@@ -10,9 +10,6 @@ waiting_times(phylo, pool_events = TRUE)
 \item{phylo}{an object of the class \code{phylo} as introduced in
 \link[ape:read.tree]{ape}. The phylogeny must start with the crown node
 (not stem), and be binary (no hard polytomies).#'}
-
-\item{pool_events}{logical, do you want the waiting time to next event
-(regardless of speciation, extinction), or next event of same type?}
 }
 \value{
 a \code{tibble} with a row per event and four columns:

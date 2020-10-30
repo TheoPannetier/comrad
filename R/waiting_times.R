@@ -6,8 +6,6 @@
 #' @param phylo an object of the class `phylo` as introduced in
 #' [ape][ape::read.tree]. The phylogeny must start with the crown node
 #' (not stem), and be binary (no hard polytomies).#'
-#' @param pool_events logical, do you want the waiting time to next event
-#' (regardless of speciation, extinction), or next event of same type?
 #' @return a `tibble` with a row per event and four columns:
 #'
 #' * `time`, time of an event
@@ -19,7 +17,7 @@
 #' @author Théo Pannetier
 #' @export
 
-waiting_times <- function(phylo, pool_events = TRUE) {
+waiting_times <- function(phylo) {
 
   if (!class(phylo) == "phylo") {
     stop("'phylo' must be a 'phylo' object.")
@@ -52,19 +50,10 @@ waiting_times <- function(phylo, pool_events = TRUE) {
     ) %>%
     dplyr::select(-n_diff)
 
-  # Waiting time to...
-  wt_tbl <- if (pool_events) {
-    # any next event
-    wt_tbl %>%
-      dplyr::mutate("waiting_time" = dplyr::lead(time) - time)
-  } else {
-    # event of same type
-    wt_tbl %>% dplyr::group_by(next_event) %>%
-      dplyr::mutate("waiting_time" = dplyr::lead(time) - time)
-  }
-
-  # Drop last row, waiting time cut by present
   wt_tbl <- wt_tbl %>%
+    # Waiting time to next event
+    dplyr::mutate("waiting_time" = dplyr::lead(time) - time) %>%
+    # Drop last row, waiting time cut by present
     dplyr::filter(next_event != "present")
 
   # Control output

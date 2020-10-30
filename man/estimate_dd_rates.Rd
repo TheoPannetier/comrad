@@ -4,14 +4,11 @@
 \alias{estimate_dd_rates}
 \title{Estimate diversity-dependent rates from phylogenies}
 \usage{
-estimate_dd_rates(multi_phylo, pool_events = TRUE)
+estimate_dd_rates(multi_phylo)
 }
 \arguments{
 \item{multi_phylo}{a list of \code{phylo} objects, as typically created with
 \code{ape}.}
-
-\item{pool_events}{logical, pool speciation and extinction events together
-before computing the rates?}
 }
 \value{
 a \code{tibble} with a row for every possible number of species and 4
