@@ -1,26 +1,27 @@
 context("test-rate_estim")
 
-test_that("waiting_times", {
-  # Fixed string, fixed tree
-  # "Small" CR tree with 4 final tips, includes an extinction event
-  # Simulated with DDD::dd_sim(c(0.2, 0.1, Inf), 5)
-  newick_str <- "(((t1:0.2965557774,t5:0.2965557774):4.105982616,t3:
-  2.675245559):0.5974616064,(t2:0.5634109445,t4:0.5634109445):4.436589055):0;"
-  phylo <- ape::read.tree(text = newick_str)
+test_that("simultaneous speciation", {
 
-  wt <- waiting_times(phylo)
-  # Expected output
-  wt_expected <- tibble::tibble(
-    "time" = c(0, 0.5974616, 3.2727072, 4.4365891),
-    "N" = c(2, 3, 2, 3),
-    "waiting_time" = c(0.5974616, 2.6752456, 1.1638819, 0.2668552),
-    "next_event" = c(
-      "speciation", "extinction", "speciation", "speciation"
-    )
+  #                       |----2000----|
+  #           |---2500----|
+  #           |           |----2000----|
+  # --1000----|
+  #           |           |----2000----|
+  #           |---2500----|
+  #                       |----2000----|
+
+  phylo <- ape::read.tree(
+    text = "(((A:2000, B:2000):2500, (C:2000, D:2000):2500):1000);"
   )
-  # waiting_times abuse
-  expect_error(
-    waiting_times("not_a_phylo"),
-    "'phylo' must be a 'phylo' object."
+  # Five placeholder replicates
+  multi_phylo <- purrr::map(1:5, function(x) phylo)
+  rates_tbl <- multi_phylo %>% estimate_dd_rates()
+  exptd_tbl <- tibble::tibble(
+    "N" = 1:3,
+    "speciation_rate" = c(1e-03, 2e-04, NA),
+    "extinction_rate" = rep(as.numeric(NA), 3)
+  )
+  expect_equal(
+    rates_tbl, exptd_tbl
   )
 })

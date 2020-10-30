@@ -28,6 +28,7 @@ waiting_times <- function(phylo, pool_events = TRUE) {
   # nolint start
   next_event <- NULL # no NOTE
   time <- NULL # no NOTE
+  n_diff <- NULL
   # nolint end
 
   # Get time and N from phylobates
@@ -37,15 +38,19 @@ waiting_times <- function(phylo, pool_events = TRUE) {
   # Drop last row (present)
   ltt_tbl <- ltt_tbl[-nrow(ltt_tbl), ]
 
+  max_time <- range(ltt_tbl$time) %>% diff() %>% round(3)
+
   wt_tbl <- ltt_tbl %>%
     # What is next event ?
     dplyr::mutate(
-      "next_event" = ifelse(
-        test = dplyr::lead(ltt_tbl$N) - ltt_tbl$N > 0,
-        yes = "speciation",
-        no = "extinction"
+      "n_diff" = dplyr::lead(ltt_tbl$N) - ltt_tbl$N,
+      "next_event" = dplyr::case_when(
+        n_diff >= 1   ~ "speciation",
+        n_diff <= -1  ~ "extinction",
+        is.na(n_diff) ~ "present"
       )
-    )
+    ) %>%
+    dplyr::select(-n_diff)
 
   # Waiting time to...
   wt_tbl <- if (pool_events) {
@@ -58,8 +63,16 @@ waiting_times <- function(phylo, pool_events = TRUE) {
       dplyr::mutate("waiting_time" = dplyr::lead(time) - time)
   }
 
-  # Drop last row, waiting time cut by present (NA)
-  wt_tbl <- wt_tbl[-nrow(wt_tbl), ]
+  # Drop last row, waiting time cut by present
+  wt_tbl <- wt_tbl %>%
+    dplyr::filter(next_event != "present")
 
+  # Control output
+  if (any(is.na(wt_tbl))) {
+    stop("NA(s) found in waiting_times() output")
+  }
+  if (any(wt_tbl$waiting_time %>% round(3) > max_time)) {
+    stop("Some waiting time(s) exceeded total generation span")
+  }
   return(wt_tbl)
 }

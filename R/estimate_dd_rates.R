@@ -29,15 +29,15 @@ estimate_dd_rates <- function(multi_phylo, pool_events = TRUE) {
 
   # no NOTE
   # nolint start
-   N <- NULL
-   next_event <- NULL
-   n_events <- NULL
-   p_event <- NULL
-   waiting_time <- NULL
-   mean_waiting_time <- NULL
-   event_rate <- NULL
-   p_speciation <- NULL
-   p_extinction <- NULL
+  N <- NULL
+  next_event <- NULL
+  n_events <- NULL
+  p_event <- NULL
+  waiting_time <- NULL
+  mean_waiting_time <- NULL
+  event_rate <- NULL
+  p_speciation <- NULL
+  p_extinction <- NULL
   # nolint end
 
   # Extract waiting times for all phylos
@@ -60,15 +60,26 @@ estimate_dd_rates <- function(multi_phylo, pool_events = TRUE) {
         names_glue = "p_{next_event}",
         values_from = p_event
       )
+    # Special fix if there is zero extinction event
+    if (sum(times_tbl$next_event == "extinction") == 0) {
+      p_tbl <- p_tbl %>% dplyr::mutate("p_extinction" = NA)
+    }
+
     # Compute rates pooled as (spec_rate + ext_rate)
     rates_tbl <- times_tbl %>%
       dplyr::group_by(N) %>%
       dplyr::summarise(
         "mean_waiting_time" = mean(waiting_time, na.rm = TRUE)
       ) %>%
+      # In case all trees are polytomies (mean wt = 0), drop this point
       dplyr::mutate(
-        "event_rate" = 1 / (mean_waiting_time * N)
+        "mean_waiting_time" = ifelse(
+          mean_waiting_time == 0, NA, mean_waiting_time
+        )
       ) %>%
+    dplyr::mutate(
+      "event_rate" = 1 / (mean_waiting_time * N)
+    ) %>%
       # Separate rates by proportion of each event in each bin
       dplyr::left_join(p_tbl, by = "N") %>%
       dplyr::mutate(
@@ -82,6 +93,12 @@ estimate_dd_rates <- function(multi_phylo, pool_events = TRUE) {
       dplyr::summarise(
         "mean_waiting_time" = mean(waiting_time, na.rm = TRUE)
       ) %>%
+      # In case all trees are polytomies (mean wt = 0), drop this point
+      dplyr::mutate(
+        "mean_waiting_time" = ifelse(
+          mean_waiting_time == 0, NA, mean_waiting_time
+        )
+      ) %>%
       dplyr::mutate(
         "event_rate" = 1 / (mean_waiting_time * N)
       ) %>%
@@ -92,5 +109,9 @@ estimate_dd_rates <- function(multi_phylo, pool_events = TRUE) {
         values_from = event_rate
       )
   }
+
+  rates_tbl <- rates_tbl %>%
+    dplyr::select(N, speciation_rate, extinction_rate)
+
   return(rates_tbl)
 }
