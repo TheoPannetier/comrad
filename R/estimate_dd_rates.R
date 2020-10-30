@@ -69,12 +69,6 @@ estimate_dd_rates <- function(multi_phylo) {
       dplyr::summarise(
         "mean_waiting_time" = mean(waiting_time, na.rm = TRUE)
       ) %>%
-      # In case all trees are polytomies (mean wt = 0), drop this point
-      dplyr::mutate(
-        "mean_waiting_time" = ifelse(
-          mean_waiting_time == 0, NA, mean_waiting_time
-        )
-      ) %>%
     dplyr::mutate(
       "event_rate" = 1 / (mean_waiting_time * N)
     ) %>%

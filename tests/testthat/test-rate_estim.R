@@ -18,7 +18,7 @@ test_that("simultaneous speciation", {
   rates_tbl <- multi_phylo %>% estimate_dd_rates()
   exptd_tbl <- tibble::tibble(
     "N" = 1:3,
-    "speciation_rate" = c(1e-03, 2e-04, NA),
+    "speciation_rate" = c(1e-03, 2e-04, Inf),
     "extinction_rate" = rep(as.numeric(NA), 3)
   )
   expect_equal(
