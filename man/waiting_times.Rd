@@ -4,7 +4,7 @@
 \alias{waiting_times}
 \title{Extract times to events from a phylogeny}
 \usage{
-waiting_times(phylo, pool_events = TRUE)
+waiting_times(phylo)
 }
 \arguments{
 \item{phylo}{an object of the class \code{phylo} as introduced in
