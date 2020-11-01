@@ -47,7 +47,7 @@ get_avg_tau <- function(comrad_tbl) {
       })
     ) %>%
     # Pool back together
-    tidyr::unnest() %>%
+    tidyr::unnest(cols = c(data)) %>%
     dplyr::group_by(d) %>%
     # Average over time and species
     dplyr::summarise(
