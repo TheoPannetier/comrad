@@ -21,7 +21,8 @@
 #' @param carrying_cap_sd numeric `>= 0`. Parameter \eqn{\sigma_K} of the
 #' carrying capacity. Modulates how fast the carrying capacity decays when
 #' moving away from the optimal trait value.
-#' @param carrying_cap_opt numeric, value of the carrying capacity at `trait_opt`
+#' @param carrying_cap_opt numeric, value of the carrying capacity at
+#' `trait_opt`
 #' @param growth_rate numeric `>= 0`, the baseline growth rate. Generations
 #' being discrete, high values will cause chaos.
 #' @param prob_mutation numeric between 0 and 1, the probability that any new

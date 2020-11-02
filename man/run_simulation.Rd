@@ -25,8 +25,8 @@ run_simulation(
 )
 }
 \arguments{
-\item{path_to_output}{character, path to save the output file, which must be a
-\code{.csv}. If \code{NULL}, the output is not saved and the final state of the
+\item{path_to_output}{character, path to save the output file, which must be
+a \code{.csv}. If \code{NULL}, the output is not saved and the final state of the
 community is returned at the end of the simulation.}
 
 \item{nb_gens}{integer, the number of generations to run the
@@ -51,7 +51,8 @@ between two individuals given their distance in trait space.}
 carrying capacity. Modulates how fast the carrying capacity decays when
 moving away from the optimal trait value.}
 
-\item{carrying_cap_opt}{numeric, value of the carrying capacity at \code{trait_opt}}
+\item{carrying_cap_opt}{numeric, value of the carrying capacity at
+\code{trait_opt}}
 
 \item{trait_opt}{numeric. The optimal trait value, \eqn{z_{opt}}.
 \code{get_carrying_cap(trait_opt) = carrying_cap_opt}.}

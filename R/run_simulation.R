@@ -2,8 +2,8 @@
 #'
 #' Run the competitive radiation simulation.
 #'
-#' @param path_to_output character, path to save the output file, which must be a
-#' `.csv`. If `NULL`, the output is not saved and the final state of the
+#' @param path_to_output character, path to save the output file, which must be
+#' a `.csv`. If `NULL`, the output is not saved and the final state of the
 #' community is returned at the end of the simulation.
 #' @param init_comm The initial community. Default is [default_init_comm()], any
 #' other input should have the same structure, i.e. a data frame with four
@@ -43,7 +43,7 @@
 #' @author Théo Pannetier
 #' @export
 #'
-run_simulation <- function(
+run_simulation <- function( # nolint, ignore high cyclomatic complexity
   path_to_output,
   nb_gens,
   init_comm = comrad::default_init_comm(),
@@ -170,7 +170,7 @@ run_simulation <- function(
   for (t in time_seq) {
     # Replace comm with next generation
     comrad_tbl <- dplyr::bind_cols(
-      # Time [t]
+      # Time [t] # nolint
       "t" = t,
       # Community next gen [z, species, ancestral_species]
       comrad::draw_comm_next_gen(

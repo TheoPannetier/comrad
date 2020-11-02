@@ -36,7 +36,8 @@ between two individuals given their distance in trait space.}
 \item{trait_opt}{numeric. The optimal trait value, \eqn{z_{opt}}.
 \code{get_carrying_cap(trait_opt) = carrying_cap_opt}.}
 
-\item{carrying_cap_opt}{numeric, value of the carrying capacity at \code{trait_opt}}
+\item{carrying_cap_opt}{numeric, value of the carrying capacity at
+\code{trait_opt}}
 
 \item{carrying_cap_sd}{numeric \verb{>= 0}. Parameter \eqn{\sigma_K} of the
 carrying capacity. Modulates how fast the carrying capacity decays when

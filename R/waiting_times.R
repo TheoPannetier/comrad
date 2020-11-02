@@ -10,52 +10,58 @@
 #'
 #' * `time`, time of an event
 #' * `N`, number of species in the tree at that time
-#' * `waiting_time`, time to the next event
 #' * `next_event`, type of the next event; either `"speciation"` or
 #' `"extinction"`
+#' * `waiting_time`, time to the next event
 #'
 #' @author Théo Pannetier
 #' @export
 
 waiting_times <- function(phylo) {
+
   if (!class(phylo) == "phylo") {
-    stop("'phylo' must be a binary 'phylo' object.")
-  } else if (!ape::is.binary.phylo(phylo)) {
-    stop("'phylo' must be a binary 'phylo' object.")
+    stop("'phylo' must be a 'phylo' object.")
   }
 
-  time <- NULL
+  # nolint start
+  next_event <- NULL # no NOTE
+  time <- NULL # no NOTE
+  n_diff <- NULL
+  # nolint end
 
   # Get time and N from phylobates
   ltt_tbl <- phylo %>%
-    get_ltt_tbl()
+    get_ltt_tbl() %>%
+    dplyr::mutate("time" = time - min(time))
+  # Drop last row (present)
+  ltt_tbl <- ltt_tbl[-nrow(ltt_tbl), ]
 
-  wt_tbl <- ltt_tbl %>% dplyr::mutate(
-    waiting_time = time - dplyr::lag(time)
-  ) %>%
+  max_time <- range(ltt_tbl$time) %>% diff() %>% round(3)
+
+  wt_tbl <- ltt_tbl %>%
+    # What is next event ?
     dplyr::mutate(
-      # ape misplaces time relative to N, fix that
-      time = dplyr::lag(time - min(time))
-    )
-
-  # Remove crown or stem entries
-  if (ltt_tbl$time[1] == ltt_tbl$time[2]) { # crown
-    wt_tbl <- wt_tbl[-c(1, 2), ]
-  } else { # stem
-    wt_tbl <- wt_tbl[-1, ]
-  }
-
-  # Time to speciation or extinction ?
-  wt_tbl <- wt_tbl %>%
-    dplyr::mutate(
-      "event" = ifelse(
-        test = dplyr::lead(wt_tbl$N) - wt_tbl$N > 0,
-        yes = "speciation",
-        no = "extinction"
+      "n_diff" = dplyr::lead(ltt_tbl$N) - ltt_tbl$N,
+      "next_event" = dplyr::case_when(
+        n_diff >= 1   ~ "speciation",
+        n_diff <= -1  ~ "extinction",
+        is.na(n_diff) ~ "present"
       )
-    )
-  # exclude last row, waiting time is cut by present
-  wt_tbl <- wt_tbl[-nrow(wt_tbl), ]
+    ) %>%
+    dplyr::select(-n_diff)
 
-  wt_tbl
+  wt_tbl <- wt_tbl %>%
+    # Waiting time to next event
+    dplyr::mutate("waiting_time" = dplyr::lead(time) - time) %>%
+    # Drop last row, waiting time cut by present
+    dplyr::filter(next_event != "present")
+
+  # Control output
+  if (any(is.na(wt_tbl))) {
+    stop("NA(s) found in waiting_times() output")
+  }
+  if (any(wt_tbl$waiting_time %>% round(3) > max_time)) {
+    stop("Some waiting time(s) exceeded total generation span")
+  }
+  return(wt_tbl)
 }

@@ -16,9 +16,9 @@ a \code{tibble} with a row per event and four columns:
 \itemize{
 \item \code{time}, time of an event
 \item \code{N}, number of species in the tree at that time
-\item \code{waiting_time}, time to the next event
 \item \code{next_event}, type of the next event; either \code{"speciation"} or
 \code{"extinction"}
+\item \code{waiting_time}, time to the next event
 }
 }
 \description{
