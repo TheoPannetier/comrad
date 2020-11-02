@@ -3,6 +3,9 @@
 \name{get_n_eff_cpp}
 \alias{get_n_eff_cpp}
 \title{Compute the effective population size}
+\usage{
+get_n_eff_cpp(z, competition_sd, brute_force_opt = "none")
+}
 \arguments{
 \item{z}{numeric vector, the trait values of all individuals in the
 community.}

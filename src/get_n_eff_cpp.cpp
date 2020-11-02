@@ -10,7 +10,6 @@
 
 namespace {
 
-
   using simd_type = xsimd::simd_type<float>;
   using simd_vector = std::vector<float, xsimd::aligned_allocator<float, XSIMD_DEFAULT_ALIGNMENT>>;
 
@@ -20,7 +19,6 @@ namespace {
   {
     simd_vector n_eff(z.size(), 0.f);
     int z_length = static_cast<int>(z.size());
-
     for (int i = 0; i < z_length; ++i) {
       float z_i = z[i];
       for (int j = i; j < z_length; ++j) {
@@ -52,8 +50,7 @@ namespace {
   simd_vector get_n_eff_algo(const simd_vector& z, float denom)
   {
     simd_vector n_eff(z.size(), 0.f);
-    const int N = static_cast<int>(z.size());
-    for (int i = 0; i < N; ++i) {
+    for (auto i = 0; i < z.size(); ++i) {
       n_eff[i] = std::accumulate(z.begin(), z.end(), 0.0f, reduction_op(z[i], denom));
     }
     return n_eff;
@@ -145,7 +142,6 @@ using namespace Rcpp;
 //' @name get_n_eff_cpp
 //' @author Hanno Hildenbrandt
 //' @export
-
 // [[Rcpp::export]]
 DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt = "none")
 {
@@ -176,5 +172,5 @@ DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const st
 // [[Rcpp::export]]
 int simd_size()
 {
-  return simd_type::size;
+  return static_cast<int>(simd_type::size);
 }

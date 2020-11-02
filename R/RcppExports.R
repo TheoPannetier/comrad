@@ -18,6 +18,14 @@ draw_nb_offspring_cpp <- function(fitness) {
     .Call('_comrad_draw_nb_offspring_cpp', PACKAGE = 'comrad', fitness)
 }
 
+#' SIMD size
+#'
+#' Returns the number of cores that can be used for SIMD
+#' @name simd_size
+#' @author Hanno Hildenbrandt
+#' @export
+NULL
+
 #' Compute the effective population size
 #'
 #' Computes \code{n_eff}, the effective population size experienced by an
@@ -37,16 +45,6 @@ draw_nb_offspring_cpp <- function(fitness) {
 #' @name get_n_eff_cpp
 #' @author Hanno Hildenbrandt
 #' @export
-NULL
-
-#' SIMD size
-#'
-#' Returns the number of cores that can be used for SIMD
-#' @name simd_size
-#' @author Hanno Hildenbrandt
-#' @export
-NULL
-
 get_n_eff_cpp <- function(z, competition_sd, brute_force_opt = "none") {
     .Call('_comrad_get_n_eff_cpp', PACKAGE = 'comrad', z, competition_sd, brute_force_opt)
 }
