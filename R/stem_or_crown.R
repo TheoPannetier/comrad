@@ -16,4 +16,3 @@ stem_or_crown <- function(phylo) {
     "crown"
   )
 }
-

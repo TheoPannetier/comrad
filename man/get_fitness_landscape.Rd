@@ -27,7 +27,8 @@ being discrete, high values will cause chaos.}
 the competition coefficient. Modulates the the strength of competition
 between two individuals given their distance in trait space.}
 
-\item{carrying_cap_opt}{numeric, value of the carrying capacity at \code{trait_opt}}
+\item{carrying_cap_opt}{numeric, value of the carrying capacity at
+\code{trait_opt}}
 
 \item{carrying_cap_sd}{numeric \verb{>= 0}. Parameter \eqn{\sigma_K} of the
 carrying capacity. Modulates how fast the carrying capacity decays when

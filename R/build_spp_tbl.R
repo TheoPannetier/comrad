@@ -23,7 +23,7 @@ build_spp_tbl <- function(comrad_tbl) {
 
   spp_tbl <- purrr::map_dfr(
     spp,
-    function (sp) {
+    function(sp) {
       is_sp <- comrad_tbl$species == sp
 
       time_range <- comrad_tbl$t[is_sp]

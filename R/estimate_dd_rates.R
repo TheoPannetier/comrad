@@ -25,49 +25,61 @@
 
 estimate_dd_rates <- function(multi_phylo) {
 
-  if (!is.list(multi_phylo)) {
-    stop("'multi_phylo' must be a list of 'phylo' objects.")
-  } else if (!all(ape::is.binary.multiPhylo(multi_phylo))) {
-    stop("'multi_phylo' must be a list of 'phylo' objects.")
-  }
-
-  # Declare empty variables for check
-  N <- NULL # nolint
-  waiting_time <- NULL # nolint
-  mean_waiting_time <- NULL # nolint
-  nb_events <- NULL # nolint
-  event <- NULL # nolint
-  total_events <- NULL # nolint
-
-  replicates <- seq_along(multi_phylo)
+  # no NOTE
+  # nolint start
+  N <- NULL
+  next_event <- NULL
+  n_events <- NULL
+  p_event <- NULL
+  waiting_time <- NULL
+  mean_waiting_time <- NULL
+  event_rate <- NULL
+  p_speciation <- NULL
+  p_extinction <- NULL
+  speciation_rate <- NULL
+  extinction_rate <- NULL
+  # nolint end
 
   # Extract waiting times for all phylos
-  times_tbl <- lapply(replicates, function(i) {
-    phylo <- multi_phylo[[i]]
-    waiting_times(phylo) %>%
-      dplyr::mutate("replicate" = i)
-  }) %>%
-    dplyr::bind_rows()
+  times_tbl <- multi_phylo %>%
+    purrr::map_dfr(waiting_times, .id = "replicate")
 
-  # Get nb of events (speciation + extinction) for each N
-  sample_sizes <- times_tbl %>%
-    dplyr::group_by(N) %>%
-    dplyr::summarise(
-      "total_events" = dplyr::n()
-    )
-  # Average wating times
-  rates_tbl <- times_tbl %>%
-    dplyr::group_by(N, event) %>%
-    dplyr::summarise(
-      "mean_waiting_time" = mean(waiting_time, na.rm = TRUE),
-      "nb_events" = dplyr::n()
-    )
-  # Compute speciation & extinction rates
-  rates_tbl <- rates_tbl %>%
-    dplyr::bind_cols(sample_sizes[rates_tbl$N, "total_events"]) %>%
+    # Prop of speciation/extinction events in each N bin
+    p_tbl <- times_tbl %>%
+      dplyr::group_by(N, next_event) %>%
+      dplyr::summarise(
+        "n_events" = dplyr::n()
+      ) %>%
+      dplyr::mutate(
+        "p_event" = n_events / sum(n_events)
+      ) %>%
+      tidyr::pivot_wider(
+        id_cols = N,
+        names_from = next_event,
+        names_glue = "p_{next_event}",
+        values_from = p_event
+      )
+    # Special fix if there is zero extinction event
+    if (sum(times_tbl$next_event == "extinction") == 0) {
+      p_tbl <- p_tbl %>% dplyr::mutate("p_extinction" = NA)
+    }
+    # Compute rates pooled as (spec_rate + ext_rate)
+    rates_tbl <- times_tbl %>%
+      dplyr::group_by(N) %>%
+      dplyr::summarise(
+        "mean_waiting_time" = mean(waiting_time, na.rm = TRUE)
+      ) %>%
     dplyr::mutate(
-      "event_rate" = (1 / mean_waiting_time) * (1 / N) *
-        (nb_events / total_events)
-    )
-  rates_tbl
+      "event_rate" = 1 / (mean_waiting_time * N)
+    ) %>%
+      # Separate rates by proportion of each event in each bin
+      dplyr::left_join(p_tbl, by = "N") %>%
+      dplyr::mutate(
+        "speciation_rate" = event_rate * p_speciation,
+        "extinction_rate" = event_rate * p_extinction
+      )
+  rates_tbl <- rates_tbl %>%
+    dplyr::select(N, speciation_rate, extinction_rate)
+
+  return(rates_tbl)
 }

@@ -19,9 +19,9 @@ columns:
 clusters of individuals triggering speciation.}
 }
 \description{
-For each species, check if there is any gap \verb{>= trait_dist_sp} in trait values,
-and split the relevant species in two when one is found. The less numerous
-half becomes the new species.
+For each species, check if there is any gap \verb{>= trait_dist_sp} in trait
+values, and split the relevant species in two when one is found. The less
+numerous half becomes the new species.
 }
 \note{
 \code{apply_speciation()} can currently only split one species into two. If

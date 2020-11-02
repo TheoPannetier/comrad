@@ -147,7 +147,7 @@ test_that("test_plots", {
     "Generation 100 wasn't sampled."
   )
   expect_true(
-    plot_fitness_landscape_evolution(
+    plot_fitness_landscape_evol(
       comrad_tbl = comrad_tbl,
       carrying_cap_sd = comrad::default_carrying_cap_sd(),
       competition_sd = comrad::default_competition_sd()
@@ -155,7 +155,7 @@ test_that("test_plots", {
       class() == "trellis"
   )
   expect_error(
-    plot_fitness_landscape_evolution(
+    plot_fitness_landscape_evol(
       comrad_tbl = comrad_tbl,
       generation_range = c(0, 10),
       carrying_cap_sd = comrad::default_carrying_cap_sd(),

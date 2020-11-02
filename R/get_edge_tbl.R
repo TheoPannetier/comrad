@@ -31,8 +31,6 @@ get_edge_tbl <- function(phylo) {
   time_child <- NULL # no NOTE
   edge_length <- NULL # no NOTE
 
-
-  branching_times <- numeric(phylo$Nnode)
   ntips <- length(phylo$tip.label)
   root_node <- ntips + 1
 
@@ -60,7 +58,8 @@ get_edge_tbl <- function(phylo) {
   # fill times
   for (i in 2:nrow(edge_tbl)) { # skip first row (root)
     parent_i <- which(edge_tbl$child_node == edge_tbl$parent_node[i])
-    edge_tbl$time_child[i] <- edge_tbl$edge_length[i] + edge_tbl$time_child[parent_i]
+    edge_tbl$time_child[i] <- edge_tbl$edge_length[i] +
+      edge_tbl$time_child[parent_i]
   }
 
   # transform times relative to present

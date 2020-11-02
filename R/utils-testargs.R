@@ -146,14 +146,19 @@ test_comrad_tbl <- function(comrad_tbl) {
   if (length(attributes(comrad_tbl)$names) != 4) {
     stop("'", substitute(comrad_tbl), "' should have 4 columns.")
   }
-  if (any(attributes(comrad_tbl)$names != c("t", "z", "species", "ancestral_species"))) {
+  if (any(
+    attributes(comrad_tbl)$names != c("t", "z", "species", "ancestral_species")
+  )) {
     stop(
       "'", substitute(comrad_tbl),
       "' should have columns 't', z', 'species' and 'ancestral_species'."
     )
   }
   col_classes <- c(
-    class(comrad_tbl$t), class(comrad_tbl$z), class(comrad_tbl$species), class(comrad_tbl$ancestral_species)
+    class(comrad_tbl$t),
+    class(comrad_tbl$z),
+    class(comrad_tbl$species),
+    class(comrad_tbl$ancestral_species)
   )
   if (any(col_classes != c("numeric", "numeric", "character", "character"))) {
     stop(

@@ -24,7 +24,9 @@ test_that("use", {
   expect_silent(comm_mid_split_before %>% apply_speciation())
 
   # Middle split
-  expect_true(comm_mid_split_after$species[5] != comm_mid_split_after$species[6])
+  expect_true(
+    comm_mid_split_after$species[5] != comm_mid_split_after$species[6]
+    )
   expect_true(
     all.equal(
       comm_mid_split_before$z %>% sort(),
@@ -41,7 +43,9 @@ test_that("use", {
   )
   # Extremity split
   expect_true(
-    length(which(comm_ext_split_after$species == ancestral_species)) %in% c(1, 9)
+    length(
+      which(comm_ext_split_after$species == ancestral_species)
+      ) %in% c(1, 9)
   )
 
   # Multiple splits
@@ -69,16 +73,19 @@ test_that("use", {
 
 })
 
-abnormal_comms <- lapply(1:10, function(x) default_init_comm() %>% dplyr::select(-t))
+abnormal_comms <- lapply(
+  1:10,
+  function(x) default_init_comm() %>% dplyr::select(-t)
+)
 abnormal_comms[[1]] <- stats::rnorm(10) # not a tibble
 abnormal_comms[[2]] <- tibble::tibble(
   "z" = numeric(0),
   "species" = character(0),
   "ancestral_species" = character(0)
-  ) # empty table
+) # empty table
 abnormal_comms[[3]][, 3] <- NULL # missing column
 abnormal_comms[[4]]$z <- as.character(abnormal_comms[[4]]$z) # wrong type
-abnormal_comms[[5]]$species <- as.factor(abnormal_comms[[5]]$species) # wrong type
+abnormal_comms[[5]]$species <- as.factor(abnormal_comms[[5]]$species)
 abnormal_comms[[6]]$z[1] <- NA # NA in numeric
 abnormal_comms[[7]]$z[1] <- NaN # boy do I hate those NaNs
 abnormal_comms[[8]]$ancestral_species <- 1:10
@@ -97,11 +104,11 @@ test_that("abuse", {
   )
   expect_error(
     abnormal_comms[[4]] %>% apply_speciation(),
-    "'comm' col classes should be numeric, character and character, respectively."
+    "'comm' col classes should be numeric, character and character, respectively." # nolint
   )
   expect_error(
     abnormal_comms[[5]] %>% apply_speciation(),
-    "'comm' col classes should be numeric, character and character, respectively."
+    "'comm' col classes should be numeric, character and character, respectively." # nolint
   )
   expect_error(
     abnormal_comms[[6]] %>% apply_speciation(),
@@ -113,7 +120,7 @@ test_that("abuse", {
   )
   expect_error(
     abnormal_comms[[8]] %>% apply_speciation(),
-    "'comm' col classes should be numeric, character and character, respectively."
+    "'comm' col classes should be numeric, character and character, respectively." # nolint
   )
   expect_error(
     abnormal_comms[[9]] %>% apply_speciation(),

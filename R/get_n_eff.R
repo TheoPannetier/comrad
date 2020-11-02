@@ -49,6 +49,3 @@ get_n_eff <- function(z,
 
   n_eff
 }
-
-
-

@@ -77,16 +77,19 @@ testthat::test_that("two-lineages cases", {
     phylo, exptd_phylo
   )
   # Extant, stem
-  phylo <- comrad_tbl %>% sim_to_phylo(include_stem = TRUE, with_extinct = FALSE)
+  phylo <- comrad_tbl %>%
+    sim_to_phylo(include_stem = TRUE, with_extinct = FALSE)
   exptd_phylo <- ape::read.tree(text = "(sp2:1000);")
-  testthat::expect_failure( # ape cuts the stem out
+  testthat::expect_failure(
+    # ape cuts the stem out
     testthat::expect_equal(
       phylo, exptd_phylo
     )
   )
   # Extant, crown
   testthat::expect_error(
-    phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE, include_stem = FALSE),
+    phylo <- comrad_tbl %>%
+      sim_to_phylo(with_extinct = FALSE, include_stem = FALSE),
     "can't get a crown tree: only one living lineage in the community"
   )
 
@@ -113,16 +116,19 @@ testthat::test_that("two-lineages cases", {
     phylo, exptd_phylo
   )
   # Extant, stem
-  phylo <- comrad_tbl %>% sim_to_phylo(include_stem = TRUE, with_extinct = FALSE)
+  phylo <- comrad_tbl %>%
+    sim_to_phylo(include_stem = TRUE, with_extinct = FALSE)
   exptd_phylo <- ape::read.tree(text = "(sp1:1000);")
-  testthat::expect_failure( # ape cuts the stem out
+  testthat::expect_failure(
+    # ape cuts the stem out
     testthat::expect_equal(
       phylo, exptd_phylo
     )
   )
   # Extant, crown
   testthat::expect_error(
-    phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE, include_stem = FALSE),
+    phylo <- comrad_tbl %>%
+      sim_to_phylo(with_extinct = FALSE, include_stem = FALSE),
     "can't get a crown tree: only one living lineage in the community"
   )
 })
@@ -160,14 +166,16 @@ testthat::test_that("three lineages cases", {
     text = "((sp1:250, sp3:250):500);"
   )
   phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE)
-  testthat::expect_failure( # ape cuts the stem out
+  testthat::expect_failure(
+    # ape cuts the stem out
     expect_equal(phylo, exptd_phylo)
   )
   # Extant, crown
   exptd_phylo <- ape::read.tree(
     text = "(sp1:250, sp3:250);"
   )
-  phylo <- comrad_tbl %>% sim_to_phylo(with_extinct = FALSE, include_stem = FALSE)
+  phylo <- comrad_tbl %>%
+    sim_to_phylo(with_extinct = FALSE, include_stem = FALSE)
   expect_equal(phylo, exptd_phylo)
 })
 
@@ -232,4 +240,3 @@ testthat::test_that("trait distribution shouldn't matter", {
     )
   }
 })
-
