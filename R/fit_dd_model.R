@@ -3,9 +3,8 @@
 #' Fits the parameters of a specified diversity-dependent model to  a set of
 #' full phylogenies produced by `comrad` simulations
 #'
-#' @param phylos a list of `phylo` objects, typically the output of
-#' [sim_to_phylo()]. The phylogenies must be complete, i.e extinct species must
-#' be included.
+#' @param waiting_times_tbl a table with waiting times, the output of
+#' [waiting_times()] for one or more phylogenies.
 #' @param init_params named vector, initial values of the parameters to optimise.
 #' The names and number of parameters must match those specified in
 #' `dd_model$params_check`.
@@ -33,12 +32,21 @@
 #' @author Theo Pannetier
 #' @export
 #'
-fit_dd_model <- function(phylos,
+fit_dd_model <- function(waiting_times_tbl,
                          init_params,
                          dd_model = dd_model_lc()) {
-  # Assemble data set
-  times_tbl <- phylos %>%
-    purrr::map_dfr(comrad::waiting_times, .id = "replicate")
+
+  # Format initial parameter values for output
+  init_tbl <- init_params %>%
+    tibble::as_tibble() %>%
+    dplyr::mutate(
+      "params" = names(init_params)
+    ) %>%
+    tidyr::pivot_wider(
+      names_from = params,
+      names_prefix = "init_",
+      values_from = value
+    )
 
   # Unwrap DD model
   speciation_func <- dd_model$speciation_func
@@ -53,11 +61,28 @@ fit_dd_model <- function(phylos,
       ) %>%
       all()
   }
+
   # Check initial parameters
   init_params %>% dd_model$params_check()
-  N_max <- max(times_tbl$N)
+  N_max <- max(waiting_times_tbl$N)
   if (!check_constraints(constraints, init_params, N_max)) {
     warning("The constraints of the model are not satisfied for the initial parameter values.")
+    loglik_tbl <- init_params %>%
+      tibble::as_tibble() %>%
+      dplyr::mutate(
+        "params" = names(init_params),
+        "value" = as.numeric(NA),
+        "loglik" = as.numeric(NA),
+        "conv" = as.numeric(NA)
+      ) %>%
+      tidyr::pivot_wider(
+        names_from = params,
+        names_prefix = "ml_",
+        values_from = value
+      ) %>%
+      dplyr::bind_cols(init_tbl, .)
+
+    return()
   }
   # Transform parameters
   init_trparsopt <- init_params %>% DDD::transform_pars()
@@ -68,7 +93,7 @@ fit_dd_model <- function(phylos,
     params <- DDD::untransform_pars(trparsopt)
     if (!check_constraints(constraints, params, N_max)) return(-Inf)
     loglik <- comrad::dd_loglik_func(
-      times_tbl = times_tbl,
+      waiting_times_tbl = waiting_times_tbl,
       params = params,
       speciation_func = speciation_func,
       extinction_func = extinction_func
@@ -83,33 +108,20 @@ fit_dd_model <- function(phylos,
     trparsopt = init_trparsopt
   )
 
-  init_tbl <- init_params %>%
-    tibble::as_tibble() %>%
-    dplyr::mutate(
-      "params" = names(init_params)
-    ) %>%
-    tidyr::pivot_wider(
-      names_from = params,
-      names_prefix = "init_",
-      values_from = value
-    )
-
   # Format output
   loglik_tbl <- ml_output %>%
     tibble::as_tibble() %>%
     dplyr::select(par) %>%
     dplyr::mutate(
       "par" = par %>% DDD::untransform_pars(),
-      "params" = names(par)
+      "params" = names(par),
+      "loglik" = ml_output$fvalues,
+      "conv" = ml_output$conv
     ) %>%
     tidyr::pivot_wider(
       names_from = params,
       names_prefix = "ml_",
       values_from = par
-    ) %>%
-    dplyr::mutate(
-      "loglik" = ml_output$fvalues,
-      "conv" = ml_output$conv
     ) %>%
     dplyr::bind_cols(init_tbl, .)
 

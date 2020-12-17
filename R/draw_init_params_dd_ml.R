@@ -21,9 +21,9 @@ draw_init_params_dd_ml <- function(phylos, nb_sets) {
   proto_lambda0 <- log(n_max) / t_max
 
   # Initial parameter values
-  lambdas <- stats::runif(100, proto_lambda0 * 0.5, proto_lambda0 * 2)
-  mus <- stats::runif(100, 0, lambdas)
-  kprimes <- n_max + stats::rpois(100, n_max * 0.5)
+  lambdas <- stats::runif(nb_sets, proto_lambda0 * 0.5, proto_lambda0 * 2)
+  mus <- stats::runif(nb_sets, 0, lambdas)
+  kprimes <- n_max + stats::rpois(nb_sets, n_max * 0.5)
   ks <- pmax(kprimes * (lambdas - mus) / lambdas, 1)
 
   init_params <- purrr::pmap(list(lambdas, mus, ks), function(lambda, mu, k) {

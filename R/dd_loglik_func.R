@@ -5,7 +5,7 @@
 #' times to next events and associated diversity.
 #' Meant to be called internally by [fit_dd_model()].
 #'
-#' @param times_tbl the output of [waiting_times()], a table containing the
+#' @param waiting_times_tbl the output of [waiting_times()], a table containing the
 #' waiting times to a next event, type of events, and species diversity.
 #' @param params a named vector containing the values of the parameters of
 #' `speciation_func` and `extinction_func`.
@@ -22,25 +22,26 @@
 #'@export
 #'
 dd_loglik_func <- function(params,
-                           times_tbl,
+                           waiting_times_tbl,
                            speciation_func,
                            extinction_func) {
 
-  times_tbl$lambda_d <- speciation_func(params = params, N = times_tbl$N)
-  times_tbl$mu_d <- extinction_func(params = params, N = times_tbl$N)
+  wt <- waiting_times_tbl # shorter syntax
+  wt$lambda_d <- speciation_func(params = params, N = wt$N)
+  wt$mu_d <- extinction_func(params = params, N = wt$N)
 
-  times_tbl$log_lambda <- times_tbl$is_speciation * log(times_tbl$lambda_d)
+  wt$log_lambda <- wt$is_speciation * log(wt$lambda_d)
   # if NaN (not speciation and lambda_d=0), should still be 0 bc not speciation
-  times_tbl$log_lambda[is.nan(times_tbl$log_lambda)] <- 0
+  wt$log_lambda[is.nan(wt$log_lambda)] <- 0
 
-  times_tbl$log_mu <- (!times_tbl$is_speciation) * log(times_tbl$mu_d)
+  wt$log_mu <- (!wt$is_speciation) * log(wt$mu_d)
   # if NaN (not extinction and mu_d=0), should still be 0 bc not extinction
-  times_tbl$log_mu[is.nan(times_tbl$log_mu)] <- 0
+  wt$log_mu[is.nan(wt$log_mu)] <- 0
 
-  times_tbl$probs <- times_tbl$log_lambda + times_tbl$log_mu -
-    (times_tbl$lambda_d + times_tbl$mu_d) * times_tbl$N * times_tbl$waiting_time
+  wt$probs <- wt$log_lambda + wt$log_mu -
+    (wt$lambda_d + wt$mu_d) * wt$N * wt$waiting_time
 
-  loglik <- sum(times_tbl$probs)
+  loglik <- sum(wt$probs)
 
   return(loglik)
 }

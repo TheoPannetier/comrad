@@ -4,13 +4,13 @@
 \alias{dd_loglik_func}
 \title{Log-likelihood function of a diversity-dependent model given waiting times}
 \usage{
-dd_loglik_func(params, times_tbl, speciation_func, extinction_func)
+dd_loglik_func(params, waiting_times_tbl, speciation_func, extinction_func)
 }
 \arguments{
 \item{params}{a named vector containing the values of the parameters of
 \code{speciation_func} and \code{extinction_func}.}
 
-\item{times_tbl}{the output of \code{\link[=waiting_times]{waiting_times()}}, a table containing the
+\item{waiting_times_tbl}{the output of \code{\link[=waiting_times]{waiting_times()}}, a table containing the
 waiting times to a next event, type of events, and species diversity.}
 
 \item{speciation_func}{a function describing how the rate of speciation varies

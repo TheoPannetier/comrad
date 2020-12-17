@@ -4,12 +4,11 @@
 \alias{fit_dd_model}
 \title{Fit a diversity-dependent diversification model to phylogenies}
 \usage{
-fit_dd_model(phylos, init_params, dd_model = dd_model_lc())
+fit_dd_model(waiting_times_tbl, init_params, dd_model = dd_model_lc())
 }
 \arguments{
-\item{phylos}{a list of \code{phylo} objects, typically the output of
-\code{\link[=sim_to_phylo]{sim_to_phylo()}}. The phylogenies must be complete, i.e extinct species must
-be included.}
+\item{waiting_times_tbl}{a table with waiting times, the output of
+\code{\link[=waiting_times]{waiting_times()}} for one or more phylogenies.}
 
 \item{init_params}{named vector, initial values of the parameters to optimise.
 The names and number of parameters must match those specified in
