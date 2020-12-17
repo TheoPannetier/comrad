@@ -7,34 +7,67 @@
 #' [sim_to_phylo()]. The phylogenies must be complete, i.e extinct species must
 #' be included.
 #' @param init_params named vector, initial values of the parameters to optimise.
-#' Names must match the parameters called in `speciation_func` and
-#' `extinction_func`.
-#' @param speciation_func a function describing how the rate of speciation varies
-#' with the number of species `N`. Must take arguments `params` and `N`. Inside
-#' the function, parameters must be referred as `params$param_name`.
-#' @param extinction_func a function describing how the rate of extinction varies
-#' with the number of species `N`. Must take arguments `params` and `N`. Inside
-#' the function, parameters must be referred as `params$param_name`.
+#' The names and number of parameters must match those specified in
+#' `dd_model$params_check`.
+#' @param dd_model a list with four named elements that together specify the
+#' diversity-dependent model:
 #'
-#' @return a one-row table with maximum likelihood estimates for the values of
-#' the parameters, the maximum likelihood and a convergence code (see
-#' [subplex::subplex()] for the meaning of this code)
+#' * `speciation_func`, a function specifying the diversity-dependent speciation
+#' rate. Must take arguments `params` and `N`.
+#' * `extinction_func`, a function specifying the diversity-dependent extinction
+#' rate. Must take arguments `params` and `N`.
+#' * `constraints` a list of conditions that parameter values must satisfy. Each
+#' element is a function that takes arguments `params` and `...`, and returns
+#' `TRUE` if the constraint is satisfied, `FALSE` if it isn't.
+#' * `params_check` a function that controls the format of `params`. Returns an
+#' error if the elements of `params` are named differently from what is expected
+#' or if the length differs from the expectation.
+#'
+#' `comrad` contains several `dd_model` functions, see for example
+#' [comrad::dd_model_lc()].
+#'
+#' @return a one-row table with initial values of the parameters,
+#' maximum likelihood estimates, the maximum likelihood and a convergence code
+#' (see [subplex::subplex()] for the meaning of this code)
 #'
 #' @author Theo Pannetier
 #' @export
 #'
-fit_dd_model <- function(phylos, init_params, speciation_func, extinction_func) {
+fit_dd_model <- function(phylos,
+                         init_params,
+                         dd_model = dd_model_lc()) {
   # Assemble data set
   times_tbl <- phylos %>%
     purrr::map_dfr(comrad::waiting_times, .id = "replicate")
 
-  trparsopt <- init_params %>% DDD::transform_pars()
+  # Unwrap DD model
+  speciation_func <- dd_model$speciation_func
+  extinction_func <- dd_model$extinction_func
+  constraints <- dd_model$constraints
+  check_constraints <- function(constraints, params, ...) {
+    constraints %>%
+      purrr::map_lgl(
+        function(func, params, ...) func(params, ...),
+        init_params,
+        N_max
+      ) %>%
+      all()
+  }
+  # Check initial parameters
+  init_params %>% dd_model$params_check()
+  N_max <- max(times_tbl$N)
+  if (!check_constraints(constraints, init_params, N_max)) {
+    warning("The constraints of the model are not satisfied for the initial parameter values.")
+  }
+  # Transform parameters
+  init_trparsopt <- init_params %>% DDD::transform_pars()
 
-  # Declare function to optimise
+  # Declare function to be optimised
   fun <- function(trparsopt) {
     if (min(trparsopt) < 0 || max(trparsopt) > 1) return(-Inf)
     params <- DDD::untransform_pars(trparsopt)
-    loglik <- dd_loglik_func(
+    if (!check_constraints(constraints, params, N_max)) return(-Inf)
+    loglik <- comrad::dd_loglik_func(
       times_tbl = times_tbl,
       params = params,
       speciation_func = speciation_func,
@@ -47,8 +80,19 @@ fit_dd_model <- function(phylos, init_params, speciation_func, extinction_func) 
   ml_output <- DDD::optimizer(
     optimmethod = 'subplex',
     fun = fun,
-    trparsopt = trparsopt
+    trparsopt = init_trparsopt
   )
+
+  init_tbl <- init_params %>%
+    tibble::as_tibble() %>%
+    dplyr::mutate(
+      "params" = names(init_params)
+    ) %>%
+    tidyr::pivot_wider(
+      names_from = params,
+      names_prefix = "init_",
+      values_from = value
+    )
 
   # Format output
   loglik_tbl <- ml_output %>%
@@ -56,12 +100,18 @@ fit_dd_model <- function(phylos, init_params, speciation_func, extinction_func) 
     dplyr::select(par) %>%
     dplyr::mutate(
       "par" = par %>% DDD::untransform_pars(),
-      "params" = names(par)) %>%
-    tidyr::pivot_wider(names_from = params, values_from = par) %>%
+      "params" = names(par)
+    ) %>%
+    tidyr::pivot_wider(
+      names_from = params,
+      names_prefix = "ml_",
+      values_from = par
+    ) %>%
     dplyr::mutate(
       "loglik" = ml_output$fvalues,
       "conv" = ml_output$conv
-    )
+    ) %>%
+    dplyr::bind_cols(init_tbl, .)
 
   return(loglik_tbl)
 }

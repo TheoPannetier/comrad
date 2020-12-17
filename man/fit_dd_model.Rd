@@ -4,7 +4,7 @@
 \alias{fit_dd_model}
 \title{Fit a diversity-dependent diversification model to phylogenies}
 \usage{
-fit_dd_model(phylos, init_params, speciation_func, extinction_func)
+fit_dd_model(phylos, init_params, dd_model = dd_model_lc())
 }
 \arguments{
 \item{phylos}{a list of \code{phylo} objects, typically the output of
@@ -12,21 +12,31 @@ fit_dd_model(phylos, init_params, speciation_func, extinction_func)
 be included.}
 
 \item{init_params}{named vector, initial values of the parameters to optimise.
-Names must match the parameters called in \code{speciation_func} and
-\code{extinction_func}.}
+The names and number of parameters must match those specified in
+\code{dd_model$params_check}.}
 
-\item{speciation_func}{a function describing how the rate of speciation varies
-with the number of species \code{N}. Must take arguments \code{params} and \code{N}. Inside
-the function, parameters must be referred as \code{params$param_name}.}
+\item{dd_model}{a list with four named elements that together specify the
+diversity-dependent model:
+\itemize{
+\item \code{speciation_func}, a function specifying the diversity-dependent speciation
+rate. Must take arguments \code{params} and \code{N}.
+\item \code{extinction_func}, a function specifying the diversity-dependent extinction
+rate. Must take arguments \code{params} and \code{N}.
+\item \code{constraints} a list of conditions that parameter values must satisfy. Each
+element is a function that takes arguments \code{params} and \code{...}, and returns
+\code{TRUE} if the constraint is satisfied, \code{FALSE} if it isn't.
+\item \code{params_check} a function that controls the format of \code{params}. Returns an
+error if the elements of \code{params} are named differently from what is expected
+or if the length differs from the expectation.
+}
 
-\item{extinction_func}{a function describing how the rate of extinction varies
-with the number of species \code{N}. Must take arguments \code{params} and \code{N}. Inside
-the function, parameters must be referred as \code{params$param_name}.}
+\code{comrad} contains several \code{dd_model} functions, see for example
+\code{\link[=dd_model_lc]{dd_model_lc()}}.}
 }
 \value{
-a one-row table with maximum likelihood estimates for the values of
-the parameters, the maximum likelihood and a convergence code (see
-\code{\link[subplex:subplex]{subplex::subplex()}} for the meaning of this code)
+a one-row table with initial values of the parameters,
+maximum likelihood estimates, the maximum likelihood and a convergence code
+(see \code{\link[subplex:subplex]{subplex::subplex()}} for the meaning of this code)
 }
 \description{
 Fits the parameters of a specified diversity-dependent model to  a set of
