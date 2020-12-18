@@ -22,7 +22,7 @@ dd_model_lc <- function() {
       function(params, ...) params["mu_0"] >= 0,
       function(params, ...) params["k"] > 0,
       function(params, ...) params["lambda_0"] > params["mu_0"],
-      function(params, ...) {
+      function(params, N_max, ...) {
         kprime <- ceiling(params["k"] * params["lambda_0"] /
                             (params["lambda_0"] - params["mu_0"]))
         kprime >= N_max

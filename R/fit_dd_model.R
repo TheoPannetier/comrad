@@ -48,14 +48,19 @@ fit_dd_model <- function(waiting_times_tbl,
       values_from = value
     )
 
+  N_max <- max(waiting_times_tbl$N)
+
   # Unwrap DD model
   speciation_func <- dd_model$speciation_func
   extinction_func <- dd_model$extinction_func
   constraints <- dd_model$constraints
+
   check_constraints <- function(constraints, params, ...) {
     constraints %>%
       purrr::map_lgl(
-        function(func, params, ...) func(params, ...),
+        function(func, params, ...) {
+          func(params, ...)
+        },
         init_params,
         N_max
       ) %>%
@@ -64,7 +69,6 @@ fit_dd_model <- function(waiting_times_tbl,
 
   # Check initial parameters
   init_params %>% dd_model$params_check()
-  N_max <- max(waiting_times_tbl$N)
   if (!check_constraints(constraints, init_params, N_max)) {
     warning("The constraints of the model are not satisfied for the initial parameter values.")
     loglik_tbl <- init_params %>%
@@ -81,9 +85,9 @@ fit_dd_model <- function(waiting_times_tbl,
         values_from = value
       ) %>%
       dplyr::bind_cols(init_tbl, .)
-
-    return()
+    return(loglik_tbl)
   }
+
   # Transform parameters
   init_trparsopt <- init_params %>% DDD::transform_pars()
 
