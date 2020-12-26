@@ -23,7 +23,7 @@ draw_init_params_dd_ml <- function(phylos, nb_sets) {
   # Initial parameter values
   lambdas <- stats::runif(nb_sets, proto_lambda0 * 0.5, proto_lambda0 * 2)
   mus <- stats::runif(nb_sets, 0, 0.75 * lambdas)
-  ks <- ceiling(stats::rpois(nb_sets, n_max))
+  ks <- trunc(n_max + n_max * stats::rgamma(100, shape = 0.5, scale = 0.5))
 
   init_params <- purrr::pmap(list(lambdas, mus, ks), function(lambda, mu, k) {
     c("lambda_0" = lambda, "mu_0" = mu, "k" = k)

@@ -25,6 +25,16 @@
 #' `comrad` contains several `dd_model` functions, see for example
 #' [comrad::dd_model_lc()].
 #'
+#' @param num_cycles passed to [DDD::optimizer()], number of cycles of
+#' optimisation. Next cycle starts from the last vertices of the previous cycle.
+#' @param rel_tol_args passed to [DDD::optimizer()], "relative tolerance in
+#' function arguments"
+#' @param rel_tol_func passed to [DDD::optimizer()], "relative tolerance in
+#' function value"
+#' @param abs_tol_args passed to [DDD::optimizer()], "absolute tolerance in
+#' function arguments
+#' @param max_iter passed to [DDD::optimizer()], "maximum number of iterations"
+#'
 #' @return a one-row table with initial values of the parameters,
 #' maximum likelihood estimates, the maximum likelihood and a convergence code
 #' (see [subplex::subplex()] for the meaning of this code)
@@ -34,7 +44,13 @@
 #'
 fit_dd_model <- function(waiting_times_tbl,
                          init_params,
-                         dd_model = dd_model_lc()) {
+                         dd_model = dd_model_lc(),
+                         num_cycles = 1,
+                         rel_tol_args = 1e-04,
+                         rel_tol_func = 1e-04,
+                         abs_tol_args = 1e-06,
+                         max_iter = 1000
+                         ) {
 
   # Format initial parameter values for output
   init_tbl <- init_params %>%
@@ -109,7 +125,9 @@ fit_dd_model <- function(waiting_times_tbl,
   ml_output <- DDD::optimizer(
     optimmethod = 'subplex',
     fun = fun,
-    trparsopt = init_trparsopt
+    trparsopt = init_trparsopt,
+    num_cycles = num_cycles,
+    optimpars = c(rel_tol_args, rel_tol_func, abs_tol_args, max_iter)
   )
 
   # Format output
@@ -120,7 +138,12 @@ fit_dd_model <- function(waiting_times_tbl,
       "par" = par %>% DDD::untransform_pars(),
       "params" = names(par),
       "loglik" = ml_output$fvalues,
-      "conv" = ml_output$conv
+      "conv" = ml_output$conv,
+      "num_cycles" = num_cycles,
+      "rel_tol_args" = rel_tol_args,
+      "rel_tol_func" = rel_tol_func,
+      "abs_tol_args" = abs_tol_args,
+      "max_iter" = max_iter
     ) %>%
     tidyr::pivot_wider(
       names_from = params,

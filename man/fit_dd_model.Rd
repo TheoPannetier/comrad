@@ -4,7 +4,16 @@
 \alias{fit_dd_model}
 \title{Fit a diversity-dependent diversification model to phylogenies}
 \usage{
-fit_dd_model(waiting_times_tbl, init_params, dd_model = dd_model_lc())
+fit_dd_model(
+  waiting_times_tbl,
+  init_params,
+  dd_model = dd_model_lc(),
+  num_cycles = 1,
+  rel_tol_args = 1e-04,
+  rel_tol_func = 1e-04,
+  abs_tol_args = 1e-06,
+  max_iter = 1000
+)
 }
 \arguments{
 \item{waiting_times_tbl}{a table with waiting times, the output of
@@ -31,6 +40,20 @@ or if the length differs from the expectation.
 
 \code{comrad} contains several \code{dd_model} functions, see for example
 \code{\link[=dd_model_lc]{dd_model_lc()}}.}
+
+\item{num_cycles}{passed to \code{\link[DDD:optimizer]{DDD::optimizer()}}, number of cycles of
+optimisation. Next cycle starts from the last vertices of the previous cycle.}
+
+\item{rel_tol_args}{passed to \code{\link[DDD:optimizer]{DDD::optimizer()}}, "relative tolerance in
+function arguments"}
+
+\item{rel_tol_func}{passed to \code{\link[DDD:optimizer]{DDD::optimizer()}}, "relative tolerance in
+function value"}
+
+\item{abs_tol_args}{passed to \code{\link[DDD:optimizer]{DDD::optimizer()}}, "absolute tolerance in
+function arguments}
+
+\item{max_iter}{passed to \code{\link[DDD:optimizer]{DDD::optimizer()}}, "maximum number of iterations"}
 }
 \value{
 a one-row table with initial values of the parameters,
