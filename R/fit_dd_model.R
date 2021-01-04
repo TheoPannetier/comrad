@@ -45,7 +45,7 @@
 fit_dd_model <- function(waiting_times_tbl,
                          init_params,
                          dd_model = dd_model_lc(),
-                         num_cycles = 1,
+                         num_cycles = Inf,
                          rel_tol_args = 1e-04,
                          rel_tol_func = 1e-04,
                          abs_tol_args = 1e-06,
