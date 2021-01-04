@@ -12,7 +12,7 @@
 dd_model_lc <- function() {
   list(
     "speciation_func" = function(params, N) {
-      pmax(params["lambda_0"] * (1 - N / params["k"]), 0)
+      pmax(params["lambda_0"] - (params["lambda_0"] - params["mu_0"]) * (N / params["k"]))
     },
     "extinction_func" = function(params, N) {
       params["mu_0"]
@@ -25,7 +25,7 @@ dd_model_lc <- function() {
       function(params, N_max, ...) {
         kprime <- ceiling(params["k"] * params["lambda_0"] /
                             (params["lambda_0"] - params["mu_0"]))
-        kprime >= N_max
+        N_max <= kprime
       }
     ),
     "params_check" = function(params) {
