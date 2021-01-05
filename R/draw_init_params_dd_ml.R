@@ -1,11 +1,11 @@
 #' Draw a set of initial parameter values for a DD model
 #'
-#' @param phylos the list of `phylo`` class objects on which the DD model is going
+#' @param phylos the list of `phylo` class objects on which the DD model is going
 #'  to be fit.
 #' @param nb_sets integer, the number of sets desired.
 #'
-#' @return a list of length-3 vectors containing initial values for `lambda_0`,
-#' `mu_0` and `K`.
+#' @return a list of length-4 vectors containing initial values for `lambda_0`,
+#' `mu_0` and `K` and `alpha`
 #'
 #' @author Theo Pannetier
 #' @export
@@ -23,10 +23,13 @@ draw_init_params_dd_ml <- function(phylos, nb_sets) {
   # Initial parameter values
   lambdas <- stats::runif(nb_sets, proto_lambda0 * 0.5, proto_lambda0 * 2)
   mus <- stats::runif(nb_sets, 0, 0.75 * lambdas)
-  ks <- trunc(n_max + n_max * stats::rgamma(nb_sets, shape = 0.5, scale = 0.5))
+  ks <- trunc(n_max + n_max * stats::rgamma(nb_sets, shape = 0.5, scale = 0.3))
+  alphas <- stats::runif(nb_sets, 0, 1)
 
-  init_params <- purrr::pmap(list(lambdas, mus, ks), function(lambda, mu, k) {
-    c("lambda_0" = lambda, "mu_0" = mu, "k" = k)
+  init_params <- purrr::pmap(
+    list(lambdas, mus, ks, alphas),
+    function(lambda, mu, k, alpha) {
+    c("lambda_0" = lambda, "mu_0" = mu, "k" = k, "alpha" = alpha)
   })
   return(init_params)
 }

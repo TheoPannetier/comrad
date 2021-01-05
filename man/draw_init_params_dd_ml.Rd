@@ -7,14 +7,14 @@
 draw_init_params_dd_ml(phylos, nb_sets)
 }
 \arguments{
-\item{phylos}{the list of `phylo`` class objects on which the DD model is going
+\item{phylos}{the list of \code{phylo} class objects on which the DD model is going
 to be fit.}
 
 \item{nb_sets}{integer, the number of sets desired.}
 }
 \value{
-a list of length-3 vectors containing initial values for \code{lambda_0},
-\code{mu_0} and \code{K}.
+a list of length-4 vectors containing initial values for \code{lambda_0},
+\code{mu_0} and \code{K} and \code{alpha}
 }
 \description{
 Draw a set of initial parameter values for a DD model
