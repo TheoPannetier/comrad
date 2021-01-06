@@ -9,7 +9,7 @@
 #'
 #' @author Theo Pannetier
 #' @export
-draw_init_params_dd_ml <- function(phylos, nb_sets) {
+draw_init_params_dd_ml <- function(phylos, nb_sets, with_alpha = TRUE) {
 
   ltt_tbl <- comrad::get_ltt_tbl(phylos[[1]]) %>%
     dplyr::mutate("time" = time - min(time))
@@ -31,5 +31,8 @@ draw_init_params_dd_ml <- function(phylos, nb_sets) {
     function(lambda, mu, k, alpha) {
     c("lambda_0" = lambda, "mu_0" = mu, "k" = k, "alpha" = alpha)
   })
+  if (!with_alpha) {
+    init_params <- init_params %>% purrr::map(function(vec) vec[-4])
+  }
   return(init_params)
 }

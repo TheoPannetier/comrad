@@ -4,7 +4,7 @@
 \alias{draw_init_params_dd_ml}
 \title{Draw a set of initial parameter values for a DD model}
 \usage{
-draw_init_params_dd_ml(phylos, nb_sets)
+draw_init_params_dd_ml(phylos, nb_sets, with_alpha = TRUE)
 }
 \arguments{
 \item{phylos}{the list of \code{phylo} class objects on which the DD model is going
