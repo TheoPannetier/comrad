@@ -27,13 +27,6 @@
 #'
 #' @param num_cycles passed to [DDD::optimizer()], number of cycles of
 #' optimisation. Next cycle starts from the last vertices of the previous cycle.
-#' @param rel_tol_args passed to [DDD::optimizer()], "relative tolerance in
-#' function arguments"
-#' @param rel_tol_func passed to [DDD::optimizer()], "relative tolerance in
-#' function value"
-#' @param abs_tol_args passed to [DDD::optimizer()], "absolute tolerance in
-#' function arguments
-#' @param max_iter passed to [DDD::optimizer()], "maximum number of iterations"
 #'
 #' @return a one-row table with initial values of the parameters,
 #' maximum likelihood estimates, the maximum likelihood and a convergence code
@@ -45,11 +38,7 @@
 fit_dd_model <- function(waiting_times_tbl,
                          init_params,
                          dd_model = dd_model_lc(),
-                         num_cycles = Inf,
-                         rel_tol_args = 1e-04,
-                         rel_tol_func = 1e-04,
-                         abs_tol_args = 1e-06,
-                         max_iter = 1000
+                         num_cycles = Inf
                          ) {
 
   # Format initial parameter values for output
@@ -125,8 +114,7 @@ fit_dd_model <- function(waiting_times_tbl,
   ml_output <- ddd_optimizer(
     fun = fun,
     trparsopt = init_trparsopt,
-    num_cycles = num_cycles,
-    optimpars = c(rel_tol_args, rel_tol_func, abs_tol_args, max_iter)
+    num_cycles = num_cycles
   )
 
   # Format output
@@ -138,11 +126,7 @@ fit_dd_model <- function(waiting_times_tbl,
       "params" = names(par),
       "loglik" = ml_output$fvalues,
       "conv" = ml_output$conv,
-      "num_cycles" = num_cycles,
-      "rel_tol_args" = rel_tol_args,
-      "rel_tol_func" = rel_tol_func,
-      "abs_tol_args" = abs_tol_args,
-      "max_iter" = max_iter
+      "num_cycles" = num_cycles
     ) %>%
     tidyr::pivot_wider(
       names_from = params,
