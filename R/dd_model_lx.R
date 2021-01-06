@@ -28,8 +28,9 @@ dd_model_ll <- function() {
       function(params, ...) params["lambda_0"] > params["mu_0"],
       function(params, ...) params["alpha"] >= 0 & params["alpha"] <= 1,
       function(params, N_max, ...) {
-        kprime <- ceiling(params["k"] * params["lambda_0"] / (params["lambda_0"] - params["mu_0"]))
-        N_max <= kprime * (1 - params["alpha"])
+        kprime <- ceiling(params["k"] * params["lambda_0"] /
+                            (params["lambda_0"] - params["mu_0"]) / (1 - params["alpha"]))
+        N_max <= kprime
       }
     ),
     "params_check" = function(params) {
