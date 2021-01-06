@@ -31,8 +31,7 @@ Imports:
     rappdirs,
     lattice,
     gganimate,
-    Rcpp,
-    DDD
+    Rcpp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
