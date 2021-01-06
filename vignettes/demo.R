@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## ----setup, include = FALSE---------------------------------------------------
-library(comrad); library(ape)
+library(comrad)
 
 ## ----lib_comrad, eval=FALSE---------------------------------------------------
 #  remotes::install_github("TheoPannetier/comrad")
@@ -32,7 +32,7 @@ comrad_tbl %>% comrad::plot_comm_traits(generation = 1000)
 comrad_tbl %>% plot_comm_size()
 
 ## ----load_sim, echo=FALSE, warning=FALSE--------------------------------------
-comrad_tbl <- comrad::read_comrad_tbl("demo_data/comrad_output_example.csv", skip = 18)
+comrad_tbl <- comrad::read_comrad_tbl("demo_data/comrad_output_example.csv", skip = 20)
 
 ## ----data_viz4----------------------------------------------------------------
 comrad_tbl %>% comrad::plot_comm_trait_evolution(xgrain = 200, ygrain = 0.05)
