@@ -21,7 +21,7 @@ dd_model_xl <- function() {
     "constraints" = list(
       function(params, ...) params["lambda_0"] > 0,
       function(params, ...) params["mu_0"] >= 0,
-      function(params, ...) params["k"] > 0,
+      function(params, ...) params["k"] >= 1,
       function(params, ...) params["lambda_0"] > params["mu_0"],
       function(params, ...) params["alpha"] >= 0 & params["alpha"] <= 1
     ),

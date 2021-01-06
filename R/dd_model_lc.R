@@ -20,7 +20,7 @@ dd_model_lc <- function() {
     "constraints" = list(
       function(params, ...) params["lambda_0"] > 0,
       function(params, ...) params["mu_0"] >= 0,
-      function(params, ...) params["k"] > 0,
+      function(params, ...) params["k"] >= 1,
       function(params, ...) params["lambda_0"] > params["mu_0"],
       function(params, N_max, ...) {
         kprime <- ceiling(params["k"] * params["lambda_0"] /
