@@ -71,13 +71,13 @@ fit_dd_model <- function(waiting_times_tbl,
   extinction_func <- dd_model$extinction_func
   constraints <- dd_model$constraints
 
-  check_constraints <- function(constraints, params, ...) {
+  are_constraints_ok <- function(constraints, params, ...) {
     constraints %>%
       purrr::map_lgl(
         function(func, params, ...) {
           func(params, ...)
         },
-        init_params,
+        params,
         N_max
       ) %>%
       all()
@@ -85,7 +85,7 @@ fit_dd_model <- function(waiting_times_tbl,
 
   # Check initial parameters
   init_params %>% dd_model$params_check()
-  if (!check_constraints(constraints, init_params, N_max)) {
+  if (!are_constraints_ok(constraints, init_params, N_max)) {
     warning("The constraints of the model are not satisfied for the initial parameter values.")
     loglik_tbl <- init_params %>%
       tibble::as_tibble() %>%
@@ -105,13 +105,13 @@ fit_dd_model <- function(waiting_times_tbl,
   }
 
   # Transform parameters
-  init_trparsopt <- init_params %>% DDD::transform_pars()
+  init_trparsopt <- init_params %>% transform_pars()
 
   # Declare function to be optimised
   fun <- function(trparsopt) {
     if (min(trparsopt) < 0 || max(trparsopt) > 1) return(-Inf)
-    params <- DDD::untransform_pars(trparsopt)
-    if (!check_constraints(constraints, params, N_max)) return(-Inf)
+    params <- untransform_pars(trparsopt)
+    if (!are_constraints_ok(constraints, params, N_max)) return(-Inf)
     loglik <- comrad::dd_loglik_func(
       waiting_times_tbl = waiting_times_tbl,
       params = params,
@@ -122,8 +122,7 @@ fit_dd_model <- function(waiting_times_tbl,
   }
 
   # Run maximum likelihood optimisation
-  ml_output <- DDD::optimizer(
-    optimmethod = 'subplex',
+  ml_output <- ddd_optimizer(
     fun = fun,
     trparsopt = init_trparsopt,
     num_cycles = num_cycles,
@@ -135,7 +134,7 @@ fit_dd_model <- function(waiting_times_tbl,
     tibble::as_tibble() %>%
     dplyr::select(par) %>%
     dplyr::mutate(
-      "par" = par %>% DDD::untransform_pars(),
+      "par" = par %>% untransform_pars(),
       "params" = names(par),
       "loglik" = ml_output$fvalues,
       "conv" = ml_output$conv,
