@@ -13,6 +13,7 @@
 #' * `next_event`, type of the next event; either `"speciation"` or
 #' `"extinction"`
 #' * `waiting_time`, time to the next event
+#' * `is_speciation`, lgl shortcut to type of event
 #'
 #' @author Théo Pannetier
 #' @export
@@ -54,7 +55,14 @@ waiting_times <- function(phylo) {
     # Waiting time to next event
     dplyr::mutate("waiting_time" = dplyr::lead(time) - time) %>%
     # Drop last row, waiting time cut by present
-    dplyr::filter(next_event != "present")
+    dplyr::filter(next_event != "present") %>%
+    dplyr::mutate(
+      "is_speciation" = dplyr::case_when(
+        next_event == "speciation" ~ TRUE,
+        next_event == "extinction" ~ FALSE
+        # NA if neither
+      )
+    )
 
   # Control output
   if (any(is.na(wt_tbl))) {
@@ -63,5 +71,9 @@ waiting_times <- function(phylo) {
   if (any(wt_tbl$waiting_time %>% round(3) > max_time)) {
     stop("Some waiting time(s) exceeded total generation span")
   }
+  if (any(is.na(wt_tbl$is_speciation))) {
+    stop("Some event is neither speciation or extinction")
+  }
+
   return(wt_tbl)
 }

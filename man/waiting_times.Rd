@@ -19,6 +19,7 @@ a \code{tibble} with a row per event and four columns:
 \item \code{next_event}, type of the next event; either \code{"speciation"} or
 \code{"extinction"}
 \item \code{waiting_time}, time to the next event
+\item \code{is_speciation}, lgl shortcut to type of event
 }
 }
 \description{

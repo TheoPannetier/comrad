@@ -1,5 +1,5 @@
 ---
-title: "demo"
+title: "`comrad` demo"
 author: "Théo Pannetier"
 output: rmarkdown::html_vignette
 date: "4/3/2020"
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup, include = FALSE}
-library(comrad); library(ape)
+library(comrad)
 ```
 
 ## Introduction and biological context
@@ -155,7 +155,7 @@ The simulation can take quite long, but interesting things happen after many
 generations. Below is an example with $\sigma_z = 0.1$ & $\sigma_K = 1$.
 
 ```{r load_sim, echo=FALSE, warning=FALSE}
-comrad_tbl <- comrad::read_comrad_tbl("demo_data/comrad_output_example.csv", skip = 18)
+comrad_tbl <- comrad::read_comrad_tbl("demo_data/comrad_output_example.csv", skip = 20)
 ```
 
 ```{r data_viz4}
@@ -168,7 +168,7 @@ Note that only half of the individuals were sampled in the output, so the size
 of the community at the end is about 10,000, not 5,000.
 
 ## Phylogeny reconstruction
-From the simulation ouput, build the phylogeny with `sim_to_phylo()`.
+From the simulation ouput, build the phylogeny with `convert_sim_to_phylo()`.
 ```{r phylo_build}
 phylo <- comrad_tbl %>% comrad::sim_to_phylo()
 phylo
