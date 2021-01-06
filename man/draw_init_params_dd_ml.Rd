@@ -4,13 +4,31 @@
 \alias{draw_init_params_dd_ml}
 \title{Draw a set of initial parameter values for a DD model}
 \usage{
-draw_init_params_dd_ml(phylos, nb_sets, with_alpha = TRUE)
+draw_init_params_dd_ml(nb_sets, phylos, dd_model)
 }
 \arguments{
+\item{nb_sets}{integer, the number of sets desired.}
+
 \item{phylos}{the list of \code{phylo} class objects on which the DD model is going
 to be fit.}
 
-\item{nb_sets}{integer, the number of sets desired.}
+\item{dd_model}{a list with five named elements that together specify the
+diversity-dependent model:
+\itemize{
+\item \code{name} a two-letter code, the name of the model. First letter specifies the
+form of the speciation function, second letter the form of the extinction
+function: "l" for "linear", "x" for exponential, "c" for constant.
+\item \code{speciation_func}, a function specifying the diversity-dependent speciation
+rate. Must take arguments \code{params} and \code{N}.
+\item \code{extinction_func}, a function specifying the diversity-dependent extinction
+rate. Must take arguments \code{params} and \code{N}.
+\item \code{constraints} a list of conditions that parameter values must satisfy. Each
+element is a function that takes arguments \code{params} and \code{...}, and returns
+\code{TRUE} if the constraint is satisfied, \code{FALSE} if it isn't.
+\item \code{params_check} a function that controls the format of \code{params}. Returns an
+error if the elements of \code{params} are named differently from what is expected
+or if the length differs from the expectation.
+}}
 }
 \value{
 a list of length-4 vectors containing initial values for \code{lambda_0},

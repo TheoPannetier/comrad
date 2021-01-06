@@ -11,6 +11,7 @@
 #' @export
 dd_model_xc <- function() {
   list(
+    "name" = "xc",
     "speciation_func" = function(params, N) {
       params["lambda_0"] * (params["mu_0"] / params["lambda_0"]) ^ (N / params["k"])
     },

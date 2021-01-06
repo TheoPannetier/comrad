@@ -12,6 +12,7 @@
 #' @export
 dd_model_xx <- function() {
   list(
+    "name" = "xx",
     "speciation_func" = function(params, N) {
       params["lambda_0"] * (params["alpha"] + (1 - params["alpha"]) * (params["mu_0"] / params["lambda_0"])) ^ (N / params["k"])
     },

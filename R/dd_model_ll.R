@@ -12,6 +12,7 @@
 #' @export
 dd_model_ll <- function() {
   list(
+    "name" = "ll",
     "speciation_func" = function(params, N) {
       pmax(
         params["lambda_0"] - (1 - params["alpha"]) * (params["lambda_0"] - params["mu_0"]) * (N / params["k"]),

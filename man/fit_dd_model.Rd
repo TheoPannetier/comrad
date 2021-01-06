@@ -19,9 +19,12 @@ fit_dd_model(
 The names and number of parameters must match those specified in
 \code{dd_model$params_check}.}
 
-\item{dd_model}{a list with four named elements that together specify the
+\item{dd_model}{a list with five named elements that together specify the
 diversity-dependent model:
 \itemize{
+\item \code{name} a two-letter code, the name of the model. First letter specifies the
+form of the speciation function, second letter the form of the extinction
+function: "l" for "linear", "x" for exponential, "c" for constant.
 \item \code{speciation_func}, a function specifying the diversity-dependent speciation
 rate. Must take arguments \code{params} and \code{N}.
 \item \code{extinction_func}, a function specifying the diversity-dependent extinction

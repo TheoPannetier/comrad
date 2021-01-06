@@ -8,9 +8,11 @@
 #' @param init_params named vector, initial values of the parameters to optimise.
 #' The names and number of parameters must match those specified in
 #' `dd_model$params_check`.
-#' @param dd_model a list with four named elements that together specify the
+#' @param dd_model a list with five named elements that together specify the
 #' diversity-dependent model:
-#'
+#' * `name` a two-letter code, the name of the model. First letter specifies the
+#' form of the speciation function, second letter the form of the extinction
+#' function: "l" for "linear", "x" for exponential, "c" for constant.
 #' * `speciation_func`, a function specifying the diversity-dependent speciation
 #' rate. Must take arguments `params` and `N`.
 #' * `extinction_func`, a function specifying the diversity-dependent extinction
