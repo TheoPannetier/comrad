@@ -10,7 +10,7 @@
 #'
 #' @author Theo Pannetier
 #' @export
-dd_model_ll <- function() {
+dd_model_lx <- function() {
   list(
     "speciation_func" = function(params, N) {
       pmax(
