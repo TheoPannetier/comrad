@@ -43,7 +43,7 @@ simulate_dd_phylo <- function(params, nb_gens, dd_model) {
     "lambda" = dd_model$speciation_func(params = params, N = N),
     "mu" = dd_model$extinction_func(params = params, N = N),
     "total_rate" = (lambda + mu) * N,
-    "p_speciation" = lambda / (lambda + mu)
+    "p_speciation" = ifelse(lambda > 0, lambda / (lambda + mu), 0)
   )
   if(any(!between(rate_tbl$p_speciation, 0, 1))) {
     stop("\"p_speciation\" is not a probability.")
