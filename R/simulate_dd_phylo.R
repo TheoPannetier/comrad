@@ -27,14 +27,20 @@
 #' `comrad` contains several `dd_model` functions, see for example
 #' [comrad::dd_model_lc()].
 #'
+#' @param stem_or_crown character, either "stem" or "crown", should the
+#'  simulation start from 1 species (stem lineage) or 2 species (crown lineages)?
+#'
 #' @return a `phylo` object containign the simulated phylogeny, including
 #' extinct lineages and the stem.
 #'
 #' @author Theo Pannetier
 #' @export
 
-simulate_dd_phylo <- function(params, nb_gens, dd_model) {
+simulate_dd_phylo <- function(params, nb_gens, dd_model, stem_or_crown = "stem") {
 
+  if (!stem_or_crown %in% c("stem", "crown")) {
+    stop("arg \"stem_or_crown\" should be either \"stem\" or \"crown\"")
+  }
   kprime <- ceiling(params["k"] * params["lambda_0"] / (params["lambda_0"] - params["mu_0"]))
   n_max <- ceiling(kprime * 2)
 
@@ -51,16 +57,25 @@ simulate_dd_phylo <- function(params, nb_gens, dd_model) {
 
   has_survived <- FALSE
   while(!has_survived) {
-    spp_tbl <- tibble::tibble(
-      "species_name" = charlatan::ch_hex_color(),
-      "ancestor_name" = as.character(NA),
-      "time_birth" = 0,
-      "time_death" = nb_gens
-    )
+    if (stem_or_crown == "stem") {
+      spp_tbl <- tibble::tibble(
+        "species_name" = charlatan::ch_hex_color(1),
+        "ancestor_name" = as.character(NA),
+        "time_birth" = 0,
+        "time_death" = nb_gens
+      )
+    } else {
+      spp_tbl <- tibble::tibble(
+        "species_name" = charlatan::ch_hex_color(2),
+        "ancestor_name" = c(NA, species_name[1]),
+        "time_birth" = rep(0, 2),
+        "time_death" = rep(nb_gens, 2)
+      )
+    }
     # Initialise variables
-    alive <- spp_tbl$species_name[1]
-    n_alive <- 1L
-    rate <- rate_tbl$total_rate[1]
+    alive <- spp_tbl$species_name
+    n_alive <- length(alive)
+    rate <- rate_tbl$total_rate[rate_tbl$N == n_alive]
     gen <- ceiling(stats::rexp(1, rate = rate))
 
     while(gen <= nb_gens) {
@@ -98,7 +113,7 @@ simulate_dd_phylo <- function(params, nb_gens, dd_model) {
       }
       gen <- gen + ceiling(stats::rexp(1, rate = rate))
     }
-    has_survived <- n_alive > 0
+    has_survived <- n_alive >= ifelse(stem_or_crown == "stem", 1, 2)
   }
 
   phylo <- spp_tbl %>%

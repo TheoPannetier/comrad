@@ -4,7 +4,7 @@
 \alias{simulate_dd_phylo}
 \title{Simulate a phylogeny with a diversity-dependent birth-death model}
 \usage{
-simulate_dd_phylo(params, nb_gens, dd_model)
+simulate_dd_phylo(params, nb_gens, dd_model, stem_or_crown = "stem")
 }
 \arguments{
 \item{params}{a named vector containing the values of the parameters of the
@@ -33,6 +33,9 @@ or if the length differs from the expectation.
 
 \code{comrad} contains several \code{dd_model} functions, see for example
 \code{\link[=dd_model_lc]{dd_model_lc()}}.}
+
+\item{stem_or_crown}{character, either "stem" or "crown", should the
+simulation start from 1 species (stem lineage) or 2 species (crown lineages)?}
 }
 \value{
 a \code{phylo} object containign the simulated phylogeny, including
