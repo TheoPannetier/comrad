@@ -79,7 +79,13 @@ estimate_dd_rates <- function(multi_phylo) {
         "extinction_rate" = event_rate * p_extinction
       )
   rates_tbl <- rates_tbl %>%
-    dplyr::select(N, speciation_rate, extinction_rate)
+    dplyr::select(N, speciation_rate, extinction_rate) %>%
+    pivot_longer(
+      speciation_rate:extinction_rate,
+      names_to = "rate",
+      names_pattern = "(.*)_rate",
+      values_to = "value"
+      )
 
   return(rates_tbl)
 }
