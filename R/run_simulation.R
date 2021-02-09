@@ -164,7 +164,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   if (!is.null(path_to_output)) {
     readr::write_csv(
       comrad_tbl,
-      path = path_to_output,
+      file = path_to_output,
       append = TRUE
     )
   }
@@ -221,7 +221,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
         )
         readr::write_csv(
           sampled_output,
-          path = path_to_output,
+          file = path_to_output,
           append = TRUE
         )
       }

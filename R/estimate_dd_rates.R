@@ -80,7 +80,7 @@ estimate_dd_rates <- function(multi_phylo) {
       )
   rates_tbl <- rates_tbl %>%
     dplyr::select(N, speciation_rate, extinction_rate) %>%
-    pivot_longer(
+    tidyr::pivot_longer(
       speciation_rate:extinction_rate,
       names_to = "rate",
       names_pattern = "(.*)_rate",
