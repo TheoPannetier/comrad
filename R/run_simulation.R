@@ -205,8 +205,10 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
     }
 
     if (sampling_on_event) {
-      sample_this_gen <- setequal(spp_before, spp_after)
+      # Sample if speciation or extinction
+      sample_this_gen <- !setequal(species_before, species_after)
     } else {
+      # Sample every sampling_freq generations
       sample_this_gen <- t %% sampling_freq == 0
     }
 
@@ -223,7 +225,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
           append = TRUE
         )
       }
-      cat("\nSampled generation", t, "/", nb_gens)
+      cat("\nSampled generation", t, "/", time_seq[length(time_seq)])
     }
   }
 
