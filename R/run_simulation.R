@@ -13,6 +13,9 @@
 #' initial community was taken from (a filename or anything else).
 #' @param nb_gens integer, the number of generations to run the
 #' simulation for.
+#' @param sampling_on_event logical. If `TRUE`, the community is sampled every
+#' time a speciation or extinction happens, and `sampling_freq` is ignored and
+#' must be set to `NA`.
 #' @param sampling_freq numeric \code{> 0}, the frequency (in generations) at
 #' which the community is written to output. See [set_sampling_freq()] for the
 #' default option.
@@ -56,7 +59,10 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   prob_mutation = comrad::default_prob_mutation(),
   mutation_sd = comrad::default_mutation_sd(),
   trait_dist_sp = comrad::default_trait_dist_sp(),
-  sampling_freq = comrad::set_sampling_freq(nb_gens),
+  sampling_on_event = FALSE,
+  sampling_freq = ifelse(
+    sampling_on_event, NA, comrad::set_sampling_freq(nb_gens)
+  ),
   sampling_frac = comrad::default_sampling_frac(),
   seed = comrad::default_seed(),
   hpc_job_id = NULL,
@@ -83,8 +89,15 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   comrad::testarg_pos(nb_gens)
   comrad::testarg_not_this(nb_gens, c(0, Inf))
   comrad::testarg_int(nb_gens)
-  comrad::testarg_num(sampling_freq)
-  comrad::testarg_int(sampling_freq)
+  comrad::testarg_log(sampling_on_event)
+  if (sampling_on_event) {
+    if (!is.na(sampling_freq)) {
+      stop("If \"sampling_on_event\" is TRUE \"sampling_freq\" must be NA.")
+    }
+  } else {
+    comrad::testarg_num(sampling_freq)
+    comrad::testarg_int(sampling_freq)
+  }
   comrad::testarg_num(seed)
   comrad::testarg_int(seed)
   comrad::testarg_num(growth_rate)
@@ -158,7 +171,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   if (!is.null(path_to_output)) {
     readr::write_csv(
       comrad_tbl,
-      path = path_to_output,
+      file = path_to_output,
       append = TRUE
     )
   }
@@ -168,6 +181,8 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   # Go :)
   time_seq <- (first_gen + 1):(first_gen + nb_gens)
   for (t in time_seq) {
+
+    species_before <- unlist(distinct(comrad_tbl, species))
     # Replace comm with next generation
     comrad_tbl <- dplyr::bind_cols(
       # Time [t] # nolint
@@ -186,6 +201,8 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
         brute_force_opt = brute_force_opt
       )
     )
+    species_after <- unlist(distinct(comrad_tbl, species))
+
     if (nrow(comrad_tbl) < 1) {
       cat("\nCommunity has gone extinct at generation", t, "\n")
       if (is.null(path_to_output)) {
@@ -195,8 +212,15 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
       }
     }
 
-    if (t %% sampling_freq == 0) {
-      cat("\nRunning generation", t, "/", nb_gens)
+    if (sampling_on_event) {
+      # Sample if speciation or extinction
+      sample_this_gen <- !setequal(species_before, species_after)
+    } else {
+      # Sample every sampling_freq generations
+      sample_this_gen <- t %% sampling_freq == 0
+    }
+
+    if (sample_this_gen) {
       if (!is.null(path_to_output)) {
         # Write only a sample of the output
         sampled_output <- comrad::sample_output(
@@ -205,10 +229,11 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
         )
         readr::write_csv(
           sampled_output,
-          path = path_to_output,
+          file = path_to_output,
           append = TRUE
         )
       }
+      cat("\nSampled generation", t, "/", time_seq[length(time_seq)])
     }
   }
 

@@ -17,7 +17,8 @@ run_simulation(
   prob_mutation = comrad::default_prob_mutation(),
   mutation_sd = comrad::default_mutation_sd(),
   trait_dist_sp = comrad::default_trait_dist_sp(),
-  sampling_freq = comrad::set_sampling_freq(nb_gens),
+  sampling_on_event = FALSE,
+  sampling_freq = ifelse(sampling_on_event, NA, comrad::set_sampling_freq(nb_gens)),
   sampling_frac = comrad::default_sampling_frac(),
   seed = comrad::default_seed(),
   hpc_job_id = NULL,
@@ -65,6 +66,10 @@ distrbution from which mutations are drawn.}
 
 \item{trait_dist_sp}{numeric, the minimal trait distance between two
 clusters of individuals triggering speciation.}
+
+\item{sampling_on_event}{logical. If \code{TRUE}, the community is sampled every
+time a speciation or extinction happens, and \code{sampling_freq} is ignored and
+must be set to \code{NA}.}
 
 \item{sampling_freq}{numeric \code{> 0}, the frequency (in generations) at
 which the community is written to output. See \code{\link[=set_sampling_freq]{set_sampling_freq()}} for the
