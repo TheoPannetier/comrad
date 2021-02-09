@@ -193,7 +193,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
         trait_dist_sp = trait_dist_sp
       )
     )
-    species_after <- unlist(distinct(comrad_tbl, species))
+    species_after <- unlist(dplyr::distinct(comrad_tbl, species))
 
     if (nrow(comrad_tbl) < 1) {
       cat("\nCommunity has gone extinct at generation", t, "\n")
