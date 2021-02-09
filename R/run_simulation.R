@@ -206,10 +206,10 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
 
     if (sampling_on_event) {
       # Sample if speciation or extinction
-      sample_this_gen <- !setequal(species_before, species_after)
+      sample_this_gen <- !setequal(species_before, species_after) || t == nb_gens
     } else {
       # Sample every sampling_freq generations
-      sample_this_gen <- t %% sampling_freq == 0
+      sample_this_gen <- t %% sampling_freq == 0 || t == nb_gens
     }
 
     if (sample_this_gen) {
