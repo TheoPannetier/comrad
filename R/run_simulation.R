@@ -182,7 +182,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   time_seq <- (first_gen + 1):(first_gen + nb_gens)
   for (t in time_seq) {
 
-    species_before <- unlist(distinct(comrad_tbl, species))
+    species_before <- unlist(dplyr::distinct(comrad_tbl, species))
     # Replace comm with next generation
     comrad_tbl <- dplyr::bind_cols(
       # Time [t] # nolint
