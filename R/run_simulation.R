@@ -175,7 +175,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   time_seq <- (first_gen + 1):(first_gen + nb_gens)
   for (t in time_seq) {
 
-    species_before <- unique(comrad_tbl$species)
+    species_before <- unlist(distinct(comrad_tbl, species))
     # Replace comm with next generation
     comrad_tbl <- dplyr::bind_cols(
       # Time [t] # nolint
@@ -193,7 +193,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
         trait_dist_sp = trait_dist_sp
       )
     )
-    species_after <- unique(comrad_tbl$species)
+    species_after <- unlist(distinct(comrad_tbl, species))
 
     if (nrow(comrad_tbl) < 1) {
       cat("\nCommunity has gone extinct at generation", t, "\n")
