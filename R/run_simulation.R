@@ -223,15 +223,16 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
     if (sample_this_gen) {
       if (!is.null(path_to_output)) {
         # Write only a sample of the output
-        sampled_output <- comrad::sample_output(
-          output = comrad_tbl,
-          sampling_frac = sampling_frac
-        )
+        saved_seed <- .GlobalEnv$.Random.seed
+        sampled_output <- comrad_tbl %>%
+          dplyr::slice_sample(prop = sampling_frac)
         readr::write_csv(
           sampled_output,
           file = path_to_output,
           append = TRUE
         )
+        # Restore seed so sampling doesn't change course of simulation
+        .GlobalEnv$.Random.seed <- saved_seed
       }
       cat("\nSampled generation", t, "/", time_seq[length(time_seq)])
     }
