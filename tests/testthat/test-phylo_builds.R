@@ -4,7 +4,7 @@ testthat::test_that("single lineage cases", {
   # sp1 >---------------------> sp1
   #
   comrad_tbl <- tibble::tibble(
-    "t" = 1:1000,
+    "t" = 0:1000,
     "z" = 0,
     "species" = "sp1",
     "ancestral_species" = as.character(NA)
@@ -35,10 +35,10 @@ testthat::test_that("two-lineages cases", {
   # sp1 >----------|
   #                |-----------> sp2
   comrad_tbl <- tibble::tibble(
-    "t" = c(1:1000, 500:1000),
+    "t" = c(0:1000, 500:1000),
     "z" = 0,
-    "species" = c(rep("sp1", 1000), rep("sp2", 501)),
-    "ancestral_species" = c(rep(NA, 1000), rep("sp1", 501))
+    "species" = c(rep("sp1", 1001), rep("sp2", 501)),
+    "ancestral_species" = c(rep(NA, 1001), rep("sp1", 501))
   )
   # Stem
   phylo <- comrad_tbl %>% sim_to_phylo()
@@ -59,7 +59,7 @@ testthat::test_that("two-lineages cases", {
   #                |-----------> sp2
   #
   comrad_tbl <- tibble::tibble(
-    "t" = c(1:750, 500:1000),
+    "t" = c(0:749, 500:1000),
     "z" = 0,
     "species" = c(rep("sp1", 750), rep("sp2", 501)),
     "ancestral_species" = c(rep(NA, 750), rep("sp1", 501))
@@ -98,10 +98,10 @@ testthat::test_that("two-lineages cases", {
   # sp1 >----------|
   #                |----X sp2
   comrad_tbl <- tibble::tibble(
-    "t" = c(1:1000, 500:750),
+    "t" = c(0:1000, 500:749),
     "z" = 0,
-    "species" = c(rep("sp1", 1000), rep("sp2", 251)),
-    "ancestral_species" = c(rep(NA, 1000), rep("sp1", 251))
+    "species" = c(rep("sp1", 1001), rep("sp2", 250)),
+    "ancestral_species" = c(rep(NA, 1001), rep("sp1", 250))
   )
   # Full, stem
   phylo <- comrad_tbl %>% sim_to_phylo()
@@ -141,10 +141,10 @@ testthat::test_that("three lineages cases", {
   #         |-------X sp2
 
   comrad_tbl <- tibble::tibble(
-    "t" = c(1:1000, 250:500, 750:1000),
+    "t" = c(0:1000, 250:499, 750:1000),
     "z" = 0,
-    "species" = c(rep("sp1", 1000), rep("sp2", 251), rep("sp3", 251)),
-    "ancestral_species" = c(rep(NA, 1000), rep("sp1", 251), rep("sp1", 251))
+    "species" = c(rep("sp1", 1001), rep("sp2", 250), rep("sp3", 251)),
+    "ancestral_species" = c(rep(NA, 1001), rep("sp1", 250), rep("sp1", 251))
   )
 
   # Full, stem
@@ -201,19 +201,19 @@ testthat::test_that("trait distribution shouldn't matter", {
       rep(1:1000, rep(50, 1000)),   # sp1
       rep(250:1000, rep(50, 751)),  # sp2
       rep(500:1000, rep(50, 501)),  # sp3
-      rep(500:750, rep(50, 251))    # sp4
+      rep(500:749, rep(50, 250))    # sp4
     )
     spp_seq <- c(
       rep("sp1", 50000),
       rep("sp2", 37550),
       rep("sp3", 25050),
-      rep("sp4", 12550)
+      rep("sp4", 12500)
     )
     anc_spp_seq <- c(
       rep(as.character(NA), 50000),
       rep("sp1", 37550),
       rep("sp1", 25050),
-      rep("sp2", 12550)
+      rep("sp2", 12500)
     )
 
     comrad_tbl <- tibble::tibble(
