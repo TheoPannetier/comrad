@@ -214,10 +214,21 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
 
     if (sample_this_gen) {
       if (!is.null(path_to_output)) {
-        # Write only a sample of the output
         saved_seed <- .GlobalEnv$.Random.seed
+        # Write only a sample of the output
         sampled_output <- comrad_tbl %>%
           dplyr::slice_sample(prop = sampling_frac)
+        # Make sure all species are present in sample
+        species_sampled <- unlist(dplyr::distinct(sampled_output, species))
+        not_sampled <- setdiff(species_after, species_sampled)
+        if (length(not_sampled) > 0) {
+          for (sp in not_sampled) {
+            sampled_output <- dplyr::bind_rows(
+              sampled_output,
+              comrad_tbl %>% dplyr::filter(species == sp)
+            )
+          }
+        }
         readr::write_csv(
           sampled_output,
           file = path_to_output,
