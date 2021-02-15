@@ -19,23 +19,30 @@
 build_spp_tbl <- function(comrad_tbl) {
 
   spp <- unique(comrad_tbl$species)
-  names(spp) <- spp # for automatied labelling by map_dfr
+  names(spp) <- spp # for automated labelling by map_dfr
+  time_seq <- unique(comrad_tbl$t)
 
   spp_tbl <- purrr::map_dfr(
     spp,
     function(sp) {
       is_sp <- comrad_tbl$species == sp
 
-      time_range <- comrad_tbl$t[is_sp]
-
+      time_range <- unique(comrad_tbl$t[is_sp])
+      time_birth <- min(time_range)
+      occur_last <- max(time_range)
+      time_death <- ifelse(
+        occur_last == max(time_seq), # is present?
+        occur_last, # not extinct at present
+        time_seq[which(time_seq == occur_last) + 1] # extinct at first non-occurrence
+      )
       ancestor_name <- unique(
         comrad_tbl$ancestral_species[is_sp]
       )
 
       sp_entry <- tibble::tibble(
         "ancestor_name" = ancestor_name,
-        "time_birth" = min(time_range),
-        "time_death" = max(time_range)
+        "time_birth" = time_birth,
+        "time_death" = time_death
       )
     },
     .id = "species_name"
