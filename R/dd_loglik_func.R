@@ -38,7 +38,7 @@ dd_loglik_func <- function(params,
   # if NaN (not extinction and mu_d=0), should still be 0 bc not extinction
   wt$log_mu[is.nan(wt$log_mu)] <- 0
 
-  wt$probs <- wt$log_lambda + wt$log_mu -
+  wt$probs <- log(wt$N) + wt$log_lambda + wt$log_mu -
     (wt$lambda_d + wt$mu_d) * wt$N * wt$waiting_time
 
   loglik <- sum(wt$probs)

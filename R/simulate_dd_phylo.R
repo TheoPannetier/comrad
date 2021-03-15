@@ -42,7 +42,7 @@ simulate_dd_phylo <- function(params, nb_gens, dd_model, stem_or_crown = "stem")
     stop("arg \"stem_or_crown\" should be either \"stem\" or \"crown\"")
   }
   kprime <- ceiling(params["k"] * params["lambda_0"] / (params["lambda_0"] - params["mu_0"]))
-  n_max <- ceiling(kprime * 2)
+  n_max <- max(ceiling(kprime * 2), 10)
 
   rate_tbl <- tibble::tibble(
     "N" = 1:n_max,
@@ -51,14 +51,17 @@ simulate_dd_phylo <- function(params, nb_gens, dd_model, stem_or_crown = "stem")
     "total_rate" = (lambda + mu) * N,
     "p_speciation" = ifelse(lambda > 0, lambda / (lambda + mu), 0)
   )
-  if(any(!between(rate_tbl$p_speciation, 0, 1))) {
+  if (any(is.na(rate_tbl$total_rate))) {
+    stop("some total rate is NA")
+  }
+  if (any(!between(rate_tbl$p_speciation, 0, 1))) {
     stop("\"p_speciation\" is not a probability.")
   }
 
   has_survived <- FALSE
-  while(!has_survived) {
+  while (!has_survived) {
     if (stem_or_crown == "stem") {
-      spp_tbl <- tibble::tibble(
+      spp_tbl <- data.frame(
         "species_name" = charlatan::ch_hex_color(1),
         "ancestor_name" = as.character(NA),
         "time_birth" = 0,
