@@ -1,7 +1,6 @@
 #' Names of DD models implemented in `comrad`
 #'
 #' @export
-#'
 dd_model_names <- function() {
   c("lc", "ll", "lx","xc", "xl", "xx")
 }
