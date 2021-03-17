@@ -2,7 +2,7 @@
 #'
 #' @export
 dd_model_names <- function() {
-  c("lc", "ll", "lx","xc", "xl", "xx")
+  c("lc", "ll", "lx","xc", "xl", "xx", "xc2", "lx2", "xl2", "xx2")
 }
 
 #' Colours associated with each DD model
@@ -11,7 +11,7 @@ dd_model_names <- function() {
 #'
 #' @export
 dd_model_colours <- function() {
-  dd_colours <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A",  "#66A61E", "#E6AB02")
+  dd_colours <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A",  "#66A61E", "#E6AB02", "#A6761D", "#666666", "#E41A1C", "#377EB8")
   names(dd_colours) <- dd_model_names()
   return(dd_colours)
 }
@@ -28,6 +28,10 @@ dd_models <- function() {
     dd_model_lx(),
     dd_model_xc(),
     dd_model_xl(),
-    dd_model_xx()
+    dd_model_xx(),
+    dd_model_xc2(),
+    dd_model_lx2(),
+    dd_model_xl2(),
+    dd_model_xx2()
   )
 }

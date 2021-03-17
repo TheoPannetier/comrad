@@ -46,7 +46,7 @@ draw_init_params_dd_ml <- function(nb_sets, phylos, dd_model) {
     c("lambda_0" = lambda, "mu_0" = mu, "k" = k, "alpha" = alpha)
   })
 
-  with_alpha <- stringr::str_detect(dd_model$name, "c") # no alpha if constant
+  with_alpha <- !stringr::str_detect(dd_model$name, "c") # no alpha if constant
 
   if (!with_alpha) {
     init_params <- init_params %>% purrr::map(function(vec) vec[-4])
