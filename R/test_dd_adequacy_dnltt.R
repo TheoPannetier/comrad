@@ -26,7 +26,7 @@
 #' @export
 #' @author Theo Pannetier
 
-robustness_test <- function(ltts_empirical, ltts_bootstrap) {
+test_dd_adequacy_dnltt <- function(ltts_empirical, ltts_bootstrap) {
 
   # Compute average LTT of the bootstrap test, estimate of the deterministic LTT of the model
   t_seq <- seq(min(ltts_empirical[[1]]$time), 0, 100)
@@ -40,12 +40,12 @@ robustness_test <- function(ltts_empirical, ltts_bootstrap) {
   # Get decision criteria
   dnltt_95th <- stats::quantile(dnltts_bootstrap, probs = 0.95)
   p_95 <- 1 - sum(dnltts_empirical > dnltt_95th) / length(dnltts_empirical)
-  ks <- stats::ks.test(dnltts_empirical, dnltts_bootstrap, alternative = "less")
+  ks_test <- stats::ks.test(dnltts_empirical, dnltts_bootstrap, alternative = "less")
 
   return(list(
     "dnltts_empirical" = dnltts_empirical,
     "dnltts_bootstrap" = dnltts_bootstrap,
     "p_95" = p_95,
-    "ks" = ks
+    "ks_test" = ks_test
   ))
 }
