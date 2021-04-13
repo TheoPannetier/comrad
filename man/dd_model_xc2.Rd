@@ -10,7 +10,7 @@ dd_model_xc2()
 \description{
 A list specifying a DD model with exponential diversity-dependence on the
 speciation rate and constant-rate extinction; to be fed as argument
-\code{dd_model} to \code{\link[=fit_dd_model]{fit_dd_model()}}. This second formulation of the model
+\code{dd_model} to \code{\link[=fit_dd_model_with_fossil]{fit_dd_model_with_fossil()}}. This second formulation of the model
 corresponds to the exponential model found in \code{DDD} (\code{ddmodel = 2})
 }
 \details{

@@ -31,6 +31,7 @@ dd_model_xc <- function() {
       )) {
         stop("params for ddmodel_xc should be \"lambda_0\", \"mu_0\" and \"k\".")
       }
-    }
+    },
+    "DDD_name" = 9
   )
 }

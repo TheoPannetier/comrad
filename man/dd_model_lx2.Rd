@@ -10,7 +10,7 @@ dd_model_lx2()
 \description{
 A list specifying a DD model with linear diversity-dependence on the
 speciation rate and exponential diversity-dependence on the extinction rate;
-to be fed as argument \code{dd_model} to \code{\link[=fit_dd_model]{fit_dd_model()}}.
+to be fed as argument \code{dd_model} to \code{\link[=fit_dd_model_with_fossil]{fit_dd_model_with_fossil()}}.
 This formulation corresponds to the exponential model
 found in \code{DDD} (\code{ddmodel = 2}) and elsewhere (\code{BAMM}).
 }

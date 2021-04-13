@@ -10,7 +10,7 @@ dd_model_xc()
 \description{
 A list specifying a DD model with exponential diversity-dependence on the
 speciation rate and constant-rate extinction; to be fed as argument
-\code{dd_model} to \code{\link[=fit_dd_model]{fit_dd_model()}}.
+\code{dd_model} to \code{\link[=fit_dd_model_with_fossil]{fit_dd_model_with_fossil()}}.
 }
 \details{
 \deqn{\lambda(N) = \lambda_{0}(\frac{\mu_{0}}{\lambda_{0}})^{\frac{N}{K}} \\ \mu(N) = \mu_{0}}

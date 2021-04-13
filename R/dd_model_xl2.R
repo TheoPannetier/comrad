@@ -35,6 +35,7 @@ dd_model_xl2 <- function() {
       )) {
         stop("params for ddmodel_ll should be \"lambda_0\", \"mu_0\", \"k\" and \"alpha\".")
       }
-    }
+    },
+    "DDD_name" = 8
   )
 }

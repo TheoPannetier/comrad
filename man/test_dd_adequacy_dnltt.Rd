@@ -16,8 +16,8 @@ containing the LTTs of the set of bootstrap trees.}
 \value{
 a list with four elements:
 \itemize{
-\item \code{dnltts_empirical} vector with the delta nLTT between every tree in the empirical set and the average bootstrap LTT
-\item \code{dnltts_bootstrap} vector with the delta nLTT between every tree in the bootsrap set and the average bootstrap LTT
+\item \code{dnltt_tbl} a tibble with variables \code{dnltt} (values of the delta nLTT) and \code{set} (\code{"empirical"} or \code{"bootstrap"})
+\item \code{avg_ltt_bootstrap} a \code{tibble} containing the average LTT of the bootstrap set.
 \item \code{p_95} a measure akin a p-value, the proportion of empirical trees with a delta nLTT higher than the 95th percentile of the distribution delta nLTT of the bootstrap test.
 Based on the $p_95$ of Santos Neves, Lambert et al. (2021).
 \item \code{ks} output of a two-sample, one-sided (empirical > bootstrap) Kolmogorv-Smirnov test on the distribution of the delta nLTT of the empirical and bootsrap test.
