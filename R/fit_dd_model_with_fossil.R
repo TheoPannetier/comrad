@@ -1,7 +1,7 @@
-#' Fit a diversity-dependent diversification model to phylogenies
+#' Fit a diversity-dependent diversification model to phylogenies with fossil lineages
 #'
 #' Fits the parameters of a specified diversity-dependent model to  a set of
-#' full phylogenies produced by `comrad` simulations
+#' full phylogenies (with fossil lineages) produced by `comrad` simulations
 #'
 #' @param waiting_times_tbl a table with waiting times, the output of
 #' [waiting_times()] for one or more phylogenies.
@@ -37,11 +37,11 @@
 #' @author Theo Pannetier
 #' @export
 #'
-fit_dd_model <- function(waiting_times_tbl,
-                         init_params,
-                         dd_model = dd_model_lc(),
-                         num_cycles = Inf
-                         ) {
+fit_dd_model_with_fossil <- function(waiting_times_tbl,
+                                     init_params,
+                                     dd_model = dd_model_lc(),
+                                     num_cycles = Inf
+) {
 
   # Format initial parameter values for output
   init_tbl <- init_params %>%

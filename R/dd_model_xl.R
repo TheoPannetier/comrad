@@ -3,7 +3,7 @@
 #'
 #' A list specifying a DD model with exponential diversity-dependence on the
 #' speciation rate and linear diversity-dependence extinction rate;
-#' to be fed as argument `dd_model` to [comrad::fit_dd_model()].
+#' to be fed as argument `dd_model` to [comrad::fit_dd_model_with_fossil()].
 #'
 #'\deqn{\lambda(N) = \lambda_{0}(\alpha + (1 - \alpha) \frac{\mu_{0}}{\lambda_{0}})^{\frac{N}{K}}}
 #'\deqn{\mu(N) = \mu_{0} + \alpha(\lambda_{0} - \mu_{0}) \frac{N}{K}}

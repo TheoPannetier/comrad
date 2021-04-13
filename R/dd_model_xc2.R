@@ -3,7 +3,7 @@
 #'
 #' A list specifying a DD model with exponential diversity-dependence on the
 #' speciation rate and constant-rate extinction; to be fed as argument
-#' `dd_model` to [comrad::fit_dd_model()]. This second formulation of the model
+#' `dd_model` to [comrad::fit_dd_model_with_fossil()]. This second formulation of the model
 #' corresponds to the exponential model found in `DDD` (`ddmodel = 2`)
 #'
 #' \deqn{\lambda(N) = \lambda_{0} \times N^{-\frac{log(\frac{\lambda_{0}}{\mu_{0}})}{log(K)}} \\ \mu(N) = \mu_{0}}
