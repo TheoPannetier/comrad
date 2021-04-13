@@ -2,7 +2,29 @@
 #'
 #' @export
 dd_model_names <- function() {
-  c("lc", "ll", "lx","xc", "xl", "xx", "xc2", "lx2", "xl2", "xx2")
+  c("lc", "ll", "lx", "xc", "xl", "xx", "xc2", "lx2", "xl2", "xx2")
+}
+
+#' Values of `DDD` argument `ddmodel` corresponding to `comrad` DD models
+#'
+#' @param dd_model_name character, the name of the DD model in comrad
+#'
+#' @return an integer code, value for this DD model in `DDD`
+#' @author Theo Pannetier
+#' @export
+dd_model_comrad_to_ddd <- function(dd_model_name) {
+  switch (dd_model_name,
+    "lc" = 1,
+    "ll" = 5,
+    "lx" = 11,
+    "lx2" = 6,
+    "xc" = 9,
+    "xl" = 13,
+    "xx" = 12,
+    "xc2" = 2,
+    "xl2" = 8,
+    "xx2" = 7
+  )
 }
 
 #' Colours associated with each DD model
