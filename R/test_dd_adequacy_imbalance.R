@@ -23,6 +23,7 @@
 #' @author Theo Pannetier
 #' @export
 #'
+
 test_dd_adequacy_imbalance <- function(phylos_empirical, phylos_bootstrap, type = "Sackin") {
   if (!type %in% c("Sackin", "Colless")) {
     stop("\"type\" should only be \"Sackin\" or \"Colless\"")
@@ -45,6 +46,8 @@ test_dd_adequacy_imbalance <- function(phylos_empirical, phylos_bootstrap, type 
     )
   return(
     list(
+      "imbalance_empirical" = imbalance_empirical,
+      "imbalance_bootstrap" = imbalance_bootstrap,
       "delta_imbalance_empirical" = delta_imbalance_empirical,
       "delta_imbalance_bootstrap" = delta_imbalance_bootstrap,
       "pvals" = pvals,
