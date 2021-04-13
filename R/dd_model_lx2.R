@@ -3,7 +3,7 @@
 #'
 #' A list specifying a DD model with linear diversity-dependence on the
 #' speciation rate and exponential diversity-dependence on the extinction rate;
-#' to be fed as argument `dd_model` to [comrad::fit_dd_model()].
+#' to be fed as argument `dd_model` to [comrad::fit_dd_model_with_fossil()].
 #' This formulation corresponds to the exponential model
 #' found in `DDD` (`ddmodel = 2`) and elsewhere (`BAMM`).
 #'
