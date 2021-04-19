@@ -3,7 +3,7 @@
 #' Compute the log-likelihood of athe diversity-dependent model specified by
 #' `speciation_func`, `extinction_func`, and `params` given a set of waiting
 #' times to next events and associated diversity.
-#' Meant to be called internally by [fit_dd_model()].
+#' Meant to be called internally by [fit_dd_model_with_fossil()].
 #'
 #' @param waiting_times_tbl the output of [waiting_times()], a table containing the
 #' waiting times to a next event, type of events, and species diversity.

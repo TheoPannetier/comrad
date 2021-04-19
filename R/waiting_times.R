@@ -19,7 +19,6 @@
 #' @export
 
 waiting_times <- function(phylo) {
-
   if (!class(phylo) == "phylo") {
     stop("'phylo' must be a 'phylo' object.")
   }
