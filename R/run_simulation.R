@@ -25,6 +25,10 @@
 #' @param seed integer \code{> 0}, the seed to set for the random number
 #' generator. Defaults to an integer based on current day and time.
 #' @inheritParams default_params_doc
+#' @param switch_carr_cap_sd_after if not `NA`, the value of `carrying_cap_sd` will
+#' switch to `switch_carr_cap_sd_to` at t = `switch_carr_cap_sd_after` + 1.
+#' @param switch_carr_cap_sd_to the value to switch `carrying_cap_sd` to if
+#' `switch_carr_cap_sd_after` is not `NA`.
 #' @param hpc_job_id used to record a job ID in the metadata, only relevant for
 #' simulations run on a high-performance cluster. Otherwise takes value
 #' `"local"`.
@@ -59,6 +63,8 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   prob_mutation = comrad::default_prob_mutation(),
   mutation_sd = comrad::default_mutation_sd(),
   trait_dist_sp = comrad::default_trait_dist_sp(),
+  switch_carr_cap_sd_after = NA,
+  switch_carr_cap_sd_to = NA,
   sampling_on_event = FALSE,
   sampling_freq = ifelse(
     sampling_on_event, NA, comrad::set_sampling_freq(nb_gens)
@@ -118,6 +124,13 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   comrad::testarg_num(sampling_frac)
   comrad::testarg_prop(sampling_frac)
   comrad::testarg_char(brute_force_opt)
+
+  will_switch <- !is.na(switch_carr_cap_sd_after)
+  if (will_switch) {
+    comrad::testarg_num(switch_carr_cap_sd_after)
+    comrad::testarg_num(switch_carr_cap_sd_to)
+    comrad::testarg_pos(carrying_cap_sd)
+  }
 
   is_on_peregrine <- Sys.getenv("HOSTNAME") == "peregrine.hpc.rug.nl"
 
@@ -181,8 +194,14 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   # Go :)
   time_seq <- (first_gen + 1):(first_gen + nb_gens)
   for (t in time_seq) {
-
+    if (will_switch && t > switch_carr_cap_sd_after) {
+      cat("Switched carrying_cap_sd from", carrying_cap_sd, "to",
+          switch_carr_cap_sd_to, "at t =", t)
+      carrying_cap_sd <- switch_carr_cap_sd_to
+      will_switch <- FALSE
+    }
     species_before <- unlist(dplyr::distinct(comrad_tbl, species))
+
     # Replace comm with next generation
     comrad_tbl <- dplyr::bind_cols(
       # Time [t] # nolint

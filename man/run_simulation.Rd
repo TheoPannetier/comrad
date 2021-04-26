@@ -17,6 +17,8 @@ run_simulation(
   prob_mutation = comrad::default_prob_mutation(),
   mutation_sd = comrad::default_mutation_sd(),
   trait_dist_sp = comrad::default_trait_dist_sp(),
+  switch_carr_cap_sd_after = NA,
+  switch_carr_cap_sd_to = NA,
   sampling_on_event = FALSE,
   sampling_freq = ifelse(sampling_on_event, NA, comrad::set_sampling_freq(nb_gens)),
   sampling_frac = comrad::default_sampling_frac(),
@@ -66,6 +68,12 @@ distrbution from which mutations are drawn.}
 
 \item{trait_dist_sp}{numeric, the minimal trait distance between two
 clusters of individuals triggering speciation.}
+
+\item{switch_carr_cap_sd_after}{if not \code{NA}, the value of \code{carrying_cap_sd} will
+switch to \code{switch_carr_cap_sd_to} at t = \code{switch_carr_cap_sd_after} + 1.}
+
+\item{switch_carr_cap_sd_to}{the value to switch \code{carrying_cap_sd} to if
+\code{switch_carr_cap_sd_after} is not \code{NA}.}
 
 \item{sampling_on_event}{logical. If \code{TRUE}, the community is sampled every
 time a speciation or extinction happens, and \code{sampling_freq} is ignored and
