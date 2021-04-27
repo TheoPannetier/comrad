@@ -135,7 +135,11 @@ fit_dd_model_with_fossil <- function(waiting_times_tbl,
       names_prefix = "ml_",
       values_from = par
     ) %>%
-    dplyr::bind_cols(init_tbl, .)
+    dplyr::bind_cols(
+      "dd_model" = dd_model$name,
+      "with_fossil" = TRUE,
+      init_tbl, .
+    )
 
   return(loglik_tbl)
 }
