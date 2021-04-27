@@ -129,7 +129,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   if (will_switch) {
     comrad::testarg_num(switch_carr_cap_sd_after)
     comrad::testarg_num(switch_carr_cap_sd_to)
-    comrad::testarg_pos(carrying_cap_sd)
+    comrad::testarg_pos(switch_carr_cap_sd_to)
   }
 
   is_on_peregrine <- Sys.getenv("HOSTNAME") == "peregrine.hpc.rug.nl"
@@ -195,8 +195,8 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   time_seq <- (first_gen + 1):(first_gen + nb_gens)
   for (t in time_seq) {
     if (will_switch && t > switch_carr_cap_sd_after) {
-      cat("Switched carrying_cap_sd from", carrying_cap_sd, "to",
-          switch_carr_cap_sd_to, "at t =", t)
+      cat("\nSwitched carrying_cap_sd from", carrying_cap_sd, "to",
+          switch_carr_cap_sd_to, "at t =", t, "\n")
       carrying_cap_sd <- switch_carr_cap_sd_to
       will_switch <- FALSE
     }
