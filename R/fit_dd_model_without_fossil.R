@@ -95,7 +95,7 @@ fit_dd_model_without_fossil <- function(
       dplyr::rename_with(~paste0("ml_", .x), lambda:alpha)
   } else {
     ml_params <- ddd_ml %>%
-      dplyr::rename_with(~paste0("ml_", .x), lambda:K)
+      dplyr::rename_with(~paste0("ml_", .x), lambda:k)
   }
   ml_tbl <- dplyr::bind_cols(
     "dd_model" = dd_model$name,
