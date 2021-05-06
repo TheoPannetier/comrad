@@ -16,7 +16,7 @@ dd_model_xc <- function() {
       params["lambda_0"] * (params["mu_0"] / params["lambda_0"]) ^ (N / params["k"])
     },
     "extinction_func" = function(params, N) {
-      params["mu_0"]
+      rep(params["mu_0"], length(N))
     },
     "constraints" = list(
       function(params, ...) params["lambda_0"] > 0,
