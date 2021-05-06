@@ -23,16 +23,24 @@
 #' @param params a named vector containing the values of the parameters of
 #' `speciation_func` and `extinction_func`.
 #'
-#' @return a `tibble` with variables `N`, `speciation_rate` and `extinction_rate`
+#' @return a `tibble` with variables `N`, `rate` (speciation or extinction),
+#' `value` (value of that rate), and `dd_model` (name of the DD model)
 #' @author Théo Pannetier
 #' @export
 #'
 rates_from_dd_model <- function(N_seq, dd_model, params) {
   dd_model$params_check(params)
   rates_tbl <- tibble::tibble(
-    "N" = N_seq,
-    "speciation_rate" = dd_model$speciation_func(params, N_seq),
-    "extinction_rate" = dd_model$extinction_func(params, N_seq)
+    "N" = rep(N_seq, 2),
+    "rate" = c(
+      rep("speciation", length(N_seq)),
+      rep("extinction", length(N_seq))
+    ),
+    "value" = c(
+      dd_model$speciation_func(params, N_seq),
+      dd_model$extinction_func(params, N_seq)
+    ),
+    "dd_model" = dd_model$name
   )
   return(rates_tbl)
 }
