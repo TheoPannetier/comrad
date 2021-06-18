@@ -45,15 +45,15 @@ dd_model_colours <- function() {
 #' @export
 dd_models <- function() {
   list(
-    dd_model_lc(),
-    dd_model_ll(),
-    dd_model_lx(),
-    dd_model_xc(),
-    dd_model_xl(),
-    dd_model_xx(),
-    dd_model_xc2(),
-    dd_model_lx2(),
-    dd_model_xl2(),
-    dd_model_xx2()
+    "lc" = dd_model_lc(),
+    "ll" = dd_model_ll(),
+    "lx" = dd_model_lx(),
+    "xc" = dd_model_xc(),
+    "xl" = dd_model_xl(),
+    "xx" = dd_model_xx(),
+    "xc2" = dd_model_xc2(),
+    "lx2" = dd_model_lx2(),
+    "xl2" = dd_model_xl2(),
+    "xx2" = dd_model_xx2()
   )
 }
