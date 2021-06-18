@@ -56,5 +56,12 @@ rates_from_exp_dist <- function(waiting_times_tbl) {
       "ci_upper" = ci_upper * p_event,
       "ci_lower" = ci_lower * p_event
     )
+  # Values of N with no extinction events should have extinction rate = 0
+  rates_tbl <- rates_tbl %>%
+    dplyr::mutate(
+      "value" = ifelse(rate == "extinction" & is.na(value), 0, value),
+      "ci_upper" = ifelse(rate == "extinction" & is.na(ci_upper), 0, ci_upper),
+      "ci_lower" = ifelse(rate == "extinction" & is.na(ci_lower), 0, ci_lower)
+    )
   return(rates_tbl)
 }
