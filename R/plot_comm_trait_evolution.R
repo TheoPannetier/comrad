@@ -28,6 +28,7 @@ plot_comm_trait_evolution <- function(comrad_tbl,
                                       ygrain = 0.01,
                                       xlim = NULL,
                                       ylim = NULL,
+                                      alpha = 0.95,
                                       hex_fill = "species"
                                       ) {
   comrad::test_comrad_comm(
@@ -79,7 +80,7 @@ plot_comm_trait_evolution <- function(comrad_tbl,
   if (hex_fill == "species") {
     trait_plot <- trait_plot +
       ggplot2::geom_hex(
-        ggplot2::aes(fill = species, alpha = 0.95),
+        ggplot2::aes(fill = species, alpha = alpha),
         binwidth = c(xgrain, ygrain),
         show.legend = FALSE
       ) +
