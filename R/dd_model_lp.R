@@ -1,20 +1,19 @@
 #' Diversity-dependent model with linear (l) dependence on speciation and
-#' exponential (x) dependence on extinction – alternative formulation
+#' power (p) dependence on extinction
 #'
 #' A list specifying a DD model with linear diversity-dependence on the
-#' speciation rate and exponential diversity-dependence on the extinction rate;
+#' speciation rate and power diversity-dependence on the extinction rate;
 #' to be fed as argument `dd_model` to [comrad::fit_dd_model_with_fossil()].
-#' This formulation corresponds to the exponential model
-#' found in `DDD` (`ddmodel = 2`) and elsewhere (`BAMM`).
+#' This corresponds to the "exponential" model found in `DDD` (`ddmodel = 6`) and elsewhere (`BAMM`).
 #'
 #' \deqn{\lambda(N) = \lambda_{0} - (1 - \alpha)(\lambda_{0} - \mu_{0}) \frac{N}{K}}
 #' \deqn{\mu(N) = \mu_{0}((1 - \alpha) + \alpha \frac{\lambda_{0}}{\mu_{0}})^{\frac{N}{K}}}
 #'
 #' @author Theo Pannetier
 #' @export
-dd_model_lx2 <- function() {
+dd_model_lp <- function() {
   list(
-    "name" = "lx2",
+    "name" = "lp",
     "speciation_func" = function(params, N) {
       pmax(
         params["lambda_0"] - (1 - params["alpha"]) * (params["lambda_0"] - params["mu_0"]) * (N / params["k"]),
@@ -42,7 +41,7 @@ dd_model_lx2 <- function() {
       if (!(length(params_names) == 4 &&
             all(params_names %in% c("lambda_0", "mu_0", "k", "alpha"))
       )) {
-        stop("params for ddmodel_ll should be \"lambda_0\", \"mu_0\", \"k\" and \"alpha\".")
+        stop("params for ddmodel_lp should be \"lambda_0\", \"mu_0\", \"k\" and \"alpha\".")
       }
     },
     "DDD_name" = 6

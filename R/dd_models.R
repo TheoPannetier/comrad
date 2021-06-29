@@ -2,7 +2,7 @@
 #'
 #' @export
 dd_model_names <- function() {
-  c("lc", "ll", "lx", "xc", "xl", "xx", "xc2", "lx2", "xl2", "xx2")
+  c("lc", "ll", "lx", "xc", "xl", "xx", "pc", "lp", "pl", "pp")
 }
 
 #' Values of `DDD` argument `ddmodel` corresponding to `comrad` DD models
@@ -17,13 +17,13 @@ dd_model_comrad_to_ddd <- function(dd_model_name) {
     "lc" = 1,
     "ll" = 5,
     "lx" = 11,
-    "lx2" = 6,
+    "lp" = 6,
     "xc" = 9,
     "xl" = 13,
     "xx" = 12,
-    "xc2" = 2,
-    "xl2" = 8,
-    "xx2" = 7
+    "pc" = 2,
+    "pl" = 8,
+    "pp" = 7
   )
 }
 
@@ -51,9 +51,9 @@ dd_models <- function() {
     "xc" = dd_model_xc(),
     "xl" = dd_model_xl(),
     "xx" = dd_model_xx(),
-    "xc2" = dd_model_xc2(),
-    "lx2" = dd_model_lx2(),
-    "xl2" = dd_model_xl2(),
-    "xx2" = dd_model_xx2()
+    "pc" = dd_model_pc(),
+    "lp" = dd_model_lp(),
+    "pl" = dd_model_pl(),
+    "pp" = dd_model_pp()
   )
 }
