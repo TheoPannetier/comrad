@@ -1,20 +1,22 @@
-#' Diversity-dependent model with exponential (x) dependence on speciation and
+#' Diversity-dependent model with power (p) dependence on speciation and
 #' exponential (x) dependence on extinction
 #'
-#' A list specifying a DD model with exponential diversity-dependence on both the
+#' A list specifying a DD model with power diversity-dependence on both the
 #' speciation rate and extinction rate; to be fed as argument `dd_model` to
-#' [comrad::fit_dd_model_with_fossil()].
+#' [comrad::fit_dd_model_with_fossil()]. This corresponds to the "exponential"
+#' model found in `DDD` (`ddmodel = 15`) and elsewhere (e.g. `BAMM`).
 #'
-#'\deqn{\lambda(N) = \lambda_{0}(\alpha + (1 - \alpha) \frac{\mu_{0}}{\lambda_{0}})^{\frac{N}{K}}}
+#'\deqn{\lambda(N) = \lambda_{0} \times N^{-\frac{log\Big(\frac{\lambda_0}{\alpha(\lambda_0 - \mu_0) + \mu_0}\Big)}{log(K)}}}
 #'\deqn{\mu(N) = \mu_{0}((1 - \alpha) + \alpha \frac{\lambda_{0}}{\mu_{0}})^{\frac{N}{K}}}
 #'
 #' @author Theo Pannetier
 #' @export
-dd_model_xx <- function() {
+dd_model_px <- function() {
   list(
-    "name" = "xx",
+    "name" = "px",
     "speciation_func" = function(params, N) {
-      params["lambda_0"] * (params["alpha"] + (1 - params["alpha"]) * (params["mu_0"] / params["lambda_0"])) ^ (N / params["k"])
+      x <- log(params["lambda_0"] / (params["alpha"] * (params["lambda_0"] - params["mu_0"]) + params["mu_0"])) / log(params["k"])
+      params["lambda_0"] * N ^ (-x)
     },
     "extinction_func" = function(params, N) {
       params["mu_0"] * ((1 - params["alpha"]) + params["alpha"] * params["lambda_0"] / params["mu_0"]) ^ (N / params["k"])
@@ -31,9 +33,9 @@ dd_model_xx <- function() {
       if (!(length(params_names) == 4 &&
             all(params_names %in% c("lambda_0", "mu_0", "k", "alpha"))
       )) {
-        stop("params for ddmodel_xx should be \"lambda_0\", \"mu_0\", \"k\" and \"alpha\".")
+        stop("params for ddmodel_px should be \"lambda_0\", \"mu_0\", \"k\" and \"alpha\".")
       }
     },
-    "DDD_name" = 12
+    "DDD_name" = 15
   )
 }

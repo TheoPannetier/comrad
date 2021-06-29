@@ -2,7 +2,7 @@
 #'
 #' @export
 dd_model_names <- function() {
-  c("lc", "ll", "lx", "xc", "xl", "xx", "pc", "lp", "pl", "pp")
+  c("lc", "ll", "lx", "xc", "xl", "xx", "pc", "lp", "pl", "pp", "px", "xp")
 }
 
 #' Values of `DDD` argument `ddmodel` corresponding to `comrad` DD models
@@ -15,15 +15,20 @@ dd_model_names <- function() {
 dd_model_comrad_to_ddd <- function(dd_model_name) {
   switch (dd_model_name,
     "lc" = 1,
-    "ll" = 5,
-    "lx" = 11,
-    "lp" = 6,
-    "xc" = 9,
-    "xl" = 13,
-    "xx" = 12,
     "pc" = 2,
+    # "cl" = 3, # not used in comrad
+    # "cp" = 4, # not used in comrad
+    "ll" = 5,
+    "lp" = 6,
+    "pp" = 7,
     "pl" = 8,
-    "pp" = 7
+    "xc" = 9,
+    # "cx" = 10, # not used in comrad
+    "lx" = 11,
+    "xx" = 12,
+    "xl" = 13,
+    "xp" = 14,
+    "px" = 15
   )
 }
 
@@ -33,7 +38,7 @@ dd_model_comrad_to_ddd <- function(dd_model_name) {
 #'
 #' @export
 dd_model_colours <- function() {
-  dd_colours <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A",  "#66A61E", "#E6AB02", "#A6761D", "#666666", "#E41A1C", "#377EB8")
+  dd_colours <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A",  "#66A61E", "#E6AB02", "#A6761D", "#666666", "#E41A1C", "#377EB8", "#5D99FD", "#FD5D99")
   names(dd_colours) <- dd_model_names()
   return(dd_colours)
 }
@@ -54,6 +59,8 @@ dd_models <- function() {
     "pc" = dd_model_pc(),
     "lp" = dd_model_lp(),
     "pl" = dd_model_pl(),
-    "pp" = dd_model_pp()
+    "pp" = dd_model_pp(),
+    "px" = dd_model_px(),
+    "xp" = dd_model_xp()
   )
 }
