@@ -2,7 +2,7 @@
 % Please edit documentation in R/average_ltt.R
 \name{average_ltt}
 \alias{average_ltt}
-\title{Compute the average LTT for a set of trees given a time sequence}
+\title{Compute the average LTT with 95\% CI for a set of trees given a time sequence}
 \usage{
 average_ltt(ltt_tbls, t_seq)
 }
@@ -14,11 +14,11 @@ average_ltt(ltt_tbls, t_seq)
 should be evaluated.}
 }
 \value{
-a \code{tibble} with columns \code{time} and \code{N}, the average number of lineages
-in the set along \code{t_seq}
+a \code{tibble} with columns \code{time}, \code{N}, \code{metric}. Values are the mean
+number of species, standard deviation, SEM, and 95\% upper and lower CI.
 }
 \description{
-Compute the average LTT for a set of trees given a time sequence
+Compute the average LTT with 95\% CI for a set of trees given a time sequence
 }
 \author{
 Theo Pannetier
