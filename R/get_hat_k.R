@@ -10,7 +10,7 @@
 #'
 #' @export
 get_hat_k <- function(avg_ltt_tbl) {
-  t_seq <- avg_stt_tbl$time
+  t_seq <- avg_ltt_tbl$time
 
   avg_ltt_tbl %>%
     # Last 8th of the time sequence
