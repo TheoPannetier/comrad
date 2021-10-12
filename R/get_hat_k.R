@@ -14,7 +14,7 @@ get_hat_k <- function(avg_ltt_tbl) {
 
   avg_ltt_tbl %>%
     # Last 8th of the time sequence
-    slice_tail(n = round(length(t_seq / 8))) %>%
+    slice_tail(n = round(length(t_seq) / 8)) %>%
     pull(mean) %>%
     mean() %>%
     round(digits = 1)
