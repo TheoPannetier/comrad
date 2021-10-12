@@ -41,9 +41,7 @@ rates_from_exp_dist <- function(waiting_times_tbl) {
       "n" = n()
     ) %>%
     dplyr::mutate(
-      "total_event_rate" = 1 / (mean_waiting_time * N),
-      "ci_upper" = total_event_rate * (1 + 1.96 / sqrt(n)),
-      "ci_lower" = total_event_rate * (1 - 1.96 / sqrt(n))
+      "total_event_rate" = 1 / (mean_waiting_time * N)
     ) %>%
     # Split speciation and extinction rates by proportion
     tidyr::expand_grid("rate" = c("speciation", "extinction")) %>%
@@ -53,8 +51,9 @@ rates_from_exp_dist <- function(waiting_times_tbl) {
       "dd_model" = "none",
       "rate" = rate,
       "value" = total_event_rate * p_event,
-      "ci_upper" = ci_upper * p_event,
-      "ci_lower" = ci_lower * p_event
+      # 95% confidence interval of exponential distribution
+      "ci_upper" = value * (1 + 1.96 / sqrt(n * p_event)),
+      "ci_lower" = value * (1 - 1.96 / sqrt(n * p_event))
     )
   # Values of N with no extinction events should have extinction rate = 0
   rates_tbl <- rates_tbl %>%
