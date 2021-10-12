@@ -29,10 +29,25 @@ plot_compare_dd_functions <- function(params, N) {
 
   rates_tbl %>%
     dplyr::mutate(
-      "rate" = as_factor(rate)
+      "rate" = as_factor(rate),
+      "dd_model" = forcats::fct_recode(
+        dd_model,
+        "linear" = "ll",
+        "power" = "pp",
+        "exponential" = "xx"
+      )
     ) %>%
     ggplot(aes(x = N, y = value, linetype = rate, colour = dd_model)) +
     geom_line() +
     theme_bw() +
-    scale_colour_manual(values = dd_model_colours())
+    scale_colour_manual(values = c(
+      "linear" = "#D95F02",
+      "power" = "#377EB8",
+      "exponential" = "#E6AB02"
+    )) +
+    labs(
+      colour = "Function",
+      linetype = "Rate",
+      y = "Rate value"
+    )
 }
