@@ -84,14 +84,19 @@ fit_dd_model_with_fossil <- function(waiting_times_tbl,
         "params" = names(init_params),
         "value" = as.numeric(NA),
         "loglik" = as.numeric(NA),
-        "conv" = as.numeric(NA)
+        "conv" = as.numeric(NA),
+        "num_cycles" = as.numeric(NA)
       ) %>%
       tidyr::pivot_wider(
         names_from = params,
         names_prefix = "ml_",
         values_from = value
       ) %>%
-      dplyr::bind_cols(init_tbl, .)
+      dplyr::bind_cols(
+        "dd_model" = dd_model$name,
+        "with_fossil" = TRUE,
+        init_tbl, .
+      )
     return(loglik_tbl)
   }
 
@@ -140,6 +145,5 @@ fit_dd_model_with_fossil <- function(waiting_times_tbl,
       "with_fossil" = TRUE,
       init_tbl, .
     )
-
   return(loglik_tbl)
 }
