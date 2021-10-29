@@ -43,7 +43,7 @@ fit_dd_model_without_fossil <- function(
   init_params,
   dd_model = dd_model_lc(),
   num_cycles = Inf,
-  methode = "odeint::odeint::runge_kutta_cash_karp54"
+  methode = "odeint::runge_kutta_cash_karp54"
 ) {
   check_ddd_version()
   both_rates_vary <- !stringr::str_detect(dd_model$name, "c")
