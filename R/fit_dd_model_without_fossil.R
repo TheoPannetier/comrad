@@ -42,7 +42,8 @@ fit_dd_model_without_fossil <- function(
   branching_times,
   init_params,
   dd_model = dd_model_lc(),
-  num_cycles = Inf
+  num_cycles = Inf,
+  methode = "odeint::odeint::runge_kutta_cash_karp54"
 ) {
   check_ddd_version()
   both_rates_vary <- !stringr::str_detect(dd_model$name, "c")
@@ -70,7 +71,7 @@ fit_dd_model_without_fossil <- function(
     brts = branching_times,
     initparsopt = initparsopt,
     ddmodel = dd_model_comrad_to_ddd(dd_model$name),
-    methode = "ode45",
+    methode = methode,
     optimmethod = "subplex",
     res = N_max,
     num_cycles = num_cycles
