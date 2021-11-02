@@ -72,9 +72,10 @@ fit_dd_model_without_fossil <- function(
     initparsopt = initparsopt,
     ddmodel = dd_model_comrad_to_ddd(dd_model$name),
     methode = methode,
-    optimmethod = "subplex",
+    optimmethod = "simplex",
     res = N_max,
-    num_cycles = num_cycles
+    num_cycles = num_cycles,
+    verbose = TRUE
   ))
 
   if (!is.data.frame(ddd_ml)) { # default results in case of an error
