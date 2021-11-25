@@ -8,7 +8,9 @@ fit_dd_model_without_fossil(
   branching_times,
   init_params,
   dd_model = dd_model_lc(),
-  num_cycles = Inf
+  num_cycles = Inf,
+  methode = "odeint::runge_kutta_cash_karp54",
+  verbose = FALSE
 )
 }
 \arguments{
@@ -43,6 +45,9 @@ or if the length differs from the expectation.
 
 \item{num_cycles}{passed to \code{\link[DDD:optimizer]{DDD::optimizer()}}, number of cycles of
 optimisation. Next cycle starts from the last vertices of the previous cycle.}
+
+\item{verbose}{logical, should the output of every optimisation iteration be
+printed to console?}
 }
 \value{
 a one-row table with the model name, initial values of the parameters,

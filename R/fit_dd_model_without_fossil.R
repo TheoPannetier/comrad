@@ -31,6 +31,8 @@
 #'
 #' @param num_cycles passed to [DDD::optimizer()], number of cycles of
 #' optimisation. Next cycle starts from the last vertices of the previous cycle.
+#' @param verbose logical, should the output of every optimisation iteration be
+#' printed to console?
 #'
 #' @return a one-row table with the model name, initial values of the parameters,
 #' maximum likelihood estimates and the maximum likelihood
@@ -43,7 +45,8 @@ fit_dd_model_without_fossil <- function(
   init_params,
   dd_model = dd_model_lc(),
   num_cycles = Inf,
-  methode = "odeint::runge_kutta_cash_karp54"
+  methode = "odeint::runge_kutta_cash_karp54",
+  verbose = FALSE
 ) {
   check_ddd_version()
   both_rates_vary <- !stringr::str_detect(dd_model$name, "c")
@@ -75,7 +78,7 @@ fit_dd_model_without_fossil <- function(
     optimmethod = "simplex",
     res = N_max,
     num_cycles = num_cycles,
-    verbose = TRUE
+    verbose = verbose
   ))
 
   if (!is.data.frame(ddd_ml)) { # default results in case of an error
