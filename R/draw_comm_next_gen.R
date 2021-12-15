@@ -85,5 +85,5 @@ draw_comm_next_gen <- function(
   )
   comrad::test_comrad_comm(new_comm)
 
-  new_comm
+  return(new_comm)
 }

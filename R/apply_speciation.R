@@ -25,7 +25,7 @@ apply_speciation <- function(comm, trait_dist_sp = default_trait_dist_sp()) {
   ancestral_species <- NULL # nolint
 
   comrad::test_comrad_comm(comm)
-
+  comrad::testarg_num(comm$z)
   comm <- comm[order(comm$z), ]
 
   spp <- unique(comm$species)
