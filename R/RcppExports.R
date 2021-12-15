@@ -35,15 +35,15 @@ NULL
 #'
 #' @author Théo Pannetier
 #' @export
-#' @name find_trait_gaps
+#' @name find_trait_gaps_cpp
 NULL
 
 sort_by_ref <- function(x) {
     invisible(.Call('_comrad_sort_by_ref', PACKAGE = 'comrad', x))
 }
 
-find_trait_gaps <- function(traits, trait_dist_sp) {
-    .Call('_comrad_find_trait_gaps', PACKAGE = 'comrad', traits, trait_dist_sp)
+find_trait_gaps_cpp <- function(traits, trait_dist_sp) {
+    .Call('_comrad_find_trait_gaps_cpp', PACKAGE = 'comrad', traits, trait_dist_sp)
 }
 
 #' SIMD size

@@ -31,15 +31,15 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// find_trait_gaps
-std::vector<int> find_trait_gaps(Rcpp::NumericVector traits, const double& trait_dist_sp);
-RcppExport SEXP _comrad_find_trait_gaps(SEXP traitsSEXP, SEXP trait_dist_spSEXP) {
+// find_trait_gaps_cpp
+std::vector<int> find_trait_gaps_cpp(Rcpp::NumericVector traits, const double& trait_dist_sp);
+RcppExport SEXP _comrad_find_trait_gaps_cpp(SEXP traitsSEXP, SEXP trait_dist_spSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type traits(traitsSEXP);
     Rcpp::traits::input_parameter< const double& >::type trait_dist_sp(trait_dist_spSEXP);
-    rcpp_result_gen = Rcpp::wrap(find_trait_gaps(traits, trait_dist_sp));
+    rcpp_result_gen = Rcpp::wrap(find_trait_gaps_cpp(traits, trait_dist_sp));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -70,7 +70,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_comrad_draw_nb_offspring_cpp", (DL_FUNC) &_comrad_draw_nb_offspring_cpp, 1},
     {"_comrad_sort_by_ref", (DL_FUNC) &_comrad_sort_by_ref, 1},
-    {"_comrad_find_trait_gaps", (DL_FUNC) &_comrad_find_trait_gaps, 2},
+    {"_comrad_find_trait_gaps_cpp", (DL_FUNC) &_comrad_find_trait_gaps_cpp, 2},
     {"_comrad_get_n_eff_cpp", (DL_FUNC) &_comrad_get_n_eff_cpp, 3},
     {"_comrad_simd_size", (DL_FUNC) &_comrad_simd_size, 0},
     {NULL, NULL, 0}
