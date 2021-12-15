@@ -16,7 +16,6 @@ void sort_by_ref(NumericVector x) {
   std::sort(x.begin(), x.end());
 }
 
-
 //' Find gaps in trait values
 //'
 //' Runs through an ordered vector of trait values, returns the positions of gaps
@@ -27,10 +26,10 @@ void sort_by_ref(NumericVector x) {
 //'
 //' @author Théo Pannetier
 //' @export
-//' @name find_trait_gaps
+//' @name find_trait_gaps_cpp
 
 // [[Rcpp::export]]
-std::vector<int> find_trait_gaps(Rcpp::NumericVector traits, const double& trait_dist_sp) {
+std::vector<int> find_trait_gaps_cpp(Rcpp::NumericVector traits, const double& trait_dist_sp) {
   Rcpp::NumericVector traits_diff = Rcpp::clone(traits);
   std::adjacent_difference(traits_diff.begin(), traits_diff.end(), traits_diff.begin());
   std::vector<int> gap_positions;
