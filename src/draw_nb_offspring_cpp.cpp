@@ -15,7 +15,7 @@ using namespace Rcpp;
 //' @author Theo Pannetier
 //' @export
 //' @name draw_nb_offspring_cpp
-
+//'
 // [[Rcpp::export]]
 std::vector<int> draw_nb_offspring_cpp(std::vector<float> fitness) {
 

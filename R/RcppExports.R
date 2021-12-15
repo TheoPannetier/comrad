@@ -12,10 +12,38 @@
 #' @author Theo Pannetier
 #' @export
 #' @name draw_nb_offspring_cpp
-NULL
-
+#'
 draw_nb_offspring_cpp <- function(fitness) {
     .Call('_comrad_draw_nb_offspring_cpp', PACKAGE = 'comrad', fitness)
+}
+
+#' Sort a vector by ascending value
+#'
+#' @param x a numeric vector
+#'
+#' @export
+#' @name sort_by_ref
+NULL
+
+#' Find gaps in trait values
+#'
+#' Runs through an ordered vector of trait values, returns the positions of gaps
+#' `>= trait_dist_sp` between consecutive values.
+#'
+#' @param traits a numeric vector, trait values **in ascending order**.
+#' @inheritParams default_params_doc
+#'
+#' @author Théo Pannetier
+#' @export
+#' @name find_trait_gaps
+NULL
+
+sort_by_ref <- function(x) {
+    invisible(.Call('_comrad_sort_by_ref', PACKAGE = 'comrad', x))
+}
+
+find_trait_gaps <- function(traits, trait_dist_sp) {
+    .Call('_comrad_find_trait_gaps', PACKAGE = 'comrad', traits, trait_dist_sp)
 }
 
 #' SIMD size
