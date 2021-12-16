@@ -31,6 +31,8 @@ apply_mutations <- function(traits_comm, mutation_sd) {
 #' @export
 #' @name draw_nb_offspring
 #'
+NULL
+
 draw_nb_offspring <- function(fitness) {
     .Call('_comrad_draw_nb_offspring', PACKAGE = 'comrad', fitness)
 }
