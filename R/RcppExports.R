@@ -29,10 +29,10 @@ apply_mutations <- function(traits_comm, mutation_sd) {
 #' @seealso get_fitness
 #' @author Theo Pannetier
 #' @export
-#' @name draw_nb_offspring_cpp
+#' @name draw_nb_offspring
 #'
-draw_nb_offspring_cpp <- function(fitness) {
-    .Call('_comrad_draw_nb_offspring_cpp', PACKAGE = 'comrad', fitness)
+draw_nb_offspring <- function(fitness) {
+    .Call('_comrad_draw_nb_offspring', PACKAGE = 'comrad', fitness)
 }
 
 #' Sort a vector by ascending value
@@ -89,11 +89,11 @@ NULL
 #' every individual in the community, including the individual itself. It is
 #' called effective population size because it is the size of the population
 #' that is relevant for competition.
-#' @name get_n_eff_cpp
+#' @name get_n_eff
 #' @author Hanno Hildenbrandt
 #' @export
-get_n_eff_cpp <- function(z, competition_sd, brute_force_opt = "none") {
-    .Call('_comrad_get_n_eff_cpp', PACKAGE = 'comrad', z, competition_sd, brute_force_opt)
+get_n_eff <- function(z, competition_sd, brute_force_opt = "none") {
+    .Call('_comrad_get_n_eff', PACKAGE = 'comrad', z, competition_sd, brute_force_opt)
 }
 
 simd_size <- function() {

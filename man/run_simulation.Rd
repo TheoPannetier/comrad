@@ -60,7 +60,7 @@ moving away from the optimal trait value.}
 \code{get_carrying_cap(trait_opt) = carrying_cap_opt}.}
 
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
-distrbution from which mutations are drawn.}
+distribution from which mutations are drawn.}
 
 \item{trait_dist_sp}{numeric, the minimal trait distance between two
 clusters of individuals triggering speciation.}

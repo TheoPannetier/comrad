@@ -139,11 +139,11 @@ using namespace Rcpp;
 //' every individual in the community, including the individual itself. It is
 //' called effective population size because it is the size of the population
 //' that is relevant for competition.
-//' @name get_n_eff_cpp
+//' @name get_n_eff
 //' @author Hanno Hildenbrandt
 //' @export
 // [[Rcpp::export]]
-DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt = "none")
+DoubleVector get_n_eff(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt = "none")
 {
   auto it = brute_force_map.find(brute_force_opt);
   if (it == brute_force_map.end()) {

@@ -14,10 +14,10 @@ using namespace Rcpp;
 //' @seealso get_fitness
 //' @author Theo Pannetier
 //' @export
-//' @name draw_nb_offspring_cpp
+//' @name draw_nb_offspring
 //'
 // [[Rcpp::export]]
-std::vector<int> draw_nb_offspring_cpp(std::vector<float> fitness) {
+std::vector<int> draw_nb_offspring(std::vector<float> fitness) {
 
   int nb_inds = fitness.size();
   std::vector<int> nb_offspring(nb_inds);

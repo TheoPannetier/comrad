@@ -39,7 +39,7 @@ get_fitness <- function(
   comrad::testarg_pos(carrying_cap_sd)
 
   # Compute effective population sizes -----------------------------------------
-  n_eff <- comrad::get_n_eff_cpp(
+  n_eff <- comrad::get_n_eff(
     z = traits_comm,
     competition_sd = competition_sd,
     brute_force_opt = brute_force_opt
