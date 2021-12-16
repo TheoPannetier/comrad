@@ -17,7 +17,8 @@ apply_mutations <- function(
   comrad::testarg_pos(mutation_sd)
 
   # Apply mutations ------------------------------------------------------------
-  traits_comm <- traits_comm + stats::rnorm(length(traits_comm), 0, mutation_sd)
+  mutations <- stats::rnorm(length(traits_comm), 0, mutation_sd)
+  traits_comm <- traits_comm + mutations
 
   # Test output --------------------------------------------------------------
   comrad::testarg_num(traits_comm)

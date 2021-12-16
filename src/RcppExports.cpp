@@ -22,6 +22,42 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// apply_mutations_cpp2
+NumericVector apply_mutations_cpp2(NumericVector traits_comm, double mutation_sd);
+RcppExport SEXP _comrad_apply_mutations_cpp2(SEXP traits_commSEXP, SEXP mutation_sdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type traits_comm(traits_commSEXP);
+    Rcpp::traits::input_parameter< double >::type mutation_sd(mutation_sdSEXP);
+    rcpp_result_gen = Rcpp::wrap(apply_mutations_cpp2(traits_comm, mutation_sd));
+    return rcpp_result_gen;
+END_RCPP
+}
+// apply_mutations_cpp3
+NumericVector apply_mutations_cpp3(NumericVector traits_comm, double mutation_sd);
+RcppExport SEXP _comrad_apply_mutations_cpp3(SEXP traits_commSEXP, SEXP mutation_sdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type traits_comm(traits_commSEXP);
+    Rcpp::traits::input_parameter< double >::type mutation_sd(mutation_sdSEXP);
+    rcpp_result_gen = Rcpp::wrap(apply_mutations_cpp3(traits_comm, mutation_sd));
+    return rcpp_result_gen;
+END_RCPP
+}
+// apply_mutations_cpp4
+NumericVector apply_mutations_cpp4(NumericVector traits_comm, double mutation_sd);
+RcppExport SEXP _comrad_apply_mutations_cpp4(SEXP traits_commSEXP, SEXP mutation_sdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type traits_comm(traits_commSEXP);
+    Rcpp::traits::input_parameter< double >::type mutation_sd(mutation_sdSEXP);
+    rcpp_result_gen = Rcpp::wrap(apply_mutations_cpp4(traits_comm, mutation_sd));
+    return rcpp_result_gen;
+END_RCPP
+}
 // draw_nb_offspring_cpp
 std::vector<int> draw_nb_offspring_cpp(std::vector<float> fitness);
 RcppExport SEXP _comrad_draw_nb_offspring_cpp(SEXP fitnessSEXP) {
@@ -81,6 +117,9 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_comrad_apply_mutations_cpp", (DL_FUNC) &_comrad_apply_mutations_cpp, 2},
+    {"_comrad_apply_mutations_cpp2", (DL_FUNC) &_comrad_apply_mutations_cpp2, 2},
+    {"_comrad_apply_mutations_cpp3", (DL_FUNC) &_comrad_apply_mutations_cpp3, 2},
+    {"_comrad_apply_mutations_cpp4", (DL_FUNC) &_comrad_apply_mutations_cpp4, 2},
     {"_comrad_draw_nb_offspring_cpp", (DL_FUNC) &_comrad_draw_nb_offspring_cpp, 1},
     {"_comrad_sort_by_ref", (DL_FUNC) &_comrad_sort_by_ref, 1},
     {"_comrad_find_trait_gaps", (DL_FUNC) &_comrad_find_trait_gaps, 2},

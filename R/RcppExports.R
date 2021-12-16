@@ -17,6 +17,18 @@ apply_mutations_cpp <- function(traits_comm, mutation_sd) {
     .Call('_comrad_apply_mutations_cpp', PACKAGE = 'comrad', traits_comm, mutation_sd)
 }
 
+apply_mutations_cpp2 <- function(traits_comm, mutation_sd) {
+    .Call('_comrad_apply_mutations_cpp2', PACKAGE = 'comrad', traits_comm, mutation_sd)
+}
+
+apply_mutations_cpp3 <- function(traits_comm, mutation_sd) {
+    .Call('_comrad_apply_mutations_cpp3', PACKAGE = 'comrad', traits_comm, mutation_sd)
+}
+
+apply_mutations_cpp4 <- function(traits_comm, mutation_sd) {
+    .Call('_comrad_apply_mutations_cpp4', PACKAGE = 'comrad', traits_comm, mutation_sd)
+}
+
 #' Draw a number of offspring given a fitness value
 #'
 #' The number of offspring is drawn in a Poisson distribution in
