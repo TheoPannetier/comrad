@@ -11,7 +11,6 @@ draw_comm_next_gen(
   trait_opt = default_trait_opt(),
   carrying_cap_opt = default_carrying_cap_opt(),
   carrying_cap_sd = default_carrying_cap_sd(),
-  prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   trait_dist_sp = default_trait_dist_sp(),
   brute_force_opt = "none"
@@ -42,9 +41,6 @@ between two individuals given their distance in trait space.}
 \item{carrying_cap_sd}{numeric \verb{>= 0}. Parameter \eqn{\sigma_K} of the
 carrying capacity. Modulates how fast the carrying capacity decays when
 moving away from the optimal trait value.}
-
-\item{prob_mutation}{numeric between 0 and 1, the probability that any new
-individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}

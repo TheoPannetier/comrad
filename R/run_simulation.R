@@ -60,7 +60,6 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   carrying_cap_sd = comrad::default_carrying_cap_sd(),
   carrying_cap_opt = comrad::default_carrying_cap_opt(),
   trait_opt = comrad::default_trait_opt(),
-  prob_mutation = comrad::default_prob_mutation(),
   mutation_sd = comrad::default_mutation_sd(),
   trait_dist_sp = comrad::default_trait_dist_sp(),
   switch_carr_cap_sd_after = NA,
@@ -115,8 +114,6 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   comrad::testarg_pos(carrying_cap_opt)
   comrad::testarg_num(carrying_cap_sd)
   comrad::testarg_pos(carrying_cap_sd)
-  comrad::testarg_num(prob_mutation)
-  comrad::testarg_prop(prob_mutation)
   comrad::testarg_num(mutation_sd)
   comrad::testarg_pos(mutation_sd)
   comrad::testarg_num(trait_dist_sp)
@@ -151,7 +148,6 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
     "\ncarrying_cap_opt = ", carrying_cap_opt,
     "\ntrait_opt = ", trait_opt,
     "\ngrowth_rate = ", growth_rate,
-    "\nprob_mutation = ", prob_mutation,
     "\nmutation_sd = ", mutation_sd,
     "\ntrait_dist_sp = ", trait_dist_sp,
     "\n",
@@ -214,7 +210,6 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
         trait_opt = trait_opt,
         carrying_cap_opt = carrying_cap_opt,
         carrying_cap_sd = carrying_cap_sd,
-        prob_mutation = prob_mutation,
         mutation_sd = mutation_sd,
         trait_dist_sp = trait_dist_sp,
         brute_force_opt = brute_force_opt

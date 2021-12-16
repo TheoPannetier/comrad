@@ -27,10 +27,10 @@ void sort_by_ref(NumericVector x) {
 //'
 //' @author Théo Pannetier
 //' @export
-//' @name find_trait_gaps_cpp
+//' @name find_trait_gaps
 
 // [[Rcpp::export]]
-std::vector<int> find_trait_gaps_cpp(Rcpp::NumericVector traits, const double& trait_dist_sp) {
+std::vector<int> find_trait_gaps(Rcpp::NumericVector traits, const double& trait_dist_sp) {
   Rcpp::NumericVector traits_diff = Rcpp::clone(traits);
   std::adjacent_difference(traits_diff.begin(), traits_diff.end(), traits_diff.begin());
   std::vector<int> gap_positions;

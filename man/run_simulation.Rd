@@ -14,7 +14,6 @@ run_simulation(
   carrying_cap_sd = comrad::default_carrying_cap_sd(),
   carrying_cap_opt = comrad::default_carrying_cap_opt(),
   trait_opt = comrad::default_trait_opt(),
-  prob_mutation = comrad::default_prob_mutation(),
   mutation_sd = comrad::default_mutation_sd(),
   trait_dist_sp = comrad::default_trait_dist_sp(),
   switch_carr_cap_sd_after = NA,
@@ -59,9 +58,6 @@ moving away from the optimal trait value.}
 
 \item{trait_opt}{numeric. The optimal trait value, \eqn{z_{opt}}.
 \code{get_carrying_cap(trait_opt) = carrying_cap_opt}.}
-
-\item{prob_mutation}{numeric between 0 and 1, the probability that any new
-individual is sampled with a mutation.}
 
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
 distrbution from which mutations are drawn.}

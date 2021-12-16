@@ -79,11 +79,6 @@ test_that("parameter_abuse", {
     run_simulation(nb_gens = Inf, path_to_output = NULL),
     "'nb_gens' contains forbidden values: Inf"
   )
-  expect_error(
-    run_simulation(prob_mutation = 15, path_to_output = NULL, nb_gens = 20),
-    "'prob_mutation' must be a numeric between 0 and 1"
-  )
-
 })
 
 is_on_ci <- (Sys.getenv("TRAVIS") != "" || Sys.getenv("APPVEYOR") != "")

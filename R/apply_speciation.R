@@ -38,7 +38,7 @@ apply_speciation <- function(comm, trait_dist_sp = default_trait_dist_sp()) {
     nb_inds <- length(sp_members$z)
 
     # Check for gaps in trait values -------------------------------------------
-    gaps <- comrad::find_trait_gaps_cpp(
+    gaps <- comrad::find_trait_gaps(
       traits = sp_members$z,
       trait_dist_sp = trait_dist_sp
     )

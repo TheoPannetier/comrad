@@ -20,7 +20,6 @@ draw_comm_next_gen <- function(
   trait_opt = default_trait_opt(),
   carrying_cap_opt = default_carrying_cap_opt(),
   carrying_cap_sd = default_carrying_cap_sd(),
-  prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
   trait_dist_sp = default_trait_dist_sp(),
   brute_force_opt = "none"
@@ -37,12 +36,10 @@ draw_comm_next_gen <- function(
   comrad::testarg_pos(carrying_cap_opt)
   comrad::testarg_num(carrying_cap_sd)
   comrad::testarg_pos(carrying_cap_sd)
-  comrad::testarg_num(prob_mutation)
-  comrad::testarg_prop(prob_mutation)
   comrad::testarg_num(mutation_sd)
   comrad::testarg_pos(mutation_sd)
 
-  # Compute fitnesses
+  # Compute fitness
   fitness_comm <- comrad::get_fitness(
     traits_comm = comm$z,
     growth_rate = growth_rate,
@@ -75,7 +72,6 @@ draw_comm_next_gen <- function(
   # Draw and apply mutations ---------------------------------------------------
   new_comm$z <- comrad::apply_mutations(
     traits_comm = new_comm$z,
-    prob_mutation = prob_mutation,
     mutation_sd = mutation_sd
   )
   # Resolve speciation ---------------------------------------------------------
