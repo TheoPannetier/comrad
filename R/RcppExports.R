@@ -100,3 +100,23 @@ simd_size <- function() {
     .Call('_comrad_simd_size', PACKAGE = 'comrad')
 }
 
+testarg_not_this <- function(vec, not_this) {
+    invisible(.Call('_comrad_testarg_not_this', PACKAGE = 'comrad', vec, not_this))
+}
+
+testarg_num <- function(vec) {
+    invisible(.Call('_comrad_testarg_num', PACKAGE = 'comrad', vec))
+}
+
+testarg_pos <- function(vec) {
+    invisible(.Call('_comrad_testarg_pos', PACKAGE = 'comrad', vec))
+}
+
+testarg_length_num <- function(vec, correct_length) {
+    invisible(.Call('_comrad_testarg_length_num', PACKAGE = 'comrad', vec, correct_length))
+}
+
+testarg_length_char <- function(vec, correct_length) {
+    invisible(.Call('_comrad_testarg_length_char', PACKAGE = 'comrad', vec, correct_length))
+}
+

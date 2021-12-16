@@ -11,15 +11,15 @@ test_that("use", {
 })
 
 test_that("abuse", {
-  expect_error(get_n_eff(Inf, Inf), "'z' contains forbidden values: Inf")
-  expect_error(get_n_eff(-Inf, -Inf), "'z' contains forbidden values: -Inf")
+  expect_error(get_n_eff(Inf), "'z' contains forbidden values: Inf")
+  expect_error(get_n_eff(-Inf), "'z' contains forbidden values: -Inf")
   expect_error(
-    get_n_eff(0, 0, competition_sd = -8),
-    "'competition_sd' must be a positive numeric"
+    get_n_eff(0, comp_width = -8),
+    "'comp_width' must be a positive numeric"
   )
 
-  expect_error(get_n_eff("1.6", "1.6"), "'z' must be numeric")
-  expect_error(get_n_eff(NA, NA), "'z' must be numeric")
-  expect_error(get_n_eff(NaN, NaN), "'z' contains one or more NaNs")
-  expect_error(get_n_eff(integer(), integer()), "'z' is empty")
+  expect_error(get_n_eff("1.6"), "'z' must be numeric")
+  expect_error(get_n_eff(NA), "'z' must be numeric")
+  expect_error(get_n_eff(NaN), "'z' contains one or more NaNs")
+  expect_error(get_n_eff(integer()), "'z' is empty")
 })

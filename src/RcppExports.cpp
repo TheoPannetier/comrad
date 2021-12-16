@@ -78,6 +78,59 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// testarg_not_this
+void testarg_not_this(NumericVector vec, double not_this);
+RcppExport SEXP _comrad_testarg_not_this(SEXP vecSEXP, SEXP not_thisSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type vec(vecSEXP);
+    Rcpp::traits::input_parameter< double >::type not_this(not_thisSEXP);
+    testarg_not_this(vec, not_this);
+    return R_NilValue;
+END_RCPP
+}
+// testarg_num
+void testarg_num(NumericVector vec);
+RcppExport SEXP _comrad_testarg_num(SEXP vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type vec(vecSEXP);
+    testarg_num(vec);
+    return R_NilValue;
+END_RCPP
+}
+// testarg_pos
+void testarg_pos(NumericVector vec);
+RcppExport SEXP _comrad_testarg_pos(SEXP vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type vec(vecSEXP);
+    testarg_pos(vec);
+    return R_NilValue;
+END_RCPP
+}
+// testarg_length_num
+void testarg_length_num(NumericVector vec, int correct_length);
+RcppExport SEXP _comrad_testarg_length_num(SEXP vecSEXP, SEXP correct_lengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type vec(vecSEXP);
+    Rcpp::traits::input_parameter< int >::type correct_length(correct_lengthSEXP);
+    testarg_length_num(vec, correct_length);
+    return R_NilValue;
+END_RCPP
+}
+// testarg_length_char
+void testarg_length_char(CharacterVector vec, int correct_length);
+RcppExport SEXP _comrad_testarg_length_char(SEXP vecSEXP, SEXP correct_lengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type vec(vecSEXP);
+    Rcpp::traits::input_parameter< int >::type correct_length(correct_lengthSEXP);
+    testarg_length_char(vec, correct_length);
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_comrad_apply_mutations", (DL_FUNC) &_comrad_apply_mutations, 2},
@@ -86,6 +139,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_comrad_find_trait_gaps", (DL_FUNC) &_comrad_find_trait_gaps, 2},
     {"_comrad_get_n_eff", (DL_FUNC) &_comrad_get_n_eff, 3},
     {"_comrad_simd_size", (DL_FUNC) &_comrad_simd_size, 0},
+    {"_comrad_testarg_not_this", (DL_FUNC) &_comrad_testarg_not_this, 2},
+    {"_comrad_testarg_num", (DL_FUNC) &_comrad_testarg_num, 1},
+    {"_comrad_testarg_pos", (DL_FUNC) &_comrad_testarg_pos, 1},
+    {"_comrad_testarg_length_num", (DL_FUNC) &_comrad_testarg_length_num, 2},
+    {"_comrad_testarg_length_char", (DL_FUNC) &_comrad_testarg_length_char, 2},
     {NULL, NULL, 0}
 };
 

@@ -66,7 +66,7 @@ testarg_prop <- function(arg) {
 #' @export
 #' @rdname testargs
 #' @param forbidden a vector containing forbidden values.
-#' @details Currenty \code{testarg_not_this()} cannot be tested properly.
+#' @details Currently \code{testarg_not_this()} cannot be tested properly.
 testarg_not_this <- function(arg, forbidden) {
   if (any(arg %in% forbidden)) {
     stop("'", substitute(arg), "' contains forbidden values: ",
