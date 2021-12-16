@@ -31,7 +31,8 @@ NULL
 #' `>= trait_dist_sp` between consecutive values.
 #'
 #' @param traits a numeric vector, trait values **in ascending order**.
-#' @inheritParams default_params_doc
+#' @param trait_dist_sp numeric, the minimal trait distance between two
+#' clusters of individuals triggering speciation.
 #'
 #' @author Théo Pannetier
 #' @export

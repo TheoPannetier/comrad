@@ -29,7 +29,7 @@ test_that("use", {
   # Cpp implementation
   expect_equal(
     # ok
-    find_trait_gaps_cpp(z, 0.099999999999), 1:10
+    find_trait_gaps_cpp(z, 0.1 - 1e-09), 1:10
   )
   expect_equal(
     # not good
@@ -37,7 +37,7 @@ test_that("use", {
   )
   expect_equal(
     # ok
-    find_trait_gaps_cpp(z, 0.100000000001), integer(0)
+    find_trait_gaps_cpp(z, 0.1 + 1e-09), integer(0)
   )
 
   expect_equal(

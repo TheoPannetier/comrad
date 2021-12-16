@@ -3,9 +3,10 @@ context("test-run_simulation")
 test_that("diverging_community", {
   # community starts with split values, expect speciation in the next step
   diverging_pop <- default_init_comm()
-  diverging_pop$z[6:10] <- 0.1
+  diverging_pop$z[6:10] <- 0.15
   output <- run_simulation(
-    init_comm = diverging_pop, nb_gens = 1, path_to_output = NULL
+    init_comm = diverging_pop, nb_gens = 1, path_to_output = NULL,
+    trait_dist_sp = 0.1
   )
   species <- output %>%
     dplyr::filter(t == 1) %>%
