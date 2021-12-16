@@ -11,8 +11,7 @@ test_that("use", {
   )
 
   z <- seq(-0.5, 0.5, by = 0.1)
-
-  # R implementation
+  tol <- 1e09
   expect_equal(
     # ok
     find_trait_gaps(z, 0.099999999999), 1:10
@@ -23,28 +22,17 @@ test_that("use", {
   )
   expect_equal(
     # ok
-    find_trait_gaps(z, 0.100000000001), integer(0)
-  )
-
-  # Cpp implementation
-  expect_equal(
-    # ok
-    find_trait_gaps_cpp(z, 0.1 - 1e-09), 1:10
-  )
-  expect_equal(
-    # not good
-    find_trait_gaps_cpp(z, 0.1), 1:10
+    find_trait_gaps(z, 0.1 - tol), 1:10
   )
   expect_equal(
     # ok
-    find_trait_gaps_cpp(z, 0.1 + 1e-09), integer(0)
+    find_trait_gaps(z, 0.1 + tol), integer(0)
   )
-
   expect_equal(
     find_trait_gaps(c(rep(-Inf, 3), rep(Inf, 3)), trait_dist_sp), 3
   )
   # no split from rounding distances
   expect_equal(
-    find_trait_gaps(c(0, 0.06), trait_dist_sp), integer(0)
+    find_trait_gaps(c(0, 0.06), 0.1), integer(0)
   )
 })

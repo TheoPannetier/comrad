@@ -26,7 +26,7 @@
 #' @param growth_rate numeric `>= 0`, the baseline growth rate. Generations
 #' being discrete, high values will cause chaos.
 #' @param mutation_sd numeric `>= 0`, the standard deviation of the normal
-#' distrbution from which mutations are drawn.
+#' distribution from which mutations are drawn.
 #' @param trait_dist_sp numeric, the minimal trait distance between two
 #' clusters of individuals triggering speciation.
 #' @param nb_gens integer, how many generations should the simulation be run

@@ -3,30 +3,20 @@
 
 #' Apply random mutations to a community
 #'
-#' The trait value of each individual in the input community is modified, with
-#' probability `prob_mutation`, by a mutation sampled in a normal distribution
+#' The trait value of each individual in the input community is modified by a
+#' mutation sampled in a normal distribution
 #' of mean `0` and standard deviation `mutation_sd`.
 #'
-#' @inheritParams default_params_doc
+#' @param traits_comm trait values of individuals in the community
+#' @param mutation_sd numeric `>= 0`, the standard deviation of the normal
+#' distribution from which mutations are drawn.
 #'
 #' @author Theo Pannetier
 #' @export
 NULL
 
-apply_mutations_cpp <- function(traits_comm, mutation_sd) {
-    .Call('_comrad_apply_mutations_cpp', PACKAGE = 'comrad', traits_comm, mutation_sd)
-}
-
-apply_mutations_cpp2 <- function(traits_comm, mutation_sd) {
-    .Call('_comrad_apply_mutations_cpp2', PACKAGE = 'comrad', traits_comm, mutation_sd)
-}
-
-apply_mutations_cpp3 <- function(traits_comm, mutation_sd) {
-    .Call('_comrad_apply_mutations_cpp3', PACKAGE = 'comrad', traits_comm, mutation_sd)
-}
-
-apply_mutations_cpp4 <- function(traits_comm, mutation_sd) {
-    .Call('_comrad_apply_mutations_cpp4', PACKAGE = 'comrad', traits_comm, mutation_sd)
+apply_mutations <- function(traits_comm, mutation_sd) {
+    .Call('_comrad_apply_mutations', PACKAGE = 'comrad', traits_comm, mutation_sd)
 }
 
 #' Draw a number of offspring given a fitness value
