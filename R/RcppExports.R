@@ -31,8 +31,8 @@ apply_mutations <- function(traits_comm, mutation_sd) {
 #' @export
 #' @name draw_nb_offspring_cpp
 #'
-draw_nb_offspring_cpp <- function(fitness) {
-    .Call('_comrad_draw_nb_offspring_cpp', PACKAGE = 'comrad', fitness)
+draw_nb_offspring <- function(fitness) {
+    .Call('_comrad_draw_nb_offspring', PACKAGE = 'comrad', fitness)
 }
 
 #' Sort a vector by ascending value
@@ -89,14 +89,34 @@ NULL
 #' every individual in the community, including the individual itself. It is
 #' called effective population size because it is the size of the population
 #' that is relevant for competition.
-#' @name get_n_eff_cpp
+#' @name get_n_eff
 #' @author Hanno Hildenbrandt
 #' @export
-get_n_eff_cpp <- function(z, competition_sd, brute_force_opt = "none") {
-    .Call('_comrad_get_n_eff_cpp', PACKAGE = 'comrad', z, competition_sd, brute_force_opt)
+get_n_eff <- function(z, competition_sd, brute_force_opt = "none") {
+    .Call('_comrad_get_n_eff', PACKAGE = 'comrad', z, competition_sd, brute_force_opt)
 }
 
 simd_size <- function() {
     .Call('_comrad_simd_size', PACKAGE = 'comrad')
+}
+
+testarg_not_this <- function(vec, not_this) {
+    invisible(.Call('_comrad_testarg_not_this', PACKAGE = 'comrad', vec, not_this))
+}
+
+testarg_num <- function(vec) {
+    invisible(.Call('_comrad_testarg_num', PACKAGE = 'comrad', vec))
+}
+
+testarg_pos <- function(vec) {
+    invisible(.Call('_comrad_testarg_pos', PACKAGE = 'comrad', vec))
+}
+
+testarg_length_num <- function(vec, correct_length) {
+    invisible(.Call('_comrad_testarg_length_num', PACKAGE = 'comrad', vec, correct_length))
+}
+
+testarg_length_char <- function(vec, correct_length) {
+    invisible(.Call('_comrad_testarg_length_char', PACKAGE = 'comrad', vec, correct_length))
 }
 

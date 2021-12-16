@@ -2,9 +2,10 @@
 % Please edit documentation in R/RcppExports.R
 \name{draw_nb_offspring_cpp}
 \alias{draw_nb_offspring_cpp}
+\alias{draw_nb_offspring}
 \title{Draw a number of offspring given a fitness value}
 \usage{
-draw_nb_offspring_cpp(fitness)
+draw_nb_offspring(fitness)
 }
 \arguments{
 \item{fitness}{a vector of positive floats, the fitness value(s).}

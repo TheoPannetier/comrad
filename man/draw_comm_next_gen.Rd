@@ -43,7 +43,7 @@ carrying capacity. Modulates how fast the carrying capacity decays when
 moving away from the optimal trait value.}
 
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
-distrbution from which mutations are drawn.}
+distribution from which mutations are drawn.}
 
 \item{trait_dist_sp}{numeric, the minimal trait distance between two
 clusters of individuals triggering speciation.}

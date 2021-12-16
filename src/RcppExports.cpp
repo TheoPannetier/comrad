@@ -22,14 +22,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// draw_nb_offspring_cpp
-std::vector<int> draw_nb_offspring_cpp(std::vector<float> fitness);
-RcppExport SEXP _comrad_draw_nb_offspring_cpp(SEXP fitnessSEXP) {
+// draw_nb_offspring
+std::vector<int> draw_nb_offspring(std::vector<float> fitness);
+RcppExport SEXP _comrad_draw_nb_offspring(SEXP fitnessSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::vector<float> >::type fitness(fitnessSEXP);
-    rcpp_result_gen = Rcpp::wrap(draw_nb_offspring_cpp(fitness));
+    rcpp_result_gen = Rcpp::wrap(draw_nb_offspring(fitness));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -55,16 +55,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// get_n_eff_cpp
-DoubleVector get_n_eff_cpp(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt);
-RcppExport SEXP _comrad_get_n_eff_cpp(SEXP zSEXP, SEXP competition_sdSEXP, SEXP brute_force_optSEXP) {
+// get_n_eff
+DoubleVector get_n_eff(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt);
+RcppExport SEXP _comrad_get_n_eff(SEXP zSEXP, SEXP competition_sdSEXP, SEXP brute_force_optSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const DoubleVector& >::type z(zSEXP);
     Rcpp::traits::input_parameter< float >::type competition_sd(competition_sdSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type brute_force_opt(brute_force_optSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_n_eff_cpp(z, competition_sd, brute_force_opt));
+    rcpp_result_gen = Rcpp::wrap(get_n_eff(z, competition_sd, brute_force_opt));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -78,14 +78,72 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// testarg_not_this
+void testarg_not_this(NumericVector vec, double not_this);
+RcppExport SEXP _comrad_testarg_not_this(SEXP vecSEXP, SEXP not_thisSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type vec(vecSEXP);
+    Rcpp::traits::input_parameter< double >::type not_this(not_thisSEXP);
+    testarg_not_this(vec, not_this);
+    return R_NilValue;
+END_RCPP
+}
+// testarg_num
+void testarg_num(NumericVector vec);
+RcppExport SEXP _comrad_testarg_num(SEXP vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type vec(vecSEXP);
+    testarg_num(vec);
+    return R_NilValue;
+END_RCPP
+}
+// testarg_pos
+void testarg_pos(NumericVector vec);
+RcppExport SEXP _comrad_testarg_pos(SEXP vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type vec(vecSEXP);
+    testarg_pos(vec);
+    return R_NilValue;
+END_RCPP
+}
+// testarg_length_num
+void testarg_length_num(NumericVector vec, int correct_length);
+RcppExport SEXP _comrad_testarg_length_num(SEXP vecSEXP, SEXP correct_lengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type vec(vecSEXP);
+    Rcpp::traits::input_parameter< int >::type correct_length(correct_lengthSEXP);
+    testarg_length_num(vec, correct_length);
+    return R_NilValue;
+END_RCPP
+}
+// testarg_length_char
+void testarg_length_char(CharacterVector vec, int correct_length);
+RcppExport SEXP _comrad_testarg_length_char(SEXP vecSEXP, SEXP correct_lengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type vec(vecSEXP);
+    Rcpp::traits::input_parameter< int >::type correct_length(correct_lengthSEXP);
+    testarg_length_char(vec, correct_length);
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_comrad_apply_mutations", (DL_FUNC) &_comrad_apply_mutations, 2},
-    {"_comrad_draw_nb_offspring_cpp", (DL_FUNC) &_comrad_draw_nb_offspring_cpp, 1},
+    {"_comrad_draw_nb_offspring", (DL_FUNC) &_comrad_draw_nb_offspring, 1},
     {"_comrad_sort_by_ref", (DL_FUNC) &_comrad_sort_by_ref, 1},
     {"_comrad_find_trait_gaps", (DL_FUNC) &_comrad_find_trait_gaps, 2},
-    {"_comrad_get_n_eff_cpp", (DL_FUNC) &_comrad_get_n_eff_cpp, 3},
+    {"_comrad_get_n_eff", (DL_FUNC) &_comrad_get_n_eff, 3},
     {"_comrad_simd_size", (DL_FUNC) &_comrad_simd_size, 0},
+    {"_comrad_testarg_not_this", (DL_FUNC) &_comrad_testarg_not_this, 2},
+    {"_comrad_testarg_num", (DL_FUNC) &_comrad_testarg_num, 1},
+    {"_comrad_testarg_pos", (DL_FUNC) &_comrad_testarg_pos, 1},
+    {"_comrad_testarg_length_num", (DL_FUNC) &_comrad_testarg_length_num, 2},
+    {"_comrad_testarg_length_char", (DL_FUNC) &_comrad_testarg_length_char, 2},
     {NULL, NULL, 0}
 };
 

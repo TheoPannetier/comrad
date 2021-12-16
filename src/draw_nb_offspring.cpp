@@ -17,7 +17,7 @@ using namespace Rcpp;
 //' @name draw_nb_offspring_cpp
 //'
 // [[Rcpp::export]]
-std::vector<int> draw_nb_offspring_cpp(std::vector<float> fitness) {
+std::vector<int> draw_nb_offspring(std::vector<float> fitness) {
 
   int nb_inds = fitness.size();
   std::vector<int> nb_offspring(nb_inds);

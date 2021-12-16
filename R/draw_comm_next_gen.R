@@ -52,7 +52,7 @@ draw_comm_next_gen <- function(
   comrad::testarg_not_this(fitness_comm, Inf)
 
   # Create next generation from parent fitness ---------------------------------
-  nb_offspring_comm <- comrad::draw_nb_offspring_cpp(
+  nb_offspring_comm <- comrad::draw_nb_offspring(
     fitness = fitness_comm
   )
   comrad::testarg_length(nb_offspring_comm, length(comm$z))

@@ -74,7 +74,7 @@ is standard.
 }
 }
 \details{
-Currenty \code{testarg_not_this()} cannot be tested properly.
+Currently \code{testarg_not_this()} cannot be tested properly.
 }
 \author{
 Theo Pannetier

@@ -31,7 +31,6 @@ get_fitness_landscape <- function(z_seq,
   )
   n_eff <-  get_n_eff(
     z_seq,
-    traits_comm = traits_comm,
     competition_sd = competition_sd
   )
   # Compute fitness, wrap in tibble
