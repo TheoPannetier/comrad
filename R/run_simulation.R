@@ -204,7 +204,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
       "t" = t,
       # Community next gen [z, species, ancestral_species]
       comrad::draw_comm_next_gen(
-        comm = comrad_tbl[-t],
+        comm = comrad_tbl[, -1],
         growth_rate = growth_rate,
         competition_sd = competition_sd,
         trait_opt = trait_opt,

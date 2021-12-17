@@ -10,50 +10,14 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// apply_mutations_cpp
-NumericVector apply_mutations_cpp(NumericVector traits_comm, double mutation_sd);
-RcppExport SEXP _comrad_apply_mutations_cpp(SEXP traits_commSEXP, SEXP mutation_sdSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type traits_comm(traits_commSEXP);
-    Rcpp::traits::input_parameter< double >::type mutation_sd(mutation_sdSEXP);
-    rcpp_result_gen = Rcpp::wrap(apply_mutations_cpp(traits_comm, mutation_sd));
-    return rcpp_result_gen;
-END_RCPP
-}
-// apply_mutations_cpp2
-NumericVector apply_mutations_cpp2(NumericVector traits_comm, double mutation_sd);
-RcppExport SEXP _comrad_apply_mutations_cpp2(SEXP traits_commSEXP, SEXP mutation_sdSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type traits_comm(traits_commSEXP);
-    Rcpp::traits::input_parameter< double >::type mutation_sd(mutation_sdSEXP);
-    rcpp_result_gen = Rcpp::wrap(apply_mutations_cpp2(traits_comm, mutation_sd));
-    return rcpp_result_gen;
-END_RCPP
-}
-// apply_mutations_cpp3
-NumericVector apply_mutations_cpp3(NumericVector traits_comm, double mutation_sd);
-RcppExport SEXP _comrad_apply_mutations_cpp3(SEXP traits_commSEXP, SEXP mutation_sdSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type traits_comm(traits_commSEXP);
-    Rcpp::traits::input_parameter< double >::type mutation_sd(mutation_sdSEXP);
-    rcpp_result_gen = Rcpp::wrap(apply_mutations_cpp3(traits_comm, mutation_sd));
-    return rcpp_result_gen;
-END_RCPP
-}
-// apply_mutations_cpp4
-void apply_mutations_cpp4(NumericVector traits_comm, double mutation_sd);
-RcppExport SEXP _comrad_apply_mutations_cpp4(SEXP traits_commSEXP, SEXP mutation_sdSEXP) {
+// apply_mutations
+void apply_mutations(NumericVector traits_comm, double mutation_sd);
+RcppExport SEXP _comrad_apply_mutations(SEXP traits_commSEXP, SEXP mutation_sdSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type traits_comm(traits_commSEXP);
     Rcpp::traits::input_parameter< double >::type mutation_sd(mutation_sdSEXP);
-    apply_mutations_cpp4(traits_comm, mutation_sd);
+    apply_mutations(traits_comm, mutation_sd);
     return R_NilValue;
 END_RCPP
 }
@@ -168,10 +132,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_comrad_apply_mutations_cpp", (DL_FUNC) &_comrad_apply_mutations_cpp, 2},
-    {"_comrad_apply_mutations_cpp2", (DL_FUNC) &_comrad_apply_mutations_cpp2, 2},
-    {"_comrad_apply_mutations_cpp3", (DL_FUNC) &_comrad_apply_mutations_cpp3, 2},
-    {"_comrad_apply_mutations_cpp4", (DL_FUNC) &_comrad_apply_mutations_cpp4, 2},
+    {"_comrad_apply_mutations", (DL_FUNC) &_comrad_apply_mutations, 2},
     {"_comrad_draw_nb_offspring", (DL_FUNC) &_comrad_draw_nb_offspring, 1},
     {"_comrad_sort_by_ref", (DL_FUNC) &_comrad_sort_by_ref, 1},
     {"_comrad_find_trait_gaps", (DL_FUNC) &_comrad_find_trait_gaps, 2},

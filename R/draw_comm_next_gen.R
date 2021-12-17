@@ -70,7 +70,7 @@ draw_comm_next_gen <- function(
     return(new_comm)
   }
   # Draw and apply mutations ---------------------------------------------------
-  comrad::apply_mutations_cpp4(
+  comrad::apply_mutations(
     traits_comm = new_comm$z,
     mutation_sd = mutation_sd
   )
