@@ -3,7 +3,7 @@
 #'
 #' A list specifying a DD model with exponential diversity-dependence on the
 #' speciation rate and constant-rate extinction; to be fed as argument
-#' `dd_model` to [comrad::fit_dd_model()].
+#' `dd_model` to [comrad::fit_dd_model_with_fossil()].
 #'
 #' \deqn{\lambda(N) = \lambda_{0}(\frac{\mu_{0}}{\lambda_{0}})^{\frac{N}{K}} \\ \mu(N) = \mu_{0}}
 #'
@@ -16,7 +16,7 @@ dd_model_xc <- function() {
       params["lambda_0"] * (params["mu_0"] / params["lambda_0"]) ^ (N / params["k"])
     },
     "extinction_func" = function(params, N) {
-      params["mu_0"]
+      rep(params["mu_0"], length(N))
     },
     "constraints" = list(
       function(params, ...) params["lambda_0"] > 0,
@@ -31,6 +31,7 @@ dd_model_xc <- function() {
       )) {
         stop("params for ddmodel_xc should be \"lambda_0\", \"mu_0\" and \"k\".")
       }
-    }
+    },
+    "DDD_name" = 9
   )
 }

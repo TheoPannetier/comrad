@@ -4,6 +4,11 @@
 #' offspring, apply mutations and resolve speciation events.
 #'
 #' @inheritParams default_params_doc
+#' @param brute_force_opt a string specifying which brute force option to use
+#' to speed up the calculation of competition coefficients. Defaults to "none".
+#' Other options are "omp", for multithreading with OpenMP, "simd" for single
+#' instruction, multiple data (SIMD) via the C++ library
+#' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
 #'
 #' @author Théo Pannetier
 #' @export
@@ -15,9 +20,9 @@ draw_comm_next_gen <- function(
   trait_opt = default_trait_opt(),
   carrying_cap_opt = default_carrying_cap_opt(),
   carrying_cap_sd = default_carrying_cap_sd(),
-  prob_mutation = default_prob_mutation(),
   mutation_sd = default_mutation_sd(),
-  trait_dist_sp = default_trait_dist_sp()
+  trait_dist_sp = default_trait_dist_sp(),
+  brute_force_opt = "none"
 ) {
 
   # Test argument type ---------------------------------------------------------
@@ -31,24 +36,23 @@ draw_comm_next_gen <- function(
   comrad::testarg_pos(carrying_cap_opt)
   comrad::testarg_num(carrying_cap_sd)
   comrad::testarg_pos(carrying_cap_sd)
-  comrad::testarg_num(prob_mutation)
-  comrad::testarg_prop(prob_mutation)
   comrad::testarg_num(mutation_sd)
   comrad::testarg_pos(mutation_sd)
 
-  # Compute fitnesses
+  # Compute fitness
   fitness_comm <- comrad::get_fitness(
     traits_comm = comm$z,
     growth_rate = growth_rate,
     competition_sd = competition_sd,
     trait_opt = trait_opt,
     carrying_cap_opt = carrying_cap_opt,
-    carrying_cap_sd = carrying_cap_sd
+    carrying_cap_sd = carrying_cap_sd,
+    brute_force_opt = brute_force_opt
   )
   comrad::testarg_not_this(fitness_comm, Inf)
 
   # Create next generation from parent fitness ---------------------------------
-  nb_offspring_comm <- comrad::draw_nb_offspring_cpp(
+  nb_offspring_comm <- comrad::draw_nb_offspring(
     fitness = fitness_comm
   )
   comrad::testarg_length(nb_offspring_comm, length(comm$z))
@@ -66,9 +70,8 @@ draw_comm_next_gen <- function(
     return(new_comm)
   }
   # Draw and apply mutations ---------------------------------------------------
-  new_comm$z <- comrad::apply_mutations(
+  comrad::apply_mutations(
     traits_comm = new_comm$z,
-    prob_mutation = prob_mutation,
     mutation_sd = mutation_sd
   )
   # Resolve speciation ---------------------------------------------------------
@@ -78,5 +81,5 @@ draw_comm_next_gen <- function(
   )
   comrad::test_comrad_comm(new_comm)
 
-  new_comm
+  return(new_comm)
 }

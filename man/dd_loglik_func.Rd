@@ -28,7 +28,7 @@ a unique log-likelihood value
 Compute the log-likelihood of athe diversity-dependent model specified by
 \code{speciation_func}, \code{extinction_func}, and \code{params} given a set of waiting
 times to next events and associated diversity.
-Meant to be called internally by \code{\link[=fit_dd_model]{fit_dd_model()}}.
+Meant to be called internally by \code{\link[=fit_dd_model_with_fossil]{fit_dd_model_with_fossil()}}.
 }
 \author{
 Theo Pannetier

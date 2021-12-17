@@ -7,7 +7,6 @@
 \alias{default_carrying_cap_opt}
 \alias{default_carrying_cap_sd}
 \alias{default_growth_rate}
-\alias{default_prob_mutation}
 \alias{default_mutation_sd}
 \alias{default_init_comm}
 \alias{default_seed}
@@ -24,8 +23,6 @@ default_carrying_cap_opt()
 default_carrying_cap_sd()
 
 default_growth_rate()
-
-default_prob_mutation()
 
 default_mutation_sd()
 

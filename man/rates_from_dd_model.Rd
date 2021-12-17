@@ -34,7 +34,8 @@ or if the length differs from the expectation.
 \code{speciation_func} and \code{extinction_func}.}
 }
 \value{
-a \code{tibble} with variables \code{N}, \code{speciation_rate} and \code{extinction_rate}
+a \code{tibble} with variables \code{N}, \code{rate} (speciation or extinction),
+\code{value} (value of that rate), and \code{dd_model} (name of the DD model)
 }
 \description{
 Get speciation and extinction rates values given a DD model and parameters

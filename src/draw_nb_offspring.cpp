@@ -1,3 +1,6 @@
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::plugins(cpp14)]]
+
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -11,16 +14,17 @@ using namespace Rcpp;
 //' @seealso get_fitness
 //' @author Theo Pannetier
 //' @export
-//' @name draw_nb_offspring_cpp
+//' @name draw_nb_offspring
+//'
 
 // [[Rcpp::export]]
-std::vector<int> draw_nb_offspring_cpp(std::vector<float> fitness) {
+std::vector<int> draw_nb_offspring(std::vector<float> fitness) {
 
   int nb_inds = fitness.size();
   std::vector<int> nb_offspring(nb_inds);
-
-  for (int i = 0; i < nb_inds; ++i) {
-    nb_offspring[i] = rpois(1, fitness[i])[0]; // rpois returns a vector
-  }
+  std::transform(fitness.begin(), fitness.end(), nb_offspring.begin(),
+                 [](float fit) {
+                   return R::rpois(fit);
+                 });
   return nb_offspring;
 }

@@ -11,6 +11,7 @@ plot_comm_trait_evolution(
   ygrain = 0.01,
   xlim = NULL,
   ylim = NULL,
+  alpha = 0.95,
   hex_fill = "species"
 )
 }

@@ -25,9 +25,18 @@
 #' @param seed integer \code{> 0}, the seed to set for the random number
 #' generator. Defaults to an integer based on current day and time.
 #' @inheritParams default_params_doc
+#' @param switch_carr_cap_sd_after if not `NA`, the value of `carrying_cap_sd` will
+#' switch to `switch_carr_cap_sd_to` at t = `switch_carr_cap_sd_after` + 1.
+#' @param switch_carr_cap_sd_to the value to switch `carrying_cap_sd` to if
+#' `switch_carr_cap_sd_after` is not `NA`.
 #' @param hpc_job_id used to record a job ID in the metadata, only relevant for
 #' simulations run on a high-performance cluster. Otherwise takes value
 #' `"local"`.
+#' @param brute_force_opt a string specifying which brute force option to use
+#' to speed up the calculation of competition coefficients. Defaults to "none".
+#' Other options are "omp", for multithreading with OpenMP, "simd" for single
+#' instruction, multiple data (SIMD) via the C++ library
+#' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
 #'
 #' @return Returns a table with a row corresponding to each individual, and five
 #' columns: `t` is the generation time, `z` the individual's trait value,
@@ -51,16 +60,18 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   carrying_cap_sd = comrad::default_carrying_cap_sd(),
   carrying_cap_opt = comrad::default_carrying_cap_opt(),
   trait_opt = comrad::default_trait_opt(),
-  prob_mutation = comrad::default_prob_mutation(),
   mutation_sd = comrad::default_mutation_sd(),
   trait_dist_sp = comrad::default_trait_dist_sp(),
+  switch_carr_cap_sd_after = NA,
+  switch_carr_cap_sd_to = NA,
   sampling_on_event = FALSE,
   sampling_freq = ifelse(
     sampling_on_event, NA, comrad::set_sampling_freq(nb_gens)
   ),
   sampling_frac = comrad::default_sampling_frac(),
   seed = comrad::default_seed(),
-  hpc_job_id = NULL
+  hpc_job_id = NULL,
+  brute_force_opt = "none"
 ) {
   comrad::test_comrad_tbl(init_comm)
   first_gen <- init_comm %>% dplyr::pull(t) %>% unique()
@@ -103,14 +114,20 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   comrad::testarg_pos(carrying_cap_opt)
   comrad::testarg_num(carrying_cap_sd)
   comrad::testarg_pos(carrying_cap_sd)
-  comrad::testarg_num(prob_mutation)
-  comrad::testarg_prop(prob_mutation)
   comrad::testarg_num(mutation_sd)
   comrad::testarg_pos(mutation_sd)
   comrad::testarg_num(trait_dist_sp)
   comrad::testarg_pos(trait_dist_sp)
   comrad::testarg_num(sampling_frac)
   comrad::testarg_prop(sampling_frac)
+  comrad::testarg_char(brute_force_opt)
+
+  will_switch <- !is.na(switch_carr_cap_sd_after)
+  if (will_switch) {
+    comrad::testarg_num(switch_carr_cap_sd_after)
+    comrad::testarg_num(switch_carr_cap_sd_to)
+    comrad::testarg_pos(switch_carr_cap_sd_to)
+  }
 
   is_on_peregrine <- Sys.getenv("HOSTNAME") == "peregrine.hpc.rug.nl"
 
@@ -131,7 +148,6 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
     "\ncarrying_cap_opt = ", carrying_cap_opt,
     "\ntrait_opt = ", trait_opt,
     "\ngrowth_rate = ", growth_rate,
-    "\nprob_mutation = ", prob_mutation,
     "\nmutation_sd = ", mutation_sd,
     "\ntrait_dist_sp = ", trait_dist_sp,
     "\n",
@@ -174,23 +190,29 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   # Go :)
   time_seq <- (first_gen + 1):(first_gen + nb_gens)
   for (t in time_seq) {
-
+    if (will_switch && t > switch_carr_cap_sd_after) {
+      cat("\nSwitched carrying_cap_sd from", carrying_cap_sd, "to",
+          switch_carr_cap_sd_to, "at t =", t, "\n")
+      carrying_cap_sd <- switch_carr_cap_sd_to
+      will_switch <- FALSE
+    }
     species_before <- unlist(dplyr::distinct(comrad_tbl, species))
+
     # Replace comm with next generation
     comrad_tbl <- dplyr::bind_cols(
       # Time [t] # nolint
       "t" = t,
       # Community next gen [z, species, ancestral_species]
       comrad::draw_comm_next_gen(
-        comm = comrad_tbl[, c("z", "species", "ancestral_species")], # not t
+        comm = comrad_tbl[, -1],
         growth_rate = growth_rate,
         competition_sd = competition_sd,
         trait_opt = trait_opt,
         carrying_cap_opt = carrying_cap_opt,
         carrying_cap_sd = carrying_cap_sd,
-        prob_mutation = prob_mutation,
         mutation_sd = mutation_sd,
-        trait_dist_sp = trait_dist_sp
+        trait_dist_sp = trait_dist_sp,
+        brute_force_opt = brute_force_opt
       )
     )
     species_after <- unlist(dplyr::distinct(comrad_tbl, species))

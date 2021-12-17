@@ -14,14 +14,16 @@ run_simulation(
   carrying_cap_sd = comrad::default_carrying_cap_sd(),
   carrying_cap_opt = comrad::default_carrying_cap_opt(),
   trait_opt = comrad::default_trait_opt(),
-  prob_mutation = comrad::default_prob_mutation(),
   mutation_sd = comrad::default_mutation_sd(),
   trait_dist_sp = comrad::default_trait_dist_sp(),
+  switch_carr_cap_sd_after = NA,
+  switch_carr_cap_sd_to = NA,
   sampling_on_event = FALSE,
   sampling_freq = ifelse(sampling_on_event, NA, comrad::set_sampling_freq(nb_gens)),
   sampling_frac = comrad::default_sampling_frac(),
   seed = comrad::default_seed(),
-  hpc_job_id = NULL
+  hpc_job_id = NULL,
+  brute_force_opt = "none"
 )
 }
 \arguments{
@@ -57,14 +59,17 @@ moving away from the optimal trait value.}
 \item{trait_opt}{numeric. The optimal trait value, \eqn{z_{opt}}.
 \code{get_carrying_cap(trait_opt) = carrying_cap_opt}.}
 
-\item{prob_mutation}{numeric between 0 and 1, the probability that any new
-individual is sampled with a mutation.}
-
 \item{mutation_sd}{numeric \verb{>= 0}, the standard deviation of the normal
-distrbution from which mutations are drawn.}
+distribution from which mutations are drawn.}
 
 \item{trait_dist_sp}{numeric, the minimal trait distance between two
 clusters of individuals triggering speciation.}
+
+\item{switch_carr_cap_sd_after}{if not \code{NA}, the value of \code{carrying_cap_sd} will
+switch to \code{switch_carr_cap_sd_to} at t = \code{switch_carr_cap_sd_after} + 1.}
+
+\item{switch_carr_cap_sd_to}{the value to switch \code{carrying_cap_sd} to if
+\code{switch_carr_cap_sd_after} is not \code{NA}.}
 
 \item{sampling_on_event}{logical. If \code{TRUE}, the community is sampled every
 time a speciation or extinction happens, and \code{sampling_freq} is ignored and
@@ -84,6 +89,12 @@ generator. Defaults to an integer based on current day and time.}
 \item{hpc_job_id}{used to record a job ID in the metadata, only relevant for
 simulations run on a high-performance cluster. Otherwise takes value
 \code{"local"}.}
+
+\item{brute_force_opt}{a string specifying which brute force option to use
+to speed up the calculation of competition coefficients. Defaults to "none".
+Other options are "omp", for multithreading with OpenMP, "simd" for single
+instruction, multiple data (SIMD) via the C++ library
+\href{https://github.com/xtensor-stack/xsimd}{\code{xsimd}}; and "simd_omp" for both.}
 }
 \value{
 Returns a table with a row corresponding to each individual, and five

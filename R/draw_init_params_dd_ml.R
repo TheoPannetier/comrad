@@ -35,17 +35,20 @@ draw_init_params_dd_ml <- function(nb_sets, phylos, dd_model) {
   proto_lambda0 <- log(n_max) / t_max
 
   # Initial parameter values
-  lambdas <- stats::runif(nb_sets, proto_lambda0 * 0.5, proto_lambda0 * 2)
+  lambdas <- stats::runif(nb_sets, proto_lambda0 * 0.005, proto_lambda0 * 500)
   mus <- stats::runif(nb_sets, 0, 0.75 * lambdas)
-  ks <- trunc(n_max + n_max * stats::rgamma(nb_sets, shape = 0.5, scale = 0.3))
+  #ks <- trunc(n_max + n_max * stats::rgamma(nb_sets, shape = 0.5, scale = 0.3))
+  ks <- ceiling(n_max * stats::runif(nb_sets, 0.5, 10))
   alphas <- stats::runif(nb_sets, 0, 1)
 
   init_params <- purrr::pmap(
     list(lambdas, mus, ks, alphas),
     function(lambda, mu, k, alpha) {
-    c("lambda_0" = lambda, "mu_0" = mu, "k" = k, "alpha" = alpha)
-  })
-  with_alpha <- dd_model$name %in% c("ll", "lx", "xl", "xx")
+      c("lambda_0" = lambda, "mu_0" = mu, "k" = k, "alpha" = alpha)
+    })
+
+  with_alpha <- !stringr::str_detect(dd_model$name, "c") # no alpha if constant
+
   if (!with_alpha) {
     init_params <- init_params %>% purrr::map(function(vec) vec[-4])
   }

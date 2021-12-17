@@ -111,12 +111,10 @@ test_that("abuse", {
     "'comm' col classes should be numeric, character and character, respectively." # nolint
   )
   expect_error(
-    abnormal_comms[[6]] %>% apply_speciation(),
-    "'traits' contains one or more NAs"
+    abnormal_comms[[6]] %>% apply_speciation()
   )
   expect_error(
-    abnormal_comms[[7]] %>% apply_speciation(),
-    "'traits' contains one or more NaNs"
+    abnormal_comms[[7]] %>% apply_speciation()
   )
   expect_error(
     abnormal_comms[[8]] %>% apply_speciation(),
