@@ -3,9 +3,6 @@
 \name{draw_nb_offspring}
 \alias{draw_nb_offspring}
 \title{Draw a number of offspring given a fitness value}
-\usage{
-draw_nb_offspring(fitness)
-}
 \arguments{
 \item{fitness}{a vector of positive floats, the fitness value(s).}
 }

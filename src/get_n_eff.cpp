@@ -7,7 +7,6 @@
 #include <map>
 #include "xsimd/xsimd.hpp"
 
-
 namespace {
 
   using simd_type = xsimd::simd_type<float>;
@@ -120,8 +119,11 @@ namespace {
 
 }
 
-
 using namespace Rcpp;
+
+void testarg_not_this(NumericVector vec, double not_this);
+void testarg_num(NumericVector vec);
+void testarg_pos(NumericVector vec);
 
 //' Compute the effective population size
 //'
@@ -145,6 +147,11 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 DoubleVector get_n_eff(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt = "none")
 {
+  testarg_num(z);
+  testarg_not_this(z, R_PosInf);
+  testarg_not_this(z, R_NegInf);
+  testarg_pos(competition_sd);
+
   auto it = brute_force_map.find(brute_force_opt);
   if (it == brute_force_map.end()) {
     throw std::runtime_error("invalid argument 'brute_force_opt'");

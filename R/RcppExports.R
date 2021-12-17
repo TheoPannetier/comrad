@@ -102,8 +102,29 @@ simd_size <- function() {
     .Call('_comrad_simd_size', PACKAGE = 'comrad')
 }
 
-testarg_not_this <- function(vec, not_this) {
-    invisible(.Call('_comrad_testarg_not_this', PACKAGE = 'comrad', vec, not_this))
+#' Assert a function argument is of correct type
+#'
+#' \itemize{
+#'  \item \code{testarg_num()} asserts that the argument is a numeric value.
+#'  Also rejects \code{NaNs} and \code{NAs} by default.
+#'  \item \code{testarg_prop()} asserts that the argument value lies between 0
+#'  and 1.
+#'  \item \code{testarg_pos()} asserts that the argument is positive.
+#'  \item \code{testarg_not_this()} asserts that the argument is different
+#'  from one or several forbidden values.
+#'  \item \code{testarg_length()} asserts that the argument has the correct
+#'  length.
+#' }
+#'
+#' @param arg value of the asserted argument.
+#'
+#' @author Theo Pannetier
+#'
+#' @name testargs
+NULL
+
+testarg_not_this <- function(vec, forbidden) {
+    invisible(.Call('_comrad_testarg_not_this', PACKAGE = 'comrad', vec, forbidden))
 }
 
 testarg_num <- function(vec) {

@@ -79,13 +79,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // testarg_not_this
-void testarg_not_this(NumericVector vec, double not_this);
-RcppExport SEXP _comrad_testarg_not_this(SEXP vecSEXP, SEXP not_thisSEXP) {
+void testarg_not_this(NumericVector vec, double forbidden);
+RcppExport SEXP _comrad_testarg_not_this(SEXP vecSEXP, SEXP forbiddenSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type vec(vecSEXP);
-    Rcpp::traits::input_parameter< double >::type not_this(not_thisSEXP);
-    testarg_not_this(vec, not_this);
+    Rcpp::traits::input_parameter< double >::type forbidden(forbiddenSEXP);
+    testarg_not_this(vec, forbidden);
     return R_NilValue;
 END_RCPP
 }
