@@ -121,10 +121,6 @@ namespace {
 
 using namespace Rcpp;
 
-void testarg_not_this(NumericVector vec, double not_this);
-void testarg_num(NumericVector vec);
-void testarg_pos(NumericVector vec);
-
 //' Compute the effective population size
 //'
 //' Computes \code{n_eff}, the effective population size experienced by an
@@ -147,11 +143,6 @@ void testarg_pos(NumericVector vec);
 // [[Rcpp::export]]
 DoubleVector get_n_eff(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt = "none")
 {
-  testarg_num(z);
-  testarg_not_this(z, R_PosInf);
-  testarg_not_this(z, R_NegInf);
-  testarg_pos(competition_sd);
-
   auto it = brute_force_map.find(brute_force_opt);
   if (it == brute_force_map.end()) {
     throw std::runtime_error("invalid argument 'brute_force_opt'");

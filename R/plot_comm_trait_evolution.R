@@ -85,7 +85,7 @@ plot_comm_trait_evolution <- function(comrad_tbl,
         show.legend = FALSE
       ) +
       ggplot2::scale_fill_manual(
-        values = species_names,
+        values = species_names
       )
   } else {
     trait_plot <- trait_plot +
