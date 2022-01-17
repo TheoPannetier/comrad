@@ -63,7 +63,7 @@ default_seed <- function() {
 #' @export
 #' @rdname default_pars
 default_sampling_frac <- function() {
-  0.5
+  0.05
 }
 
 #' @export
