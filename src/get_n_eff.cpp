@@ -74,14 +74,16 @@ namespace {
     simd_vector n_eff(N, 0.f);
     const auto sdenom = xsimd::set_simd(denom);
     constexpr int ss = static_cast<int>(simd_type::size);
-    const int simd_n = N - N % ss;
+    const int simd_n = N - N % ss; // How many rounds of simultaneous calculations
     for (int i = 0; i < N; ++i) {
       const auto z_i = xsimd::set_simd(z[i]);
       auto ssum = xsimd::zero<simd_type>();
       for (int j = 0; j < simd_n; j += ss) {
+        // n = simd_type::size values of d are calculated simultaneously
         const auto d = z_i - xsimd::load_aligned(&z[j]);
         ssum += xsimd::exp(-(d * d) * sdenom);
       }
+      // Rest
       n_eff[i] = std::accumulate(z.begin() + simd_n, z.end(), xsimd::hadd(ssum), reduction_op(z[i], denom));
     }
     return n_eff;
@@ -107,7 +109,6 @@ namespace {
     }
     return n_eff;
   }
-
 
   const std::map<std::string, std::function<simd_vector(const simd_vector&, float)>> brute_force_map = {
     {"none", &get_n_eff},
@@ -143,16 +144,23 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 DoubleVector get_n_eff(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt = "none")
 {
+  // Select function from brute_force_opt
   auto it = brute_force_map.find(brute_force_opt);
   if (it == brute_force_map.end()) {
     throw std::runtime_error("invalid argument 'brute_force_opt'");
   }
+  // Convert z into float
   simd_vector sz(z.size());
   std::transform(z.begin(), z.end(), sz.begin(), [](double x) {
     return static_cast<float>(x);
   });
+  // Denominator
   const float denom = 1.0f / (2.f * (competition_sd * competition_sd));
+
+  // Compute n_eff with selected function
   auto n_eff = it->second(sz, denom);
+
+  // Convert back into double
   auto res = DoubleVector(n_eff.size());
   std::transform(n_eff.cbegin(), n_eff.cend(), res.begin(), [](float x) {
     return static_cast<double>(x);

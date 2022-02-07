@@ -77,6 +77,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// get_n_eff_ref
+DoubleVector get_n_eff_ref(const DoubleVector& z_ref, const DoubleVector& z_pop, float competition_sd, const std::string& brute_force_opt);
+RcppExport SEXP _comrad_get_n_eff_ref(SEXP z_refSEXP, SEXP z_popSEXP, SEXP competition_sdSEXP, SEXP brute_force_optSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const DoubleVector& >::type z_ref(z_refSEXP);
+    Rcpp::traits::input_parameter< const DoubleVector& >::type z_pop(z_popSEXP);
+    Rcpp::traits::input_parameter< float >::type competition_sd(competition_sdSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type brute_force_opt(brute_force_optSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_n_eff_ref(z_ref, z_pop, competition_sd, brute_force_opt));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_comrad_apply_mutations", (DL_FUNC) &_comrad_apply_mutations, 2},
@@ -85,6 +99,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_comrad_find_trait_gaps", (DL_FUNC) &_comrad_find_trait_gaps, 2},
     {"_comrad_get_n_eff", (DL_FUNC) &_comrad_get_n_eff, 3},
     {"_comrad_simd_size", (DL_FUNC) &_comrad_simd_size, 0},
+    {"_comrad_get_n_eff_ref", (DL_FUNC) &_comrad_get_n_eff_ref, 4},
     {NULL, NULL, 0}
 };
 
