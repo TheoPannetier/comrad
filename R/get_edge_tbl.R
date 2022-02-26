@@ -31,12 +31,22 @@ get_edge_tbl <- function(phylo) {
   time_child <- NULL # no NOTE
   edge_length <- NULL # no NOTE
 
-  ntips <- length(phylo$tip.label)
+  tip_labels <- phylo$tip.label
+  ntips <- length(tip_labels)
+  has_stem_node <- phylo$Nnode == ntips
   root_node <- ntips + 1
+  node_labels <- phylo$node.label
+
+  all_labels <- rep(NA, ntips * 2 - (1 + !has_stem_node))
+  all_labels[1:ntips] <- tip_labels
+  if (!is.null(node_labels)) {
+    all_labels[ntips + 1, length(all_labels)] <- node_labels
+  }
 
   edge_tbl <- tibble::tibble(
     "parent_node" = phylo$edge[, 1],
     "child_node" = phylo$edge[, 2],
+    "label" = all_labels,
     "is_tip" = child_node <= ntips,
     "edge_length" = phylo$edge.length
   ) %>%
@@ -45,8 +55,9 @@ get_edge_tbl <- function(phylo) {
       tibble::tibble(
         "parent_node" = NA,
         "child_node" = root_node,
+        "label" = NA,
         "is_tip" = FALSE,
-        "edge_length" = 0
+        "edge_length" = 0,
       ),
       . # root comes first
     ) %>%
