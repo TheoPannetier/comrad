@@ -28,7 +28,6 @@ namespace {
     return n_eff;
   }
 
-
   struct reduction_op
   {
     const float zi_;
@@ -44,30 +43,8 @@ namespace {
     }
   };
 
-  simd_vector get_n_eff_ref_algo(const simd_vector& z_seq, const simd_vector& z_pop, float denom)
-  {
-    simd_vector n_eff(z_seq.size(), 0.f);
-    for (auto i = 0; i < z_seq.size(); ++i) {
-      n_eff[i] = std::accumulate(z_pop.begin(), z_pop.end(), 0.0f, reduction_op(z_seq[i], denom));
-    }
-    return n_eff;
-  }
-
-  simd_vector get_n_eff_ref_omp(const simd_vector& z_seq, const simd_vector& z_pop, float denom)
-  {
-    simd_vector n_eff(z_seq.size(), 0.f);
-    const int N = static_cast<int>(z_seq.size());
-#   pragma omp parallel for
-    for (int i = 0; i < N; ++i) {
-      n_eff[i] = std::accumulate(z_pop.begin(), z_pop.end(), 0.0f, reduction_op(z_seq[i], denom));
-    }
-    return n_eff;
-  }
-
   const std::map<std::string, std::function<simd_vector(const simd_vector&, const simd_vector&, float)>> brute_force_map_ref = {
-    {"none", &get_n_eff_ref},
-    {"algo", &get_n_eff_ref_algo},
-    {"omp", &get_n_eff_ref_omp}
+    {"none", &get_n_eff_ref}
   };
 
 }
