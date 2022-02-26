@@ -41,13 +41,13 @@ plot_compare_dd_functions <- function(params, N) {
     geom_line() +
     theme_bw() +
     scale_colour_manual(values = c(
-      "linear" = "#D95F02",
-      "power" = "#377EB8",
-      "exponential" = "#E6AB02"
+      "linear" = "#E4C552",
+      "power" = "#DE09D6",
+      "exponential" = "#398DCC"
     )) +
     labs(
       colour = "Function",
       linetype = "Rate",
-      y = "Rate value"
+      y = "Per-capita rate"
     )
 }
