@@ -46,11 +46,13 @@ tests/testthat/Rplots.pdf
 # Simulation outputs
 data/
 figs/
+
 # Local scripts
 local/
 pontarp_matlab_code/
 notes/
 cluster_scripts/
+output/
 inst/doc
 doc
 Meta
