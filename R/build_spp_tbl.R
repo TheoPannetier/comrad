@@ -20,13 +20,12 @@ build_spp_tbl <- function(comrad_tbl) {
 
   spp <- unique(comrad_tbl$species)
   names(spp) <- spp # for automated labelling by map_dfr
-  time_seq <- unique(comrad_tbl$t)
+  time_seq <- sort(unique(comrad_tbl$t))
 
   spp_tbl <- purrr::map_dfr(
     spp,
     function(sp) {
       is_sp <- comrad_tbl$species == sp
-
       time_range <- unique(comrad_tbl$t[is_sp])
       time_birth <- min(time_range)
       occur_last <- max(time_range)
