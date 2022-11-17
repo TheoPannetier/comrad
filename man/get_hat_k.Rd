@@ -8,7 +8,7 @@ get_hat_k(avg_ltt_tbl)
 }
 \arguments{
 \item{avg_ltt_tbl}{a \code{tibble} with the average number of species across
-replicate simulations, e.g. the output of \code{\link[=avg_ltt]{avg_ltt()}}}
+replicate simulations, e.g. the output of \code{\link[=average_ltt]{average_ltt()}}}
 }
 \description{
 Estimate \code{hat_k}, an empircial measure of equilibrium diversity

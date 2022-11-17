@@ -46,6 +46,11 @@ or if the length differs from the expectation.
 \item{num_cycles}{passed to \code{\link[DDD:optimizer]{DDD::optimizer()}}, number of cycles of
 optimisation. Next cycle starts from the last vertices of the previous cycle.}
 
+\item{methode}{passed to \code{\link[DDD:optimizer]{DDD::optimizer()}}, a character specifying the
+methode to solve the DD master system, either numerically ("analytical") or
+numerically ("odeint::runge_kutta_cash_karp54" or another function from the
+\code{odeint} library)}
+
 \item{verbose}{logical, should the output of every optimisation iteration be
 printed to console?}
 }

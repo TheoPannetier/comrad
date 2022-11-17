@@ -1,7 +1,7 @@
 #' Convert a species history table to a Newick string
 #'
 #' Reads a tibble recording species birth, death and phylogenetic relations,
-#' figures out the branch lenghts and return a phylogenetic tree in Newick
+#' figures out the branch lengths and return a phylogenetic tree in Newick
 #' format. Based on [DDD::L2phylo()].
 #'
 #' @param spp_tbl a table with phylogenetic information for each species, the

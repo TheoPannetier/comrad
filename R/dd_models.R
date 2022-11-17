@@ -72,19 +72,18 @@ dd_models <- function() {
 #'  function updates the names, useful if dealing with data produced by older
 #'  versions of `comrad`.
 #'
-#'  @param x, a `dd_model` name
 #'
-#'  @return an updated `dd_model` name
+#'@param name a `dd_model` name
 #'
-#'  @author Théo Pannetier
-#'  @export
-update_dd_model_name <- function(x) {
+#'@author Théo Pannetier
+#'@export
+update_dd_model_name <- function(name) {
   dplyr::case_when(
-    x == "xc2" ~ "pc",
-    x == "xl2" ~ "pl",
-    x == "lx2" ~ "lp",
-    x == "xx2" ~ "pp",
-    TRUE ~ x
+    name == "xc2" ~ "pc",
+    name == "xl2" ~ "pl",
+    name == "lx2" ~ "lp",
+    name == "xx2" ~ "pp",
+    TRUE ~ name
   )
 }
 

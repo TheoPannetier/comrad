@@ -16,7 +16,6 @@
 #' * `ci_upper` upper bound of the confidence interval of `value`
 #' * `ci_lower` lower bound of the confidence interval of `value`
 #'
-#' @return
 #' @author Théo Pannetier
 #' @export
 #'

@@ -31,6 +31,10 @@
 #'
 #' @param num_cycles passed to [DDD::optimizer()], number of cycles of
 #' optimisation. Next cycle starts from the last vertices of the previous cycle.
+#' @param methode passed to [DDD::optimizer()], a character specifying the
+#' methode to solve the DD master system, either numerically ("analytical") or
+#' numerically ("odeint::runge_kutta_cash_karp54" or another function from the
+#' `odeint` library)
 #' @param verbose logical, should the output of every optimisation iteration be
 #' printed to console?
 #'

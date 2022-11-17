@@ -13,6 +13,7 @@ using namespace Rcpp;
 //'
 //' @author Theo Pannetier
 //' @export
+//' @name apply_mutations
 
 #include <Rcpp.h>
 using namespace Rcpp;

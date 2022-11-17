@@ -4,7 +4,10 @@
 \alias{update_dd_model_name}
 \title{Update power DD model names}
 \usage{
-update_dd_model_name(x)
+update_dd_model_name(name)
+}
+\arguments{
+\item{name}{a \code{dd_model} name}
 }
 \description{
 Power DD functions used to be called "x2" ("alternative" exponential,
@@ -12,11 +15,6 @@ in contrast to the true exponential functions referred to by "x). This
 function updates the names, useful if dealing with data produced by older
 versions of \code{comrad}.
 }
-\details{
-@param x, a \code{dd_model} name
-
-@return an updated \code{dd_model} name
-
-@author Théo Pannetier
-@export
+\author{
+Théo Pannetier
 }
