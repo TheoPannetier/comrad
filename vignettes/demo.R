@@ -6,6 +6,7 @@ knitr::opts_chunk$set(
 
 ## ----setup, include = FALSE---------------------------------------------------
 library(comrad)
+par(mai = rep(0, 4))
 
 ## ----lib_comrad, eval=FALSE---------------------------------------------------
 #  remotes::install_github("TheoPannetier/comrad")
@@ -22,21 +23,16 @@ comrad_tbl <- comrad::run_simulation(
 comrad_tbl <- comrad::read_comrad_tbl(path_to_file = temp_path_to_output)
 comrad_tbl
 
-## ----data_viz-----------------------------------------------------------------
-comrad_tbl %>% comrad::plot_comm_trait_evolution(xgrain = 10, ygrain = 0.01)
-
-## ----data_viz2----------------------------------------------------------------
-comrad_tbl %>% comrad::plot_comm_traits(generation = 1000)
-
-## ----data_viz3----------------------------------------------------------------
-comrad_tbl %>% plot_comm_size()
-
-## ----load_sim, echo=FALSE, warning=FALSE--------------------------------------
+## -----------------------------------------------------------------------------
 comrad_tbl <- comrad::read_comrad_tbl("demo_data/comrad_output_example.csv", skip = 20)
 
-## ----data_viz4----------------------------------------------------------------
-comrad_tbl %>% comrad::plot_comm_trait_evolution(xgrain = 200, ygrain = 0.05)
-comrad_tbl %>% comrad::plot_comm_traits(generation = max(.$t))
+## ----data_viz-----------------------------------------------------------------
+comrad_tbl %>% comrad::plot_comm_trait_evolution(xgrain = 200, ygrain = 0.02)
+
+## ----data_viz2----------------------------------------------------------------
+comrad_tbl %>% comrad::plot_comm_traits(generation = 10000)
+
+## ----data_viz3----------------------------------------------------------------
 comrad_tbl %>% plot_comm_size()
 
 ## ----phylo_build--------------------------------------------------------------
