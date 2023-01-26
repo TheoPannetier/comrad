@@ -156,7 +156,7 @@ dd_func_colours <- function() {
 }
 
 #' Plot a key to the colours used to represent DD functions
-#'c
+#'
 #' @export
 plot_dd_func_colours <- function() {
   tibble::tibble(

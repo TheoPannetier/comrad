@@ -2,12 +2,10 @@
 % Please edit documentation in R/dd_models.R
 \name{plot_dd_func_colours}
 \alias{plot_dd_func_colours}
-\title{Plot a key to the colours used to represent DD functions
-c}
+\title{Plot a key to the colours used to represent DD functions}
 \usage{
 plot_dd_func_colours()
 }
 \description{
 Plot a key to the colours used to represent DD functions
-c
 }

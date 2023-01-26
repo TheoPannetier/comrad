@@ -107,7 +107,7 @@ to the file. In the \code{.csv}, the table is preceded by some lines of metadata
 which are automatically ignored if the file is read with \code{\link[=read_comrad_tbl]{read_comrad_tbl()}}.
 }
 \description{
-Run the competitive radiation simulation.
+Run the individual-based model simulation.
 }
 \author{
 Théo Pannetier

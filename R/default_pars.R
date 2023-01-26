@@ -1,7 +1,7 @@
 #' Default parameter values
 #'
-#' Return default values of the simulation parameters, i.e. the default settings
-#' used in Pontarp et al. (2012).
+#' Return default values of the simulation parameters, set after the default
+#' settings used in Pontarp et al. (2012).
 #'
 #' @author Theo Pannetier
 #' @name default_pars
