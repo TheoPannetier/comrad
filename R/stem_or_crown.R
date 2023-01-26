@@ -5,7 +5,7 @@
 #'
 #' @param phylo an object of the class `phylo` as introduced in
 #' [ape][ape::read.tree]. The phylogeny must start with the crown node
-#' (not stem), and be binary (no hard polytomies).#'
+#' (not stem), and be binary (no hard polytomies).
 #'
 #' @author Théo Pannetier
 #' @export

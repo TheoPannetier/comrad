@@ -15,7 +15,7 @@ included? If not, the string stops at crown lineages.}
 }
 \description{
 Reads a tibble recording species birth, death and phylogenetic relations,
-figures out the branch lenghts and return a phylogenetic tree in Newick
+figures out the branch lengths and return a phylogenetic tree in Newick
 format. Based on \code{\link[DDD:L2phylo]{DDD::L2phylo()}}.
 }
 \author{

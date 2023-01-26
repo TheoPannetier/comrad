@@ -21,8 +21,6 @@ columns:
 \item \code{ci_upper} upper bound of the confidence interval of \code{value}
 \item \code{ci_lower} lower bound of the confidence interval of \code{value}
 }
-
-
 }
 \description{
 For a list of phylogenies, reconstruct the \emph{average, per-capita} rates of

@@ -13,6 +13,7 @@ using namespace Rcpp;
 //'
 //' @author Theo Pannetier
 //' @export
+//' @name apply_mutations
 
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -21,5 +22,4 @@ using namespace Rcpp;
 void apply_mutations(NumericVector traits_comm, double mutation_sd) {
   const NumericVector mutations = Rcpp::rnorm(traits_comm.size(), 0, mutation_sd);
   std::transform(traits_comm.begin(), traits_comm.end(), mutations.begin(), traits_comm.begin(), std::plus<>{});
-  //return traits_comm;
 }

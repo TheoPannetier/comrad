@@ -9,7 +9,7 @@ stem_or_crown(phylo)
 \arguments{
 \item{phylo}{an object of the class \code{phylo} as introduced in
 \link[ape:read.tree]{ape}. The phylogeny must start with the crown node
-(not stem), and be binary (no hard polytomies).#'}
+(not stem), and be binary (no hard polytomies).}
 }
 \description{
 \code{phylo} is rooted on its stem if nb nodes = nb tips, and on its crown

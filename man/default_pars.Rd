@@ -35,8 +35,8 @@ default_sampling_frac()
 default_trait_dist_sp()
 }
 \description{
-Return default values of the simulation parameters, i.e. the default settings
-used in Pontarp et al. (2012).
+Return default values of the simulation parameters, set after the default
+settings used in Pontarp et al. (2012).
 }
 \author{
 Theo Pannetier

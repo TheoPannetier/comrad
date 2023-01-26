@@ -6,7 +6,7 @@
 #' replicate simulations and over the last sixth of the simulation time.
 #'
 #' @param avg_ltt_tbl a `tibble` with the average number of species across
-#' replicate simulations, e.g. the output of [avg_ltt()]
+#' replicate simulations, e.g. the output of [average_ltt()]
 #'
 #' @export
 get_hat_k <- function(avg_ltt_tbl) {

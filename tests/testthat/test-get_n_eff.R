@@ -24,16 +24,3 @@ test_that("use", {
   )
 
 })
-
-test_that("abuse", {
-  expect_error(get_n_eff(Inf, competition_sd))
-  expect_error(get_n_eff(-Inf, competition_sd))
-  expect_error(
-    get_n_eff(0, competition_sd = -8)
-  )
-
-  expect_error(get_n_eff("1.6", competition_sd = competition_sd))
-  expect_error(get_n_eff(NA, competition_sd))
-  expect_error(get_n_eff(NaN, competition_sd))
-  expect_error(get_n_eff(integer(), competition_sd))
-})

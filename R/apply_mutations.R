@@ -3,8 +3,6 @@
 #' The trait value of each individual in the input community is modified by a mutation sampled in a normal distribution
 #' of mean `0` and standard deviation `mutation_sd`.
 #'
-#' @inheritParams default_params_doc
-#'
 #' @author Theo Pannetier
 #' @export
 

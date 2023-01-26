@@ -1,6 +1,6 @@
 #' Run the simulation
 #'
-#' Run the competitive radiation simulation.
+#' Run the individual-based model simulation.
 #'
 #' @param path_to_output character, path to save the output file, which must be
 #' a `.csv`. If `NULL`, the output is not saved and the final state of the

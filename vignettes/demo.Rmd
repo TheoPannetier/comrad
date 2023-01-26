@@ -1,8 +1,8 @@
 ---
-title: "`comrad` demo"
+title: "Overview of `comrad`"
 author: "Théo Pannetier"
 output: rmarkdown::html_vignette
-date: "4/3/2020"
+date: "26/01/2023"
 vignette: >
   %\VignetteIndexEntry{demo}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,64 +18,43 @@ knitr::opts_chunk$set(
 
 ```{r setup, include = FALSE}
 library(comrad)
+par(mai = rep(0, 4))
 ```
 
 ## Introduction and biological context
-`comrad` is an individual-based simulation of an evolving community of 
-organisms. At every (discrete, non-overlapping) generation, individuals sample a
-number of offspring in a Poisson with parameter their fitness value. Offspring 
-undergo mutation and (when the criterion is met) ecological speciation, 
-then replace the parent community. 
 
-Competition between individuals causes selection to be disruptive, and over 
-time, individuals form discrete clusters in the (unidimensional) trait space, 
-i.e., species. Individuals in a cluster are assigned as a new species whenver 
-their (trait) distance to the nearest individual outside the cluster is 
-$\Delta z \ge 0.1$.
+`comrad` is an individual-based simulation of an evolving community of organisms. At every (discrete, non-overlapping) generation, individuals sample a number of offspring in a Poisson with parameter their fitness value. Offspring undergo mutation and (when the criterion is met) ecological speciation, then replace the parent community.
 
-Over time, the lineages formed by these clusters branch again and again, until
-the community occupies the entire trait space. The community is then at 
-equilibrium, and fitness is around 1 everywhere on the trait space. I'm 
-interested in reconstructing the phylogeny of the community, and observing how
-the rates of speciation, extinction, and trait evolution change with the density
-of species in the community.
+Competition between individuals causes selection to be disruptive, and over time, individuals form discrete clusters in the (unidimensional) trait space, i.e., species. Individuals in a cluster are assigned as a new species whenver their (trait) distance to the nearest individual outside the cluster is $\Delta z \ge 0.1$.
+
+Over time, the lineages formed by these clusters branch again and again, until the community occupies the entire trait space. The community is then at equilibrium, and fitness is around 1 everywhere on the trait space. I'm interested in reconstructing the phylogeny of the community, and observing how the rates of speciation, extinction, and trait evolution change with the density of species in the community.
 
 ## Model details
-Fitness $W$ depends on the trait value of the focal individual ($z_i$), and the 
-trait values of all other individuals in the community.
+
+Fitness $W$ depends on the trait value of the focal individual ($z_i$), and the trait values of all other individuals in the community.
 
 $$
-  W(z_i) = e^{r(1 - \frac{N_{eff}(z_i)}{K(z_i)})}
-$$
-where $r$ is the baseline growth rate, $N_{eff}(z_i)$ the effective population 
-size experienced by the individual, which is the sum of competition terms 
-$\alpha(z_i,z_j)$:
-$$
-  N_{eff}(z_i) = \sum_{j=1}^n \alpha(z_i,z_j)
-$$
-where
-$$
-  \alpha(z_i,z_j) = e^{-\frac{(z_i - z_j)^2}{2\sigma_{\alpha}^2} }
-$$
-varies from 0 to 1; $\sigma_{\alpha}$ is the SD for the competition kernel,
-and called `competition_sd` in `comrad`.
+W(z_i) = e^{r(1 - \frac{N_{eff}(z_i)}{K(z_i)})}
+$$ where $r$ is the baseline growth rate, $N_{eff}(z_i)$ the effective population size experienced by the individual, which is the sum of competition terms $\alpha(z_i,z_j)$: $$
+N_{eff}(z_i) = \sum_{j=1}^n \alpha(z_i,z_j)
+$$ where $$
+\alpha(z_i,z_j) = e^{-\frac{(z_i - z_j)^2}{2\sigma_{\alpha}^2} }
+$$ varies from 0 to 1; $\sigma_{\alpha}$ is the SD for the competition kernel, and called `competition_sd` in `comrad`.
 
-$K(z_i)$ is the carrying capacity at $z_i$, i.e. the
-number of individuals that can maintain the same trait value *and* $W \ge 1$.
-$$
-  K(z_i) = K_{opt} * e^{-\frac{(z_i - z_{opt})^2}{2\sigma_{K}^2}}
-$$
-$K_{opt}$ is the carrying capacity at the optimal trait value $z_{opt}$, set at
-1000 and 0 respectively. $\sigma_{K}$ is the SD for the "niche" kernel, and is
-dubbed `carrying_cap_sd` in `comrad`.
+$K(z_i)$ is the carrying capacity at $z_i$, i.e. the number of individuals that can maintain the same trait value *and* $W \ge 1$. $$
+K(z_i) = K_{opt} * e^{-\frac{(z_i - z_{opt})^2}{2\sigma_{K}^2}}
+$$ $K_{opt}$ is the carrying capacity at the optimal trait value $z_{opt}$, set at 1000 and 0 respectively. $\sigma_{K}$ is the SD for the "niche" kernel, and is dubbed `carrying_cap_sd` in `comrad`.
 
 ## Installation
+
 ```{r lib_comrad, eval=FALSE}
 remotes::install_github("TheoPannetier/comrad")
 ```
 
 ## Running the simulation
+
 To run the simulation, call `run_simulation()`.
+
 ```{r run_sim}
 temp_path_to_output <- paste0(tempfile("comrad_temp_output"), ".csv")
 
@@ -85,100 +64,172 @@ comrad_tbl <- comrad::run_simulation(
 )
 ```
 
-Default values for the parameters of the model are:
-* $\sigma_K$ = 0.5
-* $\sigma_\alpha$ = 0.2
-* $z_{opt}$ = 0
-* $K_{opt}$ = 1000
-* $r$ = 1
+Default values for the parameters of the model are: \* $\sigma_K$ = 0.5 \* $\sigma_\alpha$ = 0.2 \* $z_{opt}$ = 0 \* $K_{opt}$ = 1000 \* $r$ = 1
 
-Default values of the parameters can be called with `comrad::default_X()` where 
-X is replaced with the name of the parameter.
+Default values of the parameters can be called with `comrad::default_X()` where X is replaced with the name of the parameter.
 
-The community starts with 10 individuals with trait 0, of species `"#89ae8a"`.
-I use colour hexes for species names, this makes for some nice and consistent
-plotting.
+The community starts with 10 individuals with trait 0, of species `"#89ae8a"`. I use colour hexes for species names, this makes for some nice and consistent plotting.
 
-`path_to_output` is the only argument without a default. Providing the name of a 
-`.csv` file will save the community at every sampled generation in that file.
-Saved data contains one row per individual, and contains that individual's trait
-value $z$, its species label, and the label of its ancestor species (to build
-the phylogeny). Because the sie of the community is quite large with default
-parameter values (about 2,500 individuals per generation at equilibrium for default values), only 
-half of the individuals (randomly sampled) in the community are saved – 
-`sampling_prop = 0.5`. I found this is sufficient to have enough info on the
-community.
-Generations are sampled every twice a tenth of the order of magnitude of `nb_gens`, i.e. every 20 for `nb_gens = 100`, every 200 for
-`nb_gens = 1000`, every 200 again for `nb_gens = 3000`, etc.
+`path_to_output` is the only argument without a default. Providing the name of a `.csv` file will save the community at every sampled generation in that file. Saved data contains one row per individual, and contains that individual's trait value $z$, its species label, and the label of its ancestor species (to build the phylogeny). Because the sie of the community is quite large with default parameter values (about 2,500 individuals per generation at equilibrium for default values), only half of the individuals (randomly sampled) in the community are saved -- `sampling_prop = 0.5`. I found this is sufficient to have enough info on the community. Generations are sampled every twice a tenth of the order of magnitude of `nb_gens`, i.e. every 20 for `nb_gens = 100`, every 200 for `nb_gens = 1000`, every 200 again for `nb_gens = 3000`, etc.
 
-`path_to_output = NULL` will return the output of the last generation (only) 
-instead of saving it.
+`path_to_output = NULL` will return the output of the last generation (only) instead of saving it.
 
-Saved communities can be loaded from the csv with `readr::read_csv()` as usual,
-but I also save some lines of metadata in a header. For an easy loading,
-use `comrad::read_comrad_tbl()` instead.
+Saved communities can be loaded from the csv with `readr::read_csv()` as usual, but I also save some lines of metadata in a header. For an easy loading, use `comrad::read_comrad_tbl()` instead.
 
 ```{r read_comm}
 comrad_tbl <- comrad::read_comrad_tbl(path_to_file = temp_path_to_output)
 comrad_tbl
 ```
 
-## Data viz
-The distribution and evolution of the community in the trait space can be 
-visualized with `plot_comm_trait_evolution()`
+## Data visualisation
 
-```{r data_viz}
-comrad_tbl %>% comrad::plot_comm_trait_evolution(xgrain = 10, ygrain = 0.01)
+Below, I use a pre-loaded example of a simulation run for 10,000 generations, with parameters $\sigma_z = 0.1$ & $\sigma_K = 1$.
+
+The distribution and evolution of the community in the trait space can be visualized with `plot_comm_trait_evolution()`
+
+```{r}
+comrad_tbl <- comrad::read_comrad_tbl("demo_data/comrad_output_example.csv", skip = 20)
 ```
 
-Hexes of a colour represent a single species. Not much has happened by 
-generation 1000, but you should see a first speciation event. Note the slight
-protraction between the actual branching time and the time speciation is
-detected.
+```{r data_viz}
+comrad_tbl %>% comrad::plot_comm_trait_evolution(xgrain = 200, ygrain = 0.02)
+```
+
+Hexes of a colour represent a single species. Note the slight protraction between the actual branching time and the time speciation is detected.
 
 Trait distribution at a single generation can also be plotted:
+
 ```{r data_viz2}
-comrad_tbl %>% comrad::plot_comm_traits(generation = 1000)
+comrad_tbl %>% comrad::plot_comm_traits(generation = 10000)
 ```
 
 A third angle to visualize the community is through the growth curve:
+
 ```{r data_viz3}
 comrad_tbl %>% plot_comm_size()
 ```
 
-The community initially grows exponentially, until the carrying 
-capacity at $z = 0$ is reached. The number of individuals will keep growing more
-slowly, as clusters push each other away and explore new parts of the trait 
-space.
+The community initially grows exponentially, until the carrying capacity at $z = 0$ is reached. The number of individuals will keep growing more slowly, as clusters push each other away and explore new parts of the trait space.
 
-The simulation can take quite long, but interesting things happen after many 
-generations. Below is an example with $\sigma_z = 0.1$ & $\sigma_K = 1$.
-
-```{r load_sim, echo=FALSE, warning=FALSE}
-comrad_tbl <- comrad::read_comrad_tbl("demo_data/comrad_output_example.csv", skip = 20)
-```
-
-```{r data_viz4}
-comrad_tbl %>% comrad::plot_comm_trait_evolution(xgrain = 200, ygrain = 0.05)
-comrad_tbl %>% comrad::plot_comm_traits(generation = max(.$t))
-comrad_tbl %>% plot_comm_size()
-```
-
-Note that only half of the individuals were sampled in the output, so the size
-of the community at the end is about 10,000, not 5,000.
+(Note that only half of the individuals were sampled in the output, so the size of the community at the end is about 10,000, not 5,000.)
 
 ## Phylogeny reconstruction
-From the simulation ouput, build the phylogeny with `convert_sim_to_phylo()`.
+
+From the simulation output, build the phylogeny with `convert_sim_to_phylo()`.
+
 ```{r phylo_build}
 phylo <- comrad_tbl %>% comrad::sim_to_phylo()
 phylo
 ```
 
-For visualization, it's `ape` as usual:
+The tree can be plotted with standard phylogeny-plotting functions, e.g. from `ape`:
 
 ```{r phylo_plot}
 phylo %>% ape::plot.phylo()
 phylo %>% ape::ltt.plot()
 ```
 
-Work in progress :)
+## Fitting diversity-dependent models to phylogenies
+
+The main goal of `comrad` is to assess whether diversity-dependent (DD) diversification models, made from combinations of simple speciation and extinction functions, can appropriately capture the form of diversity-dependence that emerges from competition in the individual-based model. To do so,it is necessary to be able to fit said functions to the phylogenetic trees produced by the model, and evaluate their relative fit, via their maximum likelihood.
+
+This comparison can be carried out both for ideal "complete" trees, where all the species alive at any point in time are known, including the ones extinct at present; and for "reconstructed" trees, where the extinct lineages are dropped from the tree and the likelihood must be integrated over all possible states of past diversity. 
+
+The package includes a set of functions to do so.
+Below, I show an example of each case (complete and reconstructed tree), fitting the simple linear DD on speciation, constant-rate extinction (LC) diversification model:
+
+$$
+  \lambda (N) = \lambda_0 \Big(1 - \frac{N}{K}\Big) \\
+  \mu(N) = \mu_0
+$$
+with three free parameters: $\lambda_0$, the initial speciation rate when $N = 0$, $\mu_0$ the initial (but constant) extinction rate, and $K$, the equilibrium diversity.
+
+`comrad` uses a dedicated data structure to encode these diversity-dependent models, a list containing (1) the name of the model, (2) the speciation function, (3) the extinction function, (4) a list of constraints for the initial parameter values, (5) a function used internally to check that the correct parameters are supplied, and (6) the name of the DD model in package `DDD`.
+
+```{r, set_dd_model}
+dd_model <- comrad::dd_model_lc() # linear speciation, constant extinction
+dd_model
+```
+
+The name of each DD model is a combination of two letters, respectively specifying the diversity-dependent functions used for the speciation and extinction models:
+
+- **l** stands for linear function
+- **p** stands for power function
+- **x** stands for exponential function
+- **c** stands for constant (only for extinction).
+
+There are 12 available combinations of these functions:
+
+```{r all_dd_models}
+comrad::dd_model_names()
+```
+
+Note that this is different from the nomenclature used in package `DDD`, where the DD models are specified by a number. For convenience, I have included a function to quickly retrieve the `DDD` code corresponding to a given DD model:
+
+```{r comrad_to_ddd}
+comrad::dd_model_comrad_to_ddd("lc")
+comrad::dd_model_comrad_to_ddd("ll")
+comrad::dd_model_comrad_to_ddd("px")
+```
+
+### Complete tree case
+
+In this case, the optimisation function uses the waiting time between each speciation and extinction event in the phylogeny, which must be extracted:
+
+```{r waiting_times}
+wt_tbl <- comrad::waiting_times(phylo)
+knitr::kable(wt_tbl)
+```
+
+Second, the optimisation needs to start from a set of initial values. A utility is provided to automatically draw sets of reasonable initial values for the tree, given the model:
+
+```{r draw_init_params}
+phylos <- list()
+phylos[[1]] <- phylo # the function below assumes a list of trees
+init_params <- comrad::draw_init_params_dd_ml(
+  phylos = phylos,
+  nb_sets = 1,
+  dd_model = dd_model
+)[[1]]
+init_params
+```
+
+Alternative values may be supplied by the user, but these must be stored in a named vector with the names of the parameters for each element, as above. The `params_check()` element of the DD model object can be used to assert that the correct parameters are used.
+
+With these elements, the model can be fit to the tree or set of trees:
+
+```{r fit_dd_with_fossil}
+ml_tbl <- comrad::fit_dd_model_with_fossil(
+  waiting_times_tbl = wt_tbl,
+  dd_model = dd_model,
+  init_params = init_params
+)
+knitr::kable(ml_tbl)
+```
+
+### Extant lineages only
+
+Fitting DD models to reconstructed tree is done via the `dd_ML()` function of `DDD`, called internally. In `DDD`, the likelihood is computed from a vector of branching times, so these must be extracted first:
+
+```{r extract_branching_times}
+# Drop extinct lineages
+phylo_extant <- phylo %>%
+  ape::drop.fossil()
+phylo_extant %>% ape::plot.phylo()
+# Extract branching times
+branching_times <- phylo_extant %>% 
+  ape::branching.times()
+```
+
+Using the same `dd_model` object and initial parameter values as above, it is then possible to optimise the likelihood of the model:
+
+```{r, fit_dd_model_without_fossil, eval=FALSE}
+# not run; optimisation may take a very long time
+# and bugs may occur depending on the current state of DDD
+ml_tbl <- comrad::fit_dd_model_without_fossil(
+  branching_times =  branching_times,
+  dd_model = dd_model,
+  init_params = init_params
+)
+```
+

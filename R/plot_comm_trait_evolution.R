@@ -17,6 +17,7 @@
 #' @param hex_fill character with two options, `"counts"` and `"species"`.
 #' `"counts"` colours hexes by the count of individuals, and `"species"` by
 #' species identity.
+#' @param alpha numeric, the transparency of the hexes
 #'
 #' @author Théo Pannetier
 #' @export
@@ -85,7 +86,7 @@ plot_comm_trait_evolution <- function(comrad_tbl,
         show.legend = FALSE
       ) +
       ggplot2::scale_fill_manual(
-        values = species_names,
+        values = species_names
       )
   } else {
     trait_plot <- trait_plot +
