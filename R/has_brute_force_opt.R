@@ -10,5 +10,5 @@
 #' @export
 #'
 has_brute_force_opt <- function() {
-  TRUE
+  FALSE
 }
