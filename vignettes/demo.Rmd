@@ -45,11 +45,11 @@ $K(z_i)$ is the carrying capacity at $z_i$, i.e. the number of individuals that 
 K(z_i) = K_{opt} * e^{-\frac{(z_i - z_{opt})^2}{2\sigma_{K}^2}}
 $$ $K_{opt}$ is the carrying capacity at the optimal trait value $z_{opt}$, set at 1000 and 0 respectively. $\sigma_{K}$ is the SD for the "niche" kernel, and is dubbed `carrying_cap_sd` in `comrad`.
 
-## Installation
+The individual-based model is based on the one used in Pontarp *et al.* (2012), although it differs from it by some features:
 
-```{r lib_comrad, eval=FALSE}
-remotes::install_github("TheoPannetier/comrad")
-```
+- The fitness function follows the form of a Ricker model, $W(z) = e^{r(1 - \frac{A(z)}{K(z)})}$, where $A(z)$ and $K(z)$ respectively correspond to the competition and resource distribution functions, instead of the $W(z) = 1 + r\Big(1 - \frac{A(z)}{K(z)}\Big)$ used in [@pontarp_origin_2012]. We did so to avoid the fitness becoming negative when the number of individuals vastly exceeds the local resource availability.
+- We consider a single habitat and there is no dispersal.
+- Mutations are always applied to offspring ($\mu =1$), but mutations are much smaller ($\sigma_\mu = 0.001$ instead of $\sigma_\mu = 0.02$)
 
 ## Running the simulation
 
@@ -233,3 +233,6 @@ ml_tbl <- comrad::fit_dd_model_without_fossil(
 )
 ```
 
+## References
+
+M. Pontarp, J. Ripa, and P. Lundberg, *On the origin of phylogenetic structure in competitive metacommunities*, Evolutionary Ecology Research **14**, 269 (2012)
