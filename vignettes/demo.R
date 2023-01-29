@@ -8,9 +8,6 @@ knitr::opts_chunk$set(
 library(comrad)
 par(mai = rep(0, 4))
 
-## ----lib_comrad, eval=FALSE---------------------------------------------------
-#  remotes::install_github("TheoPannetier/comrad")
-
 ## ----run_sim------------------------------------------------------------------
 temp_path_to_output <- paste0(tempfile("comrad_temp_output"), ".csv")
 

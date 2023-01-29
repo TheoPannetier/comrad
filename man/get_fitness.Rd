@@ -11,8 +11,7 @@ get_fitness(
   trait_opt = default_trait_opt(),
   carrying_cap_opt = default_carrying_cap_opt(),
   carrying_cap_sd = default_carrying_cap_sd(),
-  fitness_func = fitness_func_ricker,
-  brute_force_opt = "none"
+  fitness_func = fitness_func_ricker
 )
 }
 \arguments{
@@ -37,12 +36,6 @@ carrying capacity. Modulates how fast the carrying capacity decays when
 moving away from the optimal trait value.}
 
 \item{fitness_func}{the name of the function used to compute fitness.}
-
-\item{brute_force_opt}{a string specifying which brute force option to use
-to speed up the calculation of competition coefficients. Defaults to "none".
-Other options are "omp", for multithreading with OpenMP, "simd" for single
-instruction, multiple data (SIMD) via the C++ library
-\href{https://github.com/xtensor-stack/xsimd}{\code{xsimd}}; and "simd_omp" for both.}
 }
 \description{
 Fitness values are computed for each individual from their trait value,
