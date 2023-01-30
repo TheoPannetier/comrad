@@ -32,6 +32,11 @@
 #' @param hpc_job_id used to record a job ID in the metadata, only relevant for
 #' simulations run on a high-performance cluster. Otherwise takes value
 #' `"local"`.
+#' @param brute_force_opt a string specifying which brute force option to use
+#' to speed up the calculation of competition coefficients. Defaults to "none".
+#' Other options are "omp", for multithreading with OpenMP, "simd" for single
+#' instruction, multiple data (SIMD) via the C++ library
+#' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
 #'
 #' @return Returns a table with a row corresponding to each individual, and five
 #' columns: `t` is the generation time, `z` the individual's trait value,
@@ -65,7 +70,8 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   ),
   sampling_frac = comrad::default_sampling_frac(),
   seed = comrad::default_seed(),
-  hpc_job_id = NULL
+  hpc_job_id = NULL,
+  brute_force_opt = "none"
 ) {
   comrad::test_comrad_tbl(init_comm)
   first_gen <- init_comm %>% dplyr::pull(t) %>% unique()
@@ -114,6 +120,7 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
   comrad::testarg_pos(trait_dist_sp)
   comrad::testarg_num(sampling_frac)
   comrad::testarg_prop(sampling_frac)
+  comrad::testarg_char(brute_force_opt)
 
   will_switch <- !is.na(switch_carr_cap_sd_after)
   if (will_switch) {
@@ -204,7 +211,8 @@ run_simulation <- function( # nolint, ignore high cyclomatic complexity
         carrying_cap_opt = carrying_cap_opt,
         carrying_cap_sd = carrying_cap_sd,
         mutation_sd = mutation_sd,
-        trait_dist_sp = trait_dist_sp
+        trait_dist_sp = trait_dist_sp,
+        brute_force_opt = brute_force_opt
       )
     )
     species_after <- unlist(dplyr::distinct(comrad_tbl, species))

@@ -3,11 +3,20 @@
 \name{get_n_eff}
 \alias{get_n_eff}
 \title{Compute the effective population size}
+\usage{
+get_n_eff(z, competition_sd, brute_force_opt = "none")
+}
 \arguments{
 \item{z}{numeric vector, the trait values of all individuals in the
 community.}
 
 \item{competition_sd}{numeric \verb{>= 0}. Width of the competition kernel.}
+
+\item{brute_force_opt}{a string specifying which brute force option to use
+to speed up the calculation of competition coefficients. Defaults to "none".
+Other options are omp", for multithreading with OpenMP, "simd" for single
+instruction, multiple data (SIMD) via the C++ library
+\href{https://github.com/xtensor-stack/xsimd}{\code{xsimd}}; and "simd_omp" for both.}
 }
 \description{
 Computes \code{n_eff}, the effective population size experienced by an
@@ -20,5 +29,5 @@ called effective population size because it is the size of the population
 that is relevant for competition.
 }
 \author{
-Thijs Janzen, Théo Pannetier
+Hanno Hildenbrandt
 }
