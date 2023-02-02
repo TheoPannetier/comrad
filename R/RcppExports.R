@@ -49,14 +49,6 @@ find_trait_gaps <- function(traits, trait_dist_sp) {
     .Call('_comrad_find_trait_gaps', PACKAGE = 'comrad', traits, trait_dist_sp)
 }
 
-#' SIMD size
-#'
-#' Returns the number of cores that can be used for SIMD
-#' @name simd_size
-#' @author Hanno Hildenbrandt
-#' @export
-NULL
-
 #' Compute the effective population size
 #'
 #' Computes \code{n_eff}, the effective population size experienced by an
@@ -64,23 +56,16 @@ NULL
 #' @param z numeric vector, the trait values of all individuals in the
 #' community.
 #' @param competition_sd numeric `>= 0`. Width of the competition kernel.
-#' @param brute_force_opt a string specifying which brute force option to use
-#' to speed up the calculation of competition coefficients. Defaults to "none".
-#' Other options are omp", for multithreading with OpenMP, "simd" for single
-#' instruction, multiple data (SIMD) via the C++ library
-#' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
 #' @details `n_eff` sums the competitive effects an individual receives from
 #' every individual in the community, including the individual itself. It is
 #' called effective population size because it is the size of the population
 #' that is relevant for competition.
 #' @name get_n_eff
-#' @author Hanno Hildenbrandt
+#' @author Thijs Janzen, Théo Pannetier
 #' @export
-get_n_eff <- function(z, competition_sd, brute_force_opt = "none") {
-    .Call('_comrad_get_n_eff', PACKAGE = 'comrad', z, competition_sd, brute_force_opt)
-}
+NULL
 
-simd_size <- function() {
-    .Call('_comrad_simd_size', PACKAGE = 'comrad')
+get_n_eff <- function(z, competition_sd) {
+    .Call('_comrad_get_n_eff', PACKAGE = 'comrad', z, competition_sd)
 }
 

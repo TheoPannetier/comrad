@@ -12,8 +12,7 @@ draw_comm_next_gen(
   carrying_cap_opt = default_carrying_cap_opt(),
   carrying_cap_sd = default_carrying_cap_sd(),
   mutation_sd = default_mutation_sd(),
-  trait_dist_sp = default_trait_dist_sp(),
-  brute_force_opt = "none"
+  trait_dist_sp = default_trait_dist_sp()
 )
 }
 \arguments{
@@ -47,12 +46,6 @@ distribution from which mutations are drawn.}
 
 \item{trait_dist_sp}{numeric, the minimal trait distance between two
 clusters of individuals triggering speciation.}
-
-\item{brute_force_opt}{a string specifying which brute force option to use
-to speed up the calculation of competition coefficients. Defaults to "none".
-Other options are "omp", for multithreading with OpenMP, "simd" for single
-instruction, multiple data (SIMD) via the C++ library
-\href{https://github.com/xtensor-stack/xsimd}{\code{xsimd}}; and "simd_omp" for both.}
 }
 \description{
 From the trait values of the current community, compute the fitness, draw

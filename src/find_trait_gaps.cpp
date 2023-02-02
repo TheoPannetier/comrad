@@ -1,6 +1,3 @@
-// [[Rcpp::plugins(openmp)]]
-// [[Rcpp::plugins(cpp14)]]
-
 #include <Rcpp.h>
 using namespace Rcpp;
 

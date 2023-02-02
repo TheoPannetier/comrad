@@ -4,11 +4,6 @@
 #' offspring, apply mutations and resolve speciation events.
 #'
 #' @inheritParams default_params_doc
-#' @param brute_force_opt a string specifying which brute force option to use
-#' to speed up the calculation of competition coefficients. Defaults to "none".
-#' Other options are "omp", for multithreading with OpenMP, "simd" for single
-#' instruction, multiple data (SIMD) via the C++ library
-#' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
 #'
 #' @author Théo Pannetier
 #' @export
@@ -21,8 +16,7 @@ draw_comm_next_gen <- function(
   carrying_cap_opt = default_carrying_cap_opt(),
   carrying_cap_sd = default_carrying_cap_sd(),
   mutation_sd = default_mutation_sd(),
-  trait_dist_sp = default_trait_dist_sp(),
-  brute_force_opt = "none"
+  trait_dist_sp = default_trait_dist_sp()
 ) {
 
   # Test argument type ---------------------------------------------------------
@@ -46,8 +40,7 @@ draw_comm_next_gen <- function(
     competition_sd = competition_sd,
     trait_opt = trait_opt,
     carrying_cap_opt = carrying_cap_opt,
-    carrying_cap_sd = carrying_cap_sd,
-    brute_force_opt = brute_force_opt
+    carrying_cap_sd = carrying_cap_sd
   )
   comrad::testarg_not_this(fitness_comm, Inf)
 
