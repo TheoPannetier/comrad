@@ -1,13 +1,27 @@
 Package: comrad
 Type: Package
 Title: R implementation of a Competitive Radiation model
-Version: 2.2.0
-Author: Theo Pannetier
+Version: 2.2.1
+Authors@R: c(
+    person(given = "Theo",
+           family = "Pannetier",
+           email = "theo@pannetier.nl",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8424-3573")),
+    person(given = "Hanno",
+           family = "Hildenbrandt",
+           email = "h.hildenbrandt@rug.nl",
+           role = c("ctb")),
+    person(given = "Thijs",
+           family = "Janzen",
+           email = "t.janzen@rug.nl",
+           role = c("ctb"),
+           comment = c(ORCID = "0000-0002-8424-3573"))
+           )
 Maintainer: Theo Pannetier <t.s.c.pannetier@rug.nl>
-Description: This R package is based on the eco-evolutionary model introduced in 
-    Pontarp et al.(2012), and simulates the evolution of a community where 
-    individuals undergo speciation, inter- and intra-specific competition, 
-    and dispersal in a spatially explicit setting.
+Description: Simulation of communities with an individual-based model with
+  Lotka-Volterra competition, and study of the form of diversity-dependent 
+  diversification that emerges from it.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
