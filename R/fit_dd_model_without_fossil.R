@@ -52,7 +52,7 @@ fit_dd_model_without_fossil <- function(
   methode = "odeint::runge_kutta_cash_karp54",
   verbose = FALSE
 ) {
-  check_ddd_version()
+  check_dd_model_is_avail(dd_model)
   both_rates_vary <- !stringr::str_detect(dd_model$name, "c")
   N_max <- max(ceiling(1.8 * (length(branching_times) + 1)), 10) # arbitrary upper limit
 
