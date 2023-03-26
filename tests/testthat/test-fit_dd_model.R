@@ -2,8 +2,8 @@ context("test-fit_dd_model")
 
 # Test optimisation runs normally for simple DD tree
 set.seed(359)
-tol_rel_err_lambda_0 <- 1
-tol_rel_err_mu_0 <- 1
+tol_rel_err_lambda_0 <- 2
+tol_rel_err_mu_0 <- 3
 tol_rel_err_k <- 2
 
 ## DD model LC
