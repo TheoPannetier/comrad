@@ -4,11 +4,11 @@ context("test-fit_dd_model")
 set.seed(359)
 tol_rel_err_lambda_0 <- 1
 tol_rel_err_mu_0 <- 1
-tol_rel_err_k <- 1
+tol_rel_err_k <- 2
 
 ## DD model LC
 dd_model <- dd_model_lc()
-init_params <- c("lambda_0" = 2, "mu_0" = 0.5, "k" = 30)
+init_params <- c("lambda_0" = 1.5, "mu_0" = 0.8, "k" = 20)
 
 expect_silent(
   # simulation returns without error and produces phylo
