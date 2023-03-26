@@ -18,7 +18,6 @@ plot_aicw_pie <- function(aicw_tbl, slice_by = "dd_model", by_tree = FALSE) {
     aicw_tbl <- summarise_aicw_over_trees(aicw_tbl)
   }
 
-
   if (slice_by == "dd_model") {
     aicw_tbl <- aicw_tbl %>%
       dplyr::rename("grouping_var" = dd_model)
