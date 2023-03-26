@@ -9,7 +9,7 @@
 #'
 #' @export
 plot_compare_dd_functions <- function(params, N) {
-  rates_tbl <- bind_rows(
+  rates_tbl <- dplyr::bind_rows(
     rates_from_dd_model(
       N = N,
       dd_model = dd_model_ll(),
@@ -29,7 +29,7 @@ plot_compare_dd_functions <- function(params, N) {
 
   rates_tbl %>%
     dplyr::mutate(
-      "rate" = as_factor(rate),
+      "rate" = forcats::as_factor(rate),
       "dd_model" = forcats::fct_recode(
         dd_model,
         "linear" = "ll",
@@ -37,15 +37,15 @@ plot_compare_dd_functions <- function(params, N) {
         "exponential" = "xx"
       )
     ) %>%
-    ggplot(aes(x = N, y = value, linetype = rate, colour = dd_model)) +
-    geom_line() +
-    theme_bw() +
-    scale_colour_manual(values = c(
+    ggplot2::ggplot(ggplot2::aes(x = N, y = value, linetype = rate, colour = dd_model)) +
+    ggplot2::geom_line() +
+    ggplot2::theme_bw() +
+    ggplot2::scale_colour_manual(values = c(
       "linear" = "#E4C552",
       "power" = "#DE09D6",
       "exponential" = "#398DCC"
     )) +
-    labs(
+    ggplot2::labs(
       colour = "Function",
       linetype = "Rate",
       y = "Per-capita rate"

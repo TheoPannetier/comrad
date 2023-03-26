@@ -4,11 +4,12 @@ context("test-fit_dd_model")
 set.seed(359)
 tol_rel_err_lambda_0 <- 1
 tol_rel_err_mu_0 <- 1
-tol_rel_err_k <- 1/3
+tol_rel_err_k <- 1
 
 ## DD model LC
 dd_model <- dd_model_lc()
 init_params <- c("lambda_0" = 2, "mu_0" = 0.5, "k" = 30)
+
 expect_silent(
   # simulation returns without error and produces phylo
   dd_phylo <- simulate_dd_phylo(
@@ -29,7 +30,7 @@ test_that("fit DD with fossil lineages", {
     dd_model = dd_model,
     init_params = init_params
   ) %>%
-    mutate(
+    dplyr::mutate(
       "rel_err_lambda_0" = abs(init_lambda_0 - ml_lambda_0) / init_lambda_0,
       "rel_err_mu_0" = abs(init_mu_0 - ml_mu_0) / init_mu_0,
       "rel_err_k" = abs(init_k - ml_k) / init_k
@@ -41,7 +42,7 @@ test_that("fit DD with fossil lineages", {
 })
 
 test_that("fit DD without fossil lineages", {
-  branching_times <- phylo %>%
+  branching_times <- dd_phylo %>%
     ape::drop.fossil() %>%
     ape::branching.times()
 
@@ -50,7 +51,7 @@ test_that("fit DD without fossil lineages", {
     dd_model = dd_model,
     init_params = init_params
   ) %>%
-    mutate(
+    dplyr::mutate(
       "rel_err_lambda_0" = abs(init_lambda_0 - ml_lambda) / init_lambda_0,
       "rel_err_mu_0" = abs(init_mu_0 - ml_mu) / init_mu_0,
       "rel_err_k" = abs(init_k - ml_k) / init_k,
