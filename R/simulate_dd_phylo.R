@@ -54,7 +54,7 @@ simulate_dd_phylo <- function(params, nb_gens, dd_model, stem_or_crown = "stem")
   if (any(is.na(rate_tbl$total_rate))) {
     stop("some total rate is NA")
   }
-  if (any(!between(rate_tbl$p_speciation, 0, 1))) {
+  if (any(!dplyr::between(rate_tbl$p_speciation, 0, 1))) {
     stop("\"p_speciation\" is not a probability.")
   }
 

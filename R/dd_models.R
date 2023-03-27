@@ -28,7 +28,8 @@ dd_model_comrad_to_ddd <- function(dd_model_name) {
     "xx" = 12,
     "xl" = 13,
     "xp" = 14,
-    "px" = 15
+    "px" = 15,
+    stop("This DD model is not supported in comrad.")
   )
 }
 
@@ -62,28 +63,6 @@ dd_models <- function() {
     "pp" = dd_model_pp(),
     "px" = dd_model_px(),
     "xp" = dd_model_xp()
-  )
-}
-
-#' Update power DD model names
-#'
-#'  Power DD functions used to be called "x2" ("alternative" exponential,
-#'  in contrast to the true exponential functions referred to by "x). This
-#'  function updates the names, useful if dealing with data produced by older
-#'  versions of `comrad`.
-#'
-#'
-#'@param name a `dd_model` name
-#'
-#'@author Théo Pannetier
-#'@export
-update_dd_model_name <- function(name) {
-  dplyr::case_when(
-    name == "xc2" ~ "pc",
-    name == "xl2" ~ "pl",
-    name == "lx2" ~ "lp",
-    name == "xx2" ~ "pp",
-    TRUE ~ name
   )
 }
 

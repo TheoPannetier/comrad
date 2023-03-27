@@ -18,7 +18,6 @@ plot_aicw_pie <- function(aicw_tbl, slice_by = "dd_model", by_tree = FALSE) {
     aicw_tbl <- summarise_aicw_over_trees(aicw_tbl)
   }
 
-
   if (slice_by == "dd_model") {
     aicw_tbl <- aicw_tbl %>%
       dplyr::rename("grouping_var" = dd_model)
@@ -36,7 +35,7 @@ plot_aicw_pie <- function(aicw_tbl, slice_by = "dd_model", by_tree = FALSE) {
 
   aicw_tbl <- aicw_tbl %>%
     dplyr::group_by(grouping_var) %>%
-    summarise("total_aicw" = sum(aicw))
+    dplyr::summarise("total_aicw" = sum(aicw))
 
   if (slice_by == "dd_model") {
     colour_palette <- dd_model_colours()
@@ -45,16 +44,16 @@ plot_aicw_pie <- function(aicw_tbl, slice_by = "dd_model", by_tree = FALSE) {
   }
 
   aicw_tbl %>%
-    ggplot(aes(x = "", y = total_aicw, fill = grouping_var)) +
-    geom_bar(
+    ggplot2::ggplot(ggplot2::aes(x = "", y = total_aicw, fill = grouping_var)) +
+    ggplot2::geom_bar(
       stat = "identity",
       width = 1,
       colour = "white",
       show.legend = FALSE
     ) +
-    coord_polar("y", start = 0) +
-    theme_void() +
-    scale_fill_manual(
+    ggplot2::coord_polar("y", start = 0) +
+    ggplot2::theme_void() +
+    ggplot2::scale_fill_manual(
       values = colour_palette
     )
 }

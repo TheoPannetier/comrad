@@ -10,17 +10,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// apply_mutations
-void apply_mutations(NumericVector traits_comm, double mutation_sd);
-RcppExport SEXP _comrad_apply_mutations(SEXP traits_commSEXP, SEXP mutation_sdSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type traits_comm(traits_commSEXP);
-    Rcpp::traits::input_parameter< double >::type mutation_sd(mutation_sdSEXP);
-    apply_mutations(traits_comm, mutation_sd);
-    return R_NilValue;
-END_RCPP
-}
 // draw_nb_offspring
 std::vector<int> draw_nb_offspring(std::vector<float> fitness);
 RcppExport SEXP _comrad_draw_nb_offspring(SEXP fitnessSEXP) {
@@ -68,7 +57,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_comrad_apply_mutations", (DL_FUNC) &_comrad_apply_mutations, 2},
     {"_comrad_draw_nb_offspring", (DL_FUNC) &_comrad_draw_nb_offspring, 1},
     {"_comrad_sort_by_ref", (DL_FUNC) &_comrad_sort_by_ref, 1},
     {"_comrad_find_trait_gaps", (DL_FUNC) &_comrad_find_trait_gaps, 2},
