@@ -10,15 +10,15 @@ summarise_aicw_over_trees <- function(aicw_tbl) {
 
   trees_to_exclude <- aicw_tbl %>%
     dplyr::filter(loglik == -Inf) %>%
-    pull(tree) %>%
+    dplyr::pull(tree) %>%
     unique()
 
   aicw_tbl %>%
     dplyr::filter(!tree %in% trees_to_exclude) %>%
-    ungroup() %>%
-    group_by(dd_model) %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by(dd_model) %>%
     dplyr::summarise(
-      "n" = n(),
+      "n" = dplyr::n(),
       "aicw" = sum(aicw) / n
     ) %>%
     dplyr::select(dd_model, aicw)
