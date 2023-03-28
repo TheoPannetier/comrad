@@ -40,4 +40,3 @@ In case of doubt over which version is installed, the user can call `has_brute_f
 
 -   For questions or bug reports, please open an Issue
 -   For contributions, please make a branch for yourself and open a pull request when you are done
-
