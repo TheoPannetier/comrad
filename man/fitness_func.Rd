@@ -39,6 +39,3 @@ pontarp \tab 1 + r \tab 1 + r/2 \tab 1 \tab 1 - r \tab 0 \cr
 ricker \tab exp(r) \tab exp(r/2) \tab 1 \tab exp(-r) \tab 0 \cr
 }
 }
-\author{
-Théo Pannetier
-}

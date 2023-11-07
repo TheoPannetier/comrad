@@ -102,6 +102,3 @@ which are automatically ignored if the file is read with \code{\link[=read_comra
 \description{
 Run the individual-based model simulation.
 }
-\author{
-Théo Pannetier
-}

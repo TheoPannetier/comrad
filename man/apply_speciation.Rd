@@ -33,6 +33,3 @@ resolved as soft polytomies.
 Besides, simultaneous branching events in different species are handled
 perfectly fine.
 }
-\author{
-Théo Pannetier
-}

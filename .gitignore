@@ -48,7 +48,6 @@ figs/
 
 # Local scripts
 local/
-pontarp_matlab_code/
 notes/
 cluster_scripts/
 output/

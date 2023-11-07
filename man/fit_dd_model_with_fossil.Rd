@@ -52,6 +52,3 @@ maximum likelihood estimates, the maximum likelihood and a convergence code
 Fits the parameters of a specified diversity-dependent model to  a set of
 full phylogenies (with fossil lineages) produced by \code{comrad} simulations
 }
-\author{
-Theo Pannetier
-}

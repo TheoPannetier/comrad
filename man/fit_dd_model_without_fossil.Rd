@@ -63,6 +63,3 @@ Wrapper around \code{\link[DDD:dd_ML]{DDD::dd_ML()}}. Fits the parameters of a s
 diversity-dependent model the reconstructed phylogeny of a single tree
 produced by \code{comrad} simulations.
 }
-\author{
-Theo Pannetier
-}

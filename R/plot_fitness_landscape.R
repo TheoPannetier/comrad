@@ -10,7 +10,6 @@
 #' Default `z_seq = NULL` sets the sequence to every `0.01` between twice the
 #' minimal and maximal value in `comrad_tbl`
 #'
-#' @author Théo Pannetier
 #' @export
 
 plot_fitness_landscape <- function(comrad_tbl,

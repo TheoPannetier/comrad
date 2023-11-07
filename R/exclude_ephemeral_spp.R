@@ -10,7 +10,6 @@
 #' @param min_nb_gens integer. Species that occur in less sampled generations
 #' than this will be excluded.
 #'
-#' @author Théo Pannetier
 #' @export
 
 exclude_ephemeral_spp <- function(comrad_tbl,

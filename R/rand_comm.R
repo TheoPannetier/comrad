@@ -3,7 +3,6 @@
 #' Sample 100 individuals pooled in up to 5 random species, with
 #' trait values sampled in a normal distribution. For testing purposes.
 #'
-#' @author Théo Pannetier
 
 rand_comm <- function() {
   n <- sample(1:100, 1)

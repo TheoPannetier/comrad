@@ -43,6 +43,3 @@ species identity.}
 Produces a hex-density plot of all trait values in the community over
 generations.
 }
-\author{
-Théo Pannetier
-}

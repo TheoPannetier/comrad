@@ -15,6 +15,3 @@ an integer code, value for this DD model in \code{DDD}
 \description{
 Values of \code{DDD} argument \code{ddmodel} corresponding to \code{comrad} DD models
 }
-\author{
-Theo Pannetier
-}

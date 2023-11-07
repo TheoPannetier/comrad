@@ -11,7 +11,6 @@
 #' between 0 (no effect at all) and 1 (the two individuals have the same trait
 #' value).
 #'
-#' @author Theo Pannetier
 #' @export
 
 get_comp_coeff_comm <- function(

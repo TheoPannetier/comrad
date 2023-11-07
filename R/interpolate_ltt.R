@@ -8,7 +8,6 @@
 #' @param t_seq numeric vector, a sequence of time points.
 #'
 #' @return a `tibble` with columns `time` and `N`, where `time` corresponds to every time in `t_seq`
-#' @author Theo Pannetier
 #' @export
 interpolate_ltt <- function(ltt_tbl, t_seq) {
   ltt_func <- ltt_tbl_to_func(ltt_tbl)

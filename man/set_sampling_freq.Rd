@@ -26,6 +26,3 @@ generations, every 200 generations for \code{nb_gens >= 10000},
 etc.
 }
 }
-\author{
-Theo Pannetier
-}

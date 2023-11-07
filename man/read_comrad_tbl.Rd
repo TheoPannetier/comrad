@@ -16,6 +16,3 @@ read_comrad_tbl(path_to_file, skip = 19)
 Reads a \code{.csv} file as produced by \code{\link[=run_simulation]{run_simulation()}} and returns the parsed
 table it contains.
 }
-\author{
-Théo Pannetier
-}

@@ -7,7 +7,6 @@
 #'
 #' @return the root age, a double.
 #'
-#' @author Theo Pannetier
 #' @export
 get_root_age <- function(phylo, present_time = 0) {
   root_time <- get_ltt_tbl(phylo)$time[1]

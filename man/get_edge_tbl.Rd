@@ -29,6 +29,3 @@ Returns a table containing the tree topology (parent-to-child node pairs;
 whether a node is a tip or internal), edge (branch) lengths and timing of
 nodes (branching times).
 }
-\author{
-Théo Pannetier
-}

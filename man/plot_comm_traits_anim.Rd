@@ -23,6 +23,3 @@ table}
 \description{
 Animated version of \code{\link[=plot_comm_traits]{plot_comm_traits()}}, lopping through generations. Dope.
 }
-\author{
-Théo Pannetier
-}

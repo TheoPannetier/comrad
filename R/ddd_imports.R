@@ -98,7 +98,6 @@ ddd_optimizer <-  function(optimpars = c(1E-4, 1E-4, 1E-6, 1000),
 #' useful for optimization: trpars <- sign(pars) * pars/(sign(pars) + pars);
 #' @param pars Parameters to be transformed
 #' @return Transformed parameters
-#' @author Rampal S. Etienne
 #' @export transform_pars
 transform_pars <- function(pars)
 {
@@ -116,7 +115,6 @@ transform_pars <- function(pars)
 #' pars <- sign(trpars) * trpars/(sign(trpars) - trpars);
 #' @param trpars Parameters to be untransformed
 #' @return Untransformed parameters
-#' @author Rampal S. Etienne
 #' @export untransform_pars
 untransform_pars <- function(trpars)
 {

@@ -14,7 +14,6 @@ using namespace Rcpp;
 //' called effective population size because it is the size of the population
 //' that is relevant for competition.
 //' @name get_n_eff
-//' @author Thijs Janzen, Théo Pannetier
 //' @export
 
 // [[Rcpp::export]]

@@ -6,7 +6,6 @@
 #' separate branch `brute_force`. This function returns whether brute force is
 #' enabled on branch currently in use.
 #'
-#' @author Théo Pannetier
 #' @export
 #'
 has_brute_force_opt <- function() {

@@ -14,7 +14,6 @@
 #' stack of area plots coloured by species,  `"line"` plots the population sizes
 #' of each species in separate lines (still coloured by species).
 #'
-#' @author Théo Pannetier
 #' @export
 
 plot_comm_size <- function(comrad_tbl,

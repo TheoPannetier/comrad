@@ -17,6 +17,3 @@ the root age, a double.
 \description{
 A bit hacky; not the most efficient function but that's what I could come up with quickly.
 }
-\author{
-Theo Pannetier
-}

@@ -30,6 +30,3 @@ Compute the log-likelihood of athe diversity-dependent model specified by
 times to next events and associated diversity.
 Meant to be called internally by \code{\link[=fit_dd_model_with_fossil]{fit_dd_model_with_fossil()}}.
 }
-\author{
-Theo Pannetier
-}

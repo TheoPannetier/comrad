@@ -18,7 +18,6 @@
 #'
 #'@return a unique log-likelihood value
 #'
-#'@author Theo Pannetier
 #'@export
 #'
 dd_loglik_func <- function(params,

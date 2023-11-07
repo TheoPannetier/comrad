@@ -13,7 +13,6 @@
 #' * `time_death`, the generation at which the last individual died. Last
 #' generation if the species was still extant at the end of the simulation.
 #'
-#' @author Théo Pannetier
 #' @export
 
 build_spp_tbl <- function(comrad_tbl) {

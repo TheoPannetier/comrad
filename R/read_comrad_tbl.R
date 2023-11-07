@@ -7,7 +7,6 @@
 #' @param skip numeric, number of lines (of metadata) to skip. Passed to
 #' [readr::read_csv()].
 #'
-#' @author Théo Pannetier
 #' @export
 
 read_comrad_tbl <- function(path_to_file, skip = 19) {

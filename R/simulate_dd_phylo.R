@@ -33,7 +33,6 @@
 #' @return a `phylo` object containign the simulated phylogeny, including
 #' extinct lineages and the stem.
 #'
-#' @author Theo Pannetier
 #' @export
 
 simulate_dd_phylo <- function(params, nb_gens, dd_model, stem_or_crown = "stem") {

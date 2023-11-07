@@ -13,7 +13,6 @@
 #'  the tree)
 #'  * `N` number of lineages or species in the phylogeny at this point in time
 #'
-#' @author Théo Pannetier
 #' @export
 
 get_ltt_tbl <- function(phylo) {

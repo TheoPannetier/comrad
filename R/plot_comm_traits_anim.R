@@ -9,7 +9,6 @@
 #' table
 #' @param binwidth numeric, the width used for binning.
 #'
-#' @author Théo Pannetier
 #' @export
 
 plot_comm_traits_anim <- function(comrad_tbl,

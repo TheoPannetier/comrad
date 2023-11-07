@@ -19,6 +19,3 @@ a \code{tibble} with columns \code{time} and \code{N}, where \code{time} corresp
 Given a lineage-through-time table and a time sequence, this function evaluates the value
 of N at every time point in the sequence.
 }
-\author{
-Theo Pannetier
-}

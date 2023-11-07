@@ -1,6 +1,5 @@
 ---
 title: "Overview of `comrad`"
-author: "Théo Pannetier"
 output: rmarkdown::html_vignette
 date: "26/01/2023"
 vignette: >

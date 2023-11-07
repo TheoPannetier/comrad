@@ -76,6 +76,3 @@ is standard.
 \details{
 Currently \code{testarg_not_this()} cannot be tested properly.
 }
-\author{
-Theo Pannetier
-}

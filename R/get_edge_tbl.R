@@ -17,7 +17,6 @@
 #'  * `time` for timetrees, the time of the node relative to present (taken as
 #'  the latest tip(s) in the tree)
 #'
-#' @author Théo Pannetier
 #' @export
 #'
 get_edge_tbl <- function(phylo) {

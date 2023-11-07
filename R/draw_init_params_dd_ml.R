@@ -21,7 +21,6 @@
 #' @return a list of length-4 vectors containing initial values for `lambda_0`,
 #' `mu_0` and `K` and `alpha`
 #'
-#' @author Theo Pannetier
 #' @export
 draw_init_params_dd_ml <- function(nb_sets, phylos, dd_model) {
 

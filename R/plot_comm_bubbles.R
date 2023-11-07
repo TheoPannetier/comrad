@@ -14,7 +14,6 @@
 #' `ggplot::coord_cartesian()` if not `NULL`.
 #' @param ylim numeric vector, the range of y-values, passed to
 #' `ggplot::coord_cartesian()` if not `NULL`.
-#' @author Théo Pannetier
 #' @export
 
 plot_comm_bubbles <- function(comrad_tbl,

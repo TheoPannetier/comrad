@@ -37,6 +37,3 @@ a list of length-4 vectors containing initial values for \code{lambda_0},
 \description{
 Draw a set of initial parameter values for a DD model
 }
-\author{
-Theo Pannetier
-}

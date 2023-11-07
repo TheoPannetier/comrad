@@ -10,7 +10,6 @@ dd_model_names <- function() {
 #' @param dd_model_name character, the name of the DD model in comrad
 #'
 #' @return an integer code, value for this DD model in `DDD`
-#' @author Theo Pannetier
 #' @export
 dd_model_comrad_to_ddd <- function(dd_model_name) {
   switch (dd_model_name,

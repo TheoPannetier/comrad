@@ -7,7 +7,6 @@
 #' @param generation numeric, the index of the generation to plot
 #' @param binwidth numeric, the width used for binning.
 #'
-#' @author Théo Pannetier
 #' @export
 
 plot_comm_traits <- function(comrad_tbl,

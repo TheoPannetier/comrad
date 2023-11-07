@@ -35,6 +35,3 @@ moving away from the optimal trait value.}
 Computes the fitness landscape along trait range \code{z_seq} at time \code{generation}
 in the simulation
 }
-\author{
-Théo Pannetier
-}

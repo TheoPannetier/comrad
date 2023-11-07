@@ -17,6 +17,3 @@ Untransformed parameters
 Function to untransform pars after optimization:
 pars <- sign(trpars) * trpars/(sign(trpars) - trpars);
 }
-\author{
-Rampal S. Etienne
-}

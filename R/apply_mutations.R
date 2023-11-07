@@ -7,7 +7,6 @@
 #' @param mutation_sd numeric `>= 0`, the standard deviation of the normal
 #' distribution from which mutations are drawn.
 #'
-#' @author Theo Pannetier
 #' @export
 
 apply_mutations <- function(

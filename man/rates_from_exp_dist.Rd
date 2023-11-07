@@ -26,6 +26,3 @@ columns:
 For a list of phylogenies, reconstruct the \emph{average, per-capita} rates of
 speciation and extinction corresponding to each level of species diversity.
 }
-\author{
-Théo Pannetier
-}

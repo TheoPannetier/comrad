@@ -41,6 +41,3 @@ moving away from the optimal trait value.}
 Computes the fitness landscape along the time sequence defined by
 \code{generation_range} in a 3D plot.
 }
-\author{
-Théo Pannetier
-}

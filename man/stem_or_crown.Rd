@@ -15,6 +15,3 @@ stem_or_crown(phylo)
 \code{phylo} is rooted on its stem if nb nodes = nb tips, and on its crown
 otherwise
 }
-\author{
-Théo Pannetier
-}

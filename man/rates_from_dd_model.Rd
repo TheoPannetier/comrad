@@ -40,6 +40,3 @@ a \code{tibble} with variables \code{N}, \code{rate} (speciation or extinction),
 \description{
 Get speciation and extinction rates values given a DD model and parameters
 }
-\author{
-Théo Pannetier
-}

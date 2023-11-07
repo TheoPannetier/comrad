@@ -51,6 +51,3 @@ clusters of individuals triggering speciation.}
 From the trait values of the current community, compute the fitness, draw
 offspring, apply mutations and resolve speciation events.
 }
-\author{
-Théo Pannetier
-}

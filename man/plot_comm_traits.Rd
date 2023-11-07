@@ -17,6 +17,3 @@ as produced by \code{\link[=run_simulation]{run_simulation()}}.}
 \description{
 Plots a histogram of the distribution of trait values in a single generation.
 }
-\author{
-Théo Pannetier
-}

@@ -13,6 +13,3 @@ issues. To preserve the build on \code{master}, these options are only enabled o
 separate branch \code{brute_force}. This function returns whether brute force is
 enabled on branch currently in use.
 }
-\author{
-Théo Pannetier
-}

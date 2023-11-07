@@ -34,7 +34,6 @@
 #' maximum likelihood estimates, the maximum likelihood and a convergence code
 #' (see [subplex::subplex()] for the meaning of this code)
 #'
-#' @author Theo Pannetier
 #' @export
 #'
 fit_dd_model_with_fossil <- function(waiting_times_tbl,

@@ -19,6 +19,3 @@ the full tree, \code{FALSE} returns the reconstructed tree.}
 \description{
 Reads a table of results and returns a \code{phylo} class object.
 }
-\author{
-Théo Pannetier
-}

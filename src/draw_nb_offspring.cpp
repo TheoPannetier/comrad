@@ -9,7 +9,6 @@ using namespace Rcpp;
 //' @param fitness a vector of positive floats, the fitness value(s).
 //'
 //' @seealso get_fitness
-//' @author Theo Pannetier
 //' @export
 //' @name draw_nb_offspring
 //'

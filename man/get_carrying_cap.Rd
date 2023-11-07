@@ -33,6 +33,3 @@ one that depends only on an individual's trait and not on the
 presence/absence of competitors. It defines the fitness landscape before any
 competitive effect.
 }
-\author{
-Theo Pannetier
-}

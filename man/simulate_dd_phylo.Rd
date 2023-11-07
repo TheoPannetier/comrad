@@ -46,6 +46,3 @@ Use a Gillespie algorithm to create a \code{phylo} object from the DD model
 specified by \code{dd_model} and \code{params}. The phylogeny is conditioned on the
 survival of at least one lineage to the end of the simulation.
 }
-\author{
-Theo Pannetier
-}

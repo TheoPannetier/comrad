@@ -18,6 +18,3 @@ table}
 Compute and plot the variance in trait values in the community at every time
 step
 }
-\author{
-Théo Pannetier
-}

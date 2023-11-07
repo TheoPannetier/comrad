@@ -7,7 +7,6 @@
 #'
 #' \deqn{\lambda(N) = \lambda_{0}(\frac{\mu_{0}}{\lambda_{0}})^{\frac{N}{K}} \\ \mu(N) = \mu_{0}}
 #'
-#' @author Theo Pannetier
 #' @export
 dd_model_xc <- function() {
   list(

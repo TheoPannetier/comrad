@@ -69,6 +69,3 @@ as produced by \code{\link[=run_simulation]{run_simulation()}} or read by \code{
 This function does nothing. It is intended to inherit is parameters'
 documentation.
 }
-\author{
-Theo Pannetier, based on skeleton stolen from Richel J.C. Bilderbeek.
-}

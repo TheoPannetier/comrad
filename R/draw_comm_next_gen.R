@@ -5,7 +5,6 @@
 #'
 #' @inheritParams default_params_doc
 #'
-#' @author Théo Pannetier
 #' @export
 
 draw_comm_next_gen <- function(

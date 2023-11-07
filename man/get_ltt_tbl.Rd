@@ -23,6 +23,3 @@ in the tree at that point in time, i.e. lineages-through-time if the tree is
 reconstructed, or species-through-time if the tree includes lineages extinct
 before present.
 }
-\author{
-Théo Pannetier
-}

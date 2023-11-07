@@ -16,6 +16,3 @@ fed as argument \code{dd_model} to \code{\link[=fit_dd_model_with_fossil]{fit_dd
 \deqn{\lambda(N) = \lambda_{0}(\alpha + (1 - \alpha) \frac{\mu_{0}}{\lambda_{0}})^{\frac{N}{K}}}
 \deqn{\mu(N) = \mu_{0} \times N^{\frac{log\Big(\alpha\frac{\lambda_0 - \mu_0}{\lambda_0}+1\Big)}{log(K)}}}
 }
-\author{
-Theo Pannetier
-}

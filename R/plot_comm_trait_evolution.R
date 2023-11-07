@@ -19,7 +19,6 @@
 #' species identity.
 #' @param alpha numeric, the transparency of the hexes
 #'
-#' @author Théo Pannetier
 #' @export
 
 

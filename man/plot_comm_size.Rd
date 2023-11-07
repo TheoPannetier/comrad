@@ -24,6 +24,3 @@ of each species in separate lines (still coloured by species).}
 \description{
 Plots the number of individuals in the community over time.
 }
-\author{
-Théo Pannetier
-}

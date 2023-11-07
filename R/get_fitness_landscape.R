@@ -13,7 +13,6 @@
 #'
 #' @return a `tibble` with `z_seq` rows and columns `z`, `fitness`.
 #'
-#' @author Théo Pannetier
 #' @export
 
 get_fitness_landscape <- function(z_seq,

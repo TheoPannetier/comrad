@@ -13,7 +13,6 @@
 #' `N`, `waiting_time` and `is_speciation`
 #'
 #' @export
-#' @author Theo Pannetier
 #'
 summarise_waiting_times <- function(
   waiting_times_tbl,

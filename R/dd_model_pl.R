@@ -9,7 +9,6 @@
 #'\deqn{\lambda(N) = \lambda_{0}(\alpha + (1 - \alpha) \frac{\mu_{0}}{\lambda_{0}})^{\frac{N}{K}}}
 #'\deqn{\mu(N) = \mu_{0} + \alpha(\lambda_{0} - \mu_{0}) \frac{N}{K}}
 #'
-#' @author Theo Pannetier
 #' @export
 dd_model_pl <- function() {
   list(

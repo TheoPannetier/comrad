@@ -8,7 +8,6 @@
 #' last generation to plot from the dataset. Defaults to every generation in the
 #' table
 #'
-#' @author Théo Pannetier
 #' @export
 
 plot_trait_disparity <- function(comrad_tbl,

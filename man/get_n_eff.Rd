@@ -19,6 +19,3 @@ every individual in the community, including the individual itself. It is
 called effective population size because it is the size of the population
 that is relevant for competition.
 }
-\author{
-Thijs Janzen, Théo Pannetier
-}

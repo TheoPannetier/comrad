@@ -42,6 +42,3 @@ Fitness values are computed for each individual from their trait value,
 the fitness landscape defined by the carrying capacity parameters, and the
 trait values of all other individuals in the community.
 }
-\author{
-Theo Pannetier
-}

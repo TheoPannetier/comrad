@@ -16,6 +16,3 @@ distribution from which mutations are drawn.}
 The trait value of each individual in the input community is modified by a mutation sampled in a normal distribution
 of mean \code{0} and standard deviation \code{mutation_sd}.
 }
-\author{
-Theo Pannetier
-}

@@ -22,6 +22,3 @@ Summarise waiting times observations using a summary function
 (either mean or median), to get one single observation per tree, value of N
 and type of event (speciation or extinction)
 }
-\author{
-Theo Pannetier
-}

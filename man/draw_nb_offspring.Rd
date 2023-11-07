@@ -13,6 +13,3 @@ The number of offspring is drawn in a Poisson distribution in
 \seealso{
 get_fitness
 }
-\author{
-Theo Pannetier
-}

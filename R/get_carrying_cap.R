@@ -9,7 +9,6 @@
 #' presence/absence of competitors. It defines the fitness landscape before any
 #' competitive effect.
 #'
-#' @author Theo Pannetier
 #' @export
 
 get_carrying_cap <- function(

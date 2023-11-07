@@ -43,6 +43,3 @@ defined by \code{traits_comm}. This is different from \code{\link[=get_fitness]{
 where the fitness is only computed for the trait values of individuals in the
 community.
 }
-\author{
-Théo Pannetier
-}

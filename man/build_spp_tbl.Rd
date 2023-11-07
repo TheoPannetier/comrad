@@ -25,6 +25,3 @@ generation if the species was still extant at the end of the simulation.
 Reads the output of a \code{comrad} simulation and creates a table containing
 the necessary information about every species to make a phylogeny.
 }
-\author{
-Théo Pannetier
-}

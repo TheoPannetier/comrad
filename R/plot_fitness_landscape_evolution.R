@@ -14,7 +14,6 @@
 #' @param fitness_lim numeric vector of length 2, the plotting range for the
 #' z-axis, the fitness.
 #'
-#' @author Théo Pannetier
 #' @export
 #'
 plot_fitness_landscape_evol <- function(comrad_tbl,

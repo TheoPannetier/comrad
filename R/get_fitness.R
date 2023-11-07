@@ -6,7 +6,6 @@
 #'
 #' @inheritParams default_params_doc
 #'
-#' @author Theo Pannetier
 #' @export
 
 get_fitness <- function(

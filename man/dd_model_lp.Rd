@@ -17,6 +17,3 @@ This corresponds to the "exponential" model found in \code{DDD} (\code{ddmodel =
 \deqn{\lambda(N) = \lambda_{0} - (1 - \alpha)(\lambda_{0} - \mu_{0}) \frac{N}{K}}
 \deqn{\mu(N) = \mu_{0}((1 - \alpha) + \alpha \frac{\lambda_{0}}{\mu_{0}})^{\frac{N}{K}}}
 }
-\author{
-Theo Pannetier
-}

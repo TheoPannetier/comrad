@@ -14,7 +14,6 @@
 #' Besides, simultaneous branching events in different species are handled
 #' perfectly fine.
 #'
-#' @author Théo Pannetier
 #' @export
 
 apply_speciation <- function(comm, trait_dist_sp = default_trait_dist_sp()) {

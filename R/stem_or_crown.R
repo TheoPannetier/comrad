@@ -7,7 +7,6 @@
 #' [ape][ape::read.tree]. The phylogeny must start with the crown node
 #' (not stem), and be binary (no hard polytomies).
 #'
-#' @author Théo Pannetier
 #' @export
 stem_or_crown <- function(phylo) {
   ifelse(

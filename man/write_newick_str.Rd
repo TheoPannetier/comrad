@@ -18,6 +18,3 @@ Reads a tibble recording species birth, death and phylogenetic relations,
 figures out the branch lengths and return a phylogenetic tree in Newick
 format. Based on \code{\link[DDD:L2phylo]{DDD::L2phylo()}}.
 }
-\author{
-Théo Pannetier
-}

@@ -16,7 +16,6 @@
 #'   etc.
 #' }
 #'
-#' @author Theo Pannetier
 #' @export
 
 set_sampling_freq <- function(nb_gens) {

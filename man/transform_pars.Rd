@@ -17,6 +17,3 @@ Transformed parameters
 Function to transform pars in a way that is more
 useful for optimization: trpars <- sign(pars) * pars/(sign(pars) + pars);
 }
-\author{
-Rampal S. Etienne
-}

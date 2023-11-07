@@ -13,6 +13,3 @@ clusters of individuals triggering speciation.}
 Runs through an ordered vector of trait values, returns the positions of gaps
 \verb{>= trait_dist_sp} between consecutive values.
 }
-\author{
-Théo Pannetier
-}

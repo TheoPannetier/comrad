@@ -22,7 +22,6 @@ void sort_by_ref(NumericVector x) {
 //' @param trait_dist_sp numeric, the minimal trait distance between two
 //' clusters of individuals triggering speciation.
 //'
-//' @author Théo Pannetier
 //' @export
 //' @name find_trait_gaps
 

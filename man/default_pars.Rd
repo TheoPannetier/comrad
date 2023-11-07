@@ -38,6 +38,3 @@ default_trait_dist_sp()
 Return default values of the simulation parameters, set after the default
 settings used in Pontarp et al. (2012).
 }
-\author{
-Theo Pannetier
-}

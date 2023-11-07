@@ -25,7 +25,6 @@
 #'
 #' @return a `tibble` with variables `N`, `rate` (speciation or extinction),
 #' `value` (value of that rate), and `dd_model` (name of the DD model)
-#' @author Théo Pannetier
 #' @export
 #'
 rates_from_dd_model <- function(N_seq, dd_model, params) {

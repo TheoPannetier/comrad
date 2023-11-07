@@ -35,7 +35,6 @@
 #' @param comrad_tbl a tibble containing the output of a `comrad` simulation,
 #' as produced by [run_simulation()] or read by [read_comrad_tbl()].
 #'
-#' @author Theo Pannetier, based on skeleton stolen from Richel J.C. Bilderbeek.
 
 default_params_doc <- function(
   comm,

@@ -9,7 +9,6 @@
 #' @param fitness a vector of positive floats, the fitness value(s).
 #'
 #' @seealso get_fitness
-#' @author Theo Pannetier
 #' @export
 #' @name draw_nb_offspring
 #'
@@ -36,7 +35,6 @@ NULL
 #' @param trait_dist_sp numeric, the minimal trait distance between two
 #' clusters of individuals triggering speciation.
 #'
-#' @author Théo Pannetier
 #' @export
 #' @name find_trait_gaps
 NULL
@@ -61,7 +59,6 @@ find_trait_gaps <- function(traits, trait_dist_sp) {
 #' called effective population size because it is the size of the population
 #' that is relevant for competition.
 #' @name get_n_eff
-#' @author Thijs Janzen, Théo Pannetier
 #' @export
 NULL
 

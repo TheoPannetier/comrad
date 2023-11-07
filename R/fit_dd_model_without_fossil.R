@@ -41,7 +41,6 @@
 #' @return a one-row table with the model name, initial values of the parameters,
 #' maximum likelihood estimates and the maximum likelihood
 #'
-#' @author Theo Pannetier
 #' @export
 #'
 fit_dd_model_without_fossil <- function(

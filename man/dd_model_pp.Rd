@@ -17,6 +17,3 @@ model found in \code{DDD} (\code{ddmodel = 7}) and elsewhere (e.g. \code{BAMM}).
 \deqn{\lambda(N) = \lambda_{0} \times N^{-\frac{log\Big(\frac{\lambda_0}{\alpha(\lambda_0 - \mu_0) + \mu_0}\Big)}{log(K)}}}
 \deqn{\mu(N) = \mu_{0} \times N^{\frac{log\Big(\alpha\frac{\lambda_0 - \mu_0}{\lambda_0}+1\Big)}{log(K)}}}
 }
-\author{
-Theo Pannetier
-}

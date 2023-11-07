@@ -7,7 +7,6 @@
 #'
 #' \deqn{\lambda(N) = \lambda_{0} \times N^{-\frac{log(\frac{\lambda_{0}}{\mu_{0}})}{log(K)}} \\ \mu(N) = \mu_{0}}
 #'
-#' @author Theo Pannetier
 #' @export
 dd_model_pc <- function() {
   list(

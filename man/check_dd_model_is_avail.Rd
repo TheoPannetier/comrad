@@ -15,6 +15,3 @@ Calls \code{dd_sim()} from \code{DDD} to run a quick simulation and check
 that the specified DD model is available on the version of DDD installed
 on this computer.
 }
-\author{
-Theo Pannetier
-}

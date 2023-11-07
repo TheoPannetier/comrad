@@ -31,6 +31,3 @@ value).
 Returns the competition coefficients experienced by a focal individual from
 each individual in the community, including the focal individual on itself.
 }
-\author{
-Theo Pannetier
-}

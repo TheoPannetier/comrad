@@ -18,6 +18,3 @@ in the tree at any point in time
 Converts the lineage-through-time table of a tree into a stepwise function of
 time with \code{\link[stats:stepfun]{stats::stepfun()}}
 }
-\author{
-Théo Pannetier
-}

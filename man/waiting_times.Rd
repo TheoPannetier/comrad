@@ -26,6 +26,3 @@ a \code{tibble} with a row per event and four columns:
 Turns the phylogeny into a lineage-through-time table, and for which
 event computes the time to next event.
 }
-\author{
-Théo Pannetier
-}

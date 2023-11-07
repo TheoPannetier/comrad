@@ -20,6 +20,3 @@ Exclude species sampled for less than a specified number of generations.
 Mind that generations not sampled in the table can of course not be
 accounted for.
 }
-\author{
-Théo Pannetier
-}

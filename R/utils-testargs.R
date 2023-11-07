@@ -18,7 +18,6 @@
 #'
 #' @param arg value of the asserted argument.
 #'
-#' @author Theo Pannetier
 #'
 #' @name testargs
 NULL

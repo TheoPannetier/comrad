@@ -7,7 +7,6 @@
 #' @param dd_model a `dd_model` list, the output of e.g. [dd_model_lc()],
 #' [dd_model_xc()], etc.
 #'
-#' @author Theo Pannetier
 #' @export
 #'
 check_dd_model_is_avail <- function(dd_model) {

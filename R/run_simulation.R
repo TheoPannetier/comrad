@@ -42,7 +42,6 @@
 #' to the file. In the `.csv`, the table is preceded by some lines of metadata,
 #' which are automatically ignored if the file is read with [read_comrad_tbl()].
 #'
-#' @author Théo Pannetier
 #' @export
 #'
 run_simulation <- function( # nolint, ignore high cyclomatic complexity

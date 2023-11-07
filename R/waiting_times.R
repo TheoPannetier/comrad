@@ -15,7 +15,6 @@
 #' * `waiting_time`, time to the next event
 #' * `is_speciation`, lgl shortcut to type of event
 #'
-#' @author Théo Pannetier
 #' @export
 
 waiting_times <- function(phylo) {

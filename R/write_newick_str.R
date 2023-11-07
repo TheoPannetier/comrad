@@ -9,7 +9,6 @@
 #' @param include_stem logical, should the stem lineage and stem age be
 #' included? If not, the string stops at crown lineages.
 #'
-#' @author Théo Pannetier
 #' @export
 
 write_newick_str <- function(spp_tbl, include_stem = TRUE) {
