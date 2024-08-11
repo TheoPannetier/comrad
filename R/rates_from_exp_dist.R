@@ -37,7 +37,7 @@ rates_from_exp_dist <- function(waiting_times_tbl) {
     dplyr::group_by(N) %>%
     dplyr::summarise(
       "mean_waiting_time" = mean(waiting_time, na.rm = TRUE),
-      "n" = n()
+      "n" = dplyr::n()
     ) %>%
     dplyr::mutate(
       "total_event_rate" = 1 / (mean_waiting_time * N)
