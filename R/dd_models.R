@@ -2,7 +2,7 @@
 #'
 #' @export
 dd_model_names <- function() {
-  c("lc", "ll", "lx", "xc", "xl", "xx", "pc", "lp", "pl", "pp", "px", "xp")
+  c("lc", "ll", "lx", "xc", "xl", "xx", "pc", "lp", "pl", "pp", "px", "xp", "cc", "cl", "cx", "cp")
 }
 
 #' Values of `DDD` argument `ddmodel` corresponding to `comrad` DD models
@@ -16,14 +16,14 @@ dd_model_comrad_to_ddd <- function(dd_model_name) {
   switch (dd_model_name,
     "lc" = 1,
     "pc" = 2,
-    # "cl" = 3, # not used in comrad
-    # "cp" = 4, # not used in comrad
+    "cl" = 3,
+    "cp" = 4,
     "ll" = 5,
     "lp" = 6,
     "pp" = 7,
     "pl" = 8,
     "xc" = 9,
-    # "cx" = 10, # not used in comrad
+    "cx" = 10,
     "lx" = 11,
     "xx" = 12,
     "xl" = 13,
@@ -39,7 +39,12 @@ dd_model_comrad_to_ddd <- function(dd_model_name) {
 #'
 #' @export
 dd_model_colours <- function() {
-  dd_colours <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A",  "#66A61E", "#E6AB02", "#A6761D", "#666666", "#E41A1C", "#377EB8", "#5D99FD", "#FD5D99")
+  dd_colours <- c(
+    "#1B9E77", "#D95F02", "#7570B3", "#E7298A",
+    "#66A61E", "#E6AB02", "#A6761D", "#666666",
+    "#E41A1C", "#377EB8", "#5D99FD", "#FD5D99",
+    "#bdb76b", "#5f9ea0", "#9932cc", "#8b0000"
+  )
   names(dd_colours) <- dd_model_names()
   return(dd_colours)
 }
@@ -62,7 +67,11 @@ dd_models <- function() {
     "pl" = dd_model_pl(),
     "pp" = dd_model_pp(),
     "px" = dd_model_px(),
-    "xp" = dd_model_xp()
+    "xp" = dd_model_xp(),
+    "cc" = dd_model_cc(),
+    "cl" = dd_model_cl(),
+    "cx" = dd_model_cx(),
+    "cp" = dd_model_cp()
   )
 }
 
@@ -96,7 +105,8 @@ dd_model_to_speciation_func <- function(dd_model) {
   dplyr::case_when(
     dd_model %in% c("lc", "ll", "lx", "lp") ~ "linear",
     dd_model %in% c("xc", "xl", "xx", "xp") ~ "expo",
-    dd_model %in% c("pc", "pl", "pp", "px") ~ "power"
+    dd_model %in% c("pc", "pl", "pp", "px") ~ "power",
+    dd_model %in% c("cc", "cl", "cx", "cp") ~ "constant"
   )
 }
 
@@ -108,10 +118,10 @@ dd_model_to_speciation_func <- function(dd_model) {
 #' @export
 dd_model_to_extinction_func <- function(dd_model) {
   dplyr::case_when(
-    dd_model %in% c("lc", "xc", "pc") ~ "constant",
-    dd_model %in% c("ll", "xl", "pl") ~ "linear",
-    dd_model %in% c("lx", "xx", "px") ~ "expo",
-    dd_model %in% c("lp", "pp", "xp") ~ "power"
+    dd_model %in% c("lc", "xc", "pc", "cc") ~ "constant",
+    dd_model %in% c("ll", "xl", "pl", "cl") ~ "linear",
+    dd_model %in% c("lx", "xx", "px", "cx") ~ "expo",
+    dd_model %in% c("lp", "pp", "xp",  "cp") ~ "power"
   )
 }
 

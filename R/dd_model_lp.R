@@ -22,6 +22,7 @@ dd_model_lp <- function() {
     },
     "extinction_func" = function(params, N) {
       x <- log(1 + params["alpha"] * (params["lambda_0"] - params["mu_0"]) / params["mu_0"]) / log(params["k"])
+      # equivalent to log((alpha * lambda_0 + (1 - alpha) * mu_0) / mu_0) / log(k)
       params["mu_0"] * (N ^ x)
     },
     "constraints" = list(
