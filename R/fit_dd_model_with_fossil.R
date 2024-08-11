@@ -108,7 +108,7 @@ fit_dd_model_with_fossil <- function(waiting_times_tbl,
     if (min(trparsopt) < 0 || max(trparsopt) > 1) return(-Inf)
     params <- untransform_pars(trparsopt)
     if (!are_constraints_ok(constraints, params, N_max)) return(-Inf)
-    loglik <- comrad::dd_loglik_func(
+    loglik <- dd_loglik_func(
       waiting_times_tbl = waiting_times_tbl,
       params = params,
       speciation_func = speciation_func,

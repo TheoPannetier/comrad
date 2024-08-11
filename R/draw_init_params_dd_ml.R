@@ -37,7 +37,6 @@ draw_init_params_dd_ml <- function(nb_sets, phylos, dd_model) {
   # Initial parameter values
   lambdas <- stats::runif(nb_sets, proto_lambda0 * 0.005, proto_lambda0 * 500)
   mus <- stats::runif(nb_sets, 0, 0.75 * lambdas)
-  #ks <- trunc(n_max + n_max * stats::rgamma(nb_sets, shape = 0.5, scale = 0.3))
   ks <- ceiling(n_max * stats::runif(nb_sets, 0.5, 10))
   alphas <- stats::runif(nb_sets, 0, 1)
 
@@ -51,6 +50,9 @@ draw_init_params_dd_ml <- function(nb_sets, phylos, dd_model) {
 
   if (!with_alpha) {
     init_params <- init_params %>% purrr::map(function(vec) vec[-4])
+  }
+  if (dd_model$name == "cc") {
+    init_params <- init_params %>% purrr::map(function(vec) vec[-3])
   }
   return(init_params)
 }

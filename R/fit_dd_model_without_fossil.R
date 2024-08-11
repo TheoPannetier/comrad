@@ -53,6 +53,7 @@ fit_dd_model_without_fossil <- function(
   verbose = FALSE
 ) {
   check_dd_model_is_avail(dd_model)
+  is_cc <- dd_model$name == "cc"
   both_rates_vary <- !stringr::str_detect(dd_model$name, "c")
   N_max <- max(ceiling(1.8 * (length(branching_times) + 1)), 10) # arbitrary upper limit
 
@@ -73,31 +74,51 @@ fit_dd_model_without_fossil <- function(
   if (both_rates_vary) {
     initparsopt[4] <- initparsopt[4] / (1 - initparsopt[4])
   }
-  # Run dd_ML
-  ddd_ml <- try(DDD::dd_ML(
-    brts = branching_times,
-    initparsopt = initparsopt,
-    ddmodel = dd_model_comrad_to_ddd(dd_model$name),
-    methode = methode,
-    optimmethod = "simplex",
-    res = N_max,
-    num_cycles = num_cycles,
-    verbose = verbose
-  ))
+  if (is_cc) {
+    # Run bd_ML
+    ddd_ml <- try(DDD::bd_ML(
+      brts = branching_times,
+      initparsopt = initparsopt,
+      methode = methode,
+      optimmethod = "simplex",
+      num_cycles = num_cycles,
+      verbose = verbose
+    ))
+  } else {
+    # Run dd_ML
+    ddd_ml <- try(DDD::dd_ML(
+      brts = branching_times,
+      initparsopt = initparsopt,
+      ddmodel = dd_model_comrad_to_ddd(dd_model$name),
+      methode = methode,
+      optimmethod = "simplex",
+      res = N_max,
+      num_cycles = num_cycles,
+      verbose = verbose
+    ))
+  }
 
   if (!is.data.frame(ddd_ml)) { # default results in case of an error
-    if (both_rates_vary) {
+    if (is_cc) {
+      ddd_ml <- tibble::tibble(lambda0 = NA, mu0 = NA, lambda1 = NA, mu1 = NA, loglik = -Inf, df = -1, conv = -1)
+    } else if (both_rates_vary) {
       ddd_ml <- tibble::tibble(lambda = NA, mu = NA, K = NA, r = NA, loglik = -Inf, df = -1, conv = -1)
     } else {
       ddd_ml <- tibble::tibble(lambda = NA, mu = NA, K = NA, loglik = -Inf, df = -1, conv = -1)
     }
   }
 
+  # Format output
   ddd_ml <- ddd_ml %>%
    dplyr::select(-df) %>%
     dplyr::rename_with(tolower)
 
-  if (both_rates_vary) {
+  if (is_cc) {
+    ml_params <- ddd_ml %>%
+      dplyr::select(-lambda1, -mu1) %>%
+      dplyr::rename("lambda" = lambda0, "mu" = mu0) %>%
+      dplyr::rename_with(~paste0("ml_", .x), lambda:mu)
+  } else if (both_rates_vary) {
     ml_params <- ddd_ml %>%
       dplyr::mutate("alpha" = ifelse(is.infinite(r), 1, r / (1 + r)), .before = r) %>%
       dplyr::select(-r) %>%
