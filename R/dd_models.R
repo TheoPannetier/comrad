@@ -14,6 +14,7 @@ dd_model_names <- function() {
 #' @export
 dd_model_comrad_to_ddd <- function(dd_model_name) {
   switch (dd_model_name,
+    "cc" = 0,
     "lc" = 1,
     "pc" = 2,
     "cl" = 3,

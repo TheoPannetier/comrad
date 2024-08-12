@@ -24,7 +24,7 @@ dd_model_cp <- function() {
       function(params, ...) params["lambda_0"] > 0,
       function(params, ...) params["mu_0"] >= 0,
       function(params, ...) params["k"] >= 1,
-      function(params, ...) params["lambda_0"] > params["mu_0"],
+      function(params, ...) params["lambda_0"] > params["mu_0"]
     ),
     "params_check" = function(params) {
       params_names <- names(params)

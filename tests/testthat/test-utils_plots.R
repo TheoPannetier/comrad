@@ -1,19 +1,13 @@
 context("test-utils")
 
 test_that("use", {
-  # There are 12 DD models combinations
-  expect_equal(length(dd_models()), 12)
+  # There are 16 DD models combinations
+  expect_equal(length(dd_models()), 16)
   dd_models() %>% purrr::walk(function(dd_model) {
     dd_name <- dd_model$name
     # The model is accepted
     expect_silent(dd_model_comrad_to_ddd(dd_name))
   })
-
-  # Not all combinations are supported
-  expect_error(
-    dd_model_comrad_to_ddd("cp"),
-    "This DD model is not supported in comrad."
-  )
 })
 
 context("test-plots")

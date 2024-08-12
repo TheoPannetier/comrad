@@ -27,6 +27,7 @@ test_that("All DD models are correct", {
   dd_models <- dd_models()
 
   params <- c("lambda_0" = 0.7, "mu_0" = 0.3, "k" = 30, "alpha" = 0.5)
+
   cat("Checking DD models:\n")
   dd_models() %>% purrr::walk(function(dd_model) {
 
@@ -34,22 +35,33 @@ test_that("All DD models are correct", {
     cat(dd_name, " \n")
 
     # Check parameter format
-    both_rates_vary <- dd_model_to_extinction_func(dd_name) != "constant"
-    if (!both_rates_vary) {
+    both_rates_constant <- dd_name == "cc"
+    both_rates_vary <- !stringr::str_detect(dd_model$name, "c")
+    spec_varies <- stringr::str_sub(dd_name, 1, 1) != "c"
+    ext_varies <- stringr::str_sub(dd_name, 2, 2) != "c"
+
+    if (both_rates_constant) {
+      params <- params[1:2]
+    } else if (!both_rates_vary) {
       params <- params[1:3]
     }
     dd_model$params_check(params)
 
-    sp_rate_eq <- dd_model$speciation_func(params = params, N = params["k"])
-    ext_rate_eq <- dd_model$extinction_func(params = params, N = params["k"])
-    expect_equivalent(sp_rate_eq, ext_rate_eq)
+    if (!both_rates_constant) {
 
-    if (both_rates_vary) {
-      exptd_eq_rate <- params["lambda_0"] * (1 - params["alpha"]) +
-        params["mu_0"] * params["alpha"]
-      expect_equivalent(sp_rate_eq, exptd_eq_rate)
-    } else {
-      expect_equivalent(sp_rate_eq, params["mu_0"])
+      sp_rate_eq <- dd_model$speciation_func(params = params, N = params["k"])
+      ext_rate_eq <- dd_model$extinction_func(params = params, N = params["k"])
+      expect_equivalent(sp_rate_eq, ext_rate_eq)
+
+      if (both_rates_vary) {
+        exptd_eq_rate <- params["lambda_0"] * (1 - params["alpha"]) +
+          params["mu_0"] * params["alpha"]
+        expect_equivalent(sp_rate_eq, exptd_eq_rate)
+      } else if (spec_varies) {
+        expect_equivalent(sp_rate_eq, params["mu_0"])
+      } else if (ext_varies) {
+        expect_equivalent(ext_rate_eq, params["lambda_0"])
+      }
     }
 
     are_constraints_ok <- function(constraints, params, ...) {
