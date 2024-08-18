@@ -35,9 +35,9 @@ draw_init_params_dd_ml <- function(nb_sets, phylos, dd_model) {
   proto_lambda0 <- log(n_max) / t_max
 
   # Initial parameter values
-  lambdas <- stats::runif(nb_sets, proto_lambda0 * 0.005, proto_lambda0 * 500)
+  lambdas <- proto_lambda0 * 10 ^ stats::runif(nb_sets, -3, 2)
   mus <- stats::runif(nb_sets, 0, 0.75 * lambdas)
-  ks <- ceiling(n_max * stats::runif(nb_sets, 0.5, 10))
+  ks <- ceiling(n_max * 5 ^ stats::runif(nb_sets, -1, 1))
   alphas <- stats::runif(nb_sets, 0, 1)
 
   init_params <- purrr::pmap(
