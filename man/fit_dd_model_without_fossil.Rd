@@ -10,6 +10,7 @@ fit_dd_model_without_fossil(
   dd_model = dd_model_lc(),
   num_cycles = Inf,
   methode = "odeint::runge_kutta_cash_karp54",
+  maxiter = 1000 * round((1.25)^length(init_params)),
   verbose = FALSE
 )
 }
@@ -50,6 +51,9 @@ optimisation. Next cycle starts from the last vertices of the previous cycle.}
 methode to solve the DD master system, either numerically ("analytical") or
 numerically ("odeint::runge_kutta_cash_karp54" or another function from the
 \code{odeint} library)}
+
+\item{maxiter}{integer, passed to \code{DDD}'s optimizer.
+The maximum number of iterations for a single cycle of optimization.}
 
 \item{verbose}{logical, should the output of every optimisation iteration be
 printed to console?}

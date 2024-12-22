@@ -35,6 +35,8 @@
 #' methode to solve the DD master system, either numerically ("analytical") or
 #' numerically ("odeint::runge_kutta_cash_karp54" or another function from the
 #' `odeint` library)
+#' @param maxiter integer, passed to `DDD`'s optimizer.
+#' The maximum number of iterations for a single cycle of optimization.
 #' @param verbose logical, should the output of every optimisation iteration be
 #' printed to console?
 #'
@@ -50,6 +52,7 @@ fit_dd_model_without_fossil <- function(
   dd_model = dd_model_lc(),
   num_cycles = Inf,
   methode = "odeint::runge_kutta_cash_karp54",
+  maxiter = 1000 * round((1.25)^length(init_params)),
   verbose = FALSE
 ) {
   check_dd_model_is_avail(dd_model)
@@ -80,6 +83,7 @@ fit_dd_model_without_fossil <- function(
       brts = branching_times,
       initparsopt = initparsopt,
       methode = methode,
+      maxiter = maxiter,
       optimmethod = "simplex",
       num_cycles = num_cycles,
       verbose = verbose
@@ -91,6 +95,7 @@ fit_dd_model_without_fossil <- function(
       initparsopt = initparsopt,
       ddmodel = dd_model_comrad_to_ddd(dd_model$name),
       methode = methode,
+      maxiter = maxiter,
       optimmethod = "simplex",
       res = N_max,
       num_cycles = num_cycles,
