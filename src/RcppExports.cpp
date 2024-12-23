@@ -55,12 +55,26 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// get_n_eff_seq
+std::vector<float> get_n_eff_seq(const std::vector<float>& z_seq, const std::vector<float>& z_pop, float competition_sd);
+RcppExport SEXP _comrad_get_n_eff_seq(SEXP z_seqSEXP, SEXP z_popSEXP, SEXP competition_sdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<float>& >::type z_seq(z_seqSEXP);
+    Rcpp::traits::input_parameter< const std::vector<float>& >::type z_pop(z_popSEXP);
+    Rcpp::traits::input_parameter< float >::type competition_sd(competition_sdSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_n_eff_seq(z_seq, z_pop, competition_sd));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_comrad_draw_nb_offspring", (DL_FUNC) &_comrad_draw_nb_offspring, 1},
     {"_comrad_sort_by_ref", (DL_FUNC) &_comrad_sort_by_ref, 1},
     {"_comrad_find_trait_gaps", (DL_FUNC) &_comrad_find_trait_gaps, 2},
     {"_comrad_get_n_eff", (DL_FUNC) &_comrad_get_n_eff, 2},
+    {"_comrad_get_n_eff_seq", (DL_FUNC) &_comrad_get_n_eff_seq, 3},
     {NULL, NULL, 0}
 };
 
