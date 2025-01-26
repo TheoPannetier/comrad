@@ -3,6 +3,7 @@
 export("%>%")
 export(apply_mutations)
 export(apply_speciation)
+export(average_ltt)
 export(build_spp_tbl)
 export(check_dd_model_is_avail)
 export(dd_func_colours)
