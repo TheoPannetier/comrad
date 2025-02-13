@@ -22,7 +22,8 @@ run_simulation(
   sampling_freq = ifelse(sampling_on_event, NA, comrad::set_sampling_freq(nb_gens)),
   sampling_frac = comrad::default_sampling_frac(),
   seed = comrad::default_seed(),
-  hpc_job_id = NULL
+  hpc_job_id = NULL,
+  brute_force_opt = "none"
 )
 }
 \arguments{
@@ -88,6 +89,12 @@ generator. Defaults to an integer based on current day and time.}
 \item{hpc_job_id}{used to record a job ID in the metadata, only relevant for
 simulations run on a high-performance cluster. Otherwise takes value
 \code{"local"}.}
+
+\item{brute_force_opt}{a string specifying which brute force option to use
+to speed up the calculation of competition coefficients. Defaults to "none".
+Other options are "omp", for multithreading with OpenMP, "simd" for single
+instruction, multiple data (SIMD) via the C++ library
+\href{https://github.com/xtensor-stack/xsimd}{\code{xsimd}}; and "simd_omp" for both.}
 }
 \value{
 Returns a table with a row corresponding to each individual, and five

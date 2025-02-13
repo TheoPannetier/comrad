@@ -50,22 +50,13 @@ find_trait_gaps <- function(traits, trait_dist_sp) {
 }
 
 #' Compute the effective population size
-#'
-#' Computes \code{n_eff}, the effective population size experienced by an
-#' individual.
-#' @param z numeric vector, the trait values of all individuals in the
-#' community.
-#' @param competition_sd numeric `>= 0`. Width of the competition kernel.
-#' @details `n_eff` sums the competitive effects an individual receives from
-#' every individual in the community, including the individual itself. It is
-#' called effective population size because it is the size of the population
-#' that is relevant for competition.
-#' @name get_n_eff
-#' @author Thijs Janzen, Théo Pannetier
-#' @export
 NULL
 
-get_n_eff <- function(z, competition_sd) {
-    .Call('_comrad_get_n_eff', PACKAGE = 'comrad', z, competition_sd)
+get_n_eff <- function(z, competition_sd, brute_force_opt = "none") {
+    .Call('_comrad_get_n_eff', PACKAGE = 'comrad', z, competition_sd, brute_force_opt)
+}
+
+simd_size <- function() {
+    .Call('_comrad_simd_size', PACKAGE = 'comrad')
 }
 
