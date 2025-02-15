@@ -49,14 +49,52 @@ find_trait_gaps <- function(traits, trait_dist_sp) {
     .Call('_comrad_find_trait_gaps', PACKAGE = 'comrad', traits, trait_dist_sp)
 }
 
-#' Compute the effective population size
+#' Compute the effective population size at a range of values
+#'
+#' Given the trait values of a population \code{z_pop}, calculate the effective
+#' population sizes \code{n_eff} experienced at a set of positions \code{z_seq}
+#' on the trait axis.
+#' @param z_seq numeric vector, the set of trait values for which we want to know
+#' \code{n_eff}, given \code{z_pop}
+#' @param z_pop numeric vector, the trait values of all individuals in the population.
+#' @param competition_sd numeric `>= 0`. Width of the competition kernel.
+#' @details `n_eff` sums the competitive effects an individual receives from
+#' every individual in the community, including the individual itself. It is
+#' called effective population size because it is the size of the population
+#' that is relevant for competition.
+#' @name get_n_eff_seq
+#' @author Théo Pannetier
+#' @export
 NULL
 
+#' Compute the effective population size
+#'
+#' Computes \code{n_eff}, the effective population size experienced by an
+#' individual.
+#' @param z numeric vector, the trait values of all individuals in the
+#' community.
+#' @param competition_sd numeric `>= 0`. Width of the competition kernel.
+#' @param brute_force_opt a string specifying which brute force option to use
+#' to speed up the calculation of competition coefficients. Defaults to "none".
+#' Other options are omp", for multithreading with OpenMP, "simd" for single
+#' instruction, multiple data (SIMD) via the C++ library
+#' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
+#' @details `n_eff` sums the competitive effects an individual receives from
+#' every individual in the community, including the individual itself. It is
+#' called effective population size because it is the size of the population
+#' that is relevant for competition.
+#' @author Hanno Hildenbrandt
+#' @export
+#' @name get_n_eff
 get_n_eff <- function(z, competition_sd, brute_force_opt = "none") {
     .Call('_comrad_get_n_eff', PACKAGE = 'comrad', z, competition_sd, brute_force_opt)
 }
 
 simd_size <- function() {
     .Call('_comrad_simd_size', PACKAGE = 'comrad')
+}
+
+get_n_eff_seq <- function(z_seq, z_pop, competition_sd) {
+    .Call('_comrad_get_n_eff_seq', PACKAGE = 'comrad', z_seq, z_pop, competition_sd)
 }
 

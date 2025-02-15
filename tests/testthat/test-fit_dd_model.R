@@ -26,7 +26,12 @@ test_that("All DD models are correct", {
 
   dd_models <- dd_models()
 
-  params <- c("lambda_0" = 0.7, "mu_0" = 0.3, "k" = 30, "alpha" = 0.5)
+  params <- c(
+    "lambda_0" = 0.7,
+    "mu_0" = 0.3,
+    "k" = 30,
+    "alpha" = 0.5
+    )
 
   cat("Checking DD models:\n")
   dd_models() %>% purrr::walk(function(dd_model) {
@@ -77,7 +82,7 @@ test_that("All DD models are correct", {
     }
 
     # Randomly drawn param values respect constraints
-    N_max <- params["k"]
+    N_max <- ape::Ntip(ape::drop.fossil(dd_phylo))
     random_init_params <- draw_init_params_dd_ml(
       nb_sets = 1,
       phylos = list(dd_phylo),

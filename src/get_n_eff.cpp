@@ -123,25 +123,25 @@ using simd_type = xsimd::simd_type<float>;
 using namespace Rcpp;
 
 //' Compute the effective population size
- //'
- //' @name get_n_eff
- //' Computes \code{n_eff}, the effective population size experienced by an
- //' individual.
- //' @param z numeric vector, the trait values of all individuals in the
- //' community.
- //' @param competition_sd numeric `>= 0`. Width of the competition kernel.
- //' @param brute_force_opt a string specifying which brute force option to use
- //' to speed up the calculation of competition coefficients. Defaults to "none".
- //' Other options are omp", for multithreading with OpenMP, "simd" for single
- //' instruction, multiple data (SIMD) via the C++ library
- //' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
- //' @details `n_eff` sums the competitive effects an individual receives from
- //' every individual in the community, including the individual itself. It is
- //' called effective population size because it is the size of the population
- //' that is relevant for competition.
- //' @author Hanno Hildenbrandt
- //' @export
- // [[Rcpp::export]]
+//'
+//' Computes \code{n_eff}, the effective population size experienced by an
+//' individual.
+//' @param z numeric vector, the trait values of all individuals in the
+//' community.
+//' @param competition_sd numeric `>= 0`. Width of the competition kernel.
+//' @param brute_force_opt a string specifying which brute force option to use
+//' to speed up the calculation of competition coefficients. Defaults to "none".
+//' Other options are omp", for multithreading with OpenMP, "simd" for single
+//' instruction, multiple data (SIMD) via the C++ library
+//' [`xsimd`](https://github.com/xtensor-stack/xsimd); and "simd_omp" for both.
+//' @details `n_eff` sums the competitive effects an individual receives from
+//' every individual in the community, including the individual itself. It is
+//' called effective population size because it is the size of the population
+//' that is relevant for competition.
+//' @author Hanno Hildenbrandt
+//' @export
+//' @name get_n_eff
+// [[Rcpp::export]]
  DoubleVector get_n_eff(const DoubleVector& z, float competition_sd, const std::string& brute_force_opt = "none")
  {
    // Select function from brute_force_opt
@@ -179,3 +179,39 @@ using namespace Rcpp;
  {
    return static_cast<int>(simd_type::size);
  }
+
+//' Compute the effective population size at a range of values
+//'
+//' Given the trait values of a population \code{z_pop}, calculate the effective
+//' population sizes \code{n_eff} experienced at a set of positions \code{z_seq}
+//' on the trait axis.
+//' @param z_seq numeric vector, the set of trait values for which we want to know
+//' \code{n_eff}, given \code{z_pop}
+//' @param z_pop numeric vector, the trait values of all individuals in the population.
+//' @param competition_sd numeric `>= 0`. Width of the competition kernel.
+//' @details `n_eff` sums the competitive effects an individual receives from
+//' every individual in the community, including the individual itself. It is
+//' called effective population size because it is the size of the population
+//' that is relevant for competition.
+//' @name get_n_eff_seq
+//' @author Théo Pannetier
+//' @export
+
+// [[Rcpp::export]]
+ std::vector<float> get_n_eff_seq(const std::vector<float>& z_seq, const std::vector<float>& z_pop, float competition_sd) {
+
+   float denom = 1.0f / (2.f * (competition_sd * competition_sd));
+
+   std::vector<float> n_eff(z_seq.size(), 0.f);
+
+   int range_size =  z_seq.size();
+   for(int i = 0; i < range_size; ++i) {
+     n_eff[i] = 0;
+     for(auto& z_ind : z_pop) {
+       n_eff[i] += expf(-((z_seq[i] - z_ind) * (z_seq[i] - z_ind) ) * denom);
+     }
+   }
+
+   return n_eff;
+ }
+
